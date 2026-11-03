@@ -26,17 +26,14 @@ archive and their outputs inspected before any new rows can be closed.
 | 13 | Subjective backtracking | Partial | Canonical instruction-to-normalized-source mapping plus review rubric below | Two independent human reviews and disagreement adjudication |
 | 14 | Explanation faithfulness | Partial | Exact logit additivity and feature replacement effects in classifier space | Behavior-preserving source/bytecode edits and corresponding classifier changes |
 | 15 | Per-class evaluation | Covered | Confusion, class metrics, RQ1 task outputs and predicted probabilities | Discuss class failures honestly in manuscript |
-| 16 | Generation failures/exclusions | Open | New `audit_generation_inventory.py` catalogs planned design cells, raw/cleaned/retained artifacts | Execute inventory; raw generation attempt logs and exclusion reasons are not necessarily archived |
-| 17 | Reproducibility/artifacts | Partial | Source SHA256 provenance, manifest, seeds, isolated scripts and new checks | Publish clean archival instructions and verify one external replication |
+| 17 | Generation failures/exclusions | Open | New `audit_generation_inventory.py` catalogs planned design cells, raw/cleaned/retained artifacts | Execute inventory; raw generation attempt logs and exclusion reasons are not necessarily archived |
+ 
 
-Note: The spreadsheet has 17 numbered items (0–16); the table
-uses human-friendly item numbers 1–17. The 17th row above covers
-reproducibility as a separate publication task in addition to the
-sheet's final exclusion item; it should NOT be mistaken for a new
-reviewer request. For exact row-to-row alignment, rows 1–16 correspond
-to spreadsheet rows 0–15, while row 16 of the sheet corresponds to
-the exclusion entry (row 16 here). Reproducibility is a project-wide
-cross-cutting task and is not counted as a separate sheet item.
+Note: The spreadsheet has 17 items, indexed 0–16. The matrix
+uses human-friendly 1–17 for the **same** 17 reviewer items.
+Additional cross-cutting reproducibility requirements (source checksums,
+manifest, repeatable commands and a clean artifact) are tracked in the
+existing runbooks and are not counted as an eighteenth sheet item.
 
 ## Non-optional paper claim boundary
 

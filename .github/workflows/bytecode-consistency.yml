@@ -1,0 +1,30 @@
+name: Bytecode representation regression tests
+
+on:
+  push:
+    branches:
+      - "fix/phase1-bytecode-consistency-*"
+  pull_request:
+    paths:
+      - "research/scripts/bytecode_utils.py"
+      - "research/scripts/preprocess_features.py"
+      - "research/scripts/train_bytecode_model.py"
+      - "research/tests/**"
+      - ".github/workflows/bytecode-consistency.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install core test dependency
+        run: python -m pip install "pandas>=2,<4"
+      - name: Run bytecode regression tests
+        run: python -m unittest discover -s research/tests -v

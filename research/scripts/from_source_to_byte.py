@@ -56,60 +56,9 @@ sys.path.insert(0, str(BASE_DIR / "scripts"))
 # ══════════════════════════════════════════════════════════════════════════════
 
 def file_to_bytecode_display(py_file: Path, target_fn: str) -> list[dict]:
-    from bytecode_utils import extract_code, keep_only_defs, get_top_level_code_objects
-
-    raw_text = py_file.read_text(encoding="utf-8")
-    code     = keep_only_defs(extract_code(raw_text))
-    compiled = compile(code, filename=str(py_file), mode="exec")
-
-    top_level = get_top_level_code_objects(compiled)
-    if target_fn not in top_level:
-        raise ValueError(f"'{target_fn}' not found. Available: {sorted(top_level.keys())}")
-
-    ordered_top = [top_level[target_fn]]
-    for name in sorted(top_level.keys()):
-        if name != target_fn:
-            ordered_top.append(top_level[name])
-
-    def walk(co, base_pos):
-        pos = base_pos
-        for instr in dis.get_instructions(co, show_caches=False):
-            lineno = None
-            if hasattr(instr, "positions") and instr.positions:
-                lineno = instr.positions.lineno
-            elif instr.starts_line is not None:
-                lineno = instr.starts_line
-
-            yield {
-                "byte_pos": pos,
-                "arg_pos":  pos + 1,
-                "opname":   instr.opname,
-                "arg_raw":  instr.arg if instr.arg is not None else 0,
-                "argval":   str(instr.argval)[:40],
-                "lineno":   lineno,
-                "co_name":  co.co_name,
-            }
-            pos += 2
-
-        for const in co.co_consts:
-            if isinstance(const, types.CodeType):
-                yield from walk(const, pos)
-                pos += _count_instructions(const) * 2
-
-    def _count_instructions(co):
-        n = sum(1 for _ in dis.get_instructions(co, show_caches=False))
-        for const in co.co_consts:
-            if isinstance(const, types.CodeType):
-                n += _count_instructions(const)
-        return n
-
-    rows = []
-    pos  = 0
-    for top_co in ordered_top:
-        rows.extend(walk(top_co, pos))
-        pos += _count_instructions(top_co) * 2
-
-    return rows
+    """Use exactly the positions and source map used by feature extraction."""
+    from bytecode_utils import instruction_trace_from_file
+    return instruction_trace_from_file(py_file, target_fn)
 
 
 def get_source_highlight_line(py_file, target_fn, byte_pos):
@@ -146,7 +95,10 @@ def get_py_path(rec, model):
 
 def get_source(rec, model):
     try:
-        return get_py_path(rec, model).read_text(encoding="utf-8").strip()
+        from bytecode_utils import extract_code, keep_only_defs
+        raw = get_py_path(rec, model).read_text(encoding="utf-8")
+        # Highlighting uses compiled AST-normalized lines, not original lines.
+        return keep_only_defs(extract_code(raw)).strip()
     except Exception:
         return f"# could not read {rec['file']}"
 

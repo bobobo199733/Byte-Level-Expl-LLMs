@@ -1,0 +1,28 @@
+{
+  "score_sources": [
+    "/home/bandrei/Byte-Level-Expl-LLMs/research/evaluation/scores/scores_llama.csv",
+    "/home/bandrei/Byte-Level-Expl-LLMs/research/evaluation/scores/scores_mistral.csv",
+    "/home/bandrei/Byte-Level-Expl-LLMs/research/evaluation/scores/scores_qwen.csv"
+  ],
+  "rows_total": 1316,
+  "rows_with_known_correctness": 154,
+  "rows_unknown": 1162,
+  "by_model": {
+    "llama": {
+      "all_pass": 20,
+      "not_all_pass": 32,
+      "unknown": 396
+    },
+    "mistral": {
+      "all_pass": 1,
+      "not_all_pass": 49,
+      "unknown": 374
+    },
+    "qwen": {
+      "all_pass": 21,
+      "not_all_pass": 31,
+      "unknown": 392
+    }
+  },
+  "warning": "Archival scores may cover only training tasks. Missing is UNKNOWN, not incorrect."
+}

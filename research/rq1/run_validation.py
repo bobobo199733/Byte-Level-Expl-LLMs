@@ -366,6 +366,43 @@ def summarize(
             "note": "Bootstrap over tasks within each seed; repeated partitions are not independent datasets."}
 
 
+
+def correctness_subgroup_diagnostics(
+    predictions: pd.DataFrame, correctness: pd.DataFrame
+) -> dict:
+    """Descriptive OOF metrics only for records with independently known scores.
+
+    No claims are made about rows lacking score files, and no classifier is
+    retrained on this subset. A fully controlled correctness-stratified
+    validation would require complete scores for all 50 tasks.
+    """
+    fields = correctness[["file_name", "correctness_label"]]
+    joined = predictions.merge(fields, on="file_name", how="left", validate="many_to_one")
+    report = {}
+    for seed, part in joined.groupby("seed"):
+        report[str(seed)] = {}
+        for label in ("all_pass", "not_all_pass"):
+            selected = part[part["correctness_label"] == label]
+            details = {
+                "n": int(len(selected)),
+                "n_tasks": int(selected["task"].nunique()),
+                "n_by_true_class": selected["truth"].value_counts().to_dict(),
+                "coverage_of_full_dataset": float(
+                    len(selected) / max(part["row_id"].nunique(), 1)
+                ),
+            }
+            if len(selected) and selected["truth"].nunique() == len(CLASSES):
+                for name, subset in selected.groupby("variant"):
+                    details[name] = metrics(subset["truth"], subset["prediction"])
+            report[str(seed)][label] = details
+    return {
+        "by_seed_and_correctness": report,
+        "warning": "Observational subgroup analysis on SCORED records only; "
+                   "missing correctness is unknown. Neither balanced across "
+                   "task/model nor necessarily representative of the full dataset.",
+    }
+
+
 def parse_args(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train-csv", type=Path, default=DEFAULT_TRAIN)
@@ -438,6 +475,10 @@ def main(args=None):
         inner_folds=args.inner_folds, jobs=args.jobs,
     )
     prediction.to_csv(args.output_dir / "oof_predictions.csv", index=False)
+    correctness_diagnostics = correctness_subgroup_diagnostics(prediction, scores)
+    (args.output_dir / "correctness_oof_diagnostics.json").write_text(
+        json.dumps(correctness_diagnostics, indent=2) + "\n"
+    )
     folds.to_csv(args.output_dir / "fold_scores.csv", index=False)
     partition.to_json(args.output_dir / "task_partitions.json", orient="records", indent=2)
     report = summarize(

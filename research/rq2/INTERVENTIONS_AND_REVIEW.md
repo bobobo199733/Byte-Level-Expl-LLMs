@@ -112,7 +112,7 @@ not silently delete rejected rows.
 
 ### B. Two independently assessed source-level explanations
 
-\`human_review.py\` selects up to 36 cases from the previously committed
+\`explanation_assessment.py\` selects up to 36 cases from the previously committed
 held-out source evidence and generates:
 
 - \`private_case_key.csv\`: **keep hidden** until after both reviewers
@@ -126,10 +126,10 @@ held-out source evidence and generates:
 Create sheets:
 
 \`\`\`bash
-python research/rq2/human_review.py --prepare \
+python research/rq2/explanation_assessment.py --prepare \
   --source-evidence research/experiments/rq2_opcode_full_001/source_evidence.json \
   --max-cases 36 \
-  --output-dir research/experiments/rq2_human_review_001
+  --output-dir research/experiments/rq2_explanation_assessment_001
 \`\`\`
 
 Give the two reviewers their sheets separately. Each should fill in
@@ -150,8 +150,8 @@ After two genuinely independent human assessments have been returned,
 run:
 
 \`\`\`bash
-python research/rq2/human_review.py --adjudicate \
-  --review-dir research/experiments/rq2_human_review_001 \
+python research/rq2/explanation_assessment.py --adjudicate \
+  --review-dir research/experiments/rq2_explanation_assessment_001 \
   --output-dir research/experiments/rq2_human_agreement_001
 \`\`\`
 
@@ -174,7 +174,7 @@ unintended source material or human names:
 \`\`\`bash
 git add -f research/experiments/rq2_interventions_smoke_001/
 git add -f research/experiments/rq2_interventions_full_001/
-git add -f research/experiments/rq2_human_review_001/
+git add -f research/experiments/rq2_explanation_assessment_001/
 # After real review is complete:
 # git add -f research/experiments/rq2_human_agreement_001/
 git diff --cached --name-only

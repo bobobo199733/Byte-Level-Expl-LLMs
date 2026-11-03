@@ -1,0 +1,34 @@
+{
+  "retained_programs": 1316,
+  "correctness_counts": {
+    "fail": 600,
+    "pass": 409,
+    "untestable": 307
+  },
+  "validation_seeds": [
+    7,
+    42,
+    101
+  ],
+  "validation_variants": [
+    "ast_core_count",
+    "ast_core_prop",
+    "ast_no_length",
+    "ast_original",
+    "length_only",
+    "opcode_full",
+    "opcode_ngram"
+  ],
+  "selected_pipeline_n_oof": 1316,
+  "n_within_task_comparisons": 483,
+  "n_paired_variant_contrasts": 63,
+  "limitations": [
+    "No classifier is trained on a correct-only population; original task-disjoint OOF predictions are reused.",
+    "Correctness means pass/fail on existing task oracle cases, not universal program correctness.",
+    "Untestable is a separate group, not silently excluded or counted incorrect.",
+    "Correctness groups are imbalanced by programming task and originating LLM.",
+    "Within-task accuracy differences are descriptive, not causal correctness effects.",
+    "Task bootstrap contrasts are unadjusted, descriptive confidence intervals; multiple-testing control is not claimed.",
+    "The selected nested pipeline is a distinct, single-seed experiment; do not pool with three-seed representation study."
+  ]
+}

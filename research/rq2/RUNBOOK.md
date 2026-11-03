@@ -206,3 +206,18 @@ git push origin feat/rq2-bytecode-explanation-validation-20261103
 
 Do not interpret either audit as closure of correctness, causal
 source-level perturbation, or independent human review requirements.
+
+## Final focused validation
+
+The two additional reviewer-driven workflows are documented in
+[INTERVENTIONS_AND_REVIEW.md](INTERVENTIONS_AND_REVIEW.md):
+
+- \`run_source_interventions.py\`: empirical behavioral checks of
+  source edits **only inside a network-isolated Apptainer Python-3.13
+  image**, followed by held-out classifier and attribution differences.
+- \`human_review.py\`: blinded source-interpretation sheets for two
+  actual independent readers; exact agreement, Cohen kappa, and
+  adjudication queue only after the sheets have been completed.
+
+These workflows do not establish formal semantic equivalence or
+prove anything about the generating LLM's internal causal mechanism.

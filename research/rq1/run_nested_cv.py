@@ -111,6 +111,7 @@ def load_dataset(train: Path, test: Path) -> tuple[pd.DataFrame, list[str]]:
 def ast_features(df: pd.DataFrame, root: Path) -> pd.DataFrame:
     """Source AST count baseline: parse archived cleaned programs, never execute."""
     vectors = []
+    source_inventory = []
     for filename, model, split in df[
         ["file_name", "model", "_historical_split"]
     ].itertuples(index=False, name=None):
@@ -119,13 +120,20 @@ def ast_features(df: pd.DataFrame, root: Path) -> pd.DataFrame:
         if not file.is_file():
             raise FileNotFoundError(f"Missing archived source for AST baseline: {file}")
         source = file.read_text(encoding="utf-8")
+        source_inventory.append({
+            "file_name": filename,
+            "source_path": str(file.relative_to(root)),
+            "source_sha256": hashlib.sha256(file.read_bytes()).hexdigest(),
+        })
         tree = ast.parse(source, filename=str(file))
         counts = Counter(type(n).__name__ for n in ast.walk(tree))
         record = {f"ast_{name}": counts.get(name, 0) for name in AST_NODE_NAMES}
         record["ast_total_nodes"] = sum(counts.values())
         record["ast_source_lines"] = len(source.splitlines())
         vectors.append(record)
-    return pd.DataFrame(vectors, dtype=float)
+    features = pd.DataFrame(vectors, dtype=float)
+    features.attrs["source_inventory"] = source_inventory
+    return features
 
 
 def build_representations(
@@ -298,7 +306,17 @@ def run_experiment(args):
         raise FileExistsError(f"Refusing to overwrite existing experiment directory: {out}")
     out.mkdir(parents=True)
 
+    if "ast" in representations:
+        inventory = pd.DataFrame(representations["ast"].attrs["source_inventory"])
+        inventory.to_csv(out / "ast_source_inventory.csv", index=False)
+        source_digest = hashlib.sha256(
+            inventory.to_csv(index=False).encode("utf-8")
+        ).hexdigest()
+    else:
+        source_digest = None
+
     manifest = {
+        "ast_source_inventory_sha256": source_digest,
         "method": "nested_groupkfold_classification",
         "description": "Source-independent model attribution across disjoint programming tasks",
         "timestamp_utc": pd.Timestamp.now(tz="UTC").isoformat(),
@@ -315,6 +333,7 @@ def run_experiment(args):
         "test_csv": str(args.test_csv.resolve()),
         "train_sha256": file_digest(args.train_csv),
         "test_sha256": file_digest(args.test_csv),
+        "source_inventory_file": "ast_source_inventory.csv" if source_digest else None,
         "python_version": platform.python_version(),
         "numpy_version": np.__version__,
         "pandas_version": pd.__version__,

@@ -74,7 +74,7 @@ def execute(fn, argument):
 
 def cases(meta):
     ret = []
-    for category in ("valid_cases", "explicit_cases"):
+    for category in ("valid_cases", "explicit_cases", "tests"):
         for index, case in enumerate(meta.get(category, [])):
             if not isinstance(case, list) or len(case) != 2:
                 raise ValueError(f"Malformed {category} case {index}")
@@ -143,9 +143,12 @@ def generate_probes(meta, cap=40):
 
 
 def evaluate(src, meta):
+    provided = cases(meta)
+    if not provided:
+        raise ValueError("no_executable_task_tests")
     fn = build_callable(src, meta["function_name"])
     rows = []
-    for category, argument, expected in cases(meta):
+    for category, argument, expected in provided:
         observed = execute(fn, argument)
         rows.append({"case_category": category, "pass": correct(observed, category, expected, meta),
                      "observed": observed})
@@ -168,7 +171,7 @@ def main():
                 kind: {
                     "n": sum(r["case_category"] == kind for r in original_results),
                     "passed": sum(r["pass"] and r["case_category"] == kind for r in original_results)
-                } for kind in ("valid_cases", "explicit_cases", "invalid_cases")
+                } for kind in ("valid_cases", "explicit_cases", "tests", "invalid_cases")
             },
             "all_pass": all(r["pass"] for r in original_results),
         }

@@ -1,5 +1,21 @@
 # Bytecode Level Explainability of Large Language Model Code Generation #
 
+> **Research replication status (November 2026).**
+> The historical 42.59% result is a single fixed task split, not a
+> cross-task performance guarantee. The saved 500-split analysis
+> (`research/cross_validation/cv_stats.json`) reports approximately
+> **34.41% mean accuracy**, near the three-class chance reference.
+> All 1,316 saved bytecode feature vectors were reproduced exactly by
+> the researcher with CPython 3.13.18, and the saved classifier's 42.5856%
+> test accuracy was reproduced. The new task-nested evaluation has not
+> yet been run on the full dataset; do not interpret its existence as
+> new empirical findings.
+>
+> **New research entry points:** [RQ1/RQ2 project guide](research/README_RQ1_RQ2.md),
+> [RQ1 nested evaluation](research/rq1/run_nested_cv.py),
+> [RQ2 validation roadmap](research/rq2/README.md).
+> Historical scripts, datasets, models and SHAP artifacts remain unchanged.
+>
 Replication Package for "Bytecode Level Explainability of Large Language Model Code Generation" paper submitted at ICSE 2027.
 
 Large Language Models (LLMs) are increasingly used for code generation, yet it remains difficult to explain how different models vary in their implementation choices. 

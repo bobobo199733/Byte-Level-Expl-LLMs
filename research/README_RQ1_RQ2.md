@@ -96,7 +96,7 @@ Results will appear in:
 - `selected_oof_predictions.csv`: strictly out-of-task predictions from
   the inner-selected representation and classifier
 - `candidate_oof_predictions.csv`: same folds for each fixed candidate
-- `task_scores.csv`: out-of-task accuracy for each task
+- `paired_comparisons.json`: paired task-bootstrap differences against fixed candidate baselines\n- `ast_source_inventory.csv`: SHA-256 of each original source used for the AST baseline\n- `task_scores.csv`: out-of-task accuracy for each task
 - `results.json`: overall metrics, confusion matrix and task-bootstrap CIs
 
 **Interpretation:** the selected nested model's outer-fold predictions

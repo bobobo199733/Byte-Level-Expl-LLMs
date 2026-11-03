@@ -9,7 +9,7 @@ preserve reproducibility; they have **not** been moved or deleted.
 **Question:** To what extent can Python bytecode distinguish code generated
 by different LLMs across unseen programming tasks?
 
-Maintained entry point: [rq1/run_nested_cv.py](rq1/run_nested_cv.py)
+Maintained entry point: [rq1/run_nested_cv.py](rq1/run_nested_cv.py)\n\nAdditional reviewer-driven checks: [rq1/VALIDATION.md](rq1/VALIDATION.md)\n([rq1/run_validation.py](rq1/run_validation.py)).
 
 - Train/evaluate with fully task-disjoint outer GroupKFold splits
 - Tune hyperparameters and select the representation+model **only** by

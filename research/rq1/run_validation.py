@@ -383,12 +383,13 @@ def correctness_subgroup_diagnostics(
         report[str(seed)] = {}
         for label in ("all_pass", "not_all_pass"):
             selected = part[part["correctness_label"] == label]
+            unique_rows = selected.drop_duplicates("row_id")
             details = {
-                "n": int(len(selected)),
-                "n_tasks": int(selected["task"].nunique()),
-                "n_by_true_class": selected["truth"].value_counts().to_dict(),
+                "n": int(len(unique_rows)),
+                "n_tasks": int(unique_rows["task"].nunique()),
+                "n_by_true_class": unique_rows["truth"].value_counts().to_dict(),
                 "coverage_of_full_dataset": float(
-                    len(selected) / max(part["row_id"].nunique(), 1)
+                    len(unique_rows) / max(part["row_id"].nunique(), 1)
                 ),
             }
             if len(selected) and selected["truth"].nunique() == len(CLASSES):

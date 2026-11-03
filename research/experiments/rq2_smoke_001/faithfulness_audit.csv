@@ -1,0 +1,3 @@
+seed,fold,max_logit_additivity_error,max_feature_replacement_error,scale,background,intervention_warning,train_task_count,test_task_count
+7,1,1.7763568394002505e-14,1.457167719820518e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,25,25
+7,2,3.552713678800501e-14,1.0859368959614812e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,25,25

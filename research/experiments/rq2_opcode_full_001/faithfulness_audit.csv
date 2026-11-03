@@ -1,0 +1,16 @@
+seed,fold,max_logit_additivity_error,max_feature_replacement_error,scale,background,intervention_warning,train_task_count,test_task_count
+7,1,1.4210854715202004e-14,2.6645352591003757e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+7,2,5.329070518200751e-15,6.661338147750939e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+7,3,3.552713678800501e-14,1.0651202142497596e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+7,4,7.105427357601002e-15,2.886579864025407e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+7,5,6.217248937900877e-15,1.6653345369377348e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+42,1,8.881784197001252e-15,1.4051260155412137e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+42,2,3.552713678800501e-15,8.344019919448442e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+42,3,1.3322676295501878e-15,1.968667199744867e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+42,4,7.105427357601002e-15,4.610027637408365e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+42,5,1.2434497875801753e-14,4.565792188770956e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+101,1,5.329070518200751e-15,7.385585198971256e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+101,2,1.0658141036401503e-14,6.661338147750939e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+101,3,1.7763568394002505e-15,1.5543122344752192e-15,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+101,4,5.329070518200751e-15,3.5735303605122226e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10
+101,5,4.440892098500626e-15,9.992007221626409e-16,decision_function_logit,outer_training_mean,A modified feature vector need not represent valid Python code,40,10

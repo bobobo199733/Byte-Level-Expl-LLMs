@@ -1,3 +1,20 @@
+# RQ2 — First reproducible experiment
+
+The first maintained RQ2 pipeline is now implemented at
+[run_explanations.py](run_explanations.py). It evaluates **classifier**
+logit attributions to complete-opcode frequencies under task-disjoint
+nested cross-validation, ranks top features using training tasks only,
+quantifies ranking stability, compares direct class-conditional
+frequency differences, verifies exact logit additivity and records
+normalized-source instruction evidence.
+
+For exact HPC commands, result schema and scientific limitations, see
+[RUNBOOK.md](RUNBOOK.md). The older exploratory SHAP scripts below are
+preserved for provenance and should not be confused with this
+validated out-of-task experiment.
+
+---
+
 # RQ2 — Explaining implementation differences (planned validation track)
 
 **Question:** To what extent can SHAP attributions to bytecode features

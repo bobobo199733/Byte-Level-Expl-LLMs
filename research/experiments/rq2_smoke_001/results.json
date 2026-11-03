@@ -1,0 +1,86 @@
+{
+  "method": "linear_interventional_shap_logit",
+  "scale": "logit",
+  "n_seed_evaluations": 1,
+  "n_outer_models": 2,
+  "by_seed": {
+    "7": {
+      "n": 1316,
+      "n_tasks": 50,
+      "accuracy": 0.378419452887538,
+      "macro_f1": 0.3781748087202139,
+      "confusion_matrix": [
+        [
+          146,
+          174,
+          128
+        ],
+        [
+          135,
+          178,
+          111
+        ],
+        [
+          125,
+          145,
+          174
+        ]
+      ]
+    }
+  },
+  "max_additivity_error": 3.552713678800501e-14,
+  "max_feature_intervention_error": 1.457167719820518e-15,
+  "per_class_selected_feature_summary": {
+    "llama": {
+      "mean_train_importance": 0.7250669503565603,
+      "mean_frequency_baseline_overlap": 0.05555555555555556,
+      "mean_heldout_positive_fraction": 0.46856245380635625
+    },
+    "mistral": {
+      "mean_train_importance": 0.39972420522825064,
+      "mean_frequency_baseline_overlap": 0.125,
+      "mean_heldout_positive_fraction": 0.6749436437546195
+    },
+    "qwen": {
+      "mean_train_importance": 0.6351005375946068,
+      "mean_frequency_baseline_overlap": 0.25,
+      "mean_heldout_positive_fraction": 0.4219475240206948
+    }
+  },
+  "attribution_rank_stability": [
+    {
+      "class": "llama",
+      "n_models": 2,
+      "k": 5,
+      "mean_pairwise_topk_jaccard": 0.0,
+      "min_pairwise_topk_jaccard": 0.0,
+      "max_pairwise_topk_jaccard": 0.0,
+      "top_recurrent_features": "[{\"opcode\": 11, \"opname\": \"END_FOR\", \"fold_support\": 1}, {\"opcode\": 40, \"opname\": \"TO_BOOL\", \"fold_support\": 1}, {\"opcode\": 58, \"opname\": \"COMPARE_OP\", \"fold_support\": 1}, {\"opcode\": 62, \"opname\": \"COPY_FREE_VARS\", \"fold_support\": 1}, {\"opcode\": 72, \"opname\": \"FOR_ITER\", \"fold_support\": 1}]"
+    },
+    {
+      "class": "mistral",
+      "n_models": 2,
+      "k": 5,
+      "mean_pairwise_topk_jaccard": 0.0,
+      "min_pairwise_topk_jaccard": 0.0,
+      "max_pairwise_topk_jaccard": 0.0,
+      "top_recurrent_features": "[{\"opcode\": 19, \"opname\": \"GET_ITER\", \"fold_support\": 1}, {\"opcode\": 26, \"opname\": \"MAKE_FUNCTION\", \"fold_support\": 1}, {\"opcode\": 53, \"opname\": \"CALL\", \"fold_support\": 1}, {\"opcode\": 84, \"opname\": \"LOAD_DEREF\", \"fold_support\": 1}, {\"opcode\": 88, \"opname\": \"LOAD_FAST_LOAD_FAST\", \"fold_support\": 1}]"
+    },
+    {
+      "class": "qwen",
+      "n_models": 2,
+      "k": 5,
+      "mean_pairwise_topk_jaccard": 0.1111111111111111,
+      "min_pairwise_topk_jaccard": 0.1111111111111111,
+      "max_pairwise_topk_jaccard": 0.1111111111111111,
+      "top_recurrent_features": "[{\"opcode\": 91, \"opname\": \"LOAD_GLOBAL\", \"fold_support\": 2}, {\"opcode\": 40, \"opname\": \"TO_BOOL\", \"fold_support\": 1}, {\"opcode\": 53, \"opname\": \"CALL\", \"fold_support\": 1}, {\"opcode\": 79, \"opname\": \"JUMP_FORWARD\", \"fold_support\": 1}, {\"opcode\": 58, \"opname\": \"COMPARE_OP\", \"fold_support\": 1}]"
+    }
+  ],
+  "cautions": [
+    "SHAP explains the auxiliary code-origin classifier, NOT why an LLM generated code",
+    "Relative opcode features are correlated and constrained to sum to one; independent interventions may leave the feasible input manifold",
+    "Feature-level intervention checks are algebraic/model-based; they are NOT semantics-preserving code interventions",
+    "Repeated task splits reuse the same tasks and are not statistically independent samples",
+    "Importance overlap with raw frequency differences does not prove added explanatory value"
+  ]
+}

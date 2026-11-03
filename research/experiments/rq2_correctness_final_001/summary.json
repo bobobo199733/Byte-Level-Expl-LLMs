@@ -1,0 +1,285 @@
+{
+  "n_programs": 1316,
+  "status_counts": {
+    "pass": 409,
+    "fail": 600,
+    "untestable": 307
+  },
+  "per_model": {
+    "llama": {
+      "fail": 195,
+      "pass": 149,
+      "untestable": 104
+    },
+    "mistral": {
+      "fail": 236,
+      "pass": 83,
+      "untestable": 105
+    },
+    "qwen": {
+      "fail": 169,
+      "pass": 177,
+      "untestable": 98
+    }
+  },
+  "per_task": {
+    "t1": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t10": {
+      "fail": 8,
+      "pass": 19,
+      "untestable": 0
+    },
+    "t11": {
+      "fail": 5,
+      "pass": 22,
+      "untestable": 0
+    },
+    "t12": {
+      "fail": 7,
+      "pass": 19,
+      "untestable": 0
+    },
+    "t13": {
+      "fail": 11,
+      "pass": 12,
+      "untestable": 2
+    },
+    "t14": {
+      "fail": 9,
+      "pass": 18,
+      "untestable": 0
+    },
+    "t15": {
+      "fail": 26,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t16": {
+      "fail": 21,
+      "pass": 3,
+      "untestable": 2
+    },
+    "t17": {
+      "fail": 18,
+      "pass": 5,
+      "untestable": 0
+    },
+    "t18": {
+      "fail": 2,
+      "pass": 25,
+      "untestable": 0
+    },
+    "t19": {
+      "fail": 9,
+      "pass": 18,
+      "untestable": 0
+    },
+    "t2": {
+      "fail": 12,
+      "pass": 15,
+      "untestable": 0
+    },
+    "t20": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 26
+    },
+    "t21": {
+      "fail": 5,
+      "pass": 20,
+      "untestable": 1
+    },
+    "t22": {
+      "fail": 13,
+      "pass": 14,
+      "untestable": 0
+    },
+    "t23": {
+      "fail": 16,
+      "pass": 8,
+      "untestable": 3
+    },
+    "t24": {
+      "fail": 5,
+      "pass": 20,
+      "untestable": 0
+    },
+    "t25": {
+      "fail": 0,
+      "pass": 27,
+      "untestable": 0
+    },
+    "t26": {
+      "fail": 11,
+      "pass": 12,
+      "untestable": 2
+    },
+    "t27": {
+      "fail": 7,
+      "pass": 19,
+      "untestable": 0
+    },
+    "t28": {
+      "fail": 21,
+      "pass": 5,
+      "untestable": 0
+    },
+    "t29": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t3": {
+      "fail": 21,
+      "pass": 0,
+      "untestable": 3
+    },
+    "t30": {
+      "fail": 0,
+      "pass": 27,
+      "untestable": 0
+    },
+    "t31": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t32": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 26
+    },
+    "t33": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t34": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t35": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 26
+    },
+    "t36": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t37": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t38": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 24
+    },
+    "t39": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t4": {
+      "fail": 26,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t40": {
+      "fail": 0,
+      "pass": 0,
+      "untestable": 27
+    },
+    "t41": {
+      "fail": 20,
+      "pass": 7,
+      "untestable": 0
+    },
+    "t42": {
+      "fail": 23,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t43": {
+      "fail": 25,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t44": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t45": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t46": {
+      "fail": 26,
+      "pass": 0,
+      "untestable": 1
+    },
+    "t47": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t48": {
+      "fail": 27,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t49": {
+      "fail": 26,
+      "pass": 0,
+      "untestable": 0
+    },
+    "t5": {
+      "fail": 16,
+      "pass": 11,
+      "untestable": 0
+    },
+    "t50": {
+      "fail": 25,
+      "pass": 0,
+      "untestable": 2
+    },
+    "t6": {
+      "fail": 15,
+      "pass": 12,
+      "untestable": 0
+    },
+    "t7": {
+      "fail": 2,
+      "pass": 24,
+      "untestable": 0
+    },
+    "t8": {
+      "fail": 6,
+      "pass": 21,
+      "untestable": 0
+    },
+    "t9": {
+      "fail": 1,
+      "pass": 26,
+      "untestable": 0
+    }
+  },
+  "total_task_cases_evaluated": 7946,
+  "limitations": [
+    "Task-test correctness only; not formal correctness over arbitrary inputs.",
+    "Untestable includes sandbox errors and execution timeouts, not presumed incorrect.",
+    "Original metadata includes valid_cases, explicit_cases, tests, invalid_cases.",
+    "Tasks lacking executable reference test cases are reported as untestable; no oracle is fabricated.",
+    "All 1316 retained files, not discarded generations, are included."
+  ]
+}

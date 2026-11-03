@@ -1,0 +1,31 @@
+{
+  "method": "linear_interventional_shap_logit",
+  "feature_representation": "complete_opcode_relative_frequencies",
+  "source_line_provenance": "AST_normalized_source",
+  "attribution_background": "outer_training_mean",
+  "attribution_scale": "multiclass_logit",
+  "topk_selection": "train_only_class_specific_mean_absolute_attribution",
+  "seeds": [
+    7,
+    42,
+    101
+  ],
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "top_k": 10,
+  "classes": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "n_programs": 1316,
+  "n_tasks": 50,
+  "python": "3.13.18",
+  "numpy": "2.5.4",
+  "pandas": "3.1.0",
+  "sklearn": "1.9.1",
+  "train_csv_sha256": "cc82fd8d2a61c20521f98149ff5a549636f02c7b45f974087164d95138adedb0",
+  "test_csv_sha256": "f8b58a0f4b55ca5534211e41dd293d1d64c807bf4c4c41e4dc781ca8e0fcb9af",
+  "source_audit_sha256": "9e3d07a9c5d16f35ce1fbf72e6545241bece8f2003a2d9a9ea31c5eb9c248223",
+  "prepare_only": true
+}

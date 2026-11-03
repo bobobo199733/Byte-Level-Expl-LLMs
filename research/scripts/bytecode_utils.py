@@ -4,6 +4,12 @@ import ast
 import types
 import pandas as pd
 import dis
+import sys
+import re
+
+# Positional opcode/decoded-argument pairs, not literal CPython co_code bytes.
+REPRESENTATION_KIND = "opcode_argument_pairs_v1"
+DEFAULT_REPRESENTATION_LENGTH = 320
 
 PAD_VALUE = -1
 
@@ -140,6 +146,82 @@ def extract_script_bytecode(
     return byte_values, extraction_scope
 
 
+def instruction_trace_from_file(
+    py_file: Path,
+    target_function: str,
+) -> list[dict]:
+    """Trace the exact positional features produced by extract_script_bytecode.
+
+    Each instruction contributes two feature positions: its opcode and its
+    decoded integer argument (zero when absent). CACHE instructions are
+    excluded. These feature positions are *not* CPython co_code offsets.
+
+    Source lines refer to the AST-normalized text compiled by this pipeline,
+    not necessarily the original file's line numbering.
+    """
+    raw = py_file.read_text(encoding="utf-8")
+    normalized_source = keep_only_defs(extract_code(raw))
+    compiled = compile(normalized_source, filename=str(py_file), mode="exec")
+    top_level = get_top_level_code_objects(compiled)
+    if target_function not in top_level:
+        raise ValueError(
+            f"Target function '{target_function}' not found: "
+            f"{sorted(top_level)}"
+        )
+
+    ordered = [top_level[target_function]]
+    ordered.extend(
+        top_level[name] for name in sorted(top_level)
+        if name != target_function
+    )
+    source_lines = normalized_source.splitlines()
+    rows = []
+
+    def visit(code_obj):
+        for instr in dis.get_instructions(code_obj, show_caches=False):
+            index = len(rows) * 2
+            line = (
+                instr.positions.lineno
+                if getattr(instr, "positions", None) is not None
+                else instr.starts_line
+            )
+            line_text = (
+                source_lines[line - 1].strip()
+                if line is not None and 1 <= line <= len(source_lines)
+                else ""
+            )
+            rows.append({
+                "byte_pos": index,
+                "arg_pos": index + 1,
+                "opname": instr.opname,
+                "opcode": instr.opcode,
+                "arg_raw": instr.arg if instr.arg is not None else 0,
+                "argval": str(instr.argval)[:60],
+                "lineno": line,
+                "source_line": line_text,
+                "source_line_origin": "normalized_source",
+                "co_name": code_obj.co_name,
+                "dis_offset": instr.offset,
+            })
+        for child in code_obj.co_consts:
+            if isinstance(child, types.CodeType):
+                visit(child)
+
+    for code_obj in ordered:
+        visit(code_obj)
+
+    # Fail closed if backtracking and the classifier use different positions.
+    expected, _ = collect_ordered_script_bytes(compiled, target_function)
+    observed = [
+        value
+        for row in rows
+        for value in (row["opcode"], row["arg_raw"])
+    ]
+    if observed != expected:
+        raise AssertionError("Instruction trace does not match feature extraction")
+    return rows
+
+
 def pad_or_truncate(values: list[int], max_len: int) -> tuple[list[int], list[int]]:
     values = values[:max_len]
     mask = [1] * len(values)
@@ -166,6 +248,8 @@ def build_bytecode_row_from_file(
 
     row = {
         "function_name": extraction_scope,
+        "python_version": sys.version.split()[0],
+        "representation_kind": REPRESENTATION_KIND,
         "original_byte_length": len(byte_values),
         "was_truncated": len(byte_values) > max_len,
     }
@@ -183,26 +267,42 @@ def preprocess_single_file(
     py_file: Path,
     feature_columns: list[str],
     target_function: str | None = None,
+    representation_length: int | None = None,
 ) -> pd.DataFrame:
-    byte_cols = [c for c in feature_columns if c.startswith("byte_")]
-    max_len = len(byte_cols)
+    """Recreate trained feature positions without inventing missing values.
+
+    For a full 0..N-1 byte schema, N is inferred. For a sparse selection,
+    the caller must supply the original representation length explicitly.
+    """
+    if not feature_columns or len(set(feature_columns)) != len(feature_columns):
+        raise ValueError("Feature list must be nonempty and contain no duplicates")
+
+    byte_cols = [c for c in feature_columns if re.fullmatch(r"byte_\d+", c)]
+    indices = sorted(int(c[5:]) for c in byte_cols)
+    if not indices:
+        raise ValueError("No positional byte features were requested")
+
+    if representation_length is None:
+        if indices != list(range(len(indices))):
+            raise ValueError(
+                "Sparse feature selection requires representation_length "
+                "from the trained model's configuration"
+            )
+        representation_length = len(indices)
+
+    if representation_length <= 0 or max(indices) >= representation_length:
+        raise ValueError("Requested feature position exceeds representation length")
 
     row = build_bytecode_row_from_file(
         py_file=py_file,
-        max_len=max_len,
+        max_len=representation_length,
         target_function=target_function,
     )
-
     df = pd.DataFrame([row])
-
     if "was_truncated" in df.columns:
         df["was_truncated"] = df["was_truncated"].astype(int)
 
-    for col in feature_columns:
-        if col not in df.columns:
-            df[col] = 0
-
-    df = df[feature_columns]
-    df.to_csv("debug_single_file.csv", index=False)
-
-    return df
+    missing = sorted(set(feature_columns) - set(df.columns))
+    if missing:
+        raise ValueError(f"Missing requested features: {missing}")
+    return df.loc[:, feature_columns].copy()

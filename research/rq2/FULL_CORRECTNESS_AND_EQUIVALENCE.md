@@ -40,6 +40,7 @@ python research/rq2/evaluate_equivalence.py \
 python research/rq2/analyze_correctness_effect.py \
   --correctness research/experiments/rq2_correctness_final_001/correctness_results.csv \
   --equivalence research/experiments/rq2_equivalence_final_001/equivalence_results.csv \
+  --with-attributions \
   --output-dir research/experiments/rq2_correctness_analysis_final_001
 \`\`\`
 
@@ -89,8 +90,14 @@ per-program counts, model, task, source hashes, and one of
 The classifier follow-up combines this table with the already committed
 out-of-fold predictions and reports accuracy/macro F1 within these
 groups with confidence intervals resampling tasks, NOT individual
-examples. These are subgroup analyses of **previously trained models**,
-not new models trained on correct-only programs.
+examples. These are subgroup analyses of original task-split classifiers,
+not models trained on correct-only programs. `--with-attributions`
+refits the 15 original nested-CV classifiers (without using correctness
+to train) because old exports did not retain per-program SHAP vectors;
+it **verifies** that all reconstructed held-out predictions match the
+archived OOF labels before reporting correctness-stratified local
+SHAP magnitude and top-ten concentration. This is a targeted analysis,
+not a rerun or modification of the original RQ2 results.
 
 ## What observed equivalence means
 

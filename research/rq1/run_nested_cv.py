@@ -111,15 +111,11 @@ def load_dataset(train: Path, test: Path) -> tuple[pd.DataFrame, list[str]]:
 def ast_features(df: pd.DataFrame, root: Path) -> pd.DataFrame:
     """Source AST count baseline: parse archived cleaned programs, never execute."""
     vectors = []
-    for row in df.itertuples(index=False):
-        filename = row.file_name
-        task = task_id(filename)
-        split = row._historical_split if hasattr(row, "_historical_split") else None
-        # Pandas itertuples renames underscore-leading fields, so use name mapping
-        if split is None:
-            raise RuntimeError("Missing historical split indicator")
+    for filename, model, split in df[
+        ["file_name", "model", "_historical_split"]
+    ].itertuples(index=False, name=None):
         subdir = "outputs" if split == "train" else "test_data/outputs"
-        file = root / subdir / row.model / "cleaned" / filename
+        file = root / subdir / model / "cleaned" / filename
         if not file.is_file():
             raise FileNotFoundError(f"Missing archived source for AST baseline: {file}")
         source = file.read_text(encoding="utf-8")
@@ -244,8 +240,10 @@ def run_experiment(args):
     )
     if len(np.unique(groups)) < args.outer_folds:
         raise ValueError("Insufficient unique tasks for requested outer folds")
-    if args.inner_folds > len(np.unique(groups)) - (len(np.unique(groups)) // args.outer_folds + 1):
-        raise ValueError("Too many inner folds for the smallest outer-training partition")
+    outer_splitter = GroupKFold(n_splits=args.outer_folds)
+    outer_splits = list(outer_splitter.split(np.zeros(len(y)), y, groups))
+    if min(len(set(groups[train_idx])) for train_idx, _ in outer_splits) < args.inner_folds:
+        raise ValueError("Not enough outer-training tasks for requested inner folds")
 
     out = args.output_dir
     if out.exists():
@@ -281,12 +279,11 @@ def run_experiment(args):
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
-    outer = GroupKFold(n_splits=args.outer_folds)
     fold_rows = []
     chosen_predictions = []
     all_candidate_predictions = []
     for fold, (outer_train, outer_test) in enumerate(
-        outer.split(np.zeros(len(y)), y, groups), start=1
+        outer_splits, start=1
     ):
         assert_partition(outer_train, outer_test, groups)
         inner_groups = groups[outer_train]

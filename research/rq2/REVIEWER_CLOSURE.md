@@ -11,23 +11,23 @@ archive and their outputs inspected before any new rows can be closed.
 
 | ID | Concern | Status before this PR | Added evidence/work | What still prevents full closure |
 | --- | --- | --- | --- | --- |
-| 1 | Practical SE motivation | Open | Paper framing below | Confirm use case and rewrite manuscript abstract/introduction |
-| 2 | SHAP overclaim | Partial | Distinguish auxiliary classifier from generating LLM in every experiment protocol | Manuscript title, abstract, RQs and conclusions must follow same language |
-| 3 | Brittle byte position | Covered | Full opcode frequency/bigram RQ1 tests | Report limitations of original positional experiments |
-| 4 | Simpler representations | Partial | AST, full opcode counts, n-grams, positional + length baseline under task-aware CV | Source token baseline and relative-position structural motif baselines not run |
-| 5 | Weak classifier | Partial | RQ1 task-disjoint results and ablations; limited signal admitted | Cannot upgrade modest signal by explanatory statistics; limit claims |
-| 6 | Single split | Covered | Three seeds, 5x4 grouped CV | Same 50-task dataset, not external replication |
-| 7 | Confidence/testing | Partial | Existing RQ1 task bootstrap; new `reviewer_diagnostics.py` adds RQ2 task-bootstrap accuracy, macro F1, class recall intervals | Run and review new report; grouped-baseline test/adjustment for multiple hypotheses still needed |
-| 8 | SHAP ranking stability | Partial | Top-10 Jaccard across 15 fits and recurrent opcode support | Existing artifact contains ONLY top-k features; full rank correlation requires saving all 256 feature rankings per fold, then rerun |
-| 9 | Generated-code correctness | Partial | Archival correctness coverage report (154/1316 known) | Independently run tests securely for remaining programs and repeat subgroup study |
-| 10 | Confounders | Partial | RQ1 length-only control and size-normalized AST ablations expose severe confounding | Verify specific historical STORE_FAST claim conditioned on task/length/early assignments/correctness |
-| 11 | Shifted-instruction robustness | Open | Design notes below | Actual behavior-preserving refactoring/compilation trials and SHAP reruns |
-| 12 | Model-specific insights | Partial | New feature recurrence and curated source evidence/counterexample aggregation | Interpret candidate constructs manually, task breadth and false-positive sources |
-| 13 | Subjective backtracking | Partial | Canonical instruction-to-normalized-source mapping plus review rubric below | Two independent human reviews and disagreement adjudication |
-| 14 | Explanation faithfulness | Partial | Exact logit additivity and feature replacement effects in classifier space | Behavior-preserving source/bytecode edits and corresponding classifier changes |
-| 15 | Per-class evaluation | Covered | Confusion, class metrics, RQ1 task outputs and predicted probabilities | Discuss class failures honestly in manuscript |
-| 17 | Generation failures/exclusions | Open | New `audit_generation_inventory.py` catalogs planned design cells, raw/cleaned/retained artifacts | Execute inventory; raw generation attempt logs and exclusion reasons are not necessarily archived |
- 
+| 1 | Practical SE motivation | Open | Proposed use case below | Confirm use case; revise abstract and introduction |
+| 2 | SHAP overclaim | Partial | Classifier-vs-generator boundary in code and protocol | Revise manuscript title, RQs, abstract and conclusion |
+| 3 | Brittle byte position | Covered | Full opcode frequency/bigram RQ1 alternatives | Report original positional limitations |
+| 4 | Simpler representations | Partial | AST, opcode, n-gram, positional and length controls | Matched source-token representation and structural motif baseline not run |
+| 5 | Value added by SHAP | Partial | Matched opcode-frequency ranking baseline and overlap | Permutation importance baseline and human useful-insight assessment absent |
+| 6 | Weak classifier signal | Partial | Grouped RQ1 validation, uncertainty, negative findings | Limit scope; cannot infer strong implementation-specific signal |
+| 7 | Single split | Covered | 3 seeds, 5x4 task-disjoint grouped CV | Independent external replication is still absent |
+| 8 | Confidence and significance | Partial | RQ1 task-bootstrap; new RQ2 task-bootstrap and class-recall CIs | Run and inspect new report; grouped baseline contrasts and multiplicity control |
+| 9 | SHAP ranking stability | Partial | Top-10 Jaccard over 15 fits and recurrent support | Full 256-feature rank correlations not archived |
+| 10 | Code correctness | Partial | Archived coverage 154/1316 | Securely score missing programs; controlled correct-only analysis |
+| 11 | Task/length/preprocessing confounds | Partial | RQ1 size/docstring controls reveal confounding | Recheck specific STORE_FAST association with controls |
+| 12 | Semantics-preserving robustness | Open | Intervention protocol below | Execute valid controlled source edits and prediction/attribution reruns |
+| 13 | Specific implementation insights | Partial | Source trace and new recurrence/counterexample diagnostics | Structured qualitative interpretation and source-level task breadth |
+| 14 | Backtracking subjectivity | Partial | Deterministic trace and independent-review rubric | Two independent reviewers and adjudication |
+| 15 | Faithfulness | Partial | Exact class-logit additivity and model-feature replacement | Valid source/bytecode interventions and behavioral check |
+| 16 | Per-class evaluation | Covered | Confusion, classification reports, per-task scores, confidence | Discuss poor class performance in manuscript |
+| 17 | Generation failures/exclusions | Open | Generation artifact inventory script | Run; verify true attempts and exclusion causes using logs |
 
 Note: The spreadsheet has 17 items, indexed 0–16. The matrix
 uses human-friendly 1–17 for the **same** 17 reviewer items.

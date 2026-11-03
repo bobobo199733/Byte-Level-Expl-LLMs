@@ -215,6 +215,54 @@ def bootstrap_by_task(predictions: pd.DataFrame, *, draws: int, seed: int) -> di
     }
 
 
+
+def paired_task_bootstrap(
+    selected: pd.DataFrame, baseline: pd.DataFrame, *, draws: int, seed: int
+) -> dict:
+    """Paired task-bootstrap score differences on identical out-of-fold samples.
+
+    A confidence interval excluding zero is descriptive evidence of a
+    difference on these tasks, not a license for post-hoc model selection.
+    """
+    selected = selected.sort_values("row_id").reset_index(drop=True)
+    baseline = baseline.sort_values("row_id").reset_index(drop=True)
+    if not np.array_equal(selected["row_id"], baseline["row_id"]):
+        raise ValueError("Cannot pair predictions with different row IDs")
+    if not np.array_equal(selected["truth"], baseline["truth"]):
+        raise ValueError("Cannot pair predictions with different labels")
+    if not np.array_equal(selected["task"], baseline["task"]):
+        raise ValueError("Cannot pair predictions with different task IDs")
+    tasks = np.array(sorted(selected["task"].unique()))
+    by_task = {
+        task: selected.index[selected["task"] == task].to_numpy(dtype=int)
+        for task in tasks
+    }
+    selected_scores = metrics(selected["truth"], selected["prediction"])
+    baseline_scores = metrics(baseline["truth"], baseline["prediction"])
+    rng = np.random.default_rng(seed)
+    values = {"accuracy": [], "macro_f1": [], "balanced_accuracy": []}
+    truth = selected["truth"].to_numpy()
+    a = selected["prediction"].to_numpy()
+    b = baseline["prediction"].to_numpy()
+    for _ in range(draws):
+        indices = np.concatenate([
+            by_task[task] for task in rng.choice(tasks, size=len(tasks), replace=True)
+        ])
+        sm = metrics(truth[indices], a[indices])
+        bm = metrics(truth[indices], b[indices])
+        for key in values:
+            values[key].append(sm[key] - bm[key])
+    return {
+        key: {
+            "observed_difference": selected_scores[key] - baseline_scores[key],
+            "lower_95": float(np.quantile(sample, 0.025)),
+            "upper_95": float(np.quantile(sample, 0.975)),
+            "bootstrap_fraction_positive": float(np.mean(np.array(sample) > 0)),
+        }
+        for key, sample in values.items()
+    }
+
+
 def assert_partition(train_ids, test_ids, groups):
     first = set(groups[np.asarray(train_ids, dtype=int)])
     second = set(groups[np.asarray(test_ids, dtype=int)])
@@ -365,6 +413,14 @@ def run_experiment(args):
         scores[f"{rep}/{model}"] = summarize_predictions(
             subset, args.bootstrap_draws, args.seed
         )
+    pairwise = {}
+    for (rep, model), subset in candidate.groupby(["representation", "model"]):
+        pairwise[f"selected_vs_{rep}/{model}"] = paired_task_bootstrap(
+            selected, subset, draws=args.bootstrap_draws, seed=args.seed,
+        )
+    (out / "paired_comparisons.json").write_text(
+        json.dumps(pairwise, indent=2) + "\n"
+    )
     selected.to_csv(out / "selected_oof_predictions.csv", index=False)
     candidate.to_csv(out / "candidate_oof_predictions.csv", index=False)
     pd.DataFrame(fold_rows).to_csv(out / "fold_scores.csv", index=False)

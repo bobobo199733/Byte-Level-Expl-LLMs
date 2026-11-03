@@ -1,0 +1,16 @@
+{
+  "attempts": 72,
+  "statuses": {
+    "rejected": 36,
+    "accepted_on_supplied_tests": 36
+  },
+  "accepted": 36,
+  "safety": "No untrusted generated code executed outside Apptainer",
+  "limitations": [
+    "Functional equivalence supported only on task-provided test cases; it is not a proof for all inputs",
+    "Edits may change introspection, errors or behavior outside tested inputs",
+    "An opcode frequency shift does not isolate a unique semantic concept",
+    "No SHAP claim about LLM internals follows from classifier logit changes",
+    "Do not select only prediction-flipping edits for analysis; report rejected and accepted cases"
+  ]
+}

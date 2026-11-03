@@ -1,0 +1,14 @@
+{
+  "seed": 42,
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "transforms": [
+    "insert_pass",
+    "wrap_try_finally"
+  ],
+  "sandbox_image_sha256": "c66361caad89b09a4358de3e302d273586ea0db709f3ee15474c7a92c192e980",
+  "python_host": "3.13.18",
+  "max_cases": 36,
+  "max_per_model": 12,
+  "historical_feature_audit_rows": 1316
+}

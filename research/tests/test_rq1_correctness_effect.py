@@ -7,7 +7,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "rq1"))
-import analyze_correctness_effect as rq1_correct
+import rq1_correctness_analysis as rq1_correct
 
 
 class RQ1CorrectnessTests(unittest.TestCase):

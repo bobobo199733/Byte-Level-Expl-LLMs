@@ -22,7 +22,7 @@ git switch feat/rq2-bytecode-explanation-validation-20261103
 git pull --ff-only origin feat/rq2-bytecode-explanation-validation-20261103
 source research/.venv313/bin/activate
 
-python research/rq1/analyze_correctness_effect.py \
+python research/rq1/rq1_correctness_analysis.py \
   --correctness research/experiments/rq2_correctness_final_001/correctness_results.csv \
   --validation-oof research/experiments/rq1_validation_full_001/oof_predictions.csv \
   --selected-oof research/experiments/rq1_nested_full_001/selected_oof_predictions.csv \

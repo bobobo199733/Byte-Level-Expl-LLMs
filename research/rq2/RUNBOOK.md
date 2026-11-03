@@ -215,7 +215,7 @@ The two additional reviewer-driven workflows are documented in
 - \`run_source_interventions.py\`: empirical behavioral checks of
   source edits **only inside a network-isolated Apptainer Python-3.13
   image**, followed by held-out classifier and attribution differences.
-- \`human_review.py\`: blinded source-interpretation sheets for two
+- \`explanation_assessment.py\`: blinded source-interpretation sheets for two
   actual independent readers; exact agreement, Cohen kappa, and
   adjudication queue only after the sheets have been completed.
 

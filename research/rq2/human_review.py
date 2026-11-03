@@ -166,7 +166,8 @@ def adjudicate(folder: Path, out: Path):
     merged["adjudicated_label"] = np.where(merged["agreement"], merged["label_A"], "")
     merged["adjudication_notes"] = ""
     exact = float(merged["agreement"].mean())
-    kappa = float(cohen_kappa_score(merged["label_A"], merged["label_B"], labels=LABELS))
+    kappa_raw = float(cohen_kappa_score(merged["label_A"], merged["label_B"], labels=LABELS))
+    kappa = kappa_raw if np.isfinite(kappa_raw) else None
     out.mkdir(parents=True)
     merged.to_csv(out / "adjudication_queue.csv", index=False)
     (out / "review_agreement.json").write_text(json.dumps({
@@ -175,7 +176,7 @@ def adjudicate(folder: Path, out: Path):
         "n_disagreements_pending_adjudication": int((~merged["agreement"]).sum()),
         "caution": "These numbers measure agreement on labeled curated evidence, not validity or population-wide explanatory usefulness.",
     }, indent=2) + "\n")
-    print(f"Agreement: {exact:.3f}; Cohen kappa: {kappa:.3f}; unresolved: {(~merged['agreement']).sum()}")
+    print(f"Agreement: {exact:.3f}; Cohen kappa: {kappa}; unresolved: {(~merged['agreement']).sum()}")
 
 
 def main():

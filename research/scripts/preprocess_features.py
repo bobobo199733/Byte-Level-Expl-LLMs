@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import sys
+import re
 import pandas as pd
 
 
@@ -61,13 +62,23 @@ def main():
         ]
     )
 
-    if "was_truncated" in X.columns:
-        X["was_truncated"] = X["was_truncated"].astype(int)
-
-    non_numeric = X.select_dtypes(exclude=["number"]).columns.tolist()
-
-    # if non_numeric:
-        # raise ValueError(f"Non-numeric columns remain: {non_numeric}")
+    # Retain filename as metadata for downstream auditing, never as a predictor.
+    metadata = X[["file_name"]].copy() if "file_name" in X else pd.DataFrame(index=X.index)
+    features = X.drop(columns=["file_name"], errors="ignore")
+    byte_cols = [c for c in features if re.fullmatch(r"byte_\d+", c)]
+    unexpected = sorted(set(features.columns) - set(byte_cols))
+    if unexpected:
+        raise ValueError(f"Unexpected classifier input columns: {unexpected}")
+    if not byte_cols:
+        raise ValueError("No byte features in extracted dataset")
+    indexes = sorted(int(c[5:]) for c in byte_cols)
+    if indexes != list(range(len(indexes))):
+        raise ValueError("Byte features must be a contiguous 0..N-1 sequence")
+    features = features[[f"byte_{i}" for i in indexes]]
+    if features.isna().any().any():
+        raise ValueError("Missing byte-feature values; refusing to impute")
+    features = features.apply(pd.to_numeric, errors="raise")
+    X = pd.concat([metadata, features], axis=1)
 
     processed = pd.concat([
         y.rename(TARGET_COLUMN),
@@ -83,7 +94,10 @@ def main():
         "rows": len(processed),
         "num_features": X.shape[1],
         "classes": sorted(y.unique().tolist()),
-        "feature_columns": X.columns.tolist(),
+        "feature_columns": features.columns.tolist(),
+        "metadata_columns": metadata.columns.tolist(),
+        "representation_kind": "opcode_argument_pairs_v1",
+        "representation_length": len(byte_cols),
     }
 
     CONFIG_FILE.write_text(

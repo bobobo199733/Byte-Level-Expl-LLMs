@@ -1,0 +1,8 @@
+{
+  "python": "3.13.18",
+  "sandbox_image_sha256": "c66361caad89b09a4358de3e302d273586ea0db709f3ee15474c7a92c192e980",
+  "sandbox_worker_sha256": "be7491129cd2e233dc5c317e68338df3985e8f75ecb7de5ea7b312dd6ba06df4",
+  "original_interventions_sha256": "d6e2a244e0ccba8e5103dcf823c6779a23ea8c4a59fe69b881e230e591912f1e",
+  "timeout": 20,
+  "intervention_selection": "original published fixed 72 pair list"
+}

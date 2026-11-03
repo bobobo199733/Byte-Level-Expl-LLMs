@@ -1,0 +1,8 @@
+{
+  "python": "3.13.18",
+  "sandbox_image_sha256": "c66361caad89b09a4358de3e302d273586ea0db709f3ee15474c7a92c192e980",
+  "sandbox_worker_sha256": "be7491129cd2e233dc5c317e68338df3985e8f75ecb7de5ea7b312dd6ba06df4",
+  "train_csv_sha256": "cc82fd8d2a61c20521f98149ff5a549636f02c7b45f974087164d95138adedb0",
+  "test_csv_sha256": "f8b58a0f4b55ca5534211e41dd293d1d64c807bf4c4c41e4dc781ca8e0fcb9af",
+  "timeout": 20
+}

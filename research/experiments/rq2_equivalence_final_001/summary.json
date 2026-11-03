@@ -1,0 +1,19 @@
+{
+  "n_interventions": 72,
+  "n_unique_programs": 36,
+  "statuses": {
+    "matched_on_observed_inputs": 72
+  },
+  "n_behavior_matches": 72,
+  "n_matching_originals_not_correct": 34,
+  "n_originals_correct_on_task_cases": 38,
+  "n_extra_probes": 1062,
+  "n_extra_probe_disagreements": 0,
+  "limitations": [
+    "Agreement on task examples and generated probes is not formal semantic equivalence.",
+    "Extra probes are type-derived and NOT guaranteed to be within the specification domain.",
+    "No independence among transformations of the same original program.",
+    "Original/edited correctness is assessed separately from pair agreement.",
+    "No demonstrated equivalence of side effects, timing, tracebacks, or introspection."
+  ]
+}

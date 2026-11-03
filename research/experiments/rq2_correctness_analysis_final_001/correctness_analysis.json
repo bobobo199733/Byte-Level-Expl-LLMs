@@ -1,0 +1,138 @@
+{
+  "correctness_status_counts": {
+    "fail": 600,
+    "pass": 409,
+    "untestable": 307
+  },
+  "classifier_training_population": "all retained programs, as in original RQ2; no correctness-only retraining",
+  "by_seed": {
+    "7": {
+      "pass": {
+        "n": 409,
+        "n_tasks": 25,
+        "accuracy": 0.3765281173594132,
+        "macro_f1": 0.37359834469921616,
+        "accuracy_task_bootstrap_95": [
+          0.29697338041945315,
+          0.46556847697756787
+        ]
+      },
+      "fail": {
+        "n": 600,
+        "n_tasks": 37,
+        "accuracy": 0.42833333333333334,
+        "macro_f1": 0.42917382431232065,
+        "accuracy_task_bootstrap_95": [
+          0.3788216374469957,
+          0.473138849343897
+        ]
+      },
+      "untestable": {
+        "n": 307,
+        "n_tasks": 19,
+        "accuracy": 0.36807817589576547,
+        "macro_f1": 0.3690558243833353,
+        "accuracy_task_bootstrap_95": [
+          0.3102450127767399,
+          0.42938177271464295
+        ]
+      }
+    },
+    "42": {
+      "pass": {
+        "n": 409,
+        "n_tasks": 25,
+        "accuracy": 0.3691931540342298,
+        "macro_f1": 0.36725126515256973,
+        "accuracy_task_bootstrap_95": [
+          0.2916464681440443,
+          0.44698329984932195
+        ]
+      },
+      "fail": {
+        "n": 600,
+        "n_tasks": 37,
+        "accuracy": 0.45,
+        "macro_f1": 0.45028236443099584,
+        "accuracy_task_bootstrap_95": [
+          0.4002874657325617,
+          0.49911202185792347
+        ]
+      },
+      "untestable": {
+        "n": 307,
+        "n_tasks": 19,
+        "accuracy": 0.4234527687296417,
+        "macro_f1": 0.42050725516647974,
+        "accuracy_task_bootstrap_95": [
+          0.36248005319148935,
+          0.4880093023255814
+        ]
+      }
+    },
+    "101": {
+      "pass": {
+        "n": 409,
+        "n_tasks": 25,
+        "accuracy": 0.34474327628361856,
+        "macro_f1": 0.34176581670590483,
+        "accuracy_task_bootstrap_95": [
+          0.2884543010752688,
+          0.3976845965088394
+        ]
+      },
+      "fail": {
+        "n": 600,
+        "n_tasks": 37,
+        "accuracy": 0.4533333333333333,
+        "macro_f1": 0.45111677462744676,
+        "accuracy_task_bootstrap_95": [
+          0.4036393301730968,
+          0.5032839307598039
+        ]
+      },
+      "untestable": {
+        "n": 307,
+        "n_tasks": 19,
+        "accuracy": 0.3941368078175896,
+        "macro_f1": 0.39309040851288596,
+        "accuracy_task_bootstrap_95": [
+          0.33985117670936743,
+          0.46104399476492497
+        ]
+      }
+    }
+  },
+  "attribution_analysis": {
+    "n_local_explanations": 3948,
+    "n_seed_folds": 15,
+    "note": "Models refitted on the original entire-training-task folds; evaluated on held-out programs and stratified by known task-test correctness."
+  },
+  "intervention_by_correctness": {
+    "fail": {
+      "matched_on_observed_inputs": 34
+    },
+    "pass": {
+      "matched_on_observed_inputs": 38
+    }
+  },
+  "intervention_prediction_changes_in_matched_pairs": {
+    "fail": {
+      "n_pairs": 34,
+      "original_prediction_flip_rate": 0.0
+    },
+    "pass": {
+      "n_pairs": 38,
+      "original_prediction_flip_rate": 0.3684210526315789
+    }
+  },
+  "limitations": [
+    "Correctness means passing the available task tests, not proven universal correctness.",
+    "Grouped confidence intervals resample tasks, not independent programs.",
+    "The three OOF seeds reuse the same tasks; seed metrics are not independent.",
+    "Correctness groups may have different task composition and may be very small.",
+    "Subgroup OOF evaluation does not substitute for retraining solely on correct programs.",
+    "SHAP magnitude by correctness is observational; it does not validate the LLM's causal explanation.",
+    "No causal inference between model origin and correctness is justified."
+  ]
+}

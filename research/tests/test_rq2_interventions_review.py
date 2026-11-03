@@ -13,7 +13,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1] / "rq2"
 sys.path.insert(0, str(ROOT))
-import human_review
+import explanation_assessment
 import run_source_interventions as intervention
 
 
@@ -67,20 +67,20 @@ class HumanReviewTests(unittest.TestCase):
                     })
             path = root / "source.json"
             pd.DataFrame(examples).to_json(path, orient="records")
-            human_review.prepare(path, root / "review", max_cases=6)
+            explanation_assessment.prepare(path, root / "review", max_cases=6)
             key = pd.read_csv(root / "review/private_case_key.csv")
             self.assertEqual(len(key), 6)
             a = pd.read_csv(root / "review/reviewer_A.csv", keep_default_na=False)
             b = pd.read_csv(root / "review/reviewer_B.csv", keep_default_na=False)
             self.assertNotIn("true_model", a.columns)
             with self.assertRaises(ValueError):
-                human_review.adjudicate(root / "review", root / "out")
+                explanation_assessment.adjudicate(root / "review", root / "out")
             for letter, data in (("A", a), ("B", b)):
                 data["interpretation_label"] = "syntactic_structure"
                 data["interpretation_reason"] = "Visible conditional structural pattern"
                 data["confidence_1_to_5"] = "3"
                 data.to_csv(root / f"review/reviewer_{letter}.csv", index=False)
-            human_review.adjudicate(root / "review", root / "out")
+            explanation_assessment.adjudicate(root / "review", root / "out")
             report = json.loads((root / "out/review_agreement.json").read_text())
             self.assertEqual(report["exact_agreement"], 1.0)
             self.assertEqual(report["n_disagreements_pending_adjudication"], 0)

@@ -155,7 +155,7 @@ does **not** write or overwrite the original bytecode/SHAP results.
 
 This first implementation does **not** measure behavioral correctness
 of generated code, source-level semantics-preserving intervention
-faithfulness, or a human-grounded notion of useful explanation. Those
+faithfulness, or independently validated explanatory usefulness. Those
 are separate RQ2 validation questions. No classifier attribution,
 however stable, establishes why an LLM generated a particular
 implementation.
@@ -205,19 +205,12 @@ git push origin feat/rq2-bytecode-explanation-validation-20261103
 ```
 
 Do not interpret either audit as closure of correctness, causal
-source-level perturbation, or independent human review requirements.
+source-level perturbation, or externally validated interpretation requirements.
 
-## Final focused validation
+## Focused automated source-intervention validation
 
-The two additional reviewer-driven workflows are documented in
-[INTERVENTIONS_AND_REVIEW.md](INTERVENTIONS_AND_REVIEW.md):
-
-- \`run_source_interventions.py\`: empirical behavioral checks of
-  source edits **only inside a network-isolated Apptainer Python-3.13
-  image**, followed by held-out classifier and attribution differences.
-- \`explanation_assessment.py\`: blinded source-interpretation sheets for two
-  actual independent readers; exact agreement, Cohen kappa, and
-  adjudication queue only after the sheets have been completed.
-
-These workflows do not establish formal semantic equivalence or
-prove anything about the generating LLM's internal causal mechanism.
+See [INTERVENTIONS.md](INTERVENTIONS.md) for the Apptainer Python 3.13
+sandbox, smoke test, and full held-out classifier intervention protocol.
+The study does not conduct independent human review. Its source-tracing
+results remain candidate classifier associations, not independently
+validated explanations of LLM implementation choices.

@@ -67,6 +67,23 @@ class NestedTaskCVTests(unittest.TestCase):
         self.assertEqual(reps["opcode_hist"].shape, (24, 256))
         np.testing.assert_allclose(reps["opcode_hist"].sum(axis=1), 1.0)
 
+    def test_ast_baseline_reads_source_and_records_digests(self):
+        frame, cols = rq1.load_dataset(self.train, self.test)
+        for filename, model, split in frame[
+            ["file_name", "model", "_historical_split"]
+        ].itertuples(index=False, name=None):
+            folder = "outputs" if split == "train" else "test_data/outputs"
+            path = self.root / folder / model / "cleaned" / filename
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("def example(x):\\n    return x + 1\\n", encoding="utf-8")
+        representations = rq1.build_representations(
+            frame, cols, self.root, ["ast"]
+        )
+        ast_df = representations["ast"]
+        self.assertEqual(len(ast_df), len(frame))
+        self.assertEqual(len(ast_df.attrs["source_inventory"]), len(frame))
+        self.assertEqual(ast_df.iloc[0]["ast_FunctionDef"], 1)
+
     def test_duplicate_filename_rejected(self):
         rows = pd.read_csv(self.test)
         train = pd.read_csv(self.train)

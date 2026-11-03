@@ -1,0 +1,3 @@
+# Keep experiment output directories out of Git by default.
+*
+!.gitignore

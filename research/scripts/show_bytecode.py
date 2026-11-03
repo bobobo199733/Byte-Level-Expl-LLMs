@@ -24,77 +24,21 @@ sys.path.insert(0, str(BASE_DIR / "scripts"))
 
 
 def get_bytecode_rows(py_file: Path, target_fn: str) -> list[dict]:
-    """
-    Calls extract_script_bytecode to get the flat byte list — identical to the
-    feature extraction pipeline. Then enriches each byte pair with opname/argval/lineno.
-    """
-    from bytecode_utils import (
-        extract_script_bytecode, extract_code, keep_only_defs,
-        get_top_level_code_objects
-    )
-
-    # get the flat byte list exactly as the pipeline does
-    byte_values, _ = extract_script_bytecode(py_file, target_fn)
-
-    # also get dis metadata (argval, lineno) — needs same traversal order
-    raw_text = py_file.read_text(encoding="utf-8")
-    code     = keep_only_defs(extract_code(raw_text))
-    compiled = compile(code, filename=str(py_file), mode="exec")
-
-    top_level = get_top_level_code_objects(compiled)
-    ordered_top = [top_level[target_fn]]
-    for name in sorted(top_level.keys()):
-        if name != target_fn:
-            ordered_top.append(top_level[name])
-
-    # build lookup: flat_position -> dis instruction metadata
-    def collect_instrs(co):
-        result = []
-        for instr in dis.get_instructions(co, show_caches=True):
-            result.append((co, instr))
-        for const in co.co_consts:
-            if isinstance(const, types.CodeType):
-                result.extend(collect_instrs(const))
-        return result
-
-    all_instrs = []
-    for top_co in ordered_top:
-        all_instrs.extend(collect_instrs(top_co))
-
-    # now pair each 2-byte entry in byte_values with its dis metadata
-    rows = []
-    for i, (co, instr) in enumerate(all_instrs):
-        pos = i * 2
-        if pos + 1 >= len(byte_values):
-            break
-
-        op_val  = byte_values[pos]
-        arg_val = byte_values[pos + 1]
-        opname  = opcode_module.opname[op_val]
-
-        lineno = None
-        if hasattr(instr, "positions") and instr.positions:
-            lineno = instr.positions.lineno
-        elif instr.starts_line is not None:
-            lineno = instr.starts_line
-
-        rows.append({
-            "byte_pos": pos,
-            "arg_pos":  pos + 1,
-            "op_val":   op_val,
-            "arg_val":  arg_val,
-            "opname":   opname,
-            "argval":   str(instr.argval)[:40],
-            "lineno":   lineno,
-            "co_name":  co.co_name,
-        })
-
-    return rows
+    """Return canonical instruction positions in the trained feature vector."""
+    from bytecode_utils import instruction_trace_from_file
+    return [
+        {
+            **row,
+            "op_val": row["opcode"],
+            "arg_val": row["arg_raw"],
+        }
+        for row in instruction_trace_from_file(py_file, target_fn)
+    ]
 
 
 def print_bytecode(rows, filename, highlight_pos=None):
     print(f"\n{'='*75}")
-    print(f"  {filename}  ({len(rows)} instructions, {len(rows)*2} bytes)")
+    print(f"  {filename}  ({len(rows)} instructions, {len(rows)*2} feature positions)")
 
     if highlight_pos is not None:
         match = next((r for r in rows

@@ -14,6 +14,8 @@ DROP_COLUMNS = [
     "file",
     # "file_name",
     "function_name",
+    "python_version",
+    "representation_kind",
     "task",
     "prompt",
     "run",

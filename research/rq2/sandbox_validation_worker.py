@@ -151,6 +151,8 @@ def evaluate(src, meta):
     rows = []
     for category, argument, expected in provided:
         observed = execute(fn, argument)
+        if observed == {"kind": "exception", "type": "CaseTimeout"}:
+            raise CaseTimeout("task_case_timeout")
         rows.append({"case_category": category, "pass": correct(observed, category, expected, meta),
                      "observed": observed})
     return rows, fn
@@ -185,6 +187,9 @@ def main():
             task_matches = all(a["observed"] == b["observed"] for a,b in zip(original_results, edited_results))
             probes = generate_probes(meta)
             differential = [(execute(orig_func, v), execute(edited_fn, v)) for v in probes]
+            if any(a.get("type") == "CaseTimeout" or b.get("type") == "CaseTimeout"
+                   for a,b in differential):
+                raise CaseTimeout("differential_probe_timeout")
             disagreements = sum(a != b for a,b in differential)
             outcome.update({
                 "edit_n_pass": sum(r["pass"] for r in edited_results),

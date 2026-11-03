@@ -85,6 +85,19 @@ class NestedTaskCVTests(unittest.TestCase):
         self.assertIn("macro_f1", result)
         self.assertGreaterEqual(result["accuracy"]["upper_95"], result["accuracy"]["lower_95"])
 
+    def test_paired_bootstrap_self_difference_is_zero(self):
+        frame = pd.DataFrame({
+            "row_id": [0, 1, 2, 3],
+            "task": ["t1", "t1", "t2", "t2"],
+            "truth": ["llama", "mistral", "llama", "mistral"],
+            "prediction": ["llama", "llama", "mistral", "mistral"],
+        })
+        diff = rq1.paired_task_bootstrap(frame, frame, draws=20, seed=42)
+        for result in diff.values():
+            self.assertEqual(result["observed_difference"], 0.0)
+            self.assertEqual(result["lower_95"], 0.0)
+            self.assertEqual(result["upper_95"], 0.0)
+
     def test_nested_cv_writes_oof_predictions_only(self):
         out = self.root / "results"
         args = SimpleNamespace(
@@ -103,6 +116,7 @@ class NestedTaskCVTests(unittest.TestCase):
         self.assertTrue((out / "fold_scores.csv").exists())
         self.assertTrue((out / "task_scores.csv").exists())
         self.assertTrue((out / "results.json").exists())
+        self.assertTrue((out / "paired_comparisons.json").exists())
         self.assertTrue({"positional", "opcode_hist", "control"}.issubset(
             set(all_predictions["representation"])
         ))

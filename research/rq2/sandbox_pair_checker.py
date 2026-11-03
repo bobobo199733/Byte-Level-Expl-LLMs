@@ -5,8 +5,17 @@ import or run it in the analysis host process. Exit nonzero on any mismatch.
 """
 import json
 import sys
-import traceback
 from pathlib import Path
+
+if sys.version_info[:2] != (3, 13):
+    raise SystemExit("Sandbox interpreter MUST be CPython 3.13")
+
+try:
+    import resource
+    resource.setrlimit(resource.RLIMIT_CPU, (8, 9))
+    resource.setrlimit(resource.RLIMIT_AS, (1024 * 1024 * 1024, 1024 * 1024 * 1024))
+except (ImportError, OSError, ValueError) as exc:
+    raise SystemExit(f"Could not install sandbox resource limits: {exc}")
 
 
 def invoke(fn, value):

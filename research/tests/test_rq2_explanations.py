@@ -92,6 +92,24 @@ class AttributionTests(unittest.TestCase):
             rq2.main(args)
             self.assertTrue((args.output_dir / "manifest.json").exists())
             self.assertEqual(len(pd.read_csv(args.output_dir / "source_audit.csv")), 24)
+            # Exercise complete training, inner-CV, attribution and evidence path.
+            from run_nested_cv import load_dataset
+            from run_validation import build_validation_features
+            dataframe, columns = load_dataset(args.train_csv, args.test_csv)
+            representation, audit = build_validation_features(
+                dataframe, columns, root, ("opcode_full",), ngram_buckets=256
+            )
+            X = representation["opcode_full"].to_numpy(dtype=float)
+            prediction, ranks, checks, folds, evidence = rq2.nested_explanations(
+                dataframe, X, root, seeds=[7], outer_folds=2,
+                inner_folds=2, top_k=3, jobs=1, max_examples=1,
+            )
+            self.assertEqual(len(prediction), 24)
+            self.assertEqual(len(checks), 2)
+            self.assertEqual(len(folds), 2)
+            self.assertEqual(len(ranks), 2 * 3 * 3)
+            self.assertLess(checks["max_logit_additivity_error"].max(), 1e-8)
+            self.assertLess(checks["max_feature_replacement_error"].max(), 1e-8)
             with self.assertRaises(FileExistsError):
                 rq2.main(args)
 

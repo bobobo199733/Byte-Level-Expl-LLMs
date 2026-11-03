@@ -1,0 +1,132 @@
+{
+  "method": "linear_interventional_shap_logit",
+  "scale": "logit",
+  "n_seed_evaluations": 3,
+  "n_outer_models": 15,
+  "by_seed": {
+    "7": {
+      "n": 1316,
+      "n_tasks": 50,
+      "accuracy": 0.3981762917933131,
+      "macro_f1": 0.39839909959134423,
+      "confusion_matrix": [
+        [
+          153,
+          177,
+          118
+        ],
+        [
+          143,
+          177,
+          104
+        ],
+        [
+          120,
+          130,
+          194
+        ]
+      ]
+    },
+    "42": {
+      "n": 1316,
+      "n_tasks": 50,
+      "accuracy": 0.418693009118541,
+      "macro_f1": 0.4190257925136995,
+      "confusion_matrix": [
+        [
+          164,
+          188,
+          96
+        ],
+        [
+          118,
+          196,
+          110
+        ],
+        [
+          105,
+          148,
+          191
+        ]
+      ]
+    },
+    "101": {
+      "n": 1316,
+      "n_tasks": 50,
+      "accuracy": 0.40577507598784196,
+      "macro_f1": 0.40537633566200443,
+      "confusion_matrix": [
+        [
+          159,
+          165,
+          124
+        ],
+        [
+          116,
+          186,
+          122
+        ],
+        [
+          128,
+          127,
+          189
+        ]
+      ]
+    }
+  },
+  "max_additivity_error": 3.552713678800501e-14,
+  "max_feature_intervention_error": 4.565792188770956e-15,
+  "per_class_selected_feature_summary": {
+    "llama": {
+      "mean_train_importance": 0.4812365140511781,
+      "mean_frequency_baseline_overlap": 0.20554213588269316,
+      "mean_heldout_positive_fraction": 0.4812170079511183
+    },
+    "mistral": {
+      "mean_train_importance": 0.3513755605761206,
+      "mean_frequency_baseline_overlap": 0.1999140006879945,
+      "mean_heldout_positive_fraction": 0.505149567301073
+    },
+    "qwen": {
+      "mean_train_importance": 0.35052520094890066,
+      "mean_frequency_baseline_overlap": 0.22233115468409584,
+      "mean_heldout_positive_fraction": 0.4962359983083526
+    }
+  },
+  "attribution_rank_stability": [
+    {
+      "class": "llama",
+      "n_models": 15,
+      "k": 10,
+      "mean_pairwise_topk_jaccard": 0.4264529309863233,
+      "min_pairwise_topk_jaccard": 0.05263157894736842,
+      "max_pairwise_topk_jaccard": 1.0,
+      "top_recurrent_features": "[{\"opcode\": 58, \"opname\": \"COMPARE_OP\", \"fold_support\": 12}, {\"opcode\": 40, \"opname\": \"TO_BOOL\", \"fold_support\": 12}, {\"opcode\": 97, \"opname\": \"POP_JUMP_IF_FALSE\", \"fold_support\": 12}, {\"opcode\": 106, \"opname\": \"SET_FUNCTION_ATTRIBUTE\", \"fold_support\": 12}, {\"opcode\": 62, \"opname\": \"COPY_FREE_VARS\", \"fold_support\": 12}, {\"opcode\": 82, \"opname\": \"LOAD_ATTR\", \"fold_support\": 11}, {\"opcode\": 114, \"opname\": \"STORE_NAME\", \"fold_support\": 10}, {\"opcode\": 91, \"opname\": \"LOAD_GLOBAL\", \"fold_support\": 10}, {\"opcode\": 53, \"opname\": \"CALL\", \"fold_support\": 8}, {\"opcode\": 11, \"opname\": \"END_FOR\", \"fold_support\": 7}]"
+    },
+    {
+      "class": "mistral",
+      "n_models": 15,
+      "k": 10,
+      "mean_pairwise_topk_jaccard": 0.2392524351170968,
+      "min_pairwise_topk_jaccard": 0.0,
+      "max_pairwise_topk_jaccard": 0.6666666666666666,
+      "top_recurrent_features": "[{\"opcode\": 91, \"opname\": \"LOAD_GLOBAL\", \"fold_support\": 11}, {\"opcode\": 40, \"opname\": \"TO_BOOL\", \"fold_support\": 9}, {\"opcode\": 19, \"opname\": \"GET_ITER\", \"fold_support\": 9}, {\"opcode\": 115, \"opname\": \"SWAP\", \"fold_support\": 8}, {\"opcode\": 11, \"opname\": \"END_FOR\", \"fold_support\": 7}, {\"opcode\": 85, \"opname\": \"LOAD_FAST\", \"fold_support\": 7}, {\"opcode\": 58, \"opname\": \"COMPARE_OP\", \"fold_support\": 7}, {\"opcode\": 109, \"opname\": \"STORE_DEREF\", \"fold_support\": 7}, {\"opcode\": 97, \"opname\": \"POP_JUMP_IF_FALSE\", \"fold_support\": 7}, {\"opcode\": 79, \"opname\": \"JUMP_FORWARD\", \"fold_support\": 6}]"
+    },
+    {
+      "class": "qwen",
+      "n_models": 15,
+      "k": 10,
+      "mean_pairwise_topk_jaccard": 0.39939195569447666,
+      "min_pairwise_topk_jaccard": 0.1111111111111111,
+      "max_pairwise_topk_jaccard": 0.8181818181818182,
+      "top_recurrent_features": "[{\"opcode\": 91, \"opname\": \"LOAD_GLOBAL\", \"fold_support\": 15}, {\"opcode\": 106, \"opname\": \"SET_FUNCTION_ATTRIBUTE\", \"fold_support\": 14}, {\"opcode\": 53, \"opname\": \"CALL\", \"fold_support\": 14}, {\"opcode\": 62, \"opname\": \"COPY_FREE_VARS\", \"fold_support\": 12}, {\"opcode\": 109, \"opname\": \"STORE_DEREF\", \"fold_support\": 12}, {\"opcode\": 97, \"opname\": \"POP_JUMP_IF_FALSE\", \"fold_support\": 7}, {\"opcode\": 58, \"opname\": \"COMPARE_OP\", \"fold_support\": 7}, {\"opcode\": 26, \"opname\": \"MAKE_FUNCTION\", \"fold_support\": 7}, {\"opcode\": 100, \"opname\": \"POP_JUMP_IF_TRUE\", \"fold_support\": 6}, {\"opcode\": 103, \"opname\": \"RETURN_CONST\", \"fold_support\": 6}]"
+    }
+  ],
+  "cautions": [
+    "SHAP explains the auxiliary code-origin classifier, NOT why an LLM generated code",
+    "Relative opcode features are correlated and constrained to sum to one; independent interventions may leave the feasible input manifold",
+    "Feature-level intervention checks are algebraic/model-based; they are NOT semantics-preserving code interventions",
+    "Repeated task splits reuse the same tasks and are not statistically independent samples",
+    "Importance overlap with raw frequency differences does not prove added explanatory value"
+  ]
+}

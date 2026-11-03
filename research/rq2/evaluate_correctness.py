@@ -38,7 +38,15 @@ def evaluate(args):
             source = source_path(args.research_root, row["file_name"], row["model"], split)
             if not meta.is_file() or not source.is_file():
                 raise FileNotFoundError(f"Missing source/meta {source} {meta}")
-            verdict = run_in_sandbox(args.sandbox_image, source, meta, timeout=args.timeout)
+            spec = json.loads(meta.read_text(encoding="utf-8"))
+            available_cases = sum(len(spec.get(k, [])) for k in (
+                "valid_cases", "explicit_cases", "tests", "invalid_cases"
+            ))
+            verdict = (
+                run_in_sandbox(args.sandbox_image, source, meta, timeout=args.timeout)
+                if available_cases else
+                {"ok": False, "error_type": "no_executable_task_tests"}
+            )
             status = ("pass" if verdict.get("ok") and verdict.get("all_pass")
                       else "fail" if verdict.get("ok") else "untestable")
             item = {
@@ -50,6 +58,8 @@ def evaluate(args):
                 "valid_passed": verdict.get("by_category", {}).get("valid_cases", {}).get("passed"),
                 "explicit_cases": verdict.get("by_category", {}).get("explicit_cases", {}).get("n"),
                 "explicit_passed": verdict.get("by_category", {}).get("explicit_cases", {}).get("passed"),
+                "tests_cases": verdict.get("by_category", {}).get("tests", {}).get("n"),
+                "tests_passed": verdict.get("by_category", {}).get("tests", {}).get("passed"),
                 "invalid_cases": verdict.get("by_category", {}).get("invalid_cases", {}).get("n"),
                 "invalid_passed": verdict.get("by_category", {}).get("invalid_cases", {}).get("passed"),
                 "error_type": verdict.get("error_type", ""),
@@ -81,7 +91,8 @@ def evaluate(args):
         "limitations": [
             "Task-test correctness only; not formal correctness over arbitrary inputs.",
             "Untestable includes sandbox errors and execution timeouts, not presumed incorrect.",
-            "Original metadata includes valid_cases, explicit_cases, invalid_cases.",
+            "Original metadata includes valid_cases, explicit_cases, tests, invalid_cases.",
+            "Tasks lacking executable reference test cases are reported as untestable; no oracle is fabricated.",
             "All 1316 retained files, not discarded generations, are included.",
         ],
     }

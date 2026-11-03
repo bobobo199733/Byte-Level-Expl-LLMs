@@ -10,6 +10,7 @@ import copy
 import io
 import json
 import math
+import os
 import resource
 import signal
 import sys
@@ -157,8 +158,11 @@ def evaluate(src, meta):
 
 def main():
     try:
-        meta = json.loads(Path("/work/meta.json").read_text())
-        original = Path("/work/original.py").read_text()
+        # Test fixtures may override this directory; production Apptainer
+        # uses --cleanenv and the fixed read-only /work mount.
+        work = Path(os.environ.get("RQ2_WORK_ROOT", "/work"))
+        meta = json.loads((work / "meta.json").read_text())
+        original = (work / "original.py").read_text()
         original_results, orig_func = evaluate(original, meta)
         if not original_results:
             raise ValueError("No task tests provided")
@@ -175,7 +179,7 @@ def main():
             },
             "all_pass": all(r["pass"] for r in original_results),
         }
-        edited_file = Path("/work/edited.py")
+        edited_file = work / "edited.py"
         if edited_file.exists():
             edited_results, edited_fn = evaluate(edited_file.read_text(), meta)
             task_matches = all(a["observed"] == b["observed"] for a,b in zip(original_results, edited_results))

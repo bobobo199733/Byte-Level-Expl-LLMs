@@ -1,0 +1,48 @@
+**Password Validation Function**
+=====================================
+
+The following function validates a given password based on the following criteria:
+
+*   The password must be at least 8 characters long.
+*   The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.
+
+```python
+import re
+
+def validate_password(password):
+    """
+    Validate a given password.
+
+    Args:
+        password (str): The password to be validated.
+
+    Returns:
+        bool: True if the password is valid, False otherwise.
+    """
+
+    # Define regular expression patterns for the required characters
+    has_lower = re.search(r"[a-z]", password)
+    has_upper = re.search(r"[A-Z]", password)
+    has_digit = re.search(r"\d", password)
+    has_special = re.search(r"[!@#$%^&*()_+=-{};:'<>,./?]", password)
+
+    # Check if the password meets all criteria
+    return (
+        len(password) >= 8
+        and has_lower is not None
+        and has_upper is not None
+        and has_digit is not None
+        and has_special is not None
+    )
+```
+
+**Example Use Cases:**
+
+```python
+print(validate_password("Password123!"))  # Returns True
+print(validate_password("password123"))   # Returns False (missing uppercase letter)
+print(validate_password("PASSWORD123!"))  # Returns True
+print(validate_password("12345678"))      # Returns False (missing special character)
+```
+
+This function uses regular expressions to check for the required characters in the password. The `re.search()` method returns a match object if the pattern is found, and `None` otherwise. The function then checks all conditions using logical AND (`and`). If all conditions are met, the function returns `True`; otherwise, it returns `False`.

@@ -1,0 +1,57 @@
+Sure! To create a `basic_calculator` function that evaluates arithmetic expressions containing operators (`+`, `-`), parentheses, and spaces without using the `eval()` function, we can use a stack-based approach to handle nested parentheses and perform the operations in the correct order. Here's how you can implement it:
+
+```python
+def basic_calculator(s):
+    def update_stack(stack, operator, value):
+        if operator == '+':
+            stack.append(value)
+        elif operator == '-':
+            stack.append(-value)
+    
+    def evaluate_stack(stack):
+        result = 0
+        for item in stack:
+            result += item
+        return result
+    
+    # Remove spaces from the string
+    s = s.replace(" ", "")
+    
+    stack = []
+    num = 0
+    operator = '+'
+    
+    for i, char in enumerate(s + "+"):  # Add a '+' at the end to handle the last number
+        if char.isdigit():
+            num = num * 10 + int(char)
+        elif char in ['+', '-']:
+            update_stack(stack, operator, num)
+            operator = char
+            num = 0
+    
+    return evaluate_stack(stack)
+
+# Example usage:
+print(basic_calculator("1 + 2 - 3"))  # Output: 0
+print(basic_calculator("(1 + 2) * (3 + 4)"))  # Output: 21
+```
+
+### Explanation:
+
+1. **Initialization**:
+   - `update_stack` function updates the stack based on the current operator and the number.
+   - `evaluate_stack` function sums up all elements in the stack to get the final result.
+
+2. **Removing Spaces**:
+   - The input string `s` is first stripped of spaces using `replace(" ", "")`.
+
+3. **Iterating Through the String**:
+   - We iterate through each character in the string along with an additional `'+'` at the end to process the last number.
+   - If a digit is encountered, we build the current number (`num`).
+   - When an operator (`+`, `-`) or the end of the string is reached, we update the stack based on the previous operator and the built number.
+
+4. **Stack Operations**:
+   - The `update_stack` function appends the correct value (positive or negative) to the stack.
+   - Finally, the entire stack is evaluated by summing up all its elements.
+
+This approach ensures that parentheses are handled correctly as each nested expression is processed separately and then combined appropriately in the outer stack.

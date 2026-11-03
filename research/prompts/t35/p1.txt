@@ -1,0 +1,6 @@
+Write exactly ONE Python function called json_validator(text) that checks whether a string contains valid JSON.
+
+Requirements:
+- Use only one function named json_validator.
+- Return True for valid JSON and False otherwise.
+- Do not use external libraries.

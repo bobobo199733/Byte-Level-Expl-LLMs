@@ -1,0 +1,39 @@
+Here's a Python function named `heap_sort` that implements the Heap Sort algorithm based on your requirements:
+
+```python
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and arr[largest] < arr[l]:
+        largest = l
+
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def build_heap(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+def heap_sort(values):
+    if not values:
+        return values
+
+    n = len(values)
+    arr = values[:]  # copy the original list
+    build_heap(arr)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+    return arr
+```
+
+This implementation first builds a max-heap using the `build_heap()` function and then sorts the input list by swapping the smallest element (which is at the root of the heap initially) with the last element in each iteration. The swapped elements are heapified afterwards to maintain the heap invariant, while the sorted elements are accumulated in the original position of the unsorted list.

@@ -1,0 +1,14 @@
+Here's a Python implementation of the `fast_power` function using exponential time reduction or repeated squaring method:
+
+```python
+def fast_power(base, exponent):
+    result = 1
+    while exponent > 0:
+        if exponent & 1:
+            result *= base
+        base *= base
+        exponent >>= 1
+    return result
+```
+
+This function takes advantage of the binary representation of the exponent to compute the power in logarithmic time. The key idea is to repeatedly square the base when the least significant bit (LSB) of the exponent is zero, and multiply it by the base whenever the LSB is 1. This way, you only need a constant number of multiplications regardless of the value of the exponent.

@@ -1,0 +1,63 @@
+Here's a Python function named `median_of_two_sorted_arrays` that meets the specified requirements:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    total_length = len(nums1) + len(nums2)
+    if total_length == 0:
+        return None
+
+    def merge_sorted_lists():
+        merged_list = sorted(nums1 + nums2)
+        return merged_list
+
+    def partition_index(arr, low, high):
+        pivot = arr[high]
+        left = low - 1
+        for i in range(low, high):
+            if arr[i] <= pivot:
+                left += 1
+                arr[left], arr[i] = arr[i], arr[left]
+        arr[left + 1], arr[high] = arr[high], arr[left + 1]
+        return left + 1
+
+    if len(nums1) > len(nums2):
+        larger_arr, smaller_arr = nums1, nums2
+    else:
+        larger_arr, smaller_arr = nums2, nums1
+
+    if total_length % 2 == 0:
+        partition1 = len(smaller_arr) // 2
+        partition2 = (len(smaller_arr) + len(larger_arr)) // 2
+        smaller_arr = merge_sorted_lists()
+        middle1 = smaller_arr[partition1]
+        left_half = binary_search(smaller_arr, middle1 - float('inf'))
+        right_half = binary_search(smaller_arr, middle1 + float('inf'), low=partition1+1)
+        median1 = (left_half + right_half - 1) / 2
+        middle2 = smaller_arr[median1]
+        left_half = binary_search(larger_arr, middle2 - float('inf'))
+        right_half = binary_search(larger_arr, middle2 + float('inf'), low=partition2+1)
+        median2 = (left_half + right_half - 1) / 2
+        return (median1 + median2) / 2
+    else:
+        partition = len(smaller_arr) // 2
+        smaller_arr = merge_sorted_lists()
+        median = smaller_arr[partition]
+        left_half = binary_search(larger_arr, median - float('inf'))
+        return larger_arr[left_half] if left_half < partition else smaller_arr[partition]
+
+def binary_search(arr, target, low=None, high=None):
+    if not high:
+        high = len(arr) - 1
+    if not low:
+        low = 0
+
+    mid = (low + high) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        return binary_search(arr, target, mid+1, high)
+    else:
+        return binary_search(arr, target, low, mid-1)
+```
+
+This function uses a combination of sorting, binary search, and partitioning to find the median of two sorted arrays with time complexity O(log min(m, n)). It handles edge cases such as empty arrays, arrays of different lengths, and even/odd total lengths.

@@ -1,0 +1,14 @@
+Due to the nature of your request, it's important to clarify that parsing and validating JSON without an external library in Python can be quite complex and error-prone. However, I will provide a simplified example that checks if a string is a valid JSON object. This code does not ensure all JSON rules are followed strictly but should give you a starting point.
+
+```python
+def json_validator(text):
+    try:
+        json.loads(text)
+        return True
+    except ValueError:
+        return False
+```
+
+This function uses Python's built-in `json` module to attempt parsing the input string as JSON. If successful, it returns `True`, meaning the input is valid JSON. If a `ValueError` exception is raised during parsing (indicating that the input is not a valid JSON object), the function returns `False`.
+
+Keep in mind that this approach doesn't validate array elements, nested objects, or other more complex structures. For a comprehensive JSON validation solution, consider using libraries such as `jsonschema`, `pydantic` or `marshmallow` which provide more robust and flexible features for validating JSON data against specific schemas.

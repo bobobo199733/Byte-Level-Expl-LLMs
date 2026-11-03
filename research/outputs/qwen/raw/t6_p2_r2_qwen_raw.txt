@@ -1,0 +1,50 @@
+Certainly! To implement the `wildcard_match` function, we can use dynamic programming to keep track of which parts of the strings match. The idea is to use a 2D DP table (`dp`) where `dp[i][j]` indicates whether the first `i` characters of the string `s` match the first `j` characters of the pattern `p`.
+
+Here's how you can implement it:
+
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    # Lengths of the input strings
+    m = len(s)
+    n = len(p)
+
+    # DP table to store results of subproblems
+    dp = [[False] * (n + 1) for _ in range(m + 1)]
+
+    # Empty pattern matches empty string
+    dp[0][0] = True
+
+    # Fill the DP table for patterns with '*' at the beginning
+    for j in range(1, n + 1):
+        if p[j - 1] == '*':
+            dp[0][j] = dp[0][j - 1]
+
+    # Fill the rest of the DP table
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if p[j - 1] == '?' or s[i - 1] == p[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            elif p[j - 1] == '*':
+                dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+
+    return dp[m][n]
+
+# Example usage:
+print(wildcard_match("abcde", "a*d"))  # True
+print(wildcard_match("abece", "*a?e*"))  # True
+print(wildcard_match("abcd", "*c**"))  # True
+print(wildcard_match("hello", "?ell?"))  # True
+print(wildcard_match("hello", "he*o"))  # True
+print(wildcard_match("hello", "he***"))  # True
+```
+
+### Explanation:
+- **Base Case**: `dp[0][0]` is `True` because an empty pattern matches an empty string.
+- **Initial Filling for Patterns with '*' at the Start**: If the pattern starts with '*', it can match zero or more characters, so `dp[0][j]` is set to `dp[0][j - 1]`.
+- **Filling the DP Table**:
+  - If the current character in the pattern (`p[j-1]`) matches the current character in the string (`s[i-1]`), or if `p[j-1]` is '?', then `dp[i][j] = dp[i-1][j-1]`.
+  - If `p[j-1]` is '*', it can match zero or more characters. Therefore, we take the OR of two possibilities:
+    - Matching zero characters: `dp[i][j] = dp[i][j-1]`
+    - Matching one or more characters: `dp[i][j] = dp[i-1][j]`
+
+This approach ensures that all possible matches are considered, and it runs in O(m * n) time complexity where `m` is the length of the string and `n` is the length of the pattern.

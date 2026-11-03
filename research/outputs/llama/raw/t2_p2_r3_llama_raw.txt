@@ -1,0 +1,55 @@
+Here's a Python solution that checks if the brackets in a string are balanced.
+
+```python
+def is_balanced(s: str) -> bool:
+    """
+    Checks whether brackets are balanced and correctly nested.
+    
+    Args:
+        s (str): Input string containing various types of brackets.
+    
+    Returns:
+        bool: True if the brackets in the input string are balanced, False otherwise.
+    """
+
+    # Create a dictionary to store the corresponding closing bracket for each opening bracket
+    bracket_pairs = {')': '(', '}': '{', ']': '['}
+
+    # Initialize an empty stack
+    stack = []
+
+    # Iterate over each character in the input string
+    for char in s:
+        # If the current character is an opening bracket, push it onto the stack
+        if char in bracket_pairs.values():
+            stack.append(char)
+        # If the current character is a closing bracket and the stack is not empty
+        elif char in bracket_pairs.keys() and stack:
+            # Get the top of the stack (which should be the corresponding opening bracket)
+            opening_bracket = stack.pop()
+            # If the opening bracket does not match the current closing bracket, return False
+            if opening_bracket != bracket_pairs[char]:
+                return False
+
+    # After iterating over all characters in the input string, check if the stack is empty
+    # If it's not empty, there are unmatched opening brackets and the function should return False
+    return not stack
+```
+
+Here's an explanation of how this solution works:
+
+1.  We create a dictionary `bracket_pairs` that maps closing brackets to their corresponding opening brackets.
+2.  We initialize an empty stack to store opening brackets.
+3.  As we iterate over the input string, we check each character:
+    *   If it's an opening bracket (`in bracket_pairs.values()`), we push it onto the stack.
+    *   If it's a closing bracket (`in bracket_pairs.keys()`) and the stack is not empty (`stack`), we pop the top of the stack (which should be the corresponding opening bracket). We then check if the popped opening bracket matches the current closing bracket. If they don't match, we return False.
+4.  After iterating over all characters in the input string, we check if the stack is empty. If it's not empty, there are unmatched opening brackets and the function returns False.
+
+You can test this solution using the following examples:
+
+```python
+print(is_balanced("({[]})"))  # Returns: True
+print(is_balanced("(}{)"))    # Returns: False
+print(is_balanced("[()]"))     # Returns: True
+print(is_balanced("({[})")     # Returns: False
+```

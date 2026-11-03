@@ -1,0 +1,9 @@
+{
+  "function_name": "knapsack_01",
+  "description": "Solve the 0/1 knapsack optimization problem.",
+  "category": "dynamic_programming",
+  "subtype": "optimization",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

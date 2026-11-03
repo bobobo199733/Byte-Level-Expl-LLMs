@@ -1,0 +1,7 @@
+Write exactly ONE Python function called n_queens(n) that returns all valid solutions to the N-Queens problem.
+
+Requirements:
+- Use only one function named n_queens.
+- Return all valid board configurations.
+- Do not use external libraries.
+- Handle small and large values of n correctly.

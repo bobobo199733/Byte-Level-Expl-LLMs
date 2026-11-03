@@ -1,0 +1,22 @@
+{
+  "task_id": "t4",
+  "function_name": "decode_string",
+  "valid_cases": [
+    ["3[a]", "aaa"],
+    ["2[ab]", "abab"],
+    ["3[a2[c]]", "accaccacc"],
+    ["2[a2[b3[c]]]", "abcccabccc"],
+    ["10[x]", "xxxxxxxxxx"],
+    ["1[a]", "a"]
+  ],
+  "invalid_cases": [
+    "",
+    "3[a",
+    "a]",
+    "2[3[a]]",
+    "abc]",
+    "[abc]",
+    "3[]"
+  ],
+  "expected_exception": "ValueError"
+}

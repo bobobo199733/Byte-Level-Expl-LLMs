@@ -1,0 +1,39 @@
+To implement the topological sort algorithm in Python, we can use Depth-First Search (DFS). Here's a possible implementation:
+
+```python
+def topological_sort(graph):
+    visited = set()
+    stack = []
+    for node in graph:
+        if node not in visited:
+            dfs(node, graph, visited, stack)
+
+    return list(reversed(stack))
+
+def dfs(node, graph, visited, stack):
+    visited.add(node)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(neighbor, graph, visited, stack)
+    stack.append(node)
+```
+
+In this code snippet, the `topological_sort` function initializes an empty list (`stack`) and iterates over all nodes in the given graph. For each unvisited node, it calls the helper function `dfs`. The `dfs` function marks the current node as visited, then recursively visits all its neighbors that haven't been visited yet. Once it finishes visiting a node (and its neighboring nodes), it appends the node to the stack in the correct order for topological sorting.
+
+The final output is obtained by reversing the `stack` list and returning it as a valid topological ordering of the input graph.
+
+Here's an example usage:
+
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+topological_sort(graph)
+# Output: ['D', 'E', 'A', 'B', 'C', 'F']
+```

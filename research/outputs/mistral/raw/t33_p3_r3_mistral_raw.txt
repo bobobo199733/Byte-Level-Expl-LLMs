@@ -1,0 +1,39 @@
+Here's an implementation of the HeapSort algorithm in Python:
+
+```python
+def build_max_heap(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and arr[i] < arr[l]:
+        largest = l
+
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        build_max_heap(arr, n, largest)
+
+def heapify(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        build_max_heap(arr, n, i)
+
+def heap_sort(values):
+    if not values:
+        return
+
+    heapify(values)
+
+    for i in range(len(values) - 1, 0, -1):
+        arr = values[:i]
+        last = values[i]
+        arr[0], last = last, arr[0]
+        build_max_heap(arr, i, 0)
+
+    return values
+```
+
+This implementation includes three functions: `build_max_heap`, `heapify`, and `heap_sort`. The main function is `heap_sort`, which first calls the `heapify` function to build a max-heap structure, then sorts the list by repeatedly swapping the largest element with the last element of the unsorted part and rebuilding the heap.

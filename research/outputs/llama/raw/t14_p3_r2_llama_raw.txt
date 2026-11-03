@@ -1,0 +1,41 @@
+Here is a Python solution to the problem using backtracking:
+
+```python
+def generate_parentheses(n):
+    """
+    Returns all valid parentheses combinations for a given number of pairs.
+
+    :param n: The number of pairs of parentheses.
+    :type n: int
+    :return: A list of strings, where each string is a valid combination of parentheses.
+    :rtype: list[str]
+    """
+    def backtrack(open_count, close_count, current_combination):
+        # If the current combination has the correct length, add it to the result
+        if len(current_combination) == 2 * n:
+            result.append("".join(current_combination))
+            return
+
+        # Add an open parenthesis if possible and backtrack
+        if open_count < n:
+            current_combination.append("(")
+            backtrack(open_count + 1, close_count, current_combination)
+            current_combination.pop()
+
+        # Add a close parenthesis if possible and backtrack
+        if close_count < open_count:
+            current_combination.append(")")
+            backtrack(open_count, close_count + 1, current_combination)
+            current_combination.pop()
+
+    result = []
+    backtrack(0, 0, [])
+    return result
+
+# Example usage:
+print(generate_parentheses(3))
+```
+
+This function uses a helper function called `backtrack` to recursively generate all valid combinations of parentheses. It keeps track of the number of open and close parentheses in each combination using two counters (`open_count` and `close_count`). The function adds an open parenthesis if there are fewer than `n` pairs so far, and a close parenthesis otherwise, as long as it does not create an unbalanced combination.
+
+The time complexity is O(4^n / n^(3/2)) due to the Catalan numbers (https://en.wikipedia.org/wiki/Catalan_number). The space complexity is O(n) for storing the current combination.

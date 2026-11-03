@@ -1,0 +1,66 @@
+Certainly! Below is the implementation of a Python function `text_justification` that takes a list of words and a maximum line width (`max_width`) as input, and returns a list of fully justified strings according to the specified rules.
+
+```python
+def text_justification(words, max_width):
+    def justify_line(line_words, length, is_last=False):
+        if len(line_words) == 1:
+            return ' '.join(line_words).ljust(max_width)
+        
+        num_gaps = len(line_words) - 1
+        spaces_per_gap = (max_width - length) // num_gaps
+        
+        extra_spaces = (max_width - length) % num_gaps
+        
+        justified_line = []
+        for i, word in enumerate(line_words):
+            gap = ' ' * spaces_per_gap if i < extra_spaces else ' ' * (spaces_per_gap + 1)
+            justified_line.append(word + gap)
+        
+        return ''.join(justified_line).lstrip()
+    
+    result = []
+    current_line = []
+    total_length = 0
+    
+    for word in words:
+        # Check if adding the next word would exceed max_width
+        if total_length + len(word) + len(current_line) > max_width:
+            result.append(justify_line(current_line, total_length))
+            current_line = [word]
+            total_length = len(word)
+        else:
+            current_line.append(word)
+            total_length += len(word)
+    
+    # Handle the last line
+    result.append(' '.join(current_line).ljust(max_width))
+    
+    return result
+
+# Example usage
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width = 16
+print(text_justification(words, max_width))
+```
+
+### Explanation:
+
+1. **Function `justify_line`**: This helper function justifies a line of words to the specified `max_width`. It handles different cases:
+   - If there is only one word in the line, it simply left-justifies and pads with spaces.
+   - For lines with multiple words, it calculates the number of gaps between words and distributes extra spaces as needed.
+
+2. **Main Function Logic**:
+   - We initialize an empty list `result` to store the justified lines.
+   - `current_line` keeps track of the current line being constructed.
+   - `total_length` keeps track of the total length of the current line so far (excluding gaps).
+   
+3. **Iterate Through Words**: 
+   - For each word, we check if adding it would exceed `max_width`. If not, we add it to `current_line`.
+   - When a line exceeds or reaches `max_width`, we call `justify_line` and append the justified line to `result`.
+
+4. **Last Line Handling**:
+   - After processing all words, handle the last line by left-justifying it with spaces.
+
+5. **Return Result**: The function returns the list of fully justified strings.
+
+This implementation ensures that each line is exactly `max_width` characters wide and handles edge cases appropriately, especially for the last line.

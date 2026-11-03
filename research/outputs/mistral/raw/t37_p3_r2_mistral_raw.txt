@@ -1,0 +1,26 @@
+To solve this problem, we can use the Floyd's cycle-finding algorithm (also known as the "tortoise and hare" algorithm). Here's the implementation of the `linked_list_cycle` function in Python:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head or not head.next:
+        return False
+
+    slow, fast = head, head.next
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+
+    return False
+```
+
+In the above code, we first define a `ListNode` class to represent linked list nodes. Then, we implement the `linked_list_cycle` function that takes the head of the linked list as input. Inside the function, we initiate two pointers named 'slow' and 'fast', both pointing to the head node. The 'fast' pointer moves 2 steps at a time (next.next), while the 'slow' pointer moves one step at a time (next).
+
+If there is a cycle in the linked list, then eventually slow and fast pointers will meet somewhere within the cycle. If they ever encounter each other during their traversal, we return `True`. Otherwise, if we reach the end of the linked list or the 'fast' pointer reaches None, we return `False`, indicating that there is no cycle in the linked list.

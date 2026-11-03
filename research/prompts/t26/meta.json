@@ -1,0 +1,14 @@
+{
+  "task_id": "t26",
+  "function_name": "min_window_substring",
+  "valid_cases": [
+    [["ADOBECODEBANC", "ABC"], "BANC"],
+    [["a", "a"], "a"],
+    [["a", "aa"], ""],
+    [["ab", "b"], "b"],
+    [["aaab", "ab"], "ab"],
+    [["this is a test string", "tist"], "t stri"]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

@@ -1,0 +1,44 @@
+Certainly! Below is a Python function `spiral_matrix` that takes a 2D matrix as input and returns the elements in spiral order.
+
+```python
+def spiral_matrix(matrix):
+    result = []  # To store the elements in spiral order
+    
+    while matrix:
+        # Take the first row (left to right)
+        if matrix:
+            result.extend(matrix.pop(0))
+        
+        # Take the last column (top to bottom) if there are any columns left
+        if matrix and matrix[0]:
+            for row in matrix:
+                result.append(row.pop())
+        
+        # Take the last row (right to left) if there are any rows left
+        if matrix:
+            result.extend(matrix.pop()[::-1])
+        
+        # Take the first column (bottom to top) if there are any columns left
+        if matrix and matrix[0]:
+            for row in reversed(matrix):
+                result.append(row.pop(0))
+    
+    return result
+
+# Example usage:
+matrix = [
+    [ 1, 2, 3 ],
+    [ 4, 5, 6 ],
+    [ 7, 8, 9 ]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+### Explanation:
+- **First Iteration**: Take the first row (left to right) and remove it from the matrix.
+- **Second Iteration**: Take the last column (top to bottom).
+- **Third Iteration**: Take the last row (right to left), reversed because we want the order from top to bottom, then reverse it back.
+- **Fourth Iteration**: Take the first column (bottom to top) and remove it from the matrix.
+
+The process repeats until there are no more elements in the matrix. This function ensures that all elements of the 2D matrix are processed in spiral order.

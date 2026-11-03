@@ -1,0 +1,22 @@
+Here's a Python function named `coin_change` that follows the given requirements:
+
+```python
+def coin_change(coins, amount):
+    if not coins or amount < 1:
+        return -1
+
+    dp = [0] + [float('inf')] * amount  # initialize with infinite for all indices
+    dp[0] = 0  # base case: no coin is needed to make 0
+
+    for c in coins:
+        for i in range(c, amount + 1):
+            dp[i] = min(dp[i], dp[i - c] + 1)
+
+    return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+This function uses dynamic programming to solve the coin change problem. It initializes an array `dp` where `dp[i]` stores the minimum number of coins required to make `i`. The base case is when `i` equals 0, in which case no coin is needed (`dp[0] = 0`).
+
+For each coin value, the function iterates through the possible amounts and updates `dp[i]` by choosing either taking the current coin or not. In this way, it finds the optimal solution for all possible amounts. If the target amount cannot be formed (`dp[amount] == float('inf')`), the function returns -1.
+
+This algorithm has a time complexity of O(n * amount) where n is the number of distinct coin values in the input list, which makes it efficient for larger amounts.

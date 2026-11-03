@@ -1,0 +1,231 @@
+file,true_model,prompt,run,byte_pos,byte_role,raw_value,opname,arg,argval,code_name
+t42_p1_r1_llama.py,llama,p1,r1,13,arg,2,LOAD_GLOBAL,2.0,list,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,16,opcode,109,STORE_DEREF,5.0,graph,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,18,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,25,arg,2,UNPACK_SEQUENCE,2.0,2,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,28,opcode,84,LOAD_DEREF,5.0,graph,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,31,arg,3,LOAD_FAST,3.0,prerequisite,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,32,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,54,opcode,91,LOAD_GLOBAL,7.0,set,course_schedule
+t42_p1_r1_llama.py,llama,p1,r1,58,opcode,109,STORE_DEREF,6.0,recursion_stack,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,13,arg,0,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,16,opcode,19,GET_ITER,,None,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,18,opcode,86,LOAD_FAST_AND_CLEAR,3.0,i,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,25,arg,2,SWAP,2.0,2,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,28,opcode,72,FOR_ITER,5.0,78,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,31,arg,51,STORE_FAST_LOAD_FAST,51.0,"('i', 'i')",course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,32,opcode,83,LOAD_CONST,1.0,0,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,54,opcode,85,LOAD_FAST,5.0,prerequisite,course_schedule
+t42_p1_r2_llama.py,llama,p1,r2,58,opcode,112,STORE_FAST_STORE_FAST,103.0,"('a', 'b')",course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,13,arg,5,LOAD_GLOBAL,5.0,range,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,16,opcode,53,CALL,1.0,1,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,18,opcode,19,GET_ITER,,None,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,25,arg,0,BUILD_MAP,0.0,0,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,28,opcode,19,GET_ITER,,None,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,31,arg,5,FOR_ITER,5.0,80,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,32,opcode,111,STORE_FAST_LOAD_FAST,51.0,"('i', 'i')",course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,54,opcode,72,FOR_ITER,37.0,172,course_schedule
+t42_p1_r3_llama.py,llama,p1,r3,58,opcode,112,STORE_FAST_STORE_FAST,69.0,"('a', 'b')",course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,13,arg,18,COMPARE_OP,18.0,<,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,14,opcode,97,POP_JUMP_IF_FALSE,11.0,42,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,16,opcode,91,LOAD_GLOBAL,1.0,ValueError,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,18,opcode,83,LOAD_CONST,2.0,Number of courses cannot be negative,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,25,arg,3,LOAD_GLOBAL,3.0,range,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,28,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,31,arg,0,GET_ITER,,None,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,32,opcode,86,LOAD_FAST_AND_CLEAR,2.0,_,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,54,opcode,32,POP_TOP,,None,course_schedule
+t42_p2_r1_llama.py,llama,p2,r1,58,opcode,110,STORE_FAST,2.0,_,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,13,arg,1,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,16,opcode,83,LOAD_CONST,1.0,0,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,18,opcode,58,COMPARE_OP,18.0,<,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,25,arg,2,LOAD_CONST,2.0,Invalid input,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,28,opcode,101,RAISE_VARARGS,1.0,1,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,31,arg,5,LOAD_GLOBAL,5.0,range,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,32,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,54,opcode,80,LIST_APPEND,2.0,2,course_schedule
+t42_p2_r2_llama.py,llama,p2,r2,58,opcode,11,END_FOR,,None,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,13,arg,58,COMPARE_OP,58.0,<=,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,14,opcode,100,POP_JUMP_IF_TRUE,21.0,62,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,16,opcode,91,LOAD_GLOBAL,1.0,isinstance,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,18,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,25,arg,0,TO_BOOL,,None,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,28,opcode,91,LOAD_GLOBAL,5.0,ValueError,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,31,arg,2,LOAD_CONST,2.0,num_courses must be a positive integer,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,32,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,54,opcode,40,TO_BOOL,,None,course_schedule
+t42_p2_r3_llama.py,llama,p2,r3,58,opcode,91,LOAD_GLOBAL,5.0,ValueError,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,13,arg,0,CALL,0.0,0,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,14,opcode,110,STORE_FAST,3.0,visited,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,16,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,18,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,25,arg,69,STORE_FAST_STORE_FAST,69.0,"('course', 'prereq')",course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,28,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,31,arg,7,LOAD_ATTR,7.0,append,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,32,opcode,85,LOAD_FAST,4.0,course,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,54,opcode,53,CALL,2.0,2,course_schedule
+t42_p3_r1_llama.py,llama,p3,r1,58,opcode,72,FOR_ITER,38.0,222,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,13,arg,5,LOAD_GLOBAL,5.0,range,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,16,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,18,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,25,arg,0,BUILD_MAP,0.0,0,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,28,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,31,arg,5,FOR_ITER,5.0,80,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,32,opcode,111,STORE_FAST_LOAD_FAST,51.0,"('i', 'i')",course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,54,opcode,72,FOR_ITER,37.0,172,course_schedule
+t42_p3_r2_llama.py,llama,p3,r2,58,opcode,112,STORE_FAST_STORE_FAST,69.0,"('course', 'prereq')",course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,13,arg,5,LOAD_GLOBAL,5.0,range,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,16,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,18,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,25,arg,0,BUILD_MAP,0.0,0,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,28,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,31,arg,5,FOR_ITER,5.0,80,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,32,opcode,111,STORE_FAST_LOAD_FAST,51.0,"('i', 'i')",course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,54,opcode,72,FOR_ITER,37.0,172,course_schedule
+t42_p3_r3_llama.py,llama,p3,r3,58,opcode,112,STORE_FAST_STORE_FAST,69.0,"('u', 'v')",course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,13,arg,1,BUILD_LIST,1.0,1,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,16,opcode,45,BINARY_OP,5.0,5,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,18,opcode,110,STORE_FAST,3.0,indegree,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,25,arg,36,FOR_ITER,36.0,124,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,28,opcode,112,STORE_FAST_STORE_FAST,69.0,"('a', 'b')",course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,31,arg,37,LOAD_FAST_LOAD_FAST,37.0,"('graph', 'b')",course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,32,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,54,opcode,115,SWAP,3.0,3,course_schedule
+t42_p1_r1_mistral.py,mistral,p1,r1,58,opcode,39,STORE_SUBSCR,,None,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,13,arg,2,STORE_FAST,2.0,graph,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,14,opcode,83,LOAD_CONST,1.0,0,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,16,opcode,47,BUILD_LIST,1.0,1,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,18,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,25,arg,1,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,28,opcode,72,FOR_ITER,36.0,146,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,31,arg,2,UNPACK_SEQUENCE,2.0,2,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,32,opcode,112,STORE_FAST_STORE_FAST,69.0,"('course', 'prerequisite')",course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,54,opcode,83,LOAD_CONST,2.0,1,course_schedule
+t42_p1_r3_mistral.py,mistral,p1,r3,58,opcode,115,SWAP,3.0,3,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,13,arg,0,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,16,opcode,91,LOAD_GLOBAL,2.0,int,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,18,opcode,91,LOAD_GLOBAL,4.0,float,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,25,arg,11,POP_JUMP_IF_FALSE,11.0,86,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,28,opcode,83,LOAD_CONST,2.0,Invalid number of courses,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,31,arg,1,CALL,1.0,1,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,32,opcode,101,RAISE_VARARGS,1.0,1,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,54,opcode,91,LOAD_GLOBAL,10.0,collections,course_schedule
+t42_p2_r1_mistral.py,mistral,p2,r1,58,opcode,34,PUSH_NULL,,None,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,13,arg,0,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,16,opcode,91,LOAD_GLOBAL,2.0,int,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,18,opcode,91,LOAD_GLOBAL,4.0,float,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,25,arg,11,POP_JUMP_IF_FALSE,11.0,86,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,28,opcode,83,LOAD_CONST,2.0,Invalid number of courses,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,31,arg,1,CALL,1.0,1,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,32,opcode,101,RAISE_VARARGS,1.0,1,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,54,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r2_mistral.py,mistral,p2,r2,58,opcode,91,LOAD_GLOBAL,12.0,collections,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,13,arg,2,STORE_FAST,2.0,graph,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,14,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,16,opcode,19,GET_ITER,,None,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,18,opcode,72,FOR_ITER,28.0,118,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,25,arg,1,LOAD_CONST,1.0,1,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,28,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,31,arg,7,LOAD_ATTR,7.0,append,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,32,opcode,85,LOAD_FAST,3.0,pair,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,54,opcode,40,TO_BOOL,,None,course_schedule
+t42_p2_r3_mistral.py,mistral,p2,r3,58,opcode,91,LOAD_GLOBAL,11.0,ValueError,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,13,arg,2,LOAD_FAST,2.0,graph,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,14,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,16,opcode,110,STORE_FAST,3.0,ordered_courses,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,18,opcode,85,LOAD_FAST,3.0,ordered_courses,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,25,arg,5,LOAD_GLOBAL,5.0,len,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,28,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,31,arg,0,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,32,opcode,58,COMPARE_OP,18.0,<,course_schedule
+t42_p3_r1_mistral.py,mistral,p3,r1,54,opcode,72,FOR_ITER,26.0,92,build_graph
+t42_p3_r1_mistral.py,mistral,p3,r1,58,opcode,85,LOAD_FAST,3.0,edge,build_graph
+t42_p3_r2_mistral.py,mistral,p3,r2,13,arg,1,BUILD_LIST,1.0,1,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,16,opcode,45,BINARY_OP,5.0,5,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,18,opcode,110,STORE_FAST,3.0,indegrees,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,25,arg,43,FOR_ITER,43.0,138,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,28,opcode,88,LOAD_FAST_LOAD_FAST,36.0,"('graph', 'prerequisite')",course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,31,arg,2,LOAD_CONST,2.0,1,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,32,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,54,opcode,61,COPY,2.0,2,course_schedule
+t42_p3_r2_mistral.py,mistral,p3,r2,58,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,13,arg,1,CALL,1.0,1,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,14,opcode,19,GET_ITER,,None,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,16,opcode,86,LOAD_FAST_AND_CLEAR,2.0,_,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,18,opcode,115,SWAP,2.0,2,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,25,arg,0,GET_ITER,,None,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,28,opcode,110,STORE_FAST,2.0,_,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,31,arg,0,BUILD_LIST,0.0,0,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,32,opcode,80,LIST_APPEND,2.0,2,course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,54,opcode,112,STORE_FAST_STORE_FAST,52.0,"('course', 'prereq')",course_schedule
+t42_p1_r3_qwen.py,qwen,p1,r3,58,opcode,85,LOAD_FAST,4.0,prereq,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,13,arg,2,LOAD_GLOBAL,2.0,int,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,14,opcode,53,CALL,2.0,2,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,16,opcode,40,TO_BOOL,,None,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,18,opcode,97,POP_JUMP_IF_FALSE,21.0,92,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,25,arg,4,LOAD_GLOBAL,4.0,list,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,28,opcode,40,TO_BOOL,,None,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,31,arg,11,POP_JUMP_IF_TRUE,11.0,114,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,32,opcode,91,LOAD_GLOBAL,7.0,ValueError,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,54,opcode,53,CALL,1.0,1,course_schedule
+t42_p2_r1_qwen.py,qwen,p2,r1,58,opcode,86,LOAD_FAST_AND_CLEAR,2.0,_,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,13,arg,21,POP_JUMP_IF_FALSE,21.0,86,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,14,opcode,91,LOAD_GLOBAL,1.0,isinstance,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,16,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,18,opcode,91,LOAD_GLOBAL,4.0,list,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,25,arg,11,POP_JUMP_IF_TRUE,11.0,108,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,28,opcode,83,LOAD_CONST,1.0,Invalid input types,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,31,arg,1,CALL,1.0,1,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,32,opcode,101,RAISE_VARARGS,1.0,1,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,54,opcode,115,SWAP,2.0,2,course_schedule
+t42_p2_r2_qwen.py,qwen,p2,r2,58,opcode,115,SWAP,2.0,2,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,13,arg,23,POP_JUMP_IF_FALSE,23.0,90,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,14,opcode,91,LOAD_GLOBAL,5.0,all,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,16,opcode,83,LOAD_CONST,1.0,"<code object <genexpr> at 0x117c64030, file ""/Users/valentyngnativ/Dev/uva/thesis/research/test_data/outputs/qwen/cleaned/t42_p2_r3_qwen.py"", line 2>",course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,18,opcode,26,MAKE_FUNCTION,,None,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,25,arg,0,CALL,0.0,0,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,28,opcode,40,TO_BOOL,,None,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,31,arg,11,POP_JUMP_IF_TRUE,11.0,112,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,32,opcode,91,LOAD_GLOBAL,7.0,ValueError,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,54,opcode,115,SWAP,2.0,2,course_schedule
+t42_p2_r3_qwen.py,qwen,p2,r3,58,opcode,72,FOR_ITER,5.0,158,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,13,arg,1,CALL,1.0,1,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,14,opcode,109,STORE_DEREF,4.0,graph,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,16,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,18,opcode,19,GET_ITER,,None,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,25,arg,35,STORE_FAST_STORE_FAST,35.0,"('course', 'prereq')",course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,28,opcode,85,LOAD_FAST,3.0,prereq,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,31,arg,0,BINARY_SUBSCR,,None,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,32,opcode,82,LOAD_ATTR,5.0,append,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,54,opcode,109,STORE_DEREF,6.0,visiting_status,course_schedule
+t42_p3_r1_qwen.py,qwen,p3,r1,58,opcode,85,LOAD_FAST,5.0,is_cyclic,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,13,arg,2,LOAD_CONST,2.0,"('defaultdict',)",course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,14,opcode,75,IMPORT_NAME,0.0,collections,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,16,opcode,74,IMPORT_FROM,1.0,defaultdict,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,18,opcode,110,STORE_FAST,2.0,defaultdict,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,25,arg,0,PUSH_NULL,,None,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,28,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,31,arg,5,STORE_DEREF,5.0,adj_list,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,32,opcode,85,LOAD_FAST,1.0,prerequisites,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,54,opcode,83,LOAD_CONST,3.0,1,course_schedule
+t42_p3_r2_qwen.py,qwen,p3,r2,58,opcode,53,CALL,1.0,1,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,13,arg,1,BUILD_LIST,1.0,1,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,14,opcode,85,LOAD_FAST,0.0,num_courses,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,16,opcode,45,BINARY_OP,5.0,5,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,18,opcode,110,STORE_FAST,3.0,in_degree,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,25,arg,36,FOR_ITER,36.0,124,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,28,opcode,112,STORE_FAST_STORE_FAST,69.0,"('course', 'prereq')",course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,31,arg,37,LOAD_FAST_LOAD_FAST,37.0,"('graph', 'prereq')",course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,32,opcode,5,BINARY_SUBSCR,,None,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,54,opcode,115,SWAP,3.0,3,course_schedule
+t42_p3_r3_qwen.py,qwen,p3,r3,58,opcode,39,STORE_SUBSCR,,None,course_schedule

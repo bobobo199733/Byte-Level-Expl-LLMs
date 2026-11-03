@@ -1,0 +1,1 @@
+Write a Python function called spiral_matrix(matrix) that returns all elements of a 2D matrix in spiral order.

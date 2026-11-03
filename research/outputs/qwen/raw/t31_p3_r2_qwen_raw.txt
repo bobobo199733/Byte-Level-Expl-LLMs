@@ -1,0 +1,52 @@
+Certainly! To convert a binary tree into a string, we can use a pre-order traversal (root, left, right). This approach ensures that the resulting string uniquely represents the tree. Here's how you can implement it:
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def serialize_tree(root: TreeNode) -> str:
+    if not root:
+        return "None"
+    
+    # Convert the node value to a string and recursively call for its children
+    left_str = serialize_tree(root.left)
+    right_str = serialize_tree(root.right)
+    
+    # Combine all parts into one string with commas to separate elements
+    serialized = f"{root.val},{left_str},{right_str}"
+    
+    return serialized
+
+# Example usage:
+# Construct a simple binary tree:
+#     1
+#    / \
+#   2   3
+#      /
+#     4
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+
+# Serialize the tree
+serialized_tree = serialize_tree(root)
+print(serialized_tree)  # Output: "1,2,None,3,4,None,None,None"
+```
+
+### Explanation:
+- **TreeNode Class**: This class defines the structure of each node in the binary tree. Each node has a value (`val`), and pointers to its left and right children.
+  
+- **serialize_tree Function**:
+  - If the `root` is `None`, it returns `"None"`. This handles the case for empty trees or leaves that don't have any further children.
+  - For each non-null node, it recursively serializes its left and right subtrees. The result of these recursive calls are concatenated with the current node's value to form a string representation.
+
+- **Output**: The output is a comma-separated string where:
+  - Each node value is followed by `","`.
+  - Each leaf or null node is represented as `"None"`.
+
+This approach ensures that the serialized string can be used to reconstruct the original tree structure.

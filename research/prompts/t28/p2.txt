@@ -1,0 +1,11 @@
+Write exactly one Python function called robot_simulator(commands) that simulates robot movement.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- The robot starts at position (0, 0) facing North.
+- "F" moves forward one step.
+- "L" turns left.
+- "R" turns right.
+- Return [x, y, direction], where direction is "N", "E", "S", or "W".

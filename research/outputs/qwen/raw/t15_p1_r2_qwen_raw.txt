@@ -1,0 +1,76 @@
+Certainly! To implement the `topological_sort` function, we'll use Kahn's algorithm for finding a topological ordering in a directed acyclic graph (DAG). This approach involves:
+
+1. Counting the in-degrees of all nodes.
+2. Pushing nodes with zero in-degree into a queue.
+3. Iteratively removing nodes from the queue and reducing the in-degree of their neighbors by 1. If any neighbor's in-degree becomes zero, it is added to the queue.
+4. Repeating this process until the queue is empty.
+
+Here is the implementation:
+
+```python
+def topological_sort(graph):
+    if not graph:
+        return []
+
+    # Step 1: Initialize in-degrees and a list of nodes with zero in-degree
+    in_degrees = {node: 0 for node in graph}
+    zero_in_degree_queue = []
+    
+    # Calculate the in-degrees of each node
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            in_degrees[neighbor] += 1
+    
+    # Add all nodes with no incoming edges to the starting queue
+    for node in graph:
+        if in_degrees[node] == 0:
+            zero_in_degree_queue.append(node)
+    
+    # Initialize the topological order list
+    top_order = []
+    
+    # Process nodes while there are still nodes with no incoming edges
+    while zero_in_degree_queue:
+        current_node = zero_in_degree_queue.pop(0)
+        top_order.append(current_node)
+        
+        for neighbor in graph.get(current_node, []):
+            in_degrees[neighbor] -= 1
+            if in_degrees[neighbor] == 0:
+                zero_in_degree_queue.append(neighbor)
+    
+    # If the length of top_order is not equal to the number of nodes, it means there was a cycle
+    if len(top_order) != len(graph):
+        raise ValueError("The graph contains a cycle and cannot be topologically sorted.")
+    
+    return top_order
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'B', 'C', 'D']
+```
+
+### Explanation:
+
+1. **Initialization**: We first create a dictionary to keep track of the in-degrees of each node and initialize an empty list `zero_in_degree_queue` for nodes with no incoming edges.
+
+2. **In-degree Calculation**: We iterate through all nodes and their neighbors, updating the in-degree count for each neighbor.
+
+3. **Queue Initialization**: All nodes with zero in-degree are added to `zero_in_degree_queue`.
+
+4. **Topological Sorting**:
+   - While there are still nodes in `zero_in_degree_queue`, we process them.
+   - For each node processed, we add it to the `top_order` list and then decrease the in-degrees of its neighbors.
+   - If any neighbor's in-degree becomes zero, we add that neighbor to the queue.
+
+5. **Cycle Detection**: After processing all nodes, if the length of the topological order is not equal to the number of nodes, it means there was a cycle (in this implementation, we raise an error).
+
+6. **Return Result**: Finally, return the `top_order` list which contains the topological ordering.
+
+This approach ensures that you get a valid topological sort for any given DAG provided as an adjacency list representation.

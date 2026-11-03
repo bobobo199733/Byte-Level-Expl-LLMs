@@ -1,0 +1,52 @@
+**Knapsack 0/1 Problem Solution**
+=====================================
+
+The 0/1 knapsack problem is a classic problem in combinatorial optimization. The goal is to find the optimal subset of items to include in a knapsack of limited capacity, given their weights and values.
+
+### Code
+```python
+def knapsack_01(weights, values, capacity):
+    """
+    Solves the 0/1 knapsack problem using dynamic programming.
+
+    Parameters:
+        weights (list): list of item weights
+        values (list): list of item values
+        capacity (int): maximum weight capacity
+
+    Returns:
+        int: maximum achievable value
+    """
+
+    # Initialize a table to store intermediate results
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(len(weights) + 1)]
+
+    # Fill the table using dynamic programming
+    for i in range(1, len(weights) + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    # Return the maximum achievable value
+    return dp[-1][-1]
+```
+
+### Example Usage
+
+```python
+weights = [2, 3, 4, 5]
+values = [10, 20, 30, 40]
+capacity = 10
+
+max_value = knapsack_01(weights, values, capacity)
+print("Maximum achievable value:", max_value)
+```
+
+This function uses dynamic programming to solve the 0/1 knapsack problem. It initializes a table `dp` where `dp[i][w]` represents the maximum value that can be achieved using items 1 through `i` and a capacity of `w`. The function then fills this table iteratively, using the recurrence relation:
+
+* If the current item's weight is less than or equal to the current capacity, consider including it in the optimal subset. The maximum value is either the current item's value plus the maximum value achievable with reduced capacity (`dp[i - 1][w - weights[i - 1]]`), or the maximum value achievable without including this item (`dp[i - 1][w]`).
+* If the current item's weight exceeds the current capacity, do not include it in the optimal subset. The maximum value is simply the maximum value achievable without this item (`dp[i - 1][w]`).
+
+The function returns the maximum achievable value stored in `dp[-1][-1]`, which corresponds to the optimal solution using all items and the given capacity.

@@ -1,0 +1,50 @@
+Certainly! To determine whether a linked list contains a cycle efficiently, we can use Floyd's Tortoise and Hare algorithm. This approach uses two pointers: one moves at twice the speed of the other. If there is a cycle, the faster pointer (hare) will eventually meet the slower pointer (tortoise). Here is the implementation:
+
+```python
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if head is None or head.next is None:
+        return False
+    
+    tortoise = head
+    hare = head.next
+    
+    while tortoise != hare:
+        if hare is None or hare.next is None:
+            return False
+        
+        tortoise = tortoise.next
+        hare = hare.next.next
+    
+    # If we reach here, there is a cycle
+    return True
+
+# Example usage:
+# Creating a linked list with a cycle: 1 -> 2 -> 3 -> 4 -> 5 -> 2 (cycling back to node 2)
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node2  # Creating a cycle
+
+# Check for cycle
+print(linked_list_cycle(node1))  # Output: True
+```
+
+### Explanation:
+- **Initialization**: We start by checking if the list is empty or has only one element, in which case it cannot contain a cycle.
+- **Pointers Setup**: The `tortoise` pointer starts at the head and moves one step at a time. The `hare` pointer starts at the second node and moves two steps at a time.
+- **Cycle Detection**: In each iteration of the while loop, we move both pointers. If there is no cycle, the hare will eventually reach the end of the list (`None`). If there is a cycle, the hare will meet the tortoise inside the cycle.
+- **Return Value**: We return `True` if they meet (indicating a cycle) and `False` otherwise.
+
+This approach ensures efficient detection with only one pass through the linked list.

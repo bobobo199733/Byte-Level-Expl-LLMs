@@ -1,0 +1,52 @@
+**json_validator.py**
+```python
+def json_validator(text):
+    """
+    Validates if a given string is a valid JSON representation.
+
+    :param text: The string to be validated as JSON.
+    :return: `True` if the string is a valid JSON, `False` otherwise.
+    """
+
+    # Initialize stack to track opening brackets
+    stack = []
+
+    for char in text:
+        # Handle opening bracket (not an escape character)
+        if char == '{' or char == '[':
+            # If it's not at the beginning of the string or following another opening bracket,
+            # then we have a syntax error.
+            if stack and stack[-1] in ['{', '[']:
+                return False
+            stack.append(char)
+
+        # Handle closing bracket (not an escape character)
+        elif char == '}' or char == ']':
+            # If there are no matching opening brackets, then the JSON is not valid.
+            if not stack:
+                return False
+
+            # Get the last element from the stack and remove it
+            top = stack.pop()
+            if (top == '{' and char != '}') or (top == '[' and char != ']'):
+                return False
+
+        # Handle commas and colons, they are valid in JSON regardless of their position.
+        elif char in [',', ':']:
+            continue
+
+    # If there's an opening bracket left over in the stack after processing the entire string,
+    # then it means there was no matching closing bracket for that opening bracket.
+    if stack:
+        return False
+
+    # If we haven't returned `False` yet, then the string is a valid JSON.
+    return True
+```
+**Example Usage:**
+```python
+print(json_validator('{"key": "value"}'))  # True
+print(json_validator('{ key: value }'))    # False (syntax error)
+print(json_validator('[1, 2, 3]'))         # True
+print(json_validator('{{')                 # False (unmatched opening bracket)
+```

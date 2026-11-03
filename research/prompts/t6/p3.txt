@@ -1,0 +1,25 @@
+Write exactly one Python function with this signature:
+
+def wildcard_match(s: str, p: str) -> bool
+
+The function must return True if the entire string s matches the pattern p, and False otherwise.
+
+Pattern rules:
+- '?' matches exactly one character
+- '*' matches any sequence of characters, including empty
+- Matching must consume the entire input string
+
+Requirements:
+- Handle empty strings correctly
+- Handle patterns containing multiple '*' correctly
+- Do not use regular expressions
+- Do not print anything
+- Do not include explanations
+- Output only the Python function
+
+Examples:
+- wildcard_match("aa", "a") -> False
+- wildcard_match("aa", "*") -> True
+- wildcard_match("cb", "?a") -> False
+- wildcard_match("adceb", "*a*b") -> True
+- wildcard_match("acdcb", "a*c?b") -> False

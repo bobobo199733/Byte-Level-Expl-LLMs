@@ -1,0 +1,59 @@
+def evaluate(expr: str) -> int:
+
+    def apply_op():
+        op = ops.pop()
+        if op == '+':
+            return top() + bottom()
+        elif op == '-':
+            return top() - bottom()
+        elif op == '*':
+            return top() * bottom()
+        else:
+            return int(top() / bottom())
+
+    def parse():
+        nonlocal i
+        while i < len(expr):
+            if expr[i].isspace():
+                i += 1
+                continue
+            if expr[i].isdigit():
+                j = i
+                while i < len(expr) and expr[i].isdigit():
+                    i += 1
+                yield int(expr[j:i])
+            elif expr[i] in '+-*/':
+                i += 1
+                ops.append(expr[i - 1])
+            elif expr[i] == '(':
+                i += 1
+                ops.append('(')
+                for x in parse():
+                    if isinstance(x, int):
+                        stack.append(x)
+                    else:
+                        while ops[-1] != '(' and ops[-1] != ')':
+                            apply_op()
+                        if ops[-1] == '(':
+                            ops.pop()
+            elif expr[i] == ')':
+                i += 1
+                while ops[-1] != '(':
+                    apply_op()
+                ops.pop()
+
+    def precedence(op):
+        return {'+': 1, '-': 1, '*': 2, '/': 2}.get(op)
+    stack = []
+    ops = []
+    i = 0
+    for x in parse():
+        if isinstance(x, int):
+            stack.append(x)
+        else:
+            while ops and ops[-1] != '(' and (precedence(ops[-1]) >= precedence(x)):
+                apply_op()
+            ops.append(x)
+    while ops:
+        apply_op()
+    return stack.pop()

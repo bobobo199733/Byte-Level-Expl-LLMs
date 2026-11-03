@@ -1,0 +1,75 @@
+To find the median of two sorted arrays efficiently using binary search, we can use a method similar to the "Median of Two Sorted Arrays" problem from LeetCode (Problem 4). The idea is to partition both arrays into two halves such that the left half contains the smaller elements and the right half contains the larger ones. By maintaining this balance, we can ensure that the median lies in one of the partitions.
+
+Here's a Python function to achieve this:
+
+```python
+def find_kth_element(nums1, nums2, k):
+    """
+    Helper function to find the k-th smallest element from two sorted arrays.
+    """
+    len1, len2 = len(nums1), len(nums2)
+    
+    # Ensure nums1 is the smaller array to minimize the search space
+    if len1 > len2:
+        return find_kth_element(nums2, nums1, k)
+    
+    start1, end1 = 0, len1
+    
+    while start1 < end1:
+        mid1 = (start1 + end1) // 2
+        mid2 = k - mid1 - 1
+        
+        # If any of the indices go out of bounds, treat as negative infinity or positive infinity
+        if mid1 >= len1:
+            return nums2[mid2]
+        elif mid2 < 0:
+            return nums1[mid1]
+        
+        left1 = nums1[mid1] if mid1 > -1 else float('-inf')
+        left2 = nums2[mid2] if mid2 > -1 else float('-inf')
+        right1 = nums1[mid1 + 1] if (mid1 + 1) < len1 else float('inf')
+        right2 = nums2[mid2 + 1] if (mid2 + 1) < len2 else float('inf')
+        
+        # If we found the k-th element
+        if left1 <= right2 and left2 <= right1:
+            return max(left1, left2)
+        
+        # Move to the side that does not contain the k-th element
+        elif left1 > right2:
+            end1 = mid1 - 1
+        else:  # left2 > right1
+            start1 = mid1 + 1
+    
+    return float('-inf')
+
+def median_of_two_sorted_arrays(nums1, nums2):
+    """
+    Finds the median of two sorted arrays using binary search.
+    
+    :param nums1: First sorted array.
+    :param nums2: Second sorted array.
+    :return: The median as a float.
+    """
+    total_length = len(nums1) + len(nums2)
+    if total_length % 2 == 1:
+        return find_kth_element(nums1, nums2, (total_length // 2) + 1)
+    else:
+        return (find_kth_element(nums1, nums2, total_length // 2) +
+                find_kth_element(nums1, nums2, total_length // 2 + 1)) / 2.0
+
+# Example usage
+nums1 = [1, 3]
+nums2 = [2]
+print(median_of_two_sorted_arrays(nums1, nums2))  # Output: 2.0
+```
+
+### Explanation:
+1. **Helper Function `find_kth_element`**:
+   - This function finds the k-th smallest element from two sorted arrays.
+   - It uses binary search to partition both arrays and ensure that elements on the left side are smaller than those on the right.
+   
+2. **Median Calculation**:
+   - If the total length of both arrays is odd, we return the middle element directly.
+   - If it's even, we find the two middle elements and compute their average.
+
+This approach ensures efficient computation with a time complexity of O(log(min(n1, n2))), where `n1` and `n2` are the lengths of the input arrays.

@@ -1,0 +1,47 @@
+Certainly! Below is a Python function `n_queens(n)` that returns all valid solutions to the N-Queens problem. This solution uses backtracking to find all possible configurations.
+
+```python
+def n_queens(n):
+    def solve_n_queens(board, row):
+        if row == n:
+            return [board.copy()]
+        
+        solutions = []
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                solutions.extend(solve_n_queens(board, row + 1))
+        
+        return solutions
+
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or \
+               board[i] - i == col - row or \
+               board[i] + i == col + row:
+                return False
+        return True
+    
+    # Initialize the board with empty values (None)
+    initial_board = [None] * n
+    solutions = solve_n_queens(initial_board, 0)
+    
+    # Convert column indices to positions on the board
+    result = []
+    for solution in solutions:
+        result.append([[i, col] for i, col in enumerate(solution)])
+        
+    return result
+
+# Example usage
+print(n_queens(4))
+```
+
+### Explanation:
+
+1. **solve_n_queens(board, row)**: This function is a recursive helper that tries to place queens on the board starting from `row`. If it successfully places all queens (`row == n`), it returns the current configuration.
+2. **is_safe(board, row, col)**: This checks if placing a queen at position `(row, col)` does not conflict with any previously placed queens.
+3. The function initializes an empty board and starts solving from the first row.
+4. Each valid solution is then converted into a list of positions `[i, col]` to represent the actual placement on the board.
+
+This approach ensures that all valid configurations are found and returned.

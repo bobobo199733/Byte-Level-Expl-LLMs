@@ -1,0 +1,60 @@
+Certainly! To solve this problem efficiently, we can use a sliding window approach with a frequency counter to track the character counts of `p` and compare them against the current window in `s`. Here's how you can implement it:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    # Edge case: if p is longer than s, no anagram can be found.
+    if len(p) > len(s):
+        return []
+    
+    # Count the frequency of characters in p
+    p_count = Counter(p)
+    window_count = Counter()
+    
+    result_indices = []
+    left = 0
+    
+    for right in range(len(s)):
+        # Add the current character to the window counter
+        window_count[s[right]] += 1
+        
+        # Check if the window size exceeds len(p). If it does, shrink the window from the left.
+        while right - left + 1 > len(p):
+            window_count[s[left]] -= 1
+            if window_count[s[left]] == 0:
+                del window_count[s[left]]
+            left += 1
+        
+        # Check if the current window is an anagram of p by comparing their character counts.
+        if right - left + 1 == len(p) and p_count == window_count:
+            result_indices.append(left)
+    
+    return sorted(result_indices)
+
+# Example usage
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+
+1. **Edge Case Handling**: If the length of `p` is greater than `s`, return an empty list because no substring in `s` can be an anagram of `p`.
+
+2. **Counting Characters**:
+   - Use `Counter(p)` to get the frequency count of each character in `p`.
+   - Initialize a sliding window with `window_count` as an empty counter.
+
+3. **Sliding Window**:
+   - Iterate over `s` using the `right` pointer.
+   - Expand the window by adding characters to `window_count`.
+   - Shrink the window from the left if it exceeds the length of `p`.
+
+4. **Anagram Check**:
+   - Compare the frequency count of the current window with `p_count`. If they match, a valid anagram has been found.
+
+5. **Result Storage**:
+   - Store the starting indices in `result_indices` and return them after sorting.
+
+This approach ensures that we efficiently find all anagrams using a linear scan with a time complexity of O(n), where n is the length of `s`.

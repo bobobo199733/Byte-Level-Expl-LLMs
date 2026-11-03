@@ -1,0 +1,1 @@
+Write a Python function called generate_parentheses(n) that returns all valid combinations of n pairs of parentheses.

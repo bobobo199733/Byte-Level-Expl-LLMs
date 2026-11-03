@@ -1,0 +1,54 @@
+Certainly! Below is a Python function named `binary_search_rotated` that performs a binary search on a rotated sorted array to find the target value. It handles various edge cases including empty arrays, duplicates, and correctly identifies the index of the target or returns -1 if not found.
+
+```python
+def binary_search_rotated(values, target):
+    if not values:
+        return -1
+
+    left, right = 0, len(values) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        # Check if the middle element is the target
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side of the array is properly sorted
+        if values[left] < values[mid]:  # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        elif values[mid] < values[right]:  # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+        elif values[left] == values[mid]:  # Handle duplicates in the left part
+            left += 1
+        else:  # Handle duplicates in the right part
+            right -= 1
+
+    return -1
+```
+
+### Explanation:
+
+- **Edge Case Handling**: The function first checks if the array is empty and returns -1 immediately.
+  
+- **Binary Search Initialization**: Two pointers `left` and `right` are initialized to the start and end of the array, respectively.
+
+- **Main Loop**: The loop continues as long as `left` is less than or equal to `right`.
+
+- **Middle Index Calculation**: The middle index `mid` is calculated using integer division.
+
+- **Target Found Check**: If the value at `mid` equals the target, the function returns `mid`.
+
+- **Sorting Side Determination**:
+  - If the left side from `left` to `mid` is sorted (i.e., `values[left] < values[mid]`), it checks if the target lies within this range. If yes, it adjusts the `right` pointer; otherwise, it adjusts the `left` pointer.
+  - Similarly, if the right side from `mid` to `right` is sorted (i.e., `values[mid] < values[right]`), it checks if the target lies within this range and adjusts the pointers accordingly.
+
+- **Duplicate Handling**: If both halves are not sorted due to duplicate elements, it skips over duplicates by incrementing or decrementing the appropriate pointer.
+
+This approach ensures that the function efficiently handles a rotated sorted array with possible duplicates.

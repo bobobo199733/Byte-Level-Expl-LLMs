@@ -1,0 +1,13 @@
+Here's the Python function `autocomplete_system` that meets your requirements:
+
+```python
+def autocomplete_system(words, prefix):
+    if not words or not prefix:
+        return []
+
+    suggestions = [word for word in words if word.startswith(prefix)]
+    suggestions.sort()
+    return suggestions
+```
+
+This function takes a list of words and a prefix as input, then returns the sorted list of matching words. If either the words or the prefix are empty, it returns an empty list. It does not utilize any external libraries.

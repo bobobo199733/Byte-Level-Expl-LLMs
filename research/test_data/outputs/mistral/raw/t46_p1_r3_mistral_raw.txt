@@ -1,0 +1,40 @@
+Here is a Python function called `text_justification` that fulfills the requirements:
+
+```python
+def text_justification(words, max_width):
+    if not words:
+        return []
+
+    line = []
+    result = []
+
+    for word in words:
+        if line and len(line[-1]) + len(word) + 1 > max_width:
+            # Add the current line to the result, left-justify it, and start a new line
+            result.append(' '.join(line))
+            line = [word]
+        elif line:
+            # Fill extra spaces on the current line from right to left
+            spaces_needed = max_width - len(line[-1]) - len(word)
+            line[-1] += ' ' * min(spaces_needed, len(word))
+            line.append(word)
+        else:
+            # Start a new line with the given word
+            line.append(word)
+
+    # Add the last line to the result and left-justify it if necessary
+    if line:
+        spaces_needed = max_width - sum(len(word) for word in line)
+        result.append(' '.join(line + [' '] * spaces_needed))
+
+    return result
+```
+
+You can use this function like so:
+
+```python
+words = ["this", "is", "a", "test", "for", "text", "justification"]
+max_width = 10
+print(text_justification(words, max_width))
+# Output: ['this   is', 'a      test', 'for    text']
+```

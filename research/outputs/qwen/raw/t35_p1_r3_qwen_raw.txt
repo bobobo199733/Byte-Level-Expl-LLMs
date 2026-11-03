@@ -1,0 +1,14 @@
+Certainly! Below is the `json_validator` function that checks whether a given string contains valid JSON:
+
+```python
+def json_validator(text):
+    try:
+        # Attempt to parse the text as JSON
+        json.loads(text)
+        return True
+    except ValueError:
+        # If parsing fails, return False
+        return False
+```
+
+This function uses Python's built-in `json` module to attempt parsing the input string. If the string is valid JSON, `json.loads()` will not raise an exception and the function returns `True`. If the string is not valid JSON, a `ValueError` will be raised, which the function catches and returns `False` for.

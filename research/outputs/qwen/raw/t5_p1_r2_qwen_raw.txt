@@ -1,0 +1,25 @@
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    stack = []
+    
+    for digit in num:
+        # While we still need to remove digits and the current digit is smaller
+        # than the last digit in the stack, pop from stack and decrement k.
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    
+    # Remove remaining k digits from the end if necessary
+    while k > 0:
+        stack.pop()
+        k -= 1
+    
+    # Build the result string without leading zeros
+    result = ''.join(stack).lstrip('0')
+    
+    # Return "0" if the result is empty
+    return result if result else '0'
+```
+
+This function works by maintaining a monotonically increasing stack of digits. By iterating through each digit in the input number, it ensures that the resulting number after removing `k` digits will be as small as possible. The use of a stack helps to efficiently manage the removal process while keeping track of the sequence of digits.

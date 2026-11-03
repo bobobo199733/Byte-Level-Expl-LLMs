@@ -1,0 +1,53 @@
+Certainly! To solve this problem using a sliding window approach, we can maintain a frequency count of characters for the pattern `p` and then slide through the string `s`, updating the frequency counts as we go. Here's how you could implement the `find_all_anagrams` function:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s: str, p: str) -> list:
+    if len(p) > len(s):
+        return []
+    
+    # Initialize the frequency count for the pattern and a sliding window in the string
+    pattern_count = Counter(p)
+    window_count = Counter(s[:len(p)])
+    
+    # List to store the starting indices where an anagram of p starts
+    result = [0] if window_count == pattern_count else []
+    
+    # Slide the window through the string s
+    for i in range(len(s) - len(p)):
+        # Remove the leftmost character from the current window
+        window_count[s[i]] -= 1
+        
+        # Add the rightmost new character to the window
+        window_count[s[i + len(p)]] += 1
+        
+        # If the frequency counts match, it means we found an anagram
+        if window_count == pattern_count:
+            result.append(i + 1)
+    
+    return result
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+1. **Initialization**:
+   - We first check if the length of `p` is greater than `s`. If it is, we return an empty list because there can't be any anagrams.
+   - We use `Counter` from the `collections` module to create frequency counts for both the pattern and the initial window in the string `s`.
+
+2. **Initial Check**:
+   - We check if the initial window matches the pattern. If it does, we add 0 (the starting index) to our result list.
+
+3. **Sliding Window**:
+   - We slide the window one character at a time through the string.
+   - For each new position, we decrement the count of the leftmost character that is being removed from the window and increment the count of the rightmost character that is entering the window.
+   - If the frequency counts match after these adjustments, it means an anagram was found, and we add the current starting index to our result list.
+
+4. **Result**:
+   - Finally, we return the list of all starting indices where an anagram of `p` starts in `s`.
+
+This approach ensures that each character is processed at most twice (once when entering the window and once when leaving it), making the algorithm efficient with a time complexity of \(O(n)\), where \(n\) is the length of the string `s`.

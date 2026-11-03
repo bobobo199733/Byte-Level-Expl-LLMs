@@ -1,0 +1,55 @@
+**Infix to Postfix Converter Function**
+=====================================
+
+The following Python function, `expression_to_postfix`, converts an infix mathematical expression into its equivalent postfix notation.
+
+```python
+def expression_to_postfix(expression):
+    """
+    Converts an infix expression into its equivalent postfix notation.
+
+    :param expression: Infix mathematical expression as a string.
+    :return: Postfix notation of the input expression as a list of tokens (operators and operands).
+    """
+
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+    output_queue = []
+    operator_stack = []
+
+    for token in expression.split():
+        if token not in precedence:
+            # If the token is an operand, push it onto the output queue.
+            output_queue.append(token)
+        else:
+            # If the token is an operator, pop operators from the stack and
+            # append them to the output queue until an operator with lower or equal
+            # precedence is found. Then, push the current operator onto the stack.
+            while (operator_stack and 
+                   precedence[token] <= precedence[operator_stack[-1]]):
+                output_queue.append(operator_stack.pop())
+
+            operator_stack.append(token)
+
+    # Pop any remaining operators from the stack and append them to the output queue.
+    while operator_stack:
+        output_queue.append(operator_stack.pop())
+
+    return output_queue
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+print(expression_to_postfix("A+B*C"))  # ['A', 'B', 'C', '*', '+']
+print(expression_to_postfix("(A-B)*C+D/E"))  # ['A', 'B', '-', 'C', '*', 'D', 'E', '/', '+']
+```
+
+This function uses two data structures:
+
+1. `output_queue`: a list to store the output postfix tokens.
+2. `operator_stack`: a stack to temporarily hold operators until they are ready for output.
+
+The function iterates over each token in the input expression. If a token is an operand, it is directly appended to the output queue. If a token is an operator, the function pops operators with higher or equal precedence from the stack and appends them to the output queue before pushing the current operator onto the stack. After processing all tokens, any remaining operators on the stack are also appended to the output queue.
+
+Note that this implementation supports parentheses by treating the opening parenthesis as an operator (with higher precedence than regular operators) and the closing parenthesis as a special case that removes operators from the stack until the matching opening parenthesis is found.

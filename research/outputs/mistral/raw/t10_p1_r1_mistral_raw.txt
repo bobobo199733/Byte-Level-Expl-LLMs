@@ -1,0 +1,31 @@
+Here's a Python function named `longest_palindrome` that finds the longest palindromic substring in a given string `s`. The function uses dynamic programming approach to solve this problem:
+
+```python
+def longest_palindrome(s):
+    if not s or len(s) == 1:
+        return s
+
+    n = len(s)
+    dp = [[False] * n for _ in range(n)]
+    max_length = 0
+    start = 0
+
+    for i in range(n):
+        dp[i][i] = True
+
+    for L in range(2, n+1):
+        for i in range(n-L+1):
+            j = i + L - 1
+            if s[i] == s[j] and dp[i+1][j-1]:
+                dp[i][j] = True
+                if L > max_length:
+                    start, max_length = i, L
+
+    return s[start:start + max_length]
+```
+
+This function initializes a 2D boolean array `dp` to track whether a substring from the `i`-th index to the `j`-th index is a palindrome. It also keeps track of the longest palindromic substring found so far (both its length and starting index) using variables `max_length` and `start`.
+
+The function iterates through all possible substrings of the input string, checking if they are palindromes based on the characters and whether the substring between `i+1` and `j-1` is a palindrome. If a substring is a palindrome, it updates the `dp[i][j]` accordingly and checks if it has a longer length than `max_length`. If so, it updates `max_length` and `start`.
+
+Finally, the function returns the longest palindromic substring found by extracting characters from the string between the `start` index and `start + max_length` indices.

@@ -1,0 +1,50 @@
+Here's a Python function `roman_to_int(s)` that meets the given requirements:
+
+```python
+def roman_to_int(s):
+    # Define the mapping of Roman numerals to their values
+    roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+    # Check if the input string is empty
+    if not s:
+        raise ValueError("The input string cannot be empty.")
+
+    # Initialize total integer value to 0
+    total = 0
+
+    # Iterate through the Roman numeral string
+    for i in range(len(s)):
+        current_value = roman_dict[s[i]]
+
+        # If next character is present, check if it's a subtractive pair (IV, IX, XL, XC, CD, CM)
+        if i + 1 < len(s):
+            next_value = roman_dict[s[i+1]]
+
+            # Check for invalid combinations like IIII or VV
+            if current_value > next_value:
+                raise ValueError(f"Invalid Roman numeral '{s}'. Only standard subtractive notation is allowed.")
+
+            # If it's a valid subtractive pair, add the difference to the total value
+            elif current_value < next_value:
+                total += next_value - current_value
+                i += 1  # Move to the next character in the string since we have processed the subtractive pair
+
+        # Add the current Roman numeral's value to the total
+        else:
+            total += current_value
+
+    # Return the final integer value
+    return total
+```
+
+You can test this function with some examples:
+
+```python
+print(roman_to_int("III"))  # Output: 3
+print(roman_to_int("IV"))   # Output: 4
+print(roman_to_int("IX"))   # Output: 9
+print(roman_to_int("LVIII"))# Output: 58 (L = 50, VIII = 8)
+print(roman_to_int("MCMXCIV"))# Output: 1994 (M = 1000, CM = 900, XC = 90, IV = 4)
+```
+
+The function will also raise a `ValueError` for invalid Roman numerals like "IC", "XM", "VX", and so on.

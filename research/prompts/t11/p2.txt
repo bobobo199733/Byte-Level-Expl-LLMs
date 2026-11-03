@@ -1,0 +1,10 @@
+Write a Python function called coin_change(coins, amount) that computes the minimum number of coins required to make the target amount.
+
+Requirements:
+- Return -1 if the amount cannot be formed.
+- Use dynamic programming.
+- Do not use external libraries.
+- The input list may contain duplicate coin values.
+- Coin values are positive integers.
+- Handle edge cases such as amount = 0.
+- The function should be efficient for larger amounts.

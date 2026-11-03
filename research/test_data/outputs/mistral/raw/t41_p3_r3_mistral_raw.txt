@@ -1,0 +1,26 @@
+Here's a Python function called `group_anagrams` that groups anagrams together:
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    anagram_groups = defaultdict(list)
+
+    for word in words:
+        sorted_word = sorted(list(word))
+        anagram_groups[sorted_word].append(word)
+
+    return list(anagram_groups.values())
+```
+
+This function uses the `defaultdict` data structure from the `collections` module to create a dictionary where the keys are sorted versions of the words and the values are lists that contain the original anagrams.
+
+Inside the loop, we sort the word and then append it to the appropriate list in the dictionary. Finally, the function returns a list of all the anagram groups as values from the `anagram_groups` dictionary.
+
+Here's how you can test the function:
+
+```python
+words = ["listen", "enlist", "silent", "silt", "shout", "out"]
+print(group_anagrams(words))
+# Output: [['listen', 'enlist'], ['silent', 'silt'], ['shout', 'out']]
+```

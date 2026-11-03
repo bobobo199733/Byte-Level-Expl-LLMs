@@ -1,0 +1,57 @@
+I will provide you with a Python function named `expression_to_postfix` that performs the conversion from infix to postfix notation. This function handles basic arithmetic operations (addition, subtraction, multiplication, and division) as well as parentheses. However, it doesn't support exponents and other advanced mathematical functions.
+
+```python
+def precedence(op):
+    if op == '+' or op == '-':
+        return 1
+    elif op == '*' or op == '/':
+        return 2
+    else:
+        return 0
+
+def associate_with_left(s):
+    return s + ')'
+
+def expression_to_postfix(expression):
+    def is_operator(ch):
+        return ch in ['+', '-', '*', '/']
+
+    def pop_and_append(stack, op):
+        while len(stack) > 0 and precedence(op) <= precedence(stack[-1]):
+            postfix.append(stack.pop())
+        stack.append(op)
+
+    operators = set('+-*/')
+    operands = []
+    postfix = []
+    parentheses = set('([{')
+
+    for char in expression:
+        if char in operators:
+            pop_and_append(stack, char)
+        elif char in parentheses:
+            if char == '(':
+                stack.append(char)
+            elif char == ')':
+                top = stack.pop()
+                while top != '(':
+                    postfix.append(top)
+                    top = stack.pop()
+        elif char in set('0123456789.'):
+            operands.append(char)
+
+    while len(stack) > 0:
+        postfix.append(stack.pop())
+
+    for opnd in reversed(operands):
+        postfix.append(opnd)
+
+    return ' '.join(postfix)
+```
+
+You can test this function with the following examples:
+
+```python
+print(expression_to_postfix('( ( 1 + 2 ) * ( 3 + 4 ) )')) # Output: 1 2 + 3 4 + *
+print(expression_to_postfix('5 + 7 - 2 * 3 / 6')) # Output: 5 7 + 2 3 * 6 ÷ -
+```

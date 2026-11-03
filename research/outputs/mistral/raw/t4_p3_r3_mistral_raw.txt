@@ -1,0 +1,31 @@
+Here's a Python function that meets your requirements:
+
+```python
+import re
+
+def decode_string(s):
+    def _decode_string(match):
+        k, encoded = match.group(1, 2)
+        return k * _decode_string(next(filter(lambda x: x[0] == '[', enumerate(reversed(stack)))))[0] if stack else ''
+    def _parse(s):
+        nonlocal stack
+        for match in re.findall(r'(\d+|\D+)', s):
+            if match.isdigit():
+                stack.append((int(match), ''))
+            else:
+                if not stack or stack[-1][-1] != '':
+                    raise ValueError("Invalid input")
+                stack[-1][-1] += _parse(match)
+        result = ''
+        for k, encoded in reversed(stack):
+            result = _decode_string(re.match(r'^(\d+)', str(k))) + result
+        return result if not stack else raise ValueError("Unmatched brackets")
+    stack = []
+    try:
+        _parse(s)
+    except Exception as e:
+        raise ValueError("Invalid input" if isinstance(e, TypeError) else e)
+    return s.replace('[', '').replace(']', '')
+```
+
+This function uses regular expressions to parse the given string and stack-based approach for handling nested encoding operations. It raises a ValueError when encountering invalid input such as missing brackets, unmatched brackets, malformed nesting, empty bracket groups, or an empty string. The output will only be the decoded string without any brackets.

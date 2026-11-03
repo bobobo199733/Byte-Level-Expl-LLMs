@@ -1,0 +1,4 @@
+Write one Python function called binary_search_rotated(values, target) that searches a rotated sorted list.
+
+Use only one function with that exact name.
+Return -1 if the value is missing.

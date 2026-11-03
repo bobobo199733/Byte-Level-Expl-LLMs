@@ -1,0 +1,10 @@
+Write a Python function `roman_to_int(s)` that converts a Roman numeral to an integer.
+
+Requirements:
+- Support the standard symbols I, V, X, L, C, D, M.
+- Reject invalid Roman numerals by raising `ValueError`.
+- Examples of invalid numerals include: IC, XM, VX, IIII, VV, IL, XD.
+- Only standard subtractive notation is allowed (IV, IX, XL, XC, CD, CM).
+- The function must reject the empty string.
+- The function must not use regular expressions.
+- Return the integer value for valid numerals.

@@ -1,0 +1,13 @@
+Here's a Python function called `fast_power` that uses recursion with an optimization when the exponent is even:
+
+```python
+def fast_power(base, exponent):
+    if exponent == 0:
+        return 1
+    elif exponent % 2 == 0:
+        return fast_power(base * base, int(exponent / 2))
+    else:
+        return base * fast_power(base, exponent - 1)
+```
+
+This function performs the multiplication only when the exponent is odd and squares the result for even exponents to achieve a more efficient computation.

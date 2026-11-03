@@ -1,0 +1,15 @@
+```python
+def kth_largest(nums, k):
+    """
+    Finds the k-th largest element in the list nums.
+
+    :param nums: List of integers
+    :param k: The order of the largest element to find (1st largest, 2nd largest, etc.)
+    :return: The k-th largest element in the list
+    """
+    # Sort the list in descending order and return the (k-1)-th index element
+    nums.sort(reverse=True)
+    return nums[k - 1]
+```
+
+This function sorts the input list `nums` in descending order and returns the element at the `(k-1)`-th index, which corresponds to the k-th largest number.

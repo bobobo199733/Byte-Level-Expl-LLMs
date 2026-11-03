@@ -1,0 +1,80 @@
+**Dijkstra's Shortest Path Function**
+=====================================
+
+Here is the implementation of Dijkstra's algorithm to compute the shortest paths in a weighted graph:
+```python
+def dijkstra_shortest_path(graph, start):
+    """
+    Computes the shortest path from the start node to all other nodes in the graph.
+
+    Args:
+        graph (dict): A dictionary representing the graph, where each key is a node
+            and its corresponding value is another dictionary with neighboring nodes
+            as keys and edge weights as values.
+        start (str): The node from which to start the search.
+
+    Returns:
+        dict: A dictionary where each key is a node in the graph and its corresponding
+            value is the shortest distance from the start node to that node. If a node
+            is unreachable, its value will be None.
+    """
+
+    # Initialize distances with infinity for all nodes except the start node
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    # Initialize previous nodes in shortest path
+    previous_nodes = {}
+
+    # Create a set of unvisited nodes
+    unvisited_nodes = set(graph.keys())
+
+    while unvisited_nodes:
+        # Select the unvisited node with the smallest distance (current node)
+        current_node = min(unvisited_nodes, key=lambda x: distances[x])
+
+        # Mark the current node as visited
+        unvisited_nodes.remove(current_node)
+
+        # If the current node is unreachable, break the loop
+        if distances[current_node] == float('inf'):
+            break
+
+        # Update distances for neighboring nodes
+        for neighbor, weight in graph[current_node].items():
+            distance = distances[current_node] + weight
+
+            # If a shorter path to the neighbor is found, update its distance and previous node
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                previous_nodes[neighbor] = current_node
+
+    return distances, previous_nodes
+```
+**Example Usage**
+-----------------
+
+Here's an example usage of the `dijkstra_shortest_path` function:
+```python
+graph = {
+    'A': {'B': 1, 'C': 3},
+    'B': {'A': 1, 'D': 2},
+    'C': {'A': 3, 'F': 4},
+    'D': {'B': 2, 'E': 5},
+    'E': {'D': 5},
+    'F': {'C': 4}
+}
+
+start_node = 'A'
+
+distances, previous_nodes = dijkstra_shortest_path(graph, start_node)
+
+print("Shortest distances:", distances)
+print("Previous nodes in shortest path:", previous_nodes)
+```
+This should output:
+```python
+Shortest distances: {'A': 0, 'B': 1, 'C': 3, 'D': 3, 'E': 8, 'F': 7}
+Previous nodes in shortest path: {'B': 'A', 'C': 'A', 'D': 'B', 'E': 'D', 'F': 'C'}
+```
+Note that the `previous_nodes` dictionary can be used to reconstruct the shortest paths by backtracking from each node to its previous node.

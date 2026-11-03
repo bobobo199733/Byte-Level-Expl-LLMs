@@ -1,0 +1,44 @@
+**Rotating an Array to the Right**
+=====================================
+
+Here's a simple and efficient function in Python to rotate an array to the right by `k` positions.
+
+```python
+def rotate_array(nums, k):
+    """
+    Rotate the input list to the right by k positions.
+
+    Args:
+        nums (list): The input list to be rotated.
+        k (int): The number of positions to rotate to the right.
+
+    Returns:
+        list: The rotated list.
+    """
+    if len(nums) == 0 or k == 0:
+        return nums
+
+    # Handle cases where k is greater than the length of the array
+    k = k % len(nums)
+
+    # Use Python's slice notation to rotate the array
+    return nums[-k:] + nums[:-k]
+```
+
+**Example Usage**
+---------------
+
+```python
+nums = [1, 2, 3, 4, 5]
+print(rotate_array(nums, 2))  # Output: [4, 5, 1, 2, 3]
+
+nums = [1, 2, 3, 4, 5]
+print(rotate_array(nums, 7))  # Output: [4, 5, 1, 2, 3] (equivalent to rotating by 3 positions)
+
+nums = []
+print(rotate_array(nums, 10))  # Output: [] (no changes)
+```
+
+This function uses Python's slice notation to rotate the array. The line `return nums[-k:] + nums[:-k]` splits the original list into two parts at position `k`, and then concatenates them in reverse order. If `k` is greater than the length of the array, we use the modulo operator (`k % len(nums)`) to reduce it to a smaller equivalent rotation.
+
+This implementation has a time complexity of O(n), where n is the length of the input list, making it efficient for large inputs.

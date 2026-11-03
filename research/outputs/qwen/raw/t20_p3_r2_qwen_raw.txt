@@ -1,0 +1,48 @@
+Certainly! To combine multiple sorted lists into one sorted list, we can use a priority queue (min-heap) to efficiently manage the smallest elements from each of the input lists. Here's how you can implement the `merge_k_sorted_lists` function:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    # Initialize a min heap
+    min_heap = []
+    
+    # Helper lambda function to add an element and its index to the heap
+    def push_with_index(heap, item, idx):
+        heapq.heappush(heap, (item[0], idx, item))
+        
+    # Push the first element of each list into the heap along with their indices
+    for i, lst in enumerate(lists):
+        if lst:  # Ensure the list is not empty
+            push_with_index(min_heap, (lst[0], i, [lst.pop(0)]))
+    
+    result = []
+    
+    # Process the heap until it's empty
+    while min_heap:
+        _, idx, item_list = heapq.heappop(min_heap)
+        
+        # Add the smallest element to the result list
+        result.append(item_list[-1])
+        
+        # If there are more elements in the same list, push the next element into the heap
+        if lists[idx]:
+            push_with_index(min_heap, (lists[idx][0], idx, [lists[idx].pop(0)] + item_list))
+    
+    return result
+
+# Example usage:
+list1 = [1, 4, 5]
+list2 = [1, 3, 4]
+list3 = [2, 6]
+
+sorted_list = merge_k_sorted_lists([list1, list2, list3])
+print(sorted_list)  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
+```
+
+### Explanation:
+- **Min Heap**: We use a min heap to always get the smallest element among all lists efficiently.
+- **Push with Index**: A helper function `push_with_index` ensures that we keep track of which list an element came from and push it back into the heap when we need to process the next element in that list.
+- **Process Heap**: We repeatedly extract the smallest element, add it to our result list, and if there are more elements left in the same list, we push the next element into the heap.
+
+This approach ensures that the function runs efficiently with a time complexity of approximately \(O(N \log k)\), where \(N\) is the total number of elements across all lists and \(k\) is the number of lists.

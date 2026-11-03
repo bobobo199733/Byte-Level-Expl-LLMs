@@ -1,0 +1,24 @@
+from collections import Counter
+
+def min_window_substring(s, t):
+    left, right, min_length = (0, 0, float('inf'))
+    window = Counter()
+    need = Counter(t)
+    matching = 0
+    while right < len(s):
+        window[s[right]] += 1
+        right += 1
+        while matching < len(need):
+            if s[left] == t[matching]:
+                need[s[left]] -= 1
+                if need[s[left]] <= 0:
+                    matching += 1
+            left += 1
+        if matching == len(need):
+            current_length = right - left
+            if current_length < min_length:
+                min_length = current_length
+    if min_length == float('inf'):
+        return ''
+    else:
+        return s[left:right]

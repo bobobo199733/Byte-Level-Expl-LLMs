@@ -1,0 +1,63 @@
+Certainly! To solve this problem, we can use Depth-First Search (DFS) to explore and mark the cells of each island. Here's a Python implementation for the `count_islands` function:
+
+```python
+def count_islands(grid):
+    if not grid or not grid[0]:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    visited = set()
+
+    def dfs(r, c):
+        # Check boundaries and water cells
+        if r < 0 or c < 0 or r >= rows or c >= cols or (r, c) in visited or grid[r][c] == '0':
+            return
+
+        # Mark the cell as visited
+        visited.add((r, c))
+
+        # Visit all four directions
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+
+    island_count = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1' and (r, c) not in visited:
+                dfs(r, c)
+                island_count += 1
+
+    return island_count
+
+# Example usage:
+grid = [
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+
+print(count_islands(grid))  # Output: 3
+```
+
+### Explanation:
+- **Grid Representation**: The grid is a list of lists where '1' represents land and '0' represents water.
+- **DFS Function (`dfs`)**: This function recursively explores all the connected cells (up, down, left, right) that form an island. It marks each cell as visited by adding it to the `visited` set to avoid revisiting.
+- **Counting Islands**: We iterate through each cell in the grid. If we find a land cell ('1') that hasn't been visited yet, we initiate a DFS from that cell and increment the island count.
+
+### Example:
+In the given example grid:
+```
+[
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+```
+There are 3 distinct islands, which the function correctly counts.
+
+Feel free to modify or extend this code based on your specific requirements!

@@ -1,0 +1,36 @@
+task,prompt,run,true,predicted,correct,shap_toward_true,byte_vote_class,byte_vote_correct,source,file
+t41,p2,r1,llama,llama,True,0.2410690635442733,llama,True,"if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",t41_p2_r1_llama.py
+t41,p2,r2,llama,llama,True,0.2410690635442733,llama,True,"if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",t41_p2_r2_llama.py
+t41,p2,r3,llama,llama,True,0.2604190111160278,llama,True,"if not isinstance(words, list) or any((not isinstance(word, str) for word in words)):",t41_p2_r3_llama.py
+t41,p2,r1,mistral,llama,False,-0.1585961878299713,llama,False,raise ValueError('Input must be a list'),t41_p2_r1_mistral.py
+t41,p1,r3,qwen,mistral,False,-0.0538723468780517,llama,False,sorted_word = tuple(sorted(word)),t41_p1_r3_qwen.py
+t41,p2,r1,qwen,llama,False,-0.2054483145475387,llama,False,"if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",t41_p2_r1_qwen.py
+t41,p2,r2,qwen,llama,False,-0.2702363133430481,llama,False,"if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",t41_p2_r2_qwen.py
+t41,p2,r3,qwen,llama,False,-0.1663607656955719,llama,False,raise ValueError('Input must be a list of strings'),t41_p2_r3_qwen.py
+t42,p2,r2,qwen,mistral,False,-0.018361946567893,llama,False,"if not isinstance(num_courses, int) or not isinstance(prerequisites, list):",t42_p2_r2_qwen.py
+t42,p2,r3,qwen,llama,False,-0.1299962252378463,llama,False,"if not isinstance(num_courses, int) or not all((isinstance(prereq, list) and len(prereq) == 2 for prereq in prerequisites)):",t42_p2_r3_qwen.py
+t43,p3,r2,mistral,qwen,False,-0.1013195663690567,llama,False,result += binary_tree_inorder(node.left),t43_p3_r2_mistral.py
+t44,p2,r2,llama,llama,True,0.2506164014339447,llama,True,"if not isinstance(nums, list) or len(nums) == 0:",t44_p2_r2_llama.py
+t44,p2,r3,llama,llama,True,0.3077709078788757,llama,True,raise ValueError('nums must be a list'),t44_p2_r3_llama.py
+t44,p1,r1,mistral,mistral,True,-0.1108713597059249,llama,False,nums[:len(nums) - k] = reversed(nums[:len(nums) - k]),t44_p1_r1_mistral.py
+t44,p2,r2,mistral,llama,False,-0.1350587457418441,llama,False,"if not isinstance(k, int) or k < 0 or k > n:",t44_p2_r2_mistral.py
+t44,p2,r3,mistral,llama,False,-0.1277467757463455,llama,False,"if not isinstance(nums, list) or len(nums) == 0:",t44_p2_r3_mistral.py
+t45,p2,r1,llama,mistral,False,0.2897003591060638,llama,True,"if not isinstance(nums, list) or len(nums) == 0 or (not all((isinstance(x, int) for x in nums))):",t45_p2_r1_llama.py
+t45,p2,r3,llama,mistral,False,0.2455752193927765,llama,True,"if not isinstance(nums, list) or len(nums) == 0:",t45_p2_r3_llama.py
+t45,p2,r1,mistral,llama,False,-0.1137329041957855,llama,False,"if not isinstance(nums, list) or not all((isinstance(i, (int, float)) for i in nums)):",t45_p2_r1_mistral.py
+t45,p2,r2,qwen,llama,False,-0.2112927734851837,llama,False,"if not isinstance(nums, list) or not all((isinstance(x, int) for x in nums)):",t45_p2_r2_qwen.py
+t45,p2,r3,qwen,llama,False,-0.1501081138849258,llama,False,"if not isinstance(nums, list) or not all((isinstance(x, (int, float)) for x in nums)):",t45_p2_r3_qwen.py
+t47,p2,r1,llama,llama,True,0.3202008605003357,llama,True,for i in range(len(s)):,t47_p2_r1_llama.py
+t47,p3,r1,mistral,mistral,True,-0.0973584428429603,llama,False,except ZeroDivisionError as e:,t47_p3_r1_mistral.py
+t49,p2,r1,llama,llama,True,0.2199129611253738,llama,True,dp = [False] * (len(s) + 1),t49_p2_r1_llama.py
+t49,p2,r2,llama,llama,True,0.2748722434043884,llama,True,dp = [False] * (len(s) + 1),t49_p2_r2_llama.py
+t49,p3,r3,mistral,mistral,True,-0.0787444710731506,llama,False,dp = [False] * (len(s) + 1),t49_p3_r3_mistral.py
+t49,p1,r2,qwen,llama,False,-0.1762825697660446,llama,False,dp = [False] * (len(s) + 1),t49_p1_r2_qwen.py
+t49,p1,r3,qwen,llama,False,-0.1762825697660446,llama,False,dp = [False] * (len(s) + 1),t49_p1_r3_qwen.py
+t49,p2,r3,qwen,llama,False,-0.1762825697660446,llama,False,dp = [False] * (len(s) + 1),t49_p2_r3_qwen.py
+t50,p1,r3,mistral,qwen,False,-0.105689987540245,llama,False,window_counter = Counter(),t50_p1_r3_mistral.py
+t50,p2,r1,mistral,llama,False,-0.1052417531609535,llama,False,if not p or len(p) > len(s):,t50_p2_r1_mistral.py
+t50,p2,r3,mistral,mistral,True,-0.1112717390060424,llama,False,if not p or len(p) > len(s):,t50_p2_r3_mistral.py
+t50,p1,r1,qwen,llama,False,-0.1376914083957672,llama,False,len_s = len(s),t50_p1_r1_qwen.py
+t50,p2,r2,qwen,mistral,False,-0.2404107898473739,llama,False,if len(p) > len(s):,t50_p2_r2_qwen.py
+t50,p3,r3,qwen,llama,False,-0.0909508988261222,llama,False,len_s = len(s),t50_p3_r3_qwen.py

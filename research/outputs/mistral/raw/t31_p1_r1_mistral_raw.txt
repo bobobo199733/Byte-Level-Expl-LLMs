@@ -1,0 +1,20 @@
+I will provide you with a Python function `serialize_tree(root)` that serializes a binary tree into a string using Depth-First Search (DFS) and Breadth-First Search (BFS) hybrid approach. This method ensures the correct preservation of the tree structure, handling empty trees, deterministic representation, and doesn't use external libraries.
+
+```python
+def serialize_tree(root):
+    def dfs(node, level):
+        if not node:
+            return f"-1*{level}", None
+        output = [str(node.val)] + [dfs(node.left, level+1), dfs(node.right, level+1)]
+        return (' '.join(output))[::-1], node
+
+    tree_string, _ = dfs(root, 0)
+    if not root:
+        return "[]"
+    elif len(tree_string.split(' ')) == 1:
+        return f'[{tree_string}]'
+    else:
+        return f'[[{tree_string}]]'
+```
+
+The function works by performing a DFS on the tree and converting it into a list of space-separated node values. If there is only one element in the list (which means the subtree rooted at that node is empty), the serialization format changes to accommodate it. Finally, the resulting string is wrapped inside square brackets with proper formatting based on whether the root has children or not.

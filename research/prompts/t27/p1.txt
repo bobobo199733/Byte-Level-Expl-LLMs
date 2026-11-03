@@ -1,0 +1,1 @@
+Write exactly one Python function called trapping_rain_water(heights) that returns how much rain water can be trapped between bars. Return only the function definition.

@@ -1,0 +1,39 @@
+Here's an example implementation of a JSON validator using a regular expression to match the basic structure of JSON:
+
+```python
+import re
+
+def json_validator(text):
+    """
+    Validates if a given string is valid JSON.
+
+    Args:
+        text (str): The input string to validate as JSON.
+
+    Returns:
+        bool: True if the string is valid JSON, False otherwise.
+    """
+
+    # Basic regex pattern for matching JSON structure
+    json_pattern = r"^(\s*(?:true|false|null|[-+]?[\d.]+(?:e[-+]?\d+)?|\{.*?\}|\[.*?\])\s*)*$"
+
+    return bool(re.match(json_pattern, text))
+```
+
+This implementation uses a regular expression (`^` matches the start of the string and `$` matches the end) to match the basic structure of JSON. It checks for:
+
+- True, False, null (the only possible values in JSON)
+- Numbers (both integers and floating-point numbers)
+- Objects (`{...}`)
+- Arrays (`[...]`)
+- Whitespace characters between these elements
+
+Note that this implementation is a simplified version and does not cover all aspects of valid JSON syntax (like escaping, quotes around keys in objects, etc.). However, it should work for most common cases. For more thorough validation, consider using built-in libraries like `json` or writing a custom parser.
+
+Example use case:
+
+```python
+print(json_validator('{"key": "value"}'))  # True
+print(json_validator('"invalid JSON"'))  # False
+print(json_validator('[1, 2, 3]'))         # True
+```

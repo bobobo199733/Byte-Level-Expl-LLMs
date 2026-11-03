@@ -1,0 +1,31 @@
+I will provide a solution using Depth-First Search (DFS) with Level Order Traversal (Breadth First Search - BFS like structure) to ensure all nodes are processed in the correct order, and also handle empty child nodes explicitly. The output string will be a list of node values separated by commas and surrounded by square brackets `[]`.
+
+Here is the Python function:
+
+```python
+class TreeNode:
+    def __init__(self, val=None):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def serialize_tree(root):
+    if not root:
+        return 'None'
+
+    queue = [root]
+    result = []
+
+    while queue:
+        current_node = queue.pop(0)
+        if current_node:
+            result.append(str(current_node.val))
+            queue.append(current_node.left)
+            queue.append(current_node.right)
+        else:
+            result.append('None')
+
+    return '[' + ', '.join(result) + ']'
+```
+
+This function defines a `TreeNode` class and uses BFS to traverse the tree, serializing it into the desired string representation. It correctly handles empty trees (with no nodes), as well as empty child nodes.

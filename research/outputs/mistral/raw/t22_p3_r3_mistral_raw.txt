@@ -1,0 +1,19 @@
+I'm glad to help you with that! Here is a simple implementation of the Sieve of Eratosthenes algorithm in Python:
+
+```python
+def sieve_primes(n):
+    prime = [True] * (n + 1)
+    p = 2
+    while p**2 <= n:
+        if prime[p]:
+            for i in range(p**2, n+1, p):
+                prime[i] = False
+        p += 1
+
+    primes = [str(x) for x in prime[:n + 1] if x]
+    return primes
+```
+
+This function initializes a list of boolean values representing numbers from 0 to n. It then iterates over the numbers starting from 2, marking as composite all multiples of each unmarked number found. The remaining numbers in the list are primes. Finally, it converts the resulting list of booleans into a list of prime numbers and returns it as a list of strings.
+
+You can call this function with an integer `n` to get the list of all primes up to `n`. Enjoy!

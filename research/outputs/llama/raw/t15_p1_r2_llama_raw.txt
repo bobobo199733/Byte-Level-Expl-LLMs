@@ -1,0 +1,72 @@
+**Topological Sort Function**
+=====================================
+
+The following is a Python implementation of a topological sort algorithm for a directed acyclic graph (DAG). This function uses depth-first search (DFS) to traverse the graph and determine a valid topological ordering.
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Returns a valid topological ordering of a directed acyclic graph.
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+            Each key is a node in the graph, and its corresponding value is a list
+            of its neighbors.
+
+    Returns:
+        A list of nodes representing a valid topological ordering of the graph.
+    """
+
+    # Initialize variables to keep track of visited nodes, their in-degree, and a queue for DFS
+    visited = set()
+    in_degree = defaultdict(int)
+    queue = deque()
+
+    # Calculate the in-degree of each node
+    for node in graph:
+        for neighbor in graph[node]:
+            in_degree[neighbor] += 1
+
+    # Add nodes with an in-degree of 0 to the queue
+    for node in graph:
+        if in_degree[node] == 0:
+            queue.append(node)
+            visited.add(node)
+
+    # Perform DFS and build the topological ordering
+    result = []
+    while queue:
+        node = queue.popleft()
+        result.append(node)
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+    # Check if the graph is a DAG (i.e., all nodes have been visited)
+    if len(result) != len(graph):
+        raise ValueError("The input graph is not a directed acyclic graph")
+
+    return result
+```
+
+**Example Usage**
+-----------------
+
+```python
+# Define a sample DAG with 5 nodes and their edges
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D', 'E'],
+    'D': [],
+    'E': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'C', 'B', 'E', 'D']
+```
+
+This code first initializes variables to keep track of visited nodes, their in-degree, and a queue for DFS. It then calculates the in-degree of each node and adds nodes with an in-degree of 0 to the queue. The algorithm performs DFS from these nodes and builds a valid topological ordering by adding each node's neighbors back into the queue after they have been visited. If all nodes are successfully visited, it returns a valid topological ordering; otherwise, it raises an error indicating that the input graph is not a DAG.

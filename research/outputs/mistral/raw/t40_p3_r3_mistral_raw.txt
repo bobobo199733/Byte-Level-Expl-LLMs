@@ -1,0 +1,11 @@
+Here's a simple implementation of the `autocomplete_system` function using a basic list-based approach. This function assumes that the input `words` is a list of strings and the prefix is a string we want to find autocomplete suggestions for.
+
+```python
+def autocomplete_system(words, prefix):
+    matches = [word for word in words if word.startswith(prefix)]
+    return sorted(matches)
+```
+
+This function iterates through the list of words and returns all words that start with the given `prefix`. It then sorts the matches alphabetically before returning them.
+
+Keep in mind that this solution might not be suitable for large datasets, as it will have a time complexity of O(n) (where n is the number of words), and searching through a list of millions of words could take a long time. For such cases, you may want to consider using data structures like Trie or prefix trees, which can significantly improve search performance.

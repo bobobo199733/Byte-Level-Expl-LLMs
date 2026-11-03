@@ -1,0 +1,34 @@
+Here is a high-quality, readable, and well-documented Python function that uses the `eval` function to evaluate the given arithmetic expression:
+```python
+def evaluate(expr: str) -> int:
+    """
+    Evaluate an arithmetic expression string containing integers, +, -, *, /, and parentheses.
+    
+    Args:
+        expr (str): The arithmetic expression to be evaluated.
+    
+    Returns:
+        int: The integer result of the evaluation.
+    """
+    # Remove any whitespace from the input expression
+    expr = expr.replace(" ", "")
+
+    # Evaluate the expression using eval and convert the result to an integer
+    try:
+        return int(eval(expr))
+    except Exception as e:
+        raise ValueError(f"Invalid arithmetic expression: {expr}. Error: {str(e)}")
+```
+Here's an explanation of how the function works:
+
+1. The `replace` method is used to remove any whitespace from the input expression.
+2. The `eval` function is used to evaluate the expression as a Python code object. This allows us to use arbitrary arithmetic operators and parentheses in the expression.
+3. The result of the evaluation is converted to an integer using the `int` function.
+4. If the evaluation raises any exceptions (e.g., division by zero), a `ValueError` exception is raised with a message indicating that the input expression was invalid.
+
+You can use this function like this:
+```python
+print(evaluate("1 + 2 * 3"))  # Output: 7
+print(evaluate("(10 - 5) / (2 + 1)"))  # Output: 2
+```
+Note that the `eval` function should only be used with trusted input, as it can evaluate arbitrary Python code. If you need to evaluate expressions from untrusted sources, consider using a safer method, such as parsing and evaluating the expression using a dedicated library like `numexpr`.

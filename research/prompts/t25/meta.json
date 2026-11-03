@@ -1,0 +1,15 @@
+{
+  "task_id": "t25",
+  "function_name": "count_set_bits",
+  "valid_cases": [
+    [[0], 0],
+    [[1], 1],
+    [[5], 2],
+    [[7], 3],
+    [[8], 1],
+    [[255], 8],
+    [[1023], 10]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

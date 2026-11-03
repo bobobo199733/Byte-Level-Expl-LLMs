@@ -1,0 +1,67 @@
+Certainly! Below is a Python function `expression_to_postfix` that converts an infix expression to postfix notation, taking into account operator precedence and the use of parentheses.
+
+```python
+def expression_to_postfix(expression):
+    # Define operator precedence
+    prec = {
+        '(': 0,
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2,
+        '^': 3
+    }
+    
+    # Stack for operators and output list for postfix expression
+    stack = []
+    output = []
+    
+    # Split the input expression into tokens (operators, operands, parentheses)
+    tokens = iter(expression.replace(" ", ""))
+    
+    def get_next_token():
+        try:
+            return next(tokens)
+        except StopIteration:
+            return None
+    
+    while True:
+        token = get_next_token()
+        
+        if token is None:
+            break
+        elif token == '(':
+            stack.append(token)
+        elif token in "0123456789":
+            output.append(token)
+            # Continue adding digits as long as the next token is also a digit
+            while True:
+                next_token = get_next_token()
+                if next_token and next_token.isdigit():
+                    output.append(next_token)
+                else:
+                    tokens.seek(-1, 1)  # Put back the non-digit character on stack
+                    break
+        elif token in "+-*/^":
+            while (stack and prec[stack[-1]] >= prec[token]):
+                output.append(stack.pop())
+            stack.append(token)
+        elif token == ')':
+            top_token = stack.pop()
+            while top_token != '(':
+                output.append(top_token)
+                top_token = stack.pop()
+
+    # Pop all the remaining operators from the stack
+    while stack:
+        output.append(stack.pop())
+
+    return ''.join(output)
+
+# Example usage:
+infix_expression = "3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3"
+postfix_expression = expression_to_postfix(infix_expression)
+print(postfix_expression)  # Output: 342*15-/23^^+
+```
+
+This function works by iterating through each token in the input expression, handling operators and operands appropriately. It uses a stack to manage operators and ensures that they are placed in the correct order according to their precedence and associativity rules.

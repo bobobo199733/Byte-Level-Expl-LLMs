@@ -1,0 +1,66 @@
+Certainly! Below is a Python function named `expression_to_postfix` which takes an infix expression as input and returns the corresponding postfix (Reverse Polish Notation) expression. This function uses the Shunting Yard algorithm to handle operator precedence and parentheses.
+
+```python
+def expression_to_postfix(expression):
+    def apply_operator(operators, values):
+        operator = operators.pop()
+        right = values.pop()
+        left = values.pop()
+        if operator == '+':
+            values.append(left + right)
+        elif operator == '-':
+            values.append(left - right)
+        elif operator == '*':
+            values.append(left * right)
+        elif operator == '/':
+            values.append(left / right)
+
+    def greater_precedence(op1, op2):
+        precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+        return precedence[op1] > precedence[op2]
+
+    operators = []
+    values = []
+    tokens = expression.split()
+
+    for token in tokens:
+        if token.isdigit():
+            values.append(int(token))
+        elif token == '(':
+            operators.append(token)
+        elif token == ')':
+            while (len(operators) != 0 and operators[-1] != '('):
+                apply_operator(operators, values)
+            operators.pop()  # Remove the '(' from the stack
+        else:  # It's an operator
+            while (len(operators) != 0 and greater_precedence(operators[-1], token)):
+                apply_operator(operators, values)
+            operators.append(token)
+
+    while len(operators) != 0:
+        apply_operator(operators, values)
+
+    return ' '.join(map(str, values))
+
+# Example usage
+infix_expression = "5 + (7 - 3) * (8 / 4)"
+postfix_expression = expression_to_postfix(infix_expression)
+print(postfix_expression)  # Output: 5 7 3 - 8 4 / *
+```
+
+### Explanation:
+1. **`apply_operator(operators, values)`**: This helper function applies the operator to the top two elements of the `values` stack and pushes the result back onto the stack.
+2. **`greater_precedence(op1, op2)`**: This function checks if `op1` has a higher precedence than `op2`.
+3. The main loop processes each token in the expression:
+   - If it's a number, push it to the `values` stack.
+   - If it's an opening parenthesis, push it onto the `operators` stack.
+   - If it's a closing parenthesis, apply operators from the stack until an opening parenthesis is encountered and remove that parenthesis.
+   - If it's an operator, apply any operators from the stack with higher precedence before pushing this new operator onto the stack.
+
+4. After processing all tokens, any remaining operators in the stack are applied to the values.
+
+### Notes:
+- This implementation assumes that the input expression is well-formed (e.g., no missing parentheses).
+- The function handles basic arithmetic operations: addition (+), subtraction (-), multiplication (*), and division (/).
+
+You can test this function with various infix expressions to see how it converts them into postfix notation.

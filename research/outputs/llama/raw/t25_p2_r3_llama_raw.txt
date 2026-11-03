@@ -1,0 +1,25 @@
+```python
+def count_set_bits(n):
+    """
+    Counts how many bits are set to 1 in a non-negative integer.
+
+    Args:
+        n (int): A non-negative integer.
+
+    Returns:
+        int: The number of bits set to 1 in the given integer.
+
+    Raises:
+        ValueError: If the input is negative.
+    """
+
+    if n < 0:
+        raise ValueError("Input must be a non-negative integer")
+
+    count = 0
+    while n:
+        count += n & 1
+        n >>= 1
+
+    return count
+```

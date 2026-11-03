@@ -1,0 +1,22 @@
+```python
+def max_subarray_sum(nums):
+    """
+    Returns the maximum sum of any contiguous subarray.
+
+    Args:
+        nums (list): A list of integers.
+
+    Returns:
+        int: The maximum sum of any contiguous subarray.
+    """
+    if not nums:
+        return 0
+    
+    current_max = max_num = nums[0]
+    
+    for num in nums[1:]:
+        current_max = max(num, current_max + num)
+        max_num = max(max_num, current_max)
+        
+    return max_num
+```

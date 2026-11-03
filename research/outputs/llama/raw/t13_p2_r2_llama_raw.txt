@@ -1,0 +1,90 @@
+**Spiral Matrix Traversal**
+=====================================
+
+Here is the Python function that traverses a matrix in spiral order and returns the visited elements as a list:
+
+```python
+def spiral_matrix(matrix):
+    """
+    Returns a list of visited elements in a matrix, traversed in spiral order.
+
+    Args:
+        matrix (list): A 2D list representing the matrix to traverse.
+
+    Returns:
+        list: The visited elements in the matrix.
+    """
+
+    if not matrix or not all(row for row in matrix):
+        # Handle empty matrices
+        return []
+
+    rows, cols = len(matrix), len(matrix[0])
+    visited = set()
+    result = []
+
+    top, bottom = 0, rows - 1
+    left, right = 0, cols - 1
+
+    while top <= bottom and left <= right:
+        # Traverse from left to right
+        for col in range(left, right + 1):
+            if (top, col) not in visited:
+                result.append(matrix[top][col])
+                visited.add((top, col))
+        top += 1
+
+        # Traverse from top to bottom
+        for row in range(top, bottom + 1):
+            if (row, right) not in visited:
+                result.append(matrix[row][right])
+                visited.add((row, right))
+        right -= 1
+
+        # Traverse from right to left
+        if top <= bottom:
+            for col in range(right, left - 1, -1):
+                if (bottom, col) not in visited:
+                    result.append(matrix[bottom][col])
+                    visited.add((bottom, col))
+            bottom -= 1
+
+        # Traverse from bottom to top
+        if left <= right:
+            for row in range(bottom, top - 1, -1):
+                if (row, left) not in visited:
+                    result.append(matrix[row][left])
+                    visited.add((row, left))
+            left += 1
+
+    return result
+```
+
+**Example Use Cases:**
+
+```python
+# Example matrix with a rectangular shape
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+
+# Example matrix with a square shape
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+
+# Example empty matrix
+matrix = []
+
+print(spiral_matrix(matrix))  # Output: []
+```
+
+This function handles both rectangular and square matrices, as well as empty matrices. It starts traversing from the top-left corner in a clockwise direction and avoids revisiting elements by using a set to keep track of visited indices.

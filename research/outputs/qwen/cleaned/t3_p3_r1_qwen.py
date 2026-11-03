@@ -1,0 +1,49 @@
+def evaluate(expr: str) -> int:
+    import tokenize
+    from io import BytesIO
+
+    def read_token(tokens):
+        return next(tokens)
+
+    def parse_expression(tokens):
+        stack = []
+        current = None
+        while True:
+            try:
+                token = read_token(tokens)
+                if token.exact_type == tokenize.NUMBER:
+                    value = int(token.string)
+                    if current is None:
+                        current = value
+                    else:
+                        last_op = stack.pop()
+                        if last_op == '+':
+                            current += value
+                        elif last_op == '-':
+                            current -= value
+                        elif last_op == '*':
+                            current *= value
+                        elif last_op == '/':
+                            current //= value
+                elif token.exact_type in (tokenize.OP, tokenize.NEWLINE):
+                    if token.string == '(':
+                        subexpr = parse_expression(tokens)
+                        if stack and stack[-1] == '/':
+                            current //= subexpr
+                            stack.pop()
+                        else:
+                            current = subexpr
+                    elif token.string == ')':
+                        return current
+                    elif token.string in '+-*/':
+                        stack.append(token.string)
+                else:
+                    raise ValueError
+            except StopIteration:
+                break
+    try:
+        tokens = tokenize.generate_tokens(BytesIO(expr.encode()).readline)
+        result = parse_expression(tokens)
+    except (tokenize.TokenError, StopIteration):
+        raise ValueError
+    return result

@@ -1,0 +1,50 @@
+Certainly! Below is the Python function `serialize_tree(root)` that serializes a binary tree into a string. The function uses pre-order traversal to serialize the tree and ensures determinism by using the node values directly.
+
+```python
+def serialize_tree(root):
+    def pre_order(node):
+        if not node:
+            return "None,"
+        serialized = str(node) + ","
+        serialized += pre_order(node.left)
+        serialized += pre_order(node.right)
+        return serialized
+    
+    # Start serialization with root
+    result = pre_order(root)
+    # Remove the trailing comma and wrap in square brackets
+    return "[" + result[:-1] + "]"
+```
+
+### Explanation:
+- **Function `pre_order`**: This is a helper function that performs a pre-order traversal of the tree. It checks if the current node is `None`, and if so, returns "None," to represent an empty subtree.
+- **Node Serialization**: For each non-null node, it appends the node's value followed by commas to separate different levels and nodes.
+- **Traversing Subtrees**: The function recursively calls itself for the left and right children of the current node.
+- **Final Result Construction**: The `pre_order` function is called starting from the root. After the traversal, any trailing comma is removed and the result is enclosed in square brackets to indicate a list.
+
+### Example Usage:
+
+```python
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+# Constructing a simple binary tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+
+print(serialize_tree(root))
+```
+
+This will output:
+
+```
+[1,2,4,None,None,5,None,None,3,None,None]
+```
+
+This string representation uniquely identifies the tree structure and can be used to reconstruct the original tree if needed.

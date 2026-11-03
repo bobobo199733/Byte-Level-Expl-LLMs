@@ -1,0 +1,50 @@
+Here is a Python function that performs a binary search on a rotated sorted list:
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target value in a rotated sorted list using binary search.
+
+    Args:
+        values (list): A rotated sorted list of integers.
+        target (int): The value to be searched in the list.
+
+    Returns:
+        int: The index of the target value if found. -1 otherwise.
+    """
+    low, high = 0, len(values) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if values[mid] == target:
+            return mid
+
+        # If left half is sorted
+        if values[low] <= values[mid]:
+            # Target is present in the left half, move to left half
+            if values[low] <= target < values[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        # Right half is sorted
+        else:
+            # Target is present in right half, move to right half
+            if values[mid] < target <= values[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    return -1
+```
+
+Here's an example use case:
+
+```python
+values = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+index = binary_search_rotated(values, target)
+if index != -1:
+    print(f"Target {target} found at index {index}")
+else:
+    print(f"Target {target} not found")
+```

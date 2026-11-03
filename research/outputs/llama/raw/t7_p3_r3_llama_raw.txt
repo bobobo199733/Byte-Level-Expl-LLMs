@@ -1,0 +1,73 @@
+Here's a simple function to count words in a given text:
+
+```python
+def word_frequency(text):
+    """
+    This function takes a string as input and returns a dictionary with the frequency of each word.
+    
+    Args:
+        text (str): The input string.
+
+    Returns:
+        dict: A dictionary where keys are unique words from the input string and values are their respective frequencies.
+    """
+
+    # Convert to lower case
+    text = text.lower()
+
+    # Remove non-word characters
+    text = ''.join(char if char.isalnum() else ' ' for char in text)
+
+    # Split into a list of words
+    words = text.split()
+
+    # Create a dictionary with word frequencies
+    frequency_dict = {}
+    for word in words:
+        if word not in frequency_dict:
+            frequency_dict[word] = 1
+        else:
+            frequency_dict[word] += 1
+
+    return frequency_dict
+
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```
+
+This function will return a dictionary where each key is a word from the input string and its corresponding value is the number of times it appears in the string.
+
+Alternatively, you could use Python's built-in `collections.Counter` class to simplify the code:
+
+```python
+from collections import Counter
+
+def word_frequency(text):
+    """
+    This function takes a string as input and returns a dictionary with the frequency of each word.
+    
+    Args:
+        text (str): The input string.
+
+    Returns:
+        dict: A dictionary where keys are unique words from the input string and values are their respective frequencies.
+    """
+
+    # Convert to lower case
+    text = text.lower()
+
+    # Remove non-word characters
+    text = ''.join(char if char.isalnum() else ' ' for char in text)
+
+    # Split into a list of words
+    words = text.split()
+
+    return Counter(words)
+
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```

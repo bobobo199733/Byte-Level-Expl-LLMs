@@ -1,0 +1,67 @@
+**Wildcard Matching Function**
+================================
+
+Here is the implementation of the `wildcard_match` function in Python:
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    """
+    Check whether a string matches a wildcard pattern.
+
+    Args:
+        s (str): The input string.
+        p (str): The wildcard pattern.
+
+    Returns:
+        bool: True if the string matches the pattern, False otherwise.
+    """
+
+    dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+
+    # Empty pattern matches empty string
+    dp[0][0] = True
+
+    # '*' can match an empty string
+    for i in range(1, len(p) + 1):
+        if p[i - 1] == '*':
+            dp[0][i] = dp[0][i - 1]
+
+    for i in range(1, len(s) + 1):
+        for j in range(1, len(p) + 1):
+            # '?' and '*' are special characters
+            if p[j - 1] == '?':
+                dp[i][j] = dp[i - 1][j - 1]
+            elif p[j - 1] == '*':
+                # '*' can match any sequence of characters, including an empty string
+                dp[i][j] = (dp[i][j - 1] or dp[i - 1][j])
+            else:
+                # '?' and '*' don't match ordinary characters
+                if s[i - 1] == p[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+
+    return dp[len(s)][len(p)]
+```
+**Explanation**
+
+The function uses dynamic programming to build a table `dp` where `dp[i][j]` is True if the first `i` characters of `s` match the first `j` characters of `p`.
+
+We start by initializing the first row and column of the table:
+
+* If the pattern is empty, it matches an empty string.
+* If the pattern has a '*', it can match an empty string.
+
+Then we fill in the rest of the table using the following rules:
+
+* If the current character in the pattern is '?', it matches any character in the input string. So `dp[i][j] = dp[i - 1][j - 1]`.
+* If the current character in the pattern is '*', it can match any sequence of characters, including an empty string. So `dp[i][j] = (dp[i][j - 1] or dp[i - 1][j])`.
+* If the current character in the pattern is not '?' or '*', it must be equal to the corresponding character in the input string. So `dp[i][j] = (s[i - 1] == p[j - 1]) and dp[i - 1][j - 1]`.
+
+Finally, we return the value of `dp[len(s)][len(p)]`, which indicates whether the entire input string matches the entire pattern.
+
+**Example Use Cases**
+
+```python
+print(wildcard_match("hello", "hello"))  # True
+print(wildcard_match("hello", "h*l*o"))  # True
+print(wildcard_match("hello", "h*l"))  # False
+print(wildcard_match("", "h*l"))  # True
+```

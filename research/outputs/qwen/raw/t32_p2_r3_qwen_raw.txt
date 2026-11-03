@@ -1,0 +1,39 @@
+Certainly! Below is a Python function `n_queens(n)` that solves the N-Queens problem using backtracking. This function will return all valid solutions where no queens attack each other.
+
+```python
+def n_queens(n):
+    def place_queen(row, columns, diffs, sums):
+        if row == n:
+            result.append(columns)
+            return
+        
+        for col in range(n):
+            diff = row - col
+            sum_ = row + col
+            
+            if col not in columns and diff not in diffs and sum_ not in sums:
+                place_queen(row + 1, columns | {col}, diffs | {diff}, sums | {sum_})
+    
+    result = []
+    place_queen(0, set(), set(), set())
+    return result
+
+# Example usage
+print(n_queens(4))
+```
+
+### Explanation:
+
+- **`place_queen(row, columns, diffs, sums)`**: This recursive function attempts to place a queen in the current row. It checks if placing a queen at column `col` is valid by ensuring that no other queens are on the same column (`col`), or on any of the diagonals (difference `diff = row - col`, sum `sum_ = row + col`).
+
+- **Base Case**: If we have successfully placed queens in all rows, we add the current configuration to the result list.
+
+- **Recursive Step**: For each valid position, we recursively try placing a queen in the next row. We update the sets `columns`, `diffs`, and `sums` to keep track of the columns, negative differences (left diagonals), and positive sums (right diagonals) that are already occupied by queens.
+
+- **Initial Call**: The function is initially called with `row = 0` and empty sets for columns, diffs, and sums.
+
+### Handling Edge Cases:
+- For `n = 0`, the function will return an empty list since no board configuration is possible.
+- For `n = 1`, only one solution exists: placing a single queen in the only cell of the board. This is handled by the base case check.
+
+This implementation ensures that all constraints are met and provides efficient solutions using backtracking.

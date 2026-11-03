@@ -1,0 +1,30 @@
+**Autocomplete System Function**
+=====================================
+
+### Code
+```python
+def autocomplete_system(words, prefix):
+    """
+    Returns a list of matching autocomplete suggestions.
+
+    Args:
+        words (list): List of words to search from.
+        prefix (str): Prefix to match against words.
+
+    Returns:
+        list: Sorted list of matching autocomplete suggestions.
+    """
+    return sorted([word for word in words if word.startswith(prefix)])
+```
+
+### Example Use Case
+```python
+words = ["apple", "banana", "cherry", "date", "elderberry"]
+prefix = "a"
+
+suggestions = autocomplete_system(words, prefix)
+print(suggestions)  # Output: ['apple']
+```
+In this example, the function `autocomplete_system` takes a list of words and a prefix as input. It returns a sorted list of words that start with the given prefix.
+
+Note that this implementation uses a list comprehension to generate the matching suggestions and then sorts them using the built-in `sorted` function. This approach is concise and efficient for small inputs, but may not be suitable for very large lists or complex search queries.

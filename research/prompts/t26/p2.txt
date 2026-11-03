@@ -1,0 +1,9 @@
+Write exactly one Python function called min_window_substring(s, t) that finds the minimum window in s containing every character from t.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Character counts matter.
+- Return an empty string if no valid window exists.
+- The solution should be efficient for long strings.

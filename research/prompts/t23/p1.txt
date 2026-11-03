@@ -1,0 +1,1 @@
+Write exactly one Python function called fast_power(base, exponent) that computes base raised to exponent efficiently. Return only the function definition.

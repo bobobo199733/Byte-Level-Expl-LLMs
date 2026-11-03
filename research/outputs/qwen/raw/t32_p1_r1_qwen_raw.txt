@@ -1,0 +1,62 @@
+Certainly! Below is a Python function `n_queens(n)` that returns all valid solutions to the N-Queens problem. This implementation uses backtracking to explore all possible placements for the queens on the board.
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        # Check this row on left side
+        for i in range(col):
+            if board[row][i] == 'Q':
+                return False
+        
+        # Check upper diagonal on left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 'Q':
+                return False
+        
+        # Check lower diagonal on left side
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 'Q':
+                return False
+        
+        return True
+
+    def solve_n_queens(board, col):
+        # base case: If all queens are placed then add solution
+        if col >= n:
+            result.append(["".join(row) for row in board])
+            return
+        
+        # Consider this column and try placing this queen in all rows one by one
+        for i in range(n):
+            if is_safe(board, i, col):
+                # Place this queen in board[i][col]
+                board[i][col] = 'Q'
+                
+                # recur to place rest of the queens
+                solve_n_queens(board, col + 1)
+                
+                # If placing queen in board[i][col] doesn't lead to a solution then remove queen from board[i][col]
+                board[i][col] = '.'
+    
+    result = []
+    # Initialize the board with all dots ('.')
+    board = [['.' for _ in range(n)] for _ in range(n)]
+    
+    solve_n_queens(board, 0)
+    return result
+
+# Example usage:
+print(n_queens(4))
+```
+
+This function works as follows:
+
+1. **is_safe(board, row, col)**: This helper function checks if it is safe to place a queen at `board[row][col]` by ensuring that no other queens are in the same column or diagonal.
+
+2. **solve_n_queens(board, col)**: This recursive function tries to solve the N-Queens problem for columns from 0 to n-1. If all queens are placed (i.e., `col >= n`), it adds the current board configuration to the result list.
+
+3. For each column, we try placing a queen in every row and recursively attempt to place the rest of the queens. If placing a queen at `board[i][col]` leads to a solution, the function continues; otherwise, it backtracks by removing the queen from that position.
+
+4. The main function initializes an n x n board with all dots ('.') and calls the recursive solver starting from column 0.
+
+This implementation handles small and large values of n correctly and avoids using any external libraries.

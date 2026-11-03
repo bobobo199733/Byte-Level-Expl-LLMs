@@ -1,0 +1,6 @@
+Write a single Python function called basic_calculator(s) that evaluates a string math expression containing:
+- Non-negative integers
+- Operators + and -
+- Parentheses ( and )
+- Spaces (which should be ignored)
+Use a stack-based approach to handle parentheses. When encountering a closing parenthesis, evaluate the expression inside. Do not use eval() or any expression parsing library. Return the result as an integer.

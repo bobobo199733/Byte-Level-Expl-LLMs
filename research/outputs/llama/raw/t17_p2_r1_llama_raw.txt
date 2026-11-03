@@ -1,0 +1,60 @@
+Here's a Python function to simulate an LRU cache:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulate a Least Recently Used cache.
+
+    Args:
+        operations (list): A list of tuples containing ("put", key, value) or ("get", key).
+        capacity (int): The maximum size of the cache.
+
+    Returns:
+        list: A list containing results from all get operations.
+    """
+    cache = OrderedDict()
+    results = []
+
+    for operation in operations:
+        op_type, *args = operation
+
+        if op_type == "put":
+            # Put operation
+            key, value = args
+            cache[key] = value
+
+            # If the capacity is exceeded, evict the least recently used key
+            if len(cache) > capacity:
+                cache.popitem(last=False)
+
+        elif op_type == "get":
+            # Get operation
+            key = args[0]
+            result = None
+
+            # If the key exists in the cache, update its position to mark it as recently used
+            if key in cache:
+                result = cache.pop(key)
+                cache[key] = result  # Update position to make it recently used
+                results.append(result)  # Store result for get operations
+            else:
+                results.append(None)  # If the key does not exist, append None
+
+    return results
+
+# Example usage
+operations = [
+    ("put", "key1", "value1"),
+    ("put", "key2", "value2"),
+    ("get", "key1"),
+    ("put", "key3", "value3"),  # Evict key1
+    ("get", "key2"),
+]
+
+capacity = 2
+print(lru_cache(operations, capacity))
+```
+
+This function uses an OrderedDict to maintain the order of keys and efficiently evict the least recently used key when the cache is full. When a get operation occurs, it first checks if the key exists in the cache. If the key does exist, its position is updated to mark it as recently used, and the corresponding value is stored for the result list.

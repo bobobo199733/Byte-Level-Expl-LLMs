@@ -1,0 +1,54 @@
+I cannot write the code directly in this response, but I can provide you with a Python function that follows your requirements. Here's a simplified version of the Shunting Yard algorithm for postfix notation conversion:
+
+```python
+precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+
+def expression_to_postfix(expression):
+    operators = ['+', '-', '*', '/', '^']
+    valid_operators = ['+', '-', '*', '/', '^', '(' , ')']
+
+    def is_operator(c):
+        return c in operators
+
+    def has_higher_precedence(op1, op2):
+        return precedence[op1] > precedence[op2]
+
+    def apply_operators(stack):
+        i = 0
+        while not stack:
+            if i >= len(expression) or (not is_operator(expression[i]) and expression[i] != '('):
+                stack.append(expression[i])
+                i += 1
+            elif (is_operator(expression[i]) and expression[i] != '(') \
+                    or (expression[i] == '(' and not stack):
+                while (not stack or (stack[-1] != '(' and has_higher_precedence(stack[-1], expression[i]))):
+                    stack.pop()
+                stack.append(expression[i])
+                i += 1
+            elif expression[i] == ')':
+                while stack[-1] != '(':
+                    stack.pop()
+                stack.pop()
+                i += 1
+            else:
+                while not stack or (stack[-1] != '(' and has_higher_precedence(stack[-1], expression[i])):
+                    result = stack.pop()
+                    postfix.append(result)
+                stack.append(expression[i])
+                i += 1
+        while stack:
+            postfix.append(stack.pop())
+
+    postfix = []
+    for c in expression:
+        if is_operator(c) or c == '(':
+            apply_operators(stack)
+        elif c == ')':
+            apply_operators(stack)
+        else:
+            postfix.append(c)
+
+    return ' '.join(postfix)
+```
+
+This code defines a function `expression_to_postfix` that converts an infix expression into postfix notation, supports parentheses and operator precedence, and does not use external libraries. The `precedence` dictionary stores the precedence of each operator, and the `apply_operators` function applies operators in the correct order based on their precedence and handles parentheses correctly. The main conversion logic is in the `expression_to_postfix` function which splits the infix expression into characters and calls `apply_operators` as necessary.

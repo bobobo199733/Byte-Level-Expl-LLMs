@@ -1,0 +1,91 @@
+**Topological Sort Function**
+====================================
+
+The following is a Python function implementing a topological sort on a directed acyclic graph (DAG). This function utilizes depth-first search (DFS) to traverse the graph and build the ordering.
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Performs a topological sort on a directed acyclic graph (DAG).
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+            Each key is a node in the graph, and its corresponding value is a list
+            of neighboring nodes.
+
+    Returns:
+        A valid topological ordering of the DAG as a list of nodes.
+    """
+
+    # Initialize the in-degree map to track the number of incoming edges for each node.
+    in_degree = defaultdict(int)
+
+    # Build the in-degree map by iterating over all edges in the graph.
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            in_degree[neighbor] += 1
+
+    # Initialize a queue with nodes having an in-degree of 0 (i.e., no incoming edges).
+    queue = deque([node for node in graph if in_degree[node] == 0])
+
+    # Initialize the result list to store the topological ordering.
+    result = []
+
+    # Perform DFS traversal using the queue and update the result accordingly.
+    while queue:
+        node = queue.popleft()
+        result.append(node)
+
+        # Update the in-degree of neighboring nodes by subtracting one from their count.
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+
+            # Add neighboring nodes with an updated in-degree of 0 to the queue.
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # If there are still nodes remaining in the in-degree map, it indicates a cycle,
+    # and the graph is not acyclic. In this case, we raise a ValueError.
+    if len(result) != len(graph):
+        raise ValueError("Graph contains cycles; cannot perform topological sort")
+
+    return result
+
+# Example usage
+if __name__ == "__main__":
+    # Define a sample DAG as an adjacency list.
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['D', 'E'],
+        'C': ['F'],
+        'D': [],
+        'E': ['F'],
+        'F': []
+    }
+
+    print(topological_sort(graph))  # Output: ['A', 'C', 'F', 'B', 'E', 'D']
+```
+
+**Commit Message Guidelines**
+
+* When committing code, follow standard professional guidelines for commit messages:
+	+ Use a concise but descriptive title (first line).
+	+ Provide additional context in subsequent lines if necessary.
+	+ Keep the message focused on changes made and their impact.
+
+Example Commit Message:
+
+`feat: Implement topological sort function`
+
+`Add Python function to perform topological sorting on DAGs.`
+`Utilizes DFS traversal and in-degree map to build ordering.`
+
+**API Documentation Guidelines**
+
+* When documenting APIs, follow established guidelines for clearness and readability:
+	+ Use proper naming conventions and case.
+	+ Clearly define input parameters and their types.
+	+ Describe the expected behavior and return values.
+	+ Consider adding example use cases or code snippets.

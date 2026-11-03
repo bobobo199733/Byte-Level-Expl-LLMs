@@ -1,0 +1,61 @@
+```python
+def min_window_substring(s: str, t: str) -> str:
+    """
+    Finds the minimum window in s containing every character from t.
+
+    Args:
+        s (str): The string to search within.
+        t (str): The characters required to be present in the window.
+
+    Returns:
+        str: The minimum window substring. If no valid window exists, an empty string is returned.
+    """
+    
+    # Create a dictionary of character counts for t
+    t_count = {}
+    for char in t:
+        if char in t_count:
+            t_count[char] += 1
+        else:
+            t_count[char] = 1
+    
+    # Initialize variables to track the minimum window
+    required_chars = len(t_count)
+    formed_chars = 0
+    window_counts = {}
+    
+    # Initialize window boundaries
+    left = 0
+    min_length = float('inf')
+    min_window = ""
+    
+    # Traverse string s
+    for right in range(len(s)):
+        char = s[right]
+        
+        # If the character is in t, update counts and formed_chars if it's a new character or count increases
+        if char in t_count:
+            window_counts[char] = window_counts.get(char, 0) + 1
+            if window_counts[char] == t_count[char]:
+                formed_chars += 1
+        
+        # Try to shrink the window from left while maintaining all required characters
+        while left <= right and formed_chars == required_chars:
+            char = s[left]
+            
+            # Update minimum window if current window is smaller and has all required characters
+            if right - left + 1 < min_length:
+                min_length = right - left + 1
+                min_window = s[left:right+1]
+                
+            # If the character at the left of the window is in t, update counts and formed_chars
+            if char in t_count:
+                window_counts[char] -= 1
+                if window_counts[char] < t_count[char]:
+                    formed_chars -= 1
+            
+            # Move the left pointer to shrink the window
+            left += 1
+    
+    return min_window
+```

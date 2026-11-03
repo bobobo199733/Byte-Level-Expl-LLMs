@@ -1,0 +1,80 @@
+Certainly! Below is a Python function called `sudoku_solver` that uses backtracking to solve a standard 9x9 Sudoku puzzle. The function modifies the board in-place and raises a `ValueError` if the puzzle is invalid or unsolvable.
+
+```python
+def is_valid(board, row, col, num):
+    # Check if the number exists in the current row
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+
+    # Check if the number exists in the current column
+    for y in range(9):
+        if board[y][col] == num:
+            return False
+
+    # Calculate the starting index of the 3x3 box
+    start_row = row - row % 3
+    start_col = col - col % 3
+    
+    # Check if the number exists in the current 3x3 sub-box
+    for i in range(3):
+        for j in range(3):
+            if board[i + start_row][j + start_col] == num:
+                return False
+
+    return True
+
+def find_empty_location(board):
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                return (row, col)
+    return None
+
+def sudoku_solver(board):
+    empty = find_empty_location(board)
+
+    # If there are no empty spaces left, the puzzle is solved
+    if not empty:
+        return True
+    
+    row, col = empty
+
+    for num in range(1, 10):  # We use numbers from 1 to 9 as valid entries
+        if is_valid(board, row, col, num):
+            board[row][col] = num
+            
+            if sudoku_solver(board):
+                return True
+            
+            # Backtrack and reset the cell if this number doesn't lead to a solution
+            board[row][col] = 0
+
+    # If no valid number can be placed in the current cell, raise an error
+    raise ValueError("Puzzle is invalid or unsolvable")
+
+# Example usage:
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+try:
+    sudoku_solver(board)
+    for row in board:
+        print(row)
+except ValueError as e:
+    print(e)
+
+```
+
+This function works by recursively trying each number (1 to 9) in the first empty cell that it finds. If a number is valid according to Sudoku rules, it places the number and continues solving the puzzle with the next empty cell. If placing a number leads to an invalid board state or no solution, it backtracks by resetting the cell and trying the next possible number.
+
+The function raises a `ValueError` if the initial input board does not have a valid or solvable configuration.

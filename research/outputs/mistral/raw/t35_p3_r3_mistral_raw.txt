@@ -1,0 +1,27 @@
+Creating a full JSON validator without using any built-in JSON libraries can be quite complex and error-prone, as it requires implementing the entire JSON syntax. For this example, I'll provide you with a simplified version of JSON validator that checks for basic JSON structures (objects, arrays, strings, numbers, booleans, and null). However, it won't support comments, whitespace, or nested objects/arrays.
+
+```python
+def json_validator(text):
+    states = {
+        'null': False,
+        'true': False,
+        'false': False,
+        '\'\\w+\'': False,
+        '\\d+(\\.\d*)?\\b': False,
+        '{': 'object',
+        '[': 'array',
+    }
+
+    stack = []
+    for token in text:
+        if token in states:
+            stack.append(states[token])
+            states[token] = None  # mark as processed
+        elif states[-1] and (token == '}' or token == ']'):
+            stack.pop()
+        elif not stack or states[stack[-1]] is not None:
+            return False  # invalid JSON syntax
+    return len(stack) == 0  # empty stack means valid JSON
+```
+
+This function checks for basic JSON structures by iterating through the input string and pushing corresponding states onto a stack when encountering opening brackets or curly braces. When closing brackets or curly braces are found, the corresponding state is popped from the stack. If the JSON syntax is not valid, the stack will contain some elements, otherwise, it should be empty at the end of processing.

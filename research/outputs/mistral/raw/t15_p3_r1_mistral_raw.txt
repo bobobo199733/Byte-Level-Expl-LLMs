@@ -1,0 +1,44 @@
+To create a topological sort function in Python for a directed acyclic graph (DAG), we can utilize Depth-First Search (DFS). Here's an implementation:
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    indegree = defaultdict(int)
+    successors = defaultdict(list)
+
+    for node in graph:
+        for neighbor in graph[node]:
+            successors[neighbor].append(node)
+            indegree[node] += 1
+
+    queue = deque([node for node in graph if indegree[node] == 0])
+    result = []
+
+    while queue:
+        current_node = queue.popleft()
+        result.append(current_node)
+
+        for neighbor in successors[current_node]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                queue.append(neighbor)
+
+    return result if not result else None
+```
+
+In the above code, we first calculate the incoming edges (indegree) and outgoing edges (successors) for each node in the graph. Then we initiate a Depth-First Search by starting with nodes that have an indegree of 0. As we visit each node during DFS, we append it to the result list and decrease the indegree of its successor nodes. If the indegree of a successor node becomes 0, we add it to the queue for further exploration. The function returns the sorted list of nodes if found (in the case where there is at least one topological sort), otherwise, it returns `None`.
+
+For instance:
+
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['D'],
+    'D': [],
+    'E': []
+}
+
+print(topological_sort(graph))  # Output: ['D', 'C', 'A', 'B', 'E']
+```

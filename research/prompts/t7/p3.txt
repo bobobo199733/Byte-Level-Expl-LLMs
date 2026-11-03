@@ -1,0 +1,1 @@
+Count words in a string using Python. Name the function word_frequency(text)

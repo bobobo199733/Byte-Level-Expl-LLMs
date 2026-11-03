@@ -1,0 +1,16 @@
+def matrix_multiply(A, B):
+
+    def check_dimensions(matrix1, matrix2):
+        if len(matrix1) != len(matrix2):
+            raise ValueError('Incompatible dimensions for matrix multiplication')
+        return all((len(sublist1) == len(sublist2) for sublist1, sublist2 in zip(matrix1, matrix2)))
+    rows_A, cols_B = (len(A), len(A[0]))
+    cols_A, rows_B = (cols_B, len(B))
+    if not check_dimensions(A, B):
+        raise ValueError('Incompatible dimensions for matrix multiplication')
+    result = [[0] * rows_B for _ in range(cols_A)]
+    for i in range(rows_A):
+        for j in range(rows_B):
+            for k in range(cols_B):
+                result[i][j] += A[i][k] * B[k][j]
+    return result

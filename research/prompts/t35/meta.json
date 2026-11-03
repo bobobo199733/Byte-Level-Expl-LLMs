@@ -1,0 +1,9 @@
+{
+  "function_name": "json_validator",
+  "description": "Validate whether a string is valid JSON.",
+  "category": "parsing",
+  "subtype": "json",
+  "difficulty": "hard",
+  "uses_recursion": true,
+  "uses_graph": false
+}

@@ -1,0 +1,17 @@
+def matrix_multiply(A, B):
+    def check_dimensions(M, N):
+        rows_M = len(M)
+        cols_N = len(N[0]) if N else 0
+        return rows_M == cols_N
+
+    if not all((isinstance(x, list) for x in (A, B)) and all((all(isinstance(y, int) for y in row) for row in (A, B))):
+        raise ValueError("Both matrices must be lists of lists containing integers.")
+
+    if not check_dimensions(A, None):
+        raise ValueError("First matrix should be a list of rows with the same number of columns.")
+
+    if not check_dimensions(None, B[0]):
+        raise ValueError("Second matrix should be a list of columns with the same number of rows.")
+
+    result = [[sum(a*b for a, b in zip(ar, br)) for br in zip(*B)] for ar in A]
+    return result

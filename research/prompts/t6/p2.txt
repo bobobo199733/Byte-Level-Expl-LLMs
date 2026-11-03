@@ -1,0 +1,5 @@
+Write a function:
+
+def wildcard_match(s: str, p: str) -> bool
+
+Check whether a string matches a wildcard pattern where '?' matches one character and '*' matches any sequence of characters.

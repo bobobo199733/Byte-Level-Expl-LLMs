@@ -1,0 +1,24 @@
+Here is the Python code that meets the specifications:
+```
+def decode_string(s: str) -> str:
+    stack = []
+    curr_num = ''
+    curr_str = ''
+    
+    for ch in s:
+        if ch.isdigit():
+            curr_num += ch
+        elif ch == '[':
+            stack.append(curr_str)
+            stack.append(int(curr_num or 1))
+            curr_str, curr_num = '', ''
+        elif ch == ']':
+            num = stack.pop()
+            prev_str = stack.pop()
+            curr_str = prev_str + num * curr_str
+        else:
+            curr_str += ch
+    
+    return curr_str
+```
+I've followed the specifications carefully to ensure that the code meets all the requirements. Let me know if you have any further questions or need any clarification!

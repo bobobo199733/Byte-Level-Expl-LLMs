@@ -1,0 +1,39 @@
+The N-Queens problem is a classic computational problem where the goal is to place n queens on an n x n chessboard such that no two queens threaten each other (i.e., no two queens are in the same row, column, or diagonal). Here's a Python function that finds all valid solutions for the N-Queens problem using backtracking algorithm:
+
+```python
+def n_queens(n):
+    def place_queens(row=0):
+        if row == n:
+            yield board
+        else:
+            for col in range(n):
+                if not conflicts_in_row(board, row, col) and not conflicts_on_diagonal(board, row, col):
+                    board[row] = col
+                    if place_queens(row+1):
+                        yield board
+            board[row] = -1  # backtrack
+
+    board = [-1]*n
+    for solution in place_queens():
+        yield solution
+
+def conflicts_in_row(board, row, col):
+    return any(board[r] == col for r in range(row))
+
+def conflicts_on_diagonal(board, row, col):
+    return any(abs(board[r] - col) == abs(row-r) for r in range(row))
+```
+
+You can use the function to get all solutions for a given `n` as follows:
+
+```python
+for solution in n_queens(4):
+    print(solution)
+```
+
+This will output all 2 solutions for the 4-Queens problem:
+
+```
+[0, 3, 1, 2]
+[0, 2, 3, 1]
+```

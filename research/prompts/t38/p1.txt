@@ -1,0 +1,6 @@
+Write exactly ONE Python function called expression_to_postfix(expression) that converts an infix expression into postfix notation.
+
+Requirements:
+- Use only one function named expression_to_postfix.
+- Support parentheses and operator precedence.
+- Do not use external libraries.

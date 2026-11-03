@@ -1,0 +1,8 @@
+Write a Python function called merge_k_sorted_lists(lists) that merges k sorted lists into a single sorted list.
+
+Requirements:
+- The input is a list containing sorted integer lists.
+- Preserve duplicates.
+- Handle empty lists correctly.
+- Do not use external libraries.
+- The implementation should be efficient for many lists.

@@ -1,0 +1,7 @@
+Write a Python function named group_anagrams(words) that groups together words that are anagrams of each other.
+
+Return a list of grouped anagrams.
+
+Example:
+Input: ["eat","tea","tan","ate","nat","bat"]
+Output: [["eat","tea","ate"],["tan","nat"],["bat"]]

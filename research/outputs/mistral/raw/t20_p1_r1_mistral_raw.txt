@@ -1,0 +1,27 @@
+Here is a Python function named `merge_k_sorted_lists` that merges multiple sorted lists into one sorted list using the Heapq module for efficiency:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    if not lists:
+        return []
+
+    min_heap = []
+    for lst in lists:
+        if len(lst) > 0:
+            heapq.heappush(min_heap, (lst[0], lst, 0))
+
+    result = []
+    while min_heap:
+        _, list_, index = heapq.heappop(min_heap)
+        result.append(list_[index])
+        if len(list_) > index + 1:
+            heapq.heappush(min_heap, (list_[index + 1], list_, index + 1))
+
+    return result
+```
+
+In this function, we use a min-heap to keep track of the smallest elements across all input lists. Initially, we add the first element from each input list to the heap. Then, we iteratively extract the smallest element and its corresponding list index from the heap and append it to the result list. If there are more elements in the same list, we add them back into the min-heap for future consideration.
+
+This implementation guarantees O(n log k) time complexity, where n is the total number of items across all input lists and k is the number of input lists.

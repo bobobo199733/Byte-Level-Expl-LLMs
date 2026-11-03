@@ -1,0 +1,71 @@
+Certainly! To check if it's possible to complete all the courses given the number of courses and their prerequisites, we can use a graph-based approach where each course is represented as a node, and directed edges represent the prerequisite relationships between courses.
+
+Here's how you can implement this using Python:
+
+```python
+from collections import defaultdict
+
+def course_schedule(num_courses, prerequisites):
+    # Create adjacency list for the graph
+    graph = defaultdict(list)
+    
+    # Build the graph based on prerequisites
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+
+    # Track visiting status of each node (0: unvisited, 1: visiting, 2: visited)
+    visiting_status = [0] * num_courses
+
+    def is_cyclic(node):
+        if visiting_status[node] == 1:
+            return True
+        if visiting_status[node] == 2:
+            return False
+        
+        # Mark as visiting
+        visiting_status[node] = 1
+        
+        # Check all the nodes connected to this node
+        for neighbor in graph[node]:
+            if is_cyclic(neighbor):
+                return True
+        
+        # Finish visiting and mark as visited
+        visiting_status[node] = 2
+        return False
+
+    # Check each course for cycles
+    for course in range(num_courses):
+        if is_cyclic(course):
+            return False
+    
+    return True
+
+# Example usage:
+num_courses = 4
+prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+print(course_schedule(num_courses, prerequisites))  # Output: True (courses can be completed)
+```
+
+### Explanation:
+
+- **Graph Construction**: We use a dictionary to create an adjacency list representation of the graph. Each key is a course, and its value is a list of courses that depend on it.
+  
+- **Topological Sorting via DFS with Cycle Detection**:
+  - A depth-first search (DFS) approach is used here. The `visiting_status` array keeps track of whether a node is unvisited (`0`), currently being visited (`1`), or has been visited and can be ignored for this iteration (`2`).
+  
+- **Cycle Detection**: If we detect that the current course cannot finish due to a cycle (i.e., if it becomes `visiting_status[1]` again during DFS), then we return `False`.
+  
+- **Completion Check**: If no cycles are detected after checking all courses, we can complete all courses.
+
+### Example:
+
+For 4 courses and prerequisites:
+```
+num_courses = 4
+prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+```
+
+The function will return `True` because the courses can be completed in a valid order (e.g., `0 -> 1 -> 3 -> 2`).
+
+If there were cycles or a course that was required before it could start, the function would return `False`.

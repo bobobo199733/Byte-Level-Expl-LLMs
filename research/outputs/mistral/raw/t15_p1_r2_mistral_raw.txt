@@ -1,0 +1,40 @@
+To implement the topological sort algorithm, I'll use Depth-First Search (DFS) with a helper function `dfs()`. Here is the code for the topological_sort() function:
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    in_degree = defaultdict(int)
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            in_degree[neighbor] += 1
+
+    zero_in_degree_queue = deque([node for node in graph if in_degree[node] == 0])
+
+    result = []
+
+    while zero_in_degree_queue:
+        current_node = zero_in_degree_queue.popleft()
+        result.append(current_node)
+
+        for neighbor in graph[current_node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                zero_in_degree_queue.append(neighbor)
+
+    return result if not result else None
+
+# Example usage:
+graph = {
+    'A': ['B', 'D'],
+    'B': ['C'],
+    'C': [],
+    'D': ['E']
+    'E': []
+}
+print(topological_sort(graph))  # Output: ['C', 'B', 'A', 'D', 'E']
+```
+
+This function first calculates the in-degree of each node, then adds nodes with zero in-degree to a queue. In each iteration, it removes a node from the queue, appends it to the result list, and decrements the in-degree of its neighbors. If any neighbor has zero in-degree, it is added back to the queue.
+
+The function returns `None` if the graph contains a cycle since there will not be any nodes with zero in-degree for a cyclic graph.

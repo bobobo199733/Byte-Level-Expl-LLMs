@@ -1,0 +1,14 @@
+Here's a Python function `kth_largest` that meets the requirements:
+
+```python
+def heapq_kth_largest(nums, k):
+    import heapq
+    heap = sorted(set(nums), reverse=True)[:k]
+    if len(heap) < k:
+        raise ValueError(f"K ({k}) is greater than the number of elements in the list.")
+    return heap[0]
+```
+
+This function uses a sorted set and HeapQ to find the kth largest element. If k is invalid, it raises a ValueError with an informative message. The time complexity is O(n log n) due to sorting and the additional space complexity is O(n).
+
+An alternative method for finding the kth largest value without using heapq or sorting would be using quickselect algorithm which has a better time complexity of O(n), but that would require additional helper functions.

@@ -1,0 +1,20 @@
+Here's a simple Python function for a 2D robot simulator:
+
+```python
+def robot_simulator(commands):
+    directions = {'L': (0, -1), 'R': (0, 1), 'F': (1, 0)}
+    position = (0, 0)
+    direction = (0, 1)
+
+    for command in commands:
+        if command not in directions:
+            raise ValueError(f"Invalid command '{command}'")
+        else:
+            new_position = tuple(map(sum, zip(position, directions[command])))
+            position = new_position
+            direction = directions[command]
+
+    return position, direction
+```
+
+This function takes a list of commands as input, where each command is either 'L' (left), 'R' (right), or 'F' (forward). The robot starts at the position (0, 0) facing east (direction (1, 0)). It moves according to the given commands and returns its final position and direction. If an invalid command is encountered, it raises a ValueError.

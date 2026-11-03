@@ -1,0 +1,38 @@
+Here's a Python function that performs an in-order traversal on a binary tree, where the tree is represented as a list:
+
+```python
+def build_tree(nodes):
+    if not nodes:
+        return None
+
+    root = Node(nodes[0])
+    root.left = build_tree([node for node in nodes[1::2] if node])
+    root.right = build_tree([node for node in nodes[2::2] if node])
+
+    return root
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def binary_tree_inorder(tree):
+    result = []
+    if tree is not None:
+        if tree.left:
+            result += binary_tree_inorder(tree.left)
+        result.append(tree.value)
+        if tree.right:
+            result += binary_tree_inorder(tree.right)
+    return result
+
+# Example usage:
+nodes = [1, 2, 3, None, None, 4, None, 5]
+root = build_tree(nodes)
+print(binary_tree_inorder(root))  # Output: [1, 2, 4, 3, 5]
+```
+
+In this example, I've created a `Node` class to represent the nodes in the binary tree. The `build_tree()` function constructs the tree from the list of nodes while respecting the binary tree structure (left subtree is the left half of the input list, and the right subtree is the right half).
+
+The `binary_tree_inorder()` function performs an in-order traversal on the given tree. It visits the left subtree, then the root node, and finally the right subtree.

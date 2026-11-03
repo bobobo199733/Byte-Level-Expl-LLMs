@@ -1,0 +1,6 @@
+Write a single Python function called text_justification(words, max_width) that formats text into fully justified lines. The function must:
+- Pack as many words as possible on each line without exceeding max_width characters
+- Distribute spaces as evenly as possible between words on each line; if spaces do not divide evenly, assign extra spaces to slots on the left
+- The last line must be left-justified: single space between words, padded with trailing spaces to reach max_width
+- A line with only one word should be left-justified and padded with trailing spaces
+Return a list of strings, each exactly max_width characters long.

@@ -1,0 +1,63 @@
+**Heap Sort Function**
+=======================
+
+Here is the implementation of the Heap Sort algorithm in Python:
+```python
+def heap_sort(values):
+    """
+    Sorts a list using the heap sort algorithm.
+
+    :param values: The list to be sorted.
+    :return: The sorted list.
+    """
+    # Build a max heap from the input list
+    build_max_heap(values)
+
+    # Extract elements one by one and put them at the end of the list in sorted order
+    for i in range(len(values) - 1, 0, -1):
+        values[0], values[i] = values[i], values[0]
+        heapify(values, 0, i)
+
+    return values
+
+
+def build_max_heap(values):
+    """
+    Builds a max heap from the input list.
+
+    :param values: The list to be converted into a max heap.
+    """
+    for i in range(len(values) // 2 - 1, -1, -1):
+        heapify(values, i, len(values))
+
+
+def heapify(heap, index, heap_size):
+    """
+    Maintains the max heap property by moving elements up or down as necessary.
+
+    :param heap: The list to be maintained as a max heap.
+    :param index: The current index being processed.
+    :param heap_size: The size of the heap (i.e., the number of elements).
+    """
+    left = 2 * index + 1
+    right = 2 * index + 2
+
+    largest = index
+
+    if left < heap_size and heap[left] > heap[largest]:
+        largest = left
+
+    if right < heap_size and heap[right] > heap[largest]:
+        largest = right
+
+    if largest != index:
+        heap[index], heap[largest] = heap[largest], heap[index]
+        heapify(heap, largest, heap_size)
+```
+**Example Use Case**
+```python
+values = [4, 2, 9, 6, 5, 1, 8, 3, 7]
+sorted_values = heap_sort(values)
+print(sorted_values)  # Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+Note that this implementation has a time complexity of O(n log n), making it suitable for large datasets. However, the space complexity is also O(1) since we're only using a single extra variable to store the index.

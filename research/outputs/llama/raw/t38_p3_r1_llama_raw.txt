@@ -1,0 +1,69 @@
+Here's a Python function that accomplishes the task:
+
+```python
+def expression_to_postfix(expression):
+    """
+    Converts an infix expression to postfix notation.
+
+    Args:
+        expression (str): Infix expression as a string.
+
+    Returns:
+        str: Postfix equivalent of the input expression.
+    """
+
+    # Define precedence for operators
+    precedence = {
+        '+': 1, '-': 1,
+        '*': 2, '/': 2,
+        '^': 3
+    }
+
+    # Initialize empty stack and output string
+    operator_stack = []
+    postfix = []
+
+    # Iterate over the characters in the expression
+    for char in expression:
+
+        # If the character is an operand (not an operator or parenthesis), add it to the postfix
+        if char.isalnum():
+            postfix.append(char)
+
+        # If the character is a left parenthesis, push it onto the stack
+        elif char == '(':
+            operator_stack.append(char)
+
+        # If the character is a right parenthesis, pop operators from the stack and add them to the postfix until we reach a matching left parenthesis
+        elif char == ')':
+            while True:
+                top = operator_stack.pop()
+                if top == '(':
+                    break
+                postfix.append(top)
+            postfix.append(char)
+
+        # If the character is an operator, pop operators with higher or equal precedence from the stack and add them to the postfix, then push the current operator onto the stack
+        elif char in precedence:
+            while (operator_stack and 
+                   operator_stack[-1] != '(' and 
+                   precedence[operator_stack[-1]] >= precedence[char]):
+                postfix.append(operator_stack.pop())
+            operator_stack.append(char)
+
+    # Pop any remaining operators from the stack and add them to the postfix
+    while operator_stack:
+        top = operator_stack.pop()
+        if top == '(':
+            raise ValueError("Unbalanced parentheses")
+        postfix.append(top)
+
+    return ' '.join(postfix)
+```
+
+Example use case:
+
+```python
+print(expression_to_postfix("A+B*C"))  # Output: "A B C * +"
+print(expression_to_postfix("(A+B)*C"))  # Output: "( A B + ) C *"
+```

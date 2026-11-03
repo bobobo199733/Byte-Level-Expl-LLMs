@@ -1,0 +1,64 @@
+To create a Python function that converts Roman numerals to integers while handling invalid inputs and ensuring only standard subtractive notation is used, you can follow these steps:
+
+1. Define a mapping of Roman numeral symbols to their corresponding integer values.
+2. Validate the input string by checking if it's empty or contains any characters not in the valid set.
+3. Iterate through the string to handle both additive and subtractive cases according to the rules.
+
+Here is the implementation of the `roman_to_int` function:
+
+```python
+def roman_to_int(s):
+    # Define Roman numeral symbols and their corresponding integer values
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    # Check for empty string or invalid characters
+    if not s:
+        raise ValueError("Input cannot be an empty string.")
+    
+    if any(char not in roman_values for char in s):
+        raise ValueError(f"Invalid Roman numeral: '{s}' contains unsupported characters.")
+    
+    result = 0
+    prev_value = 0
+    
+    # Iterate through the string to handle both additive and subtractive cases
+    for char in reversed(s):
+        value = roman_values[char]
+        
+        if value < prev_value:
+            # If current value is less than previous, it's a subtractive case (e.g., IV)
+            result -= value
+        else:
+            result += value
+        
+        prev_value = value
+    
+    return result
+
+# Example usage and testing the function with valid and invalid inputs
+print(roman_to_int("III"))  # Output: 3
+print(roman_to_int("IV"))   # Output: 4
+print(roman_to_int("IX"))   # Output: 9
+print(roman_to_int("LVIII"))# Output: 58
+print(roman_to_int("MCMXCIV"))# Output: 1994
+
+try:
+    print(roman_to_int(""))     # Raises ValueError
+except ValueError as e:
+    print(e)
+
+try:
+    print(roman_to_int("IC"))   # Raises ValueError
+except ValueError as e:
+    print(e)
+```
+
+This function first checks if the input string is empty or contains any invalid characters. It then iterates through the string in reverse order to correctly handle both additive and subtractive cases according to Roman numeral rules, updating the result accordingly. The example usage demonstrates handling both valid inputs and exceptions for invalid inputs.

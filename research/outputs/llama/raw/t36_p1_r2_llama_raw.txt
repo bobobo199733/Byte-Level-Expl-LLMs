@@ -1,0 +1,56 @@
+**Dijkstra's Shortest Path Algorithm Implementation**
+======================================================
+
+Here is the implementation of the `dijkstra_shortest_path` function in Python:
+
+```python
+def dijkstra_shortest_path(graph, start):
+    """
+    Compute shortest path distances from a starting node using Dijkstra's algorithm.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+        start (node): Starting node.
+
+    Returns:
+        dict: Shortest distances to all reachable nodes from the start node.
+    """
+
+    # Initialize distances dictionary with infinity for all nodes
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0  # Distance to start node is 0
+
+    # Initialize set of unvisited nodes
+    unvisited_nodes = set(graph.keys())
+
+    while unvisited_nodes:
+        current_node = min(unvisited_nodes, key=lambda x: distances[x])
+        unvisited_nodes.remove(current_node)
+
+        for neighbor, weight in graph[current_node].items():
+            distance = distances[current_node] + weight
+
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+
+    return distances
+```
+
+**Example Usage**
+---------------
+
+```python
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+start_node = 'A'
+
+distances = dijkstra_shortest_path(graph, start_node)
+print(distances)  # Output: {'A': 0, 'B': 1, 'C': 3, 'D': 4}
+```
+
+This implementation follows the standard Dijkstra's algorithm approach, using a distances dictionary to track the shortest distance from the start node to each reachable node. The function takes an adjacency list representation of the graph and the start node as input, returning a dictionary with the shortest distances to all reachable nodes.

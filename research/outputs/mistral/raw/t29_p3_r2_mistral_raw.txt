@@ -1,0 +1,11 @@
+Here's a simple Python function for parsing a CSV line using the built-in `csv` module:
+
+```python
+import csv
+
+def parse_csv_line(line):
+    reader = csv.reader(line.split(","))
+    return next(reader, [])
+```
+
+This function takes a CSV line as a string and splits it into fields using commas as the delimiter. It returns an empty list if the line does not contain any comma-separated values (i.e., if the line is empty or consists of only whitespace). If the input line contains multiple spaces between the fields, this function will treat them as a single space for parsing purposes.

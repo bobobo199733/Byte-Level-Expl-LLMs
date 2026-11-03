@@ -1,0 +1,1 @@
+Check if a password is strong in Python. Name the function validate_password

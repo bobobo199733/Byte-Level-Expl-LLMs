@@ -1,0 +1,24 @@
+def course_schedule(num_courses, prerequisites):
+    if not isinstance(num_courses, int) or not isinstance(prerequisites, list):
+        raise ValueError('Invalid input types')
+    if num_courses <= 0:
+        return True
+    graph = [[] for _ in range(num_courses)]
+    visited = [0] * num_courses
+    for course, prereq in prerequisites:
+        graph[course].append(prereq)
+
+    def is_cyclic(course):
+        if visited[course] == -1:
+            return True
+        if visited[course] == 1:
+            return False
+        visited[course] = -1
+        for pre in graph[course]:
+            if is_cyclic(pre):
+                return True
+        visited[course] = 1
+    for course in range(num_courses):
+        if is_cyclic(course):
+            return False
+    return True

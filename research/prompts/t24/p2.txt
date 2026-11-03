@@ -1,0 +1,9 @@
+Write exactly one Python function called kth_largest(nums, k) that returns the kth largest value from nums.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Duplicates count as separate elements.
+- Raise ValueError if k is invalid.
+- The function should work for negative numbers too.

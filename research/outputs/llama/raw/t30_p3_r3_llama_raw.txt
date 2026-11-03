@@ -1,0 +1,27 @@
+```python
+def max_subarray_sum(nums):
+    """
+    This function calculates the maximum sum of a contiguous subarray within a given list of numbers.
+
+    Args:
+        nums (list): A list of integers.
+
+    Returns:
+        int: The maximum sum of a contiguous subarray.
+    """
+
+    # Initialize the maximum current sum and the maximum global sum to the first element of the list
+    max_current = max_global = nums[0]
+
+    # Iterate over the list starting from the second element
+    for num in nums[1:]:
+        
+        # Update the maximum current sum to be the maximum of the current number and the sum of the current number and the previous maximum current sum
+        max_current = max(num, max_current + num)
+        
+        # Update the maximum global sum to be the maximum of the current maximum global sum and the maximum current sum
+        max_global = max(max_global, max_current)
+
+    # Return the maximum global sum
+    return max_global
+```

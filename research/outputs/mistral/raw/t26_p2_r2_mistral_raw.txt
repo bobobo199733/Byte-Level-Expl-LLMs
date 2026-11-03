@@ -1,0 +1,36 @@
+Here is a Python function that meets your requirements:
+
+```python
+def min_window_substring(s, t):
+    need = {}
+    have = {}
+    window = ''
+    minlen = float('inf')
+    minwin = ''
+
+    for char in t:
+        need[char] = need.get(char, 0) + 1
+
+    start = end = len(t) - 1
+    while end < len(s):
+        have[s[end]] = have.get(s[end], 0) + 1
+        while have and need:
+            if have[s[start]] > need.get(s[start], 0):
+                have[s[start]] -= 1
+                start += 1
+            else:
+                window = s[start:end+1]
+                newlen = end - start + 1
+                if newlen < minlen:
+                    minlen = newlen
+                    minwin = window
+                if not need or have == need:
+                    break
+            end += 1
+        if not need:
+            break
+
+    return minwin
+```
+
+This function initializes two dictionaries `need` and `have` to count the characters in the target string (t) and the current window, respectively. It then iterates through the string s, expanding the window from the right and contracting it from the left as needed until a valid window that contains every character from t is found or the end of the string is reached. If no valid window exists, an empty string is returned. The function is efficient for long strings because it uses a sliding window approach to minimize the number of characters that need to be considered at any given time.

@@ -1,0 +1,29 @@
+Here's the Python function `trapping_rain_water` that computes the total trapped rain water as per your requirements:
+
+```python
+def trapping_rain_water(heights):
+    if not heights:
+        return 0
+
+    n = len(heights)
+    left = [0]*n
+    right = [0]*n
+
+    # Initialize left maximum and right maximum.
+    left[0] = heights[0]
+    for i in range(1, n):
+        left[i] = max(left[i-1], heights[i])
+
+    right[-1] = heights[-1]
+    for i in reversed(range(n-1)):
+        right[i] = max(right[i+1], heights[i])
+
+    # Compute the total water trapped.
+    total_trapped = 0
+    for i in range(n):
+        total_trapped += min(left[i], right[i]) - heights[i] if min(left[i], right[i]) > heights[i] else 0
+
+    return total_trapped
+```
+
+This function first initializes the left and right maximum height arrays. Then it iterates through the input array to find the maximum height on the left (left[]) and right (right[]). After that, it computes the trapped water by comparing the minimum of left and right maxima with heights at each index. If the minimum is greater than the current height, it adds the difference to the total trapped water.

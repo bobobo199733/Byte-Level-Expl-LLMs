@@ -1,0 +1,51 @@
+**Generate Parentheses Combinations**
+=====================================
+
+The following Python function generates all possible combinations of well-formed parentheses for a given number `n`.
+
+```python
+def generate_parentheses(n):
+    """
+    Generates all possible combinations of well-formed parentheses.
+
+    Args:
+        n (int): The number of pairs of parentheses.
+
+    Returns:
+        list: A list of strings representing valid combinations.
+    """
+
+    def backtrack(open_count, close_count, current_combination):
+        if len(current_combination) == 2 * n:
+            result.append("".join(current_combination))
+            return
+
+        if open_count < n:
+            current_combination.append("(")
+            backtrack(open_count + 1, close_count, current_combination)
+            current_combination.pop()
+
+        if close_count < open_count:
+            current_combination.append(")")
+            backtrack(open_count, close_count + 1, current_combination)
+            current_combination.pop()
+
+    result = []
+    backtrack(0, 0, [])
+    return result
+```
+
+**Example Usage**
+----------------
+
+```python
+print(generate_parentheses(3))
+# Output:
+# ['((()))', '(()())', '(())()', '()(())', '()()()']
+```
+
+In this function, we use a helper method `backtrack` to recursively build combinations. It maintains two counters: `open_count` and `close_count`, representing the number of open and close parentheses in the current combination.
+
+The function appends an opening parenthesis if there are less than `n` pairs of parentheses in the current combination. If there's a closing parenthesis, it checks if the number of closing parentheses is less than the number of opening ones before appending another closing parenthesis.
+
+Once a valid combination has been built (i.e., its length equals 2 * n), we add it to the result list. After exploring all possible combinations, we return the result list containing all valid combinations of well-formed parentheses.

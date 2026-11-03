@@ -1,0 +1,18 @@
+Here's a Python function for matrix multiplication. The function `matrix_multiply` takes two lists of lists (matrices) as input and returns their product if possible, or `None` if the dimensions don't match.
+
+```python
+def matrix_multiply(A, B):
+    if len(A) != len(B):
+        return None
+
+    result = [[0] * len(B[0]) for _ in range(len(A))]
+
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+
+    return result
+```
+
+This function assumes that the input matrices are square or rectangular with a consistent number of rows and columns. It also uses Python's list multiplication feature (e.g., `[0] * len(B[0])`) to initialize the results matrix. If you need support for arbitrary matrix shapes, you could modify this function accordingly by checking each matrix separately.

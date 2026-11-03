@@ -1,0 +1,44 @@
+```python
+def course_schedule(num_courses, prerequisites):
+    """
+    Determines whether it is possible to finish all courses given prerequisite dependencies.
+
+    Args:
+        num_courses (int): The number of courses.
+        prerequisites (list[list[int]]): A list of pairs (course, prerequisite) where course takes the course and can take the prerequisite.
+
+    Returns:
+        bool: True if all courses can be completed, False otherwise.
+    """
+
+    # Check for invalid inputs
+    if num_courses < 0 or len(prerequisites) < 0:
+        raise ValueError("Invalid input")
+
+    # Create an adjacency list to represent the graph
+    graph = [[] for _ in range(num_courses)]
+    
+    # Create a counter array to store the in-degree of each course
+    in_degree = [0] * num_courses
+    
+    # Populate the graph and in-degree array
+    for u, v in prerequisites:
+        graph[v].append(u)
+        in_degree[u] += 1
+    
+    # Initialize a queue with courses that have no prerequisites
+    queue = [i for i in range(num_courses) if in_degree[i] == 0]
+    
+    # Perform topological sorting
+    while queue:
+        u = queue.pop(0)
+        
+        # For each neighbor, decrement its in-degree and add it to the queue if necessary
+        for v in graph[u]:
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                queue.append(v)
+    
+    # If there are remaining courses with non-zero in-degree, then a cycle exists
+    return all(degree == 0 for degree in in_degree)
+```

@@ -1,0 +1,54 @@
+Here's the Python function `linked_list_cycle` to check if a linked list has a cycle:
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+def linked_list_cycle(head):
+    """
+    Check if a linked list has a cycle.
+
+    Args:
+        head (Node): The head of the linked list.
+
+    Returns:
+        bool: True if the linked list has a cycle, False otherwise.
+    """
+    slow = head
+    fast = head
+
+    while fast and fast.next:
+        slow = slow.next  # Move one node at a time
+        fast = fast.next.next  # Move two nodes at a time
+
+        if slow == fast:  # If the two pointers meet, there's a cycle
+            return True
+
+    return False
+```
+Here's an explanation of how the function works:
+
+1. We use two pointers, `slow` and `fast`, both starting from the head of the linked list.
+2. In each iteration, we move the `fast` pointer two nodes at a time (`fast.next.next`) while moving the `slow` pointer one node at a time (`slow.next`).
+3. If there's a cycle in the linked list, the `fast` pointer will eventually catch up to the `slow` pointer.
+4. When we detect that the two pointers are equal, it means there's a cycle, and we return `True`.
+5. If the loop completes without finding a cycle (i.e., when both pointers reach the end of the list), we return `False`.
+
+You can test this function using an example linked list with a cycle:
+```python
+# Create a linked list: 1 -> 2 -> 3 -> 4 -> 5 -> 3 (cycle)
+node1 = Node(1)
+node2 = Node(2)
+node3 = Node(3)
+node4 = Node(4)
+node5 = Node(5)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node3  # Create the cycle
+
+print(linked_list_cycle(node1))  # Output: True
+```

@@ -1,0 +1,19 @@
+import heapq
+
+def kth_largest(nums, k):
+    """
+    Returns the kth largest number in a given list of numbers.
+
+    Args:
+        nums (list): A list of numbers.
+        k (int): The position of the number to return.
+
+    Returns:
+        int: The kth largest number in the list.
+
+    Raises:
+        ValueError: If k is less than 1 or greater than the length of the list.
+    """
+    if k < 1 or k > len(nums):
+        raise ValueError('k must be between 1 and the length of the list')
+    return heapq.nlargest(k, nums)[-1]

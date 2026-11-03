@@ -1,0 +1,52 @@
+def evaluate(expr: str) -> int:
+
+    def apply_operation(operands, operators):
+        right = operands.pop()
+        left = operands.pop()
+        op = operators.pop()
+        if op == '+':
+            operands.append(left + right)
+        elif op == '-':
+            operands.append(left - right)
+        elif op == '*':
+            operands.append(left * right)
+        elif op == '/':
+            operands.append(int(left / right))
+
+    def precedence(op):
+        if op in '+-':
+            return 1
+        if op in '*/':
+            return 2
+        return 0
+    expr = expr.replace(' ', '')
+    tokens = []
+    i = 0
+    while i < len(expr):
+        if expr[i].isdigit():
+            j = i + 1
+            while j < len(expr) and expr[j].isdigit():
+                j += 1
+            tokens.append(int(expr[i:j]))
+            i = j - 1
+        elif expr[i] in '+-*/(':
+            tokens.append(expr[i])
+        i += 1
+    stack = []
+    operands = []
+    for token in tokens:
+        if isinstance(token, int):
+            operands.append(token)
+        elif token == '(':
+            stack.append(token)
+        elif token == ')':
+            while stack and stack[-1] != '(':
+                apply_operation(operands, stack)
+            stack.pop()
+        else:
+            while stack and stack[-1] != '(' and (precedence(stack[-1]) >= precedence(token)):
+                apply_operation(operands, stack)
+            stack.append(token)
+    while stack:
+        apply_operation(operands, stack)
+    return operands[0]

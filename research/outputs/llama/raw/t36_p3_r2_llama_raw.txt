@@ -1,0 +1,74 @@
+**Dijkstra's Shortest Path Function**
+=====================================
+
+### Code
+```python
+def dijkstra_shortest_path(graph, start):
+    """
+    Compute the shortest path from the given `start` node to all other nodes in the weighted graph.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+            Each key is a node, and its corresponding value is another dictionary.
+            The inner dictionary has neighboring nodes as keys and edge weights as values.
+        start (str or int): Node ID where to begin searching for shortest paths.
+
+    Returns:
+        dict: Dictionary with shortest distances from `start` to all other nodes.
+        Each key is a node, and its corresponding value is the minimum distance.
+    """
+    # Initialize distances dictionary
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    # Create priority queue (min-heap)
+    priority_queue = [(0, start)]  # (distance, node)
+
+    while priority_queue:
+        current_distance, current_node = min(priority_queue)
+        priority_queue.remove((current_distance, current_node))
+
+        if current_distance > distances[current_node]:
+            continue
+
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                priority_queue.append((distance, neighbor))
+
+    return distances
+```
+
+### Example Use Case
+
+```python
+graph = {
+    'A': {'B': 1, 'C': 3},
+    'B': {'A': 1, 'D': 2},
+    'C': {'A': 3, 'F': 5},
+    'D': {'B': 2, 'E': 4},
+    'E': {'D': 4, 'F': 6},
+    'F': {'C': 5, 'E': 6}
+}
+
+start_node = 'A'
+
+shortest_paths = dijkstra_shortest_path(graph, start_node)
+
+print("Shortest paths from", start_node)
+for node, distance in shortest_paths.items():
+    print(f"  {node}: {distance}")
+```
+
+This will output the shortest distances from `A` to all other nodes:
+
+```
+Shortest paths from A
+  A: 0
+  B: 1
+  C: 3
+  D: 3
+  E: 7
+  F: 8
+```

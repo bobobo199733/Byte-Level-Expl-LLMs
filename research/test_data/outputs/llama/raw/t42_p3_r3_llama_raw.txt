@@ -1,0 +1,65 @@
+**Course Schedule Validation Function**
+=====================================
+
+The following Python function validates whether it is possible to complete all courses given the number of courses and their respective prerequisites.
+
+```python
+from collections import defaultdict, deque
+
+def course_schedule(num_courses, prerequisites):
+    """
+    Checks if all courses can be completed given the number of courses and their prerequisites.
+
+    Args:
+        num_courses (int): Total number of courses.
+        prerequisites (list[list[int]]): A list of pairs where each pair contains a prerequisite course and its corresponding course.
+
+    Returns:
+        bool: True if all courses can be completed, False otherwise.
+    """
+
+    # Create an adjacency list to represent the graph
+    graph = defaultdict(list)
+    
+    # Initialize in-degree for each node (course)
+    in_degree = {i: 0 for i in range(num_courses)}
+    
+    # Populate the graph and update in-degrees based on prerequisites
+    for u, v in prerequisites:
+        graph[u].append(v)  # Add an edge from prerequisite to course
+        in_degree[v] += 1   # Increment in-degree of course by one
+    
+    # Initialize a queue with courses having no prerequisites (in-degree 0)
+    queue = deque([course for course in in_degree if in_degree[course] == 0])
+    
+    # Perform topological sorting using DFS
+    while queue:
+        course = queue.popleft()
+        
+        # For each neighbor of the current course, decrement its in-degree and add it to the queue if it's fully explored
+        for neighbor in graph[course]:
+            in_degree[neighbor] -= 1
+            
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # If all courses have been visited (i.e., their in-degrees are zero), return True; otherwise, return False
+    return all(in_degree[course] == 0 for course in range(num_courses))
+```
+
+**Example Usage**
+----------------
+
+```python
+num_courses = 4
+prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]
+
+print(course_schedule(num_courses, prerequisites))  # Output: True
+
+num_courses = 2
+prerequisites = [[1, 0]]
+
+print(course_schedule(num_courses, prerequisites))  # Output: False
+```
+
+This function uses a topological sorting approach to validate the course schedule. It first constructs an adjacency list representing the graph of courses and their prerequisites. Then, it initializes in-degrees for each node (course) based on the prerequisites. Finally, it performs DFS using a queue to explore all reachable nodes from those with no prerequisites. If all courses have been visited successfully, the function returns True; otherwise, it returns False.

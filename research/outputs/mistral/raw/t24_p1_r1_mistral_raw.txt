@@ -1,0 +1,8 @@
+Here is the Python function definition for `kth_largest`:
+
+```python
+def kth_largest(nums, k):
+    return sorted(nums, reverse=True)[k-1]
+```
+
+This function uses the built-in `sorted()` function to sort the list in descending order (`reverse=True`) and then returns the k-th element. The time complexity of this solution is O(n log n) when using sorted().

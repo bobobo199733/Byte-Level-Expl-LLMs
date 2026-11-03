@@ -1,0 +1,37 @@
+In Python, checking for syntactically correct JSON without using any external libraries can be a bit tricky because of the complexity of handling nested objects, arrays, and various data types. However, I'll provide you with a simple function that can validate basic JSON structures such as strings, numbers, booleans, null values, and proper use of brackets and quotes. This function will not support nested objects or arrays.
+
+```python
+def json_validator(text):
+    valid_characters = set("{},[]: \t\n\f\r0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-._")
+    opening_brackets = "([{"
+    closing_brackets = ")]}"
+
+    stack = []
+    for char in text:
+        if char == "'" or char == '"':
+            # JSON allows both single and double quotes, but they should be paired.
+            if stack and stack[-1] != '\\':
+                last_char = stack.pop()
+                if last_char != char:
+                    return False
+            else:
+                stack.append(char)
+        elif char in opening_brackets + "\\":
+            stack.append(char)
+        elif char in closing_brackets:
+            # Check if the bracket matches the most recently opened one or there's a backslash escape (\).
+            if not stack or (stack and stack[-1] != char[1] and char != "\\" or not stack[-1] == "\\"):
+                return False
+            elif char == "]" and stack and stack[-1] == "{":
+                return False  # Avoid nested objects or arrays.
+            else:
+                stack.pop()
+        elif char in valid_characters - opening_brackets - closing_brackets - "\\":
+            pass
+        else:
+            return False
+
+    return not stack  # Check if there are any unclosed brackets left in the stack.
+```
+
+This function checks for correct use of quotes, brackets, and backslashes while also handling escaped characters (\). However, it will fail to detect nested objects or arrays. For more complex validations, you might want to consider using an external JSON parser like json.validator found in the `jsonschema` library.

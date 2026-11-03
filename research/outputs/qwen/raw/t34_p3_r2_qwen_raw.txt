@@ -1,0 +1,53 @@
+Certainly! Below is a Python function named `binary_search_rotated` that performs a binary search on a rotated sorted list to find the target value. If the target is not found, it returns `-1`.
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # Check if the middle element is the target
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side is properly sorted
+        if values[left] <= values[mid]:  # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+values = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(binary_search_rotated(values, target))  # Output: 4
+
+target = 3
+print(binary_search_rotated(values, target))  # Output: -1
+```
+
+### Explanation:
+- **Input Parameters**:
+  - `values`: A rotated sorted list.
+  - `target`: The value to search for.
+
+- **Output**:
+  - Returns the index of the target if found; otherwise returns `-1`.
+
+- **Logic**:
+  - The function performs a binary search, but it needs to handle the rotation. It checks which half is sorted and adjusts the search accordingly.
+  - If the left half is sorted (`values[left] <= values[mid]`), it then checks if the target lies within this range. If not, it narrows the search to the right half.
+  - If the right half is sorted, a similar check is performed for that side.
+
+- **Edge Case**:
+  - The function will return `-1` if the target value is not found in the list.
+
+This approach ensures efficient searching even in rotated lists with a time complexity of \(O(\log n)\).

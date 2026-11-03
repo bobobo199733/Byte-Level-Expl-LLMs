@@ -1,0 +1,48 @@
+Certainly! To implement this functionality, we can use a binary search approach to find the correct position for the `target` in the given sorted array `nums`. If the `target` is not found, the function will return the index at which it should be inserted.
+
+Here's how you can write the Python function:
+
+```python
+def search_insert_position(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if nums[mid] == target:
+            return mid  # Target found at index mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+            
+    # If the target is not found, left will be the position to insert it
+    return left
+
+# Example usage:
+nums = [1, 3, 5, 6]
+target = 5
+print(search_insert_position(nums, target))  # Output: 2
+
+nums = [1, 3, 5, 6]
+target = 2
+print(search_insert_position(nums, target))  # Output: 1
+
+nums = [1, 3, 5, 6]
+target = 7
+print(search_insert_position(nums, target))  # Output: 4
+
+nums = [1, 3, 5, 6]
+target = 0
+print(search_insert_position(nums, target))  # Output: 0
+```
+
+This function works as follows:
+- It initializes two pointers, `left` and `right`, to the start and end of the array.
+- It performs a binary search by repeatedly dividing the search interval in half.
+- If the middle element is equal to the target, it returns the index of that element.
+- If the middle element is less than the target, it adjusts the left pointer to `mid + 1`.
+- If the middle element is greater than the target, it adjusts the right pointer to `mid - 1`.
+- After the loop, if the target is not found in the array, `left` will point to the correct insertion position.
+
+This approach ensures that the function runs efficiently with a time complexity of O(log n).

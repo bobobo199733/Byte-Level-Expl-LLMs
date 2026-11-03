@@ -1,0 +1,1 @@
+Write exactly one Python function called min_window_substring(s, t) that returns the smallest substring of s containing all characters from t. Return only the function definition.

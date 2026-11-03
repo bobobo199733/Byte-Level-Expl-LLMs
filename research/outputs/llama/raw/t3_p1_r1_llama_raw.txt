@@ -1,0 +1,76 @@
+Here's a simple implementation using the `operator` module to handle operators with different precedence and using a stack to keep track of intermediate results:
+
+```python
+import operator as op
+
+def evaluate(expr: str) -> int:
+    # Remove whitespace from expression
+    expr = expr.replace(" ", "")
+
+    # Define operator functions
+    ops = {
+        "+": op.add,
+        "-": op.sub,
+        "*": op.mul,
+        "/": lambda a, b: a // b  # Use integer division
+    }
+
+    # Initialize stack and operator
+    stack = []
+    op_stack = []
+
+    # Iterate through characters in expression
+    for char in expr:
+        if char.isdigit():  # If character is a digit, push to stack
+            stack.append(int(char))
+        elif char in ops:  # If character is an operator, pop two operands and apply operation
+            while len(op_stack) > 0 and op_stack[-1] != '(' and get_precedence(op_stack[-1]) >= get_precedence(char):
+                apply_op(stack, op_stack.pop(), ops)
+            op_stack.append(char)
+        elif char == '(':  # If character is a left parenthesis, push to operator stack
+            op_stack.append(char)
+        elif char == ')':  # If character is a right parenthesis, pop from operator stack and operands until matching '('
+            while len(op_stack) > 0 and op_stack[-1] != '(':
+                apply_op(stack, op_stack.pop(), ops)
+            if op_stack[-1] == '(':
+                op_stack.pop()  # Remove '(' from operator stack
+
+    # Apply remaining operations in operator stack
+    while len(op_stack) > 0:
+        apply_op(stack, op_stack.pop(), ops)
+
+    # Check for invalid expressions (stack should only contain one value)
+    if len(stack) != 1:
+        raise ValueError("Invalid expression")
+
+    return stack[0]
+
+
+def get_precedence(char):
+    """Returns the precedence of an operator"""
+    return {'+': 1, '-': 1, '*': 2, '/': 2}.get(char)
+
+
+def apply_op(stack, op, ops):
+    """Applies an operation with two operands on top of the stack"""
+    b = stack.pop()
+    a = stack.pop()
+    if op == '(':
+        stack.append(a)
+        stack.append(b)
+    else:
+        result = ops[op](a, b)
+        stack.append(result)
+
+
+# Example usage
+print(evaluate("2 + 3 * 4"))  # Output: 14
+print(evaluate("( 2 + 3 ) * 4 "))  # Output: 20
+```
+In the above code:
+
+-   We use a dictionary to map operator strings to their corresponding functions from the `operator` module.
+-   The stack is used to store operands and intermediate results.
+-   The operator stack stores operators in the order they are encountered. When an operator with higher or equal precedence is encountered, operations are applied until we encounter an operator with lower precedence or a parenthesis.
+-   The function `get_precedence` returns the precedence of an operator (with higher values indicating higher precedence).
+-   The function `apply_op` applies an operation to two operands on top of the stack.

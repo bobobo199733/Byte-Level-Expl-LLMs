@@ -1,0 +1,1 @@
+Write a Python function called topological_sort(graph) that returns a valid topological ordering of a directed acyclic graph.

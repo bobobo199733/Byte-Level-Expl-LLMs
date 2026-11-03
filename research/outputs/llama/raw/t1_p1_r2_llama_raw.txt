@@ -1,0 +1,80 @@
+Here's a Python function to convert Roman numerals to integers:
+
+```python
+def roman_to_int(s):
+    """
+    Converts a Roman numeral to an integer.
+
+    Args:
+        s (str): The Roman numeral to be converted.
+
+    Returns:
+        int: The integer value of the Roman numeral.
+
+    Raises:
+        ValueError: If the input is not a valid Roman numeral.
+    """
+
+    # Check for empty string
+    if not s:
+        raise ValueError("Input cannot be an empty string.")
+
+    # Define the values and corresponding symbols
+    roman_values = {
+        'M': 1000,
+        'D': 500,
+        'C': 100,
+        'L': 50,
+        'X': 10,
+        'V': 5,
+        'I': 1
+    }
+
+    # Initialize result and previous symbol value
+    total = 0
+    prev_value = 0
+
+    for i in range(len(s)):
+        if s[i] not in roman_values:
+            raise ValueError("Invalid Roman numeral.")
+
+        # Get the current symbol's value
+        curr_value = roman_values[s[i]]
+
+        # Check for valid subtractive notation (e.g., IV, IX)
+        if prev_value < curr_value and i != len(s) - 1:
+            raise ValueError("Invalid Roman numeral: Subtractitive notation not allowed.")
+
+        # Add the current symbol's value to total
+        total += curr_value
+
+        # Update previous symbol's value for next iteration
+        prev_value = curr_value
+
+    return total
+```
+
+Here are some example use cases:
+
+```python
+print(roman_to_int("III"))  # Output: 3
+print(roman_to_int("IV"))   # Output: 4
+print(roman_to_int("IX"))   # Output: 9
+print(roman_to_int("LVIII"))  # Output: 58
+print(roman_to_int("MCMXCIV"))  # Output: 1994
+
+try:
+    print(roman_to_int(""))
+except ValueError as e:
+    print(e)  # Output: Input cannot be an empty string.
+
+try:
+    print(roman_to_int("IC"))
+except ValueError as e:
+    print(e)  # Output: Invalid Roman numeral: Subtractitive notation not allowed.
+
+try:
+    print(roman_to_int("VX"))
+except ValueError as e:
+    print(e)  # Output: Invalid Roman numeral.
+```

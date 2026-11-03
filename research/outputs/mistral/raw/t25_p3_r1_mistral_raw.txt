@@ -1,0 +1,12 @@
+Here is a simple implementation of the count_set_bits function in Python using bitwise operations:
+
+```python
+def count_set_bits(n):
+    count = 0
+    while n > 0:
+        count += n & 1
+        n >>= 1
+    return count
+```
+
+This function works by repeatedly shifting the number to the right one bit (using `>>`) and checking whether the least significant bit is set (using `& 1`). The result is then added to the total count. Since this operation only changes the least significant bit of the number, it allows us to iteratively scan through all the bits in the binary representation of n.

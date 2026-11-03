@@ -1,0 +1,72 @@
+Certainly! Below is a Python function named `binary_search_rotated` that implements binary search on a rotated sorted array. This function handles edge cases such as empty arrays, duplicates, and correctly identifies the target value's index if it exists.
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target value in a rotated sorted array using binary search.
+    
+    Args:
+    values (List[int]): A rotated sorted array of integers.
+    target (int): The integer to be searched in the array.
+    
+    Returns:
+    int: The index of the target if found, otherwise -1.
+    """
+    if not values:
+        return -1
+    
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # If we find the target at middle
+        if values[mid] == target:
+            return mid
+        
+        # Check which side is properly sorted
+        if values[left] <= values[mid]:
+            # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(binary_search_rotated(arr, target))  # Output: 4
+
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 3
+print(binary_search_rotated(arr, target))  # Output: -1
+
+arr = []
+target = 3
+print(binary_search_rotated(arr, target))  # Output: -1
+
+arr = [1, 1, 1, 1, 1, 1, 1]
+target = 0
+print(binary_search_rotated(arr, target))  # Output: -1
+```
+
+### Explanation:
+- **Edge Cases**: The function first checks if the input array is empty and returns `-1` immediately.
+- **Binary Search Loop**: It uses a standard binary search approach with modifications to handle the rotation. 
+- **Middle Check**: The middle element `mid` is checked against the target. If it matches, return the index `mid`.
+- **Subarray Sorting**: Determine which half of the array (left or right) is sorted by comparing the first and last elements.
+  - If the left subarray is sorted:
+    - Check if the target falls within this range. If yes, adjust the search space to the left half; otherwise, to the right half.
+  - If the right subarray is sorted:
+    - Similar check as above but for the right half.
+- **Return `-1`**: If the loop exits without finding the target, return `-1`.
+
+This approach ensures efficient operation with a time complexity of \(O(\log n)\), and it correctly handles all specified requirements.

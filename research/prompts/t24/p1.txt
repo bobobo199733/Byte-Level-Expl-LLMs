@@ -1,0 +1,1 @@
+Write exactly one Python function called kth_largest(nums, k) that returns the kth largest element in a list. Return only the function definition.

@@ -1,0 +1,23 @@
+def matrix_multiply(A, B):
+    """
+    Multiplies two matrices A and B and returns the resulting matrix C.
+    
+    Parameters:
+    A (list of list of int/float): The first matrix.
+    B (list of list of int/float): The second matrix.
+    
+    Returns:
+    list of list of int/float: The resulting matrix after multiplication.
+    """
+    rows_A = len(A)
+    cols_A = len(A[0])
+    rows_B = len(B)
+    cols_B = len(B[0])
+    if cols_A != rows_B:
+        raise ValueError('Number of columns in A must be equal to number of rows in B')
+    C = [[0 for _ in range(cols_B)] for _ in range(rows_A)]
+    for i in range(rows_A):
+        for j in range(cols_B):
+            for k in range(cols_A):
+                C[i][j] += A[i][k] * B[k][j]
+    return C

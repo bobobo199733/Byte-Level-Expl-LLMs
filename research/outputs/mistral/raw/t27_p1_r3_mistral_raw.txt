@@ -1,0 +1,28 @@
+Here is the Python function `trapping_rain_water` that calculates the amount of water that can be trapped between bars in an array:
+
+```python
+def trapping_rain_water(heights):
+    n = len(heights)
+    if n < 3:
+        return 0
+
+    left = [0] * n
+    right = [0] * n
+    max_left = heights[0]
+    for i in range(1, n):
+        left[i] = max(max_left, heights[i])
+        max_left = max(max_left, heights[i])
+
+    max_right = heights[-1]
+    for i in range(n - 2, -1, -1):
+        right[i] = max(max_right, heights[i])
+        max_right = max(max_right, heights[i])
+
+    result = 0
+    for i in range(1, n - 1):
+        result += min(left[i], right[i]) - heights[i]
+
+    return result
+```
+
+This function first initializes left and right arrays to store the maximum height from the current position to the left (left) or right (right). Then it calculates the minimum of the left and right heights for each bar, which represents the water volume that can be trapped if a wall were built at this position. Finally, it sums up the water volumes trapped in all the bars except the first and last ones.

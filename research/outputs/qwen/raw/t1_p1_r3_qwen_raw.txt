@@ -1,0 +1,52 @@
+Here's a Python function that converts Roman numerals to integers according to the given requirements. It includes checks for invalid numerals and correctly handles standard subtractive notation.
+
+```python
+def roman_to_int(s):
+    # Mapping of Roman numeral symbols to their values
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    # Check for empty string
+    if not s:
+        raise ValueError("Input string cannot be empty")
+    
+    total = 0
+    prev_value = 0
+    
+    # Iterate through the string from right to left
+    for char in reversed(s):
+        value = roman_values.get(char, None)
+        
+        # Check for invalid numeral: a smaller number preceding a larger one without subtractive notation
+        if value is not None and (prev_value > 0) and (value < prev_value):
+            raise ValueError("Invalid Roman numeral")
+        
+        # Subtract the current value from total if it's less than the previous, indicating subtractive notation
+        if value is not None and (value < prev_value):
+            total -= value
+        else:
+            total += value
+        
+        prev_value = value
+    
+    return total
+
+# Example usage:
+try:
+    print(roman_to_int("III"))  # Should output 3
+    print(roman_to_int("IV"))   # Should output 4
+    print(roman_to_int("IX"))   # Should output 9
+    print(roman_to_int("LVIII"))  # Should output 58
+    print(roman_to_int("MCMXCIV"))  # Should output 1994
+except ValueError as e:
+    print(e)
+```
+
+This function works by iterating over the string from right to left, checking each character's value and comparing it with the previous one. If a smaller number precedes a larger one without proper subtractive notation (like IV for 4 or IX for 9), a `ValueError` is raised. The function correctly handles standard Roman numeral conversions while rejecting invalid ones as specified.

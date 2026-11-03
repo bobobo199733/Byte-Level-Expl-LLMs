@@ -1,0 +1,30 @@
+To implement the `decode_string` function, I'll use recursion to handle both simple and nested string decoding. Here is a Python implementation:
+
+```python
+def decode_string(s):
+    result = ''
+    i = 0
+    while i < len(s):
+        count = 1
+        if i+1 < len(s) and s[i] == '[':
+            i += 1
+            multiplier = ''
+            while (i+1) < len(s) and s[i] != ']':
+                if s[i] == '[':
+                    multiplier += decode_string(s[i])
+                elif s[i].isdigit():
+                    multiplier += s[i]
+                i += 1
+            count *= int(multiplier)
+        result += count * s[i+1] if i+1 < len(s) and not s[i] == '[' else s[i]
+        i += 1
+    return result
+```
+
+This function works as follows:
+
+- It iterates through the input string `s`.
+- If it encounters an opening bracket, it starts a new multiplier calculation and moves to the next character. The multiplier will contain any nested patterns or single numbers.
+- If it encounters a digit before an opening bracket, the digit is considered as part of the multiplier.
+- It keeps track of the count for each repeated character and concatenates them at the end of the result string.
+- If it doesn't encounter any opening brackets (i.e., no nested patterns), it simply adds each character to the result string.

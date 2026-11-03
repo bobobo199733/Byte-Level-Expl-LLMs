@@ -1,0 +1,54 @@
+Here is a Python function to convert an infix expression to postfix:
+
+```python
+def expression_to_postfix(expression):
+    """
+    Converts an infix expression into postfix notation.
+
+    :param expression: The infix expression as a string
+    :return: The postfix expression as a string
+    """
+
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+    output_queue = []
+    operator_stack = []
+
+    for char in expression:
+
+        # If the character is an operand (digit or letter), add it to the queue
+        if char.isalnum():
+            output_queue.append(char)
+
+        # If the character is a closing parenthesis, push it onto the stack
+        elif char == ')':
+            operator_stack.append(char)
+
+        # If the character is an opening parenthesis, process its contents and then discard the parentheses
+        elif char == '(':
+            while True:
+                top = operator_stack.pop()
+                if top == '(':
+                    break
+                output_queue.append(top)
+            operator_stack.pop()  # Discard the '('
+
+        # If the character is an operator, process it
+        else:
+            while (operator_stack and 
+                   operator_stack[-1] != ')' and 
+                   precedence[char] <= precedence[operator_stack[-1]]):
+                output_queue.append(operator_stack.pop())
+
+            operator_stack.append(char)
+
+    # Process any remaining operators on the stack
+    while operator_stack:
+        top = operator_stack.pop()
+        if top == ')':
+            raise ValueError("Unbalanced parentheses")
+        output_queue.append(top)
+
+    return ''.join(output_queue)
+```
+
+This function works by maintaining two data structures: an `output_queue` to store the postfix expression, and an `operator_stack` to store operators in the correct order for conversion. The function iterates through each character of the infix expression, processing operators as they are encountered and using a precedence table to determine when to pop operators from the stack. Finally, any remaining operators on the stack are processed and added to the output queue.

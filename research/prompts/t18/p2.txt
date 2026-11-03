@@ -1,0 +1,8 @@
+Write a Python function called edit_distance(word1, word2) that computes the Levenshtein distance between two strings.
+
+Requirements:
+- Support insertions, deletions, and substitutions.
+- Use dynamic programming.
+- Do not use external libraries.
+- Handle empty strings correctly.
+- The implementation should be efficient for longer strings.

@@ -1,0 +1,58 @@
+{
+  "task_id": "t6",
+  "function_name": "wildcard_match",
+  "valid_cases": [
+  [["aa", "a"], false],
+  [["aa", "*"], true],
+  [["cb", "?a"], false],
+  [["adceb", "*a*b"], true],
+  [["acdcb", "a*c?b"], false],
+
+  [["", ""], true],
+  [["", "*"], true],
+  [["", "?"], false],
+  [["a", ""], false],
+
+  [["abc", "***"], true],
+  [["abc", "*?*?*"], true],
+  [["abc", "****a****b****c****"], true],
+  [["abc", "****a****b****d****"], false],
+
+  [["abcd", "a*d"], true],
+  [["abcd", "a*c?"], true],
+  [["abcd", "a*?c"], false],
+  [["abcd", "?*?*?"], true],
+
+  [["mississippi", "m*iss*?ppi"], true],
+  [["mississippi", "m??*ss*?i*pi"], false],
+  [["mississippi", "*issip*"], true],
+
+  [["abefcdgiescdfimde", "ab*cd?i*de"], true],
+  [["abefcdgiescdfimde", "ab*cd?i*df"], false],
+
+  [["aaaabaaaab", "a*b*a*b"], true],
+  [["aaaabaaaab", "a*b*a*c"], false],
+
+  [["baaabab", "*****ba*****ab"], true],
+  [["baaabab", "baaa?ab"], true],
+  [["baaabab", "baaa?ba"], false],
+  [["baaabab", "*a?ab"], true],
+
+  [["aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*c"], false],
+  [["aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*b"], true],
+
+  [["abcabczzzde", "*abc???de*"], true],
+  [["abcabczzzde", "*abc???df*"], false],
+
+  [["xyxzzxy", "x**z*xy"], true],
+  [["xyxzzxy", "x**z*xz"], false],
+
+  [["bbbbbbba", "*a"], true],
+  [["bbbbbbba", "*b"], false],
+
+  [["ho", "ho**"], true],
+  [["ho", "ho?*"], false]
+],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

@@ -1,0 +1,46 @@
+**Spiral Matrix Function**
+=========================
+
+Here is a Python function to traverse a matrix in spiral order:
+
+```python
+def spiral_matrix(matrix):
+    """
+    Returns the elements of a matrix in spiral order.
+
+    Args:
+        matrix (list): A 2D list representing the matrix.
+
+    Returns:
+        list: A list containing the elements of the matrix in spiral order.
+    """
+
+    result = []
+    while matrix:
+        # Extract the first row
+        result += matrix.pop(0)
+        
+        # Rotate the remaining rows clockwise
+        matrix = (list(zip(*matrix)))[::-1]
+    
+    return result
+```
+
+**Example Usage**
+----------------
+
+Here's an example of how to use this function:
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+This function uses a simple while loop to repeatedly extract the first row of the matrix and rotate the remaining rows clockwise. The elements are appended to the result list in each iteration.
+
+Note that this implementation assumes that the input matrix is a non-empty list of lists, where each inner list has at least one element. If your matrix may have empty rows or columns, you'll need to add additional error checking code.

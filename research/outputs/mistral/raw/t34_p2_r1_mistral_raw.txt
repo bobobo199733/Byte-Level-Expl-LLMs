@@ -1,0 +1,31 @@
+Here's a Python function named `binary_search_rotated` that meets your requirements:
+
+```python
+def binary_search_rotated(values, target):
+    if not values:
+        return -1
+
+    left, right = 0, len(values) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        # Check for the case when the rotated array is sorted in ascending order and we've found the target
+        if values[mid] == target:
+            return mid
+
+        # Determine which half of the array the target should be in, based on the current middle element being greater or less than its predecessor
+        if (mid > 0 and values[mid] < values[mid - 1]) or (mid == 0):
+            right = mid - 1
+        else:
+            left = mid + 1
+
+    # If the target is not found after searching both halves, return -1
+    return -1
+```
+
+This function implements a binary search algorithm specifically designed to handle rotated sorted arrays. It first checks if the input array is empty and returns -1 in that case. Then it initializes two pointers, `left` and `right`, to search within the array. The while loop continues as long as both pointers are not equal (i.e., have not converged on a target).
+
+Inside the loop, we calculate the midpoint between the current left and right pointers. If the target is found at the midpoint, it returns the index of the target. Otherwise, it checks which half of the array the target should be in based on whether the middle element is greater than or less than its predecessor (which indicates a rotation). Depending on the case, it updates either the left or right pointer to continue searching the appropriate half of the array.
+
+When both pointers converge on a value that is not the target, the function returns -1 indicating that the target was not found in the array.

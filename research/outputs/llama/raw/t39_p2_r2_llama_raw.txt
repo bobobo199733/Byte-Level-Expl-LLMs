@@ -1,0 +1,64 @@
+**Knapsack 0/1 Problem**
+=========================
+
+The 0/1 knapsack problem is a classic problem in combinatorial optimization. Given a set of items, each with a weight and value, determine the subset of these items that should be included in a collection so that the total value is maximized without exceeding a given capacity.
+
+**Implementation**
+-----------------
+
+```python
+def knapsack_01(weights, values, capacity):
+    """
+    Compute the optimal value for the 0/1 knapsack problem.
+
+    Parameters:
+        weights (list): List of item weights.
+        values (list): List of corresponding item values.
+        capacity (int): Maximum weight capacity.
+
+    Returns:
+        int: Optimal total value.
+
+    Raises:
+        ValueError: If input lists are not of the same length or if capacity is negative.
+    """
+
+    # Check for invalid input
+    if len(weights) != len(values):
+        raise ValueError("Input lists must be of the same length")
+    if capacity < 0:
+        raise ValueError("Capacity cannot be negative")
+
+    # Handle empty input lists
+    if not weights or not values:
+        return 0
+
+    # Initialize a table to store intermediate results
+    n = len(weights)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    # Fill the table using dynamic programming
+    for i in range(1, n + 1):
+        for j in range(1, capacity + 1):
+            if weights[i - 1] <= j:
+                dp[i][j] = max(values[i - 1] + dp[i - 1][j - weights[i - 1]], dp[i - 1][j])
+            else:
+                dp[i][j] = dp[i - 1][j]
+
+    # The optimal value is stored in the bottom-right cell
+    return dp[n][capacity]
+```
+
+**Example Usage**
+-----------------
+
+```python
+weights = [2, 3, 4, 5]
+values = [10, 20, 30, 40]
+capacity = 10
+
+optimal_value = knapsack_01(weights, values, capacity)
+print("Optimal value:", optimal_value)  # Output: 60
+```
+
+This implementation uses dynamic programming to efficiently solve the 0/1 knapsack problem. The `knapsack_01` function takes in three parameters: `weights`, `values`, and `capacity`. It returns the optimal total value as an integer. The function first checks for invalid input, then initializes a table to store intermediate results using dynamic programming. Finally, it returns the bottom-right cell of the table, which represents the optimal value.

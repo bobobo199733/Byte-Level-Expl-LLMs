@@ -1,0 +1,28 @@
+To solve this problem, we can use dynamic programming with a technique called Levenshtein distance algorithm. Here is a Python implementation of the `edit_distance` function:
+
+```python
+def edit_distance(word1, word2):
+    len1 = len(word1) + 1
+    len2 = len(word2) + 1
+
+    matrix = [[0 for _ in range(len2)] for _ in range(len1)]
+
+    # Fill up the matrix by comparing each character of the two words
+    for i in range(len1):
+        for j in range(len2):
+            if i == 0:
+                matrix[i][j] = j
+            elif j == 0:
+                matrix[i][j] = i
+            else:
+                cost = 0
+                if word1[i - 1] != word2[j - 1]:
+                    cost += 1
+                matrix[i][j] = min(matrix[i - 1][j] + 1,
+                                   matrix[i][j - 1] + 1,
+                                   matrix[i - 1][j - 1] + cost)
+
+    return matrix[len1 - 1][len2 - 1]
+```
+
+In this implementation, `edit_distance(word1, word2)` calculates the minimum number of edits needed to transform one string into another. It uses a dynamic programming approach where we build a matrix that stores the edit distance between each substring of both input words. The time complexity of the solution is O(m * n), where m and n are the lengths of the two input strings.

@@ -1,0 +1,14 @@
+Here's a Python function called `fast_power` that calculates the exponentiation efficiently using exponentiation by squaring:
+
+```python
+def fast_power(base, exponent):
+    result = 1
+    while exponent > 0:
+        if exponent & 1:
+            result *= base
+        base *= base
+        exponent >>= 1
+    return result
+```
+
+This function takes a base and an exponent as arguments. It computes the power using exponentiation by squaring, which is an efficient method to calculate powers by repeatedly squaring the base when the exponent is even and multiplying the result with the base when the exponent is odd. The `& 1` operation checks if the exponent is odd, while `>>= 1` shifts the bits of the exponent to the right one position at a time, effectively dividing it by two.

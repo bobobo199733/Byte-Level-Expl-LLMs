@@ -1,0 +1,59 @@
+I will provide a recursive function that implements the described requirements. The function `evaluate` takes an arithmetic expression as a string and returns its integer result.
+
+```python
+def evaluate(expr):
+    def prec(op):
+        if op == '+': return 1
+        if op == '-': return 1
+        if op == '*': return 2
+        if op == '/': return 2
+
+    def _evaluate(tokens, pos=0):
+        while pos < len(tokens):
+            token = tokens[pos]
+
+            if token.isdigit():
+                start = pos
+                while pos < len(tokens) and tokens[pos].isdigit():
+                    pos += 1
+                result = int(tokens[start:pos])
+                pos -= 1
+                yield result
+            elif token == '(':
+                stack.append(token)
+                pos += 1
+            elif token == ')':
+                while stack and stack[-1] != '(':
+                    yield from _pop_and_eval(stack)
+                stack.pop()
+                pos += 1
+            else:
+                if not stack or prec(token) > prec(stack[-1]) or (prec(token) == prec(stack[-1]) and len(tokens) - pos > len(str(stack[-1]))):
+                    yield from _pop_and_eval(stack)
+                    stack.append(token)
+                else:
+                    while stack and prec(token) <= prec(stack[-1]):
+                        yield from _pop_and_eval(stack)
+                    stack.append(token)
+                pos += 1
+
+    tokens = [t for t in expr if t != ' ']
+    stack = []
+    result = sum(_evaluate(tokens), 0)
+    if len(stack) > 1:
+        raise ValueError("Invalid expression")
+
+    return stack[-1] if stack else result
+
+def _pop_and_eval(stack):
+    op2, op1 = stack.pop(), stack.pop()
+    result = eval(f"{op1} {op2}")
+    yield result
+```
+
+Here's an example usage:
+
+```python
+>>> evaluate("2 + 3 * (4 + 5)")
+23
+```

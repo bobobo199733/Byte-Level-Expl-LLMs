@@ -1,0 +1,1 @@
+Write a function called coin_change(coins, amount) that finds the smallest number of coins needed to make the amount. Return -1 if impossible.

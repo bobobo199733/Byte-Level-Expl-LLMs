@@ -1,0 +1,49 @@
+Certainly! To check if a linked list contains a cycle, we can use Floyd's Tortoise and Hare algorithm. This algorithm uses two pointers: the slow pointer (tortoise) moves one step at a time while the fast pointer (hare) moves two steps at a time. If there is a cycle, eventually the hare will meet the tortoise inside the cycle.
+
+Here's how you can implement this:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if head is None or head.next is None:
+        return False
+    
+    tortoise = head
+    hare = head.next
+    
+    while hare and hare.next:
+        if tortoise == hare:
+            return True
+        
+        tortoise = tortoise.next
+        hare = hare.next.next
+    
+    return False
+
+# Example usage:
+# Constructing a linked list: 1 -> 2 -> 3 -> 4 -> 5 -> 3 (cycle)
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node3  # Creating a cycle
+
+print(linked_list_cycle(node1))  # Output: True
+```
+
+In this code:
+- We first check if the head is `None` or if there's only one node, in which case there can't be any cycles.
+- We initialize two pointers: `tortoise` and `hare`.
+- The while loop runs as long as both the hare and its next node are not `None`.
+- If at any point the tortoise meets the hare, it means there's a cycle, so we return `True`.
+- If the loop exits without finding a cycle (i.e., the hare reaches the end of the list), we return `False`.

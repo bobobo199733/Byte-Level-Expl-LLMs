@@ -1,0 +1,9 @@
+{
+  "function_name": "serialize_tree",
+  "description": "Serialize a binary tree into a string representation and deserialize it back into the original structure.",
+  "category": "tree",
+  "subtype": "serialization",
+  "difficulty": "hard",
+  "uses_recursion": true,
+  "uses_graph": false
+}

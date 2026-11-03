@@ -1,0 +1,69 @@
+Certainly! Below is a Python function that implements the text justification logic based on the requirements you provided:
+
+```python
+def text_justification(words, max_width):
+    def justify_line(line_words, width, last_line=False):
+        if len(line_words) == 1:
+            return line_words[0] + ' ' * (width - len(line_words[0]))
+        
+        num_gaps = len(line_words) - 1
+        extra_spaces = width - sum(len(word) for word in line_words)
+        
+        spaces_per_gap, remainder = divmod(extra_spaces, num_gaps)
+        
+        if last_line:
+            return ' '.join([word + (' ' * (width - sum(map(len, line_words))) // len(line_words)) 
+                             for word in line_words])
+        
+        justified_line = []
+        for i, word in enumerate(line_words):
+            spaces = [spaces_per_gap] * num_gaps
+            if remainder > 0:
+                spaces[:remainder] = [spaces_per_gap + 1] * remainder
+                remainder = 0
+            
+            # Add the current word and the required number of spaces
+            justified_line.append(word)
+            for _ in range(spaces[i]):
+                justified_line.append(' ')
+        
+        return ''.join(justified_line)
+
+    result = []
+    line_words = []
+    current_width = 0
+
+    for word in words:
+        if current_width + len(word) + len(line_words) <= max_width:
+            line_words.append(word)
+            current_width += len(word)
+        else:
+            result.append(justify_line(line_words, max_width))
+            line_words = [word]
+            current_width = len(word)
+
+    # Handle the last line
+    if line_words:
+        result.append(' '.join(line_words) + ' ' * (max_width - sum(len(w) for w in line_words) - len(line_words) + 1))
+
+    return result
+
+# Example usage:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width = 16
+print(text_justification(words, max_width))
+```
+
+### Explanation:
+1. **justify_line Function**: This function handles the justification of a single line.
+    - If there's only one word in the line, it simply pads the rest of the space to the right.
+    - For lines with more than one word, it calculates how many spaces should be added between words and distributes them as evenly as possible. Extra spaces are distributed from left to right.
+
+2. **Main Function (text_justification)**:
+    - It iterates through each word and tries to add it to the current line.
+    - When adding a word would exceed `max_width`, it justifies the current line using `justify_line` and then starts a new line with the current word.
+    - After processing all words, it handles the last line which is left-justified.
+
+3. **Example Usage**: Demonstrates how to use the function with an example list of words and a maximum width.
+
+This implementation ensures that each line up to the second-to-last one has spaces distributed as evenly as possible from left to right, while the last line is left-justified.

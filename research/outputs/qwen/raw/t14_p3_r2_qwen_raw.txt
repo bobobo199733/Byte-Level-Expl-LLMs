@@ -1,0 +1,50 @@
+Certainly! The problem of generating all valid combinations of `n` pairs of parentheses is a classic example that can be solved using recursion and backtracking.
+
+Here's the implementation of the `generate_parentheses` function in Python:
+
+```python
+def generate_parentheses(n):
+    def backtrack(s='', left=0, right=0):
+        # If the length of s is 2 * n, it means we have a valid combination
+        if len(s) == 2 * n:
+            result.append(s)
+            return
+        
+        # Add '(' as long as there are remaining '(' to add
+        if left < n:
+            backtrack(s + '(', left + 1, right)
+        
+        # Add ')' as long as the number of open parentheses is greater than the number of closed ones
+        if right < left:
+            backtrack(s + ')', left, right + 1)
+    
+    result = []
+    backtrack()
+    return result
+
+# Example usage:
+n = 3
+print(generate_parentheses(n))
+```
+
+### Explanation:
+
+- **Backtracking** is a technique that involves building the solution incrementally and removing those choices if they don't lead to a valid solution.
+  
+- The function `backtrack(s, left, right)` takes three parameters: 
+  - `s` is the current string being built.
+  - `left` keeps track of the number of open parentheses added so far.
+  - `right` keeps track of the number of closed parentheses added so far.
+
+- We use a recursive approach to build the strings. The base case is when the length of `s` equals `2 * n`, meaning we have used all available parentheses and thus, it's a valid combination.
+
+- To generate new combinations, we add an open parenthesis if we can (i.e., if there are fewer than `n` open parentheses), and we add a close parenthesis if it would be valid to do so (i.e., the number of open parentheses is greater than the number of closed ones).
+
+### Example Output:
+For `n = 3`, the function will return all possible combinations of balanced parentheses, which should be:
+
+```
+["((()))", "(()())", "(())()", "()(())", "()()()"]
+```
+
+This implementation ensures that every generated string is a valid combination of `n` pairs of parentheses.

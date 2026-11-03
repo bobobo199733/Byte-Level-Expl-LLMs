@@ -1,0 +1,77 @@
+Certainly! Below is a Python function `bfs_shortest_path` that uses Breadth-First Search (BFS) to find the shortest path between two nodes in an unweighted graph. The graph will be represented as an adjacency list.
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Perform BFS to find the shortest path from 'start' to 'target' node.
+    
+    :param graph: An adjacency list representing the graph.
+    :param start: The starting node for the search.
+    :param target: The target node to find the path to.
+    :return: A tuple containing the distance and the list of nodes in the shortest path.
+             If there is no path, returns (None, None).
+    """
+    
+    # Initialize a queue for BFS
+    queue = deque()
+    
+    # Dictionary to keep track of visited nodes and their parent
+    visited = {start: None}
+    
+    # Enqueue the start node with distance 0
+    queue.append((start, 0))  # (node, distance)
+    
+    while queue:
+        current_node, distance = queue.popleft()
+        
+        # Check if we have reached the target node
+        if current_node == target:
+            path = []
+            temp = current_node
+            while temp is not None:
+                path.append(temp)
+                temp = visited[temp]
+            return (distance, list(reversed(path)))
+        
+        # Explore all adjacent nodes
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                visited[neighbor] = current_node
+                queue.append((neighbor, distance + 1))
+    
+    # If we exit the loop without finding the target node, no path exists
+    return (None, None)
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+start_node = 'A'
+target_node = 'F'
+
+shortest_distance, shortest_path = bfs_shortest_path(graph, start_node, target_node)
+
+if shortest_distance is not None:
+    print(f"Shortest distance: {shortest_distance}")
+    print(f"Shortest path: {' -> '.join(shortest_path)}")
+else:
+    print("No path found.")
+```
+
+### Explanation:
+
+- **Graph Representation**: The graph is represented as a dictionary where the keys are nodes and the values are lists of adjacent nodes.
+- **BFS Initialization**: We initialize a queue with the starting node, along with its distance from the start (0).
+- **Visited Dictionary**: This keeps track of which nodes have been visited and their parent node in the path.
+- **Queue Processing**: Each time we dequeue a node, we check if it is our target. If so, we reconstruct the path by backtracking through the visited dictionary and return both the distance and the path.
+- **No Path Found**: If the queue exhausts without finding the target, we return `(None, None)` indicating no valid path exists.
+
+This function will find the shortest path in an unweighted graph using BFS.

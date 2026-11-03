@@ -1,0 +1,45 @@
+**Autocomplete System Function**
+================================
+
+Here is the Python function `autocomplete_system` that meets all your requirements:
+
+```python
+def autocomplete_system(words, prefix):
+    """
+    Returns a list of words from the given list that match the provided prefix.
+
+    Args:
+        words (list): List of words to search in.
+        prefix (str): The prefix to match against each word.
+
+    Returns:
+        list: Sorted list of matching words. If no matches are found, an empty list is returned.
+    """
+    if not words or not prefix:
+        return []
+
+    filtered_words = [word for word in words if word.startswith(prefix)]
+    return sorted(filtered_words)
+```
+
+**Example Use Cases**
+---------------------
+
+```python
+# Test with a sample list of words
+words = ["apple", "banana", "cherry", "date", "elderberry"]
+prefix = "a"
+print(autocomplete_system(words, prefix))  # Output: ["apple"]
+
+# Test with an empty input
+words = []
+prefix = "a"
+print(autocomplete_system(words, prefix))  # Output: []
+
+# Test with a non-empty prefix but no matching words
+words = ["banana", "cherry"]
+prefix = "d"
+print(autocomplete_system(words, prefix))  # Output: []
+```
+
+This function works by using list comprehension to filter the input `words` based on whether each word starts with the given `prefix`. If the input is empty or if there are no matching words, an empty list is returned. Otherwise, it returns a sorted list of matching words.

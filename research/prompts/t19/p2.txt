@@ -1,0 +1,9 @@
+Write a Python function called count_islands(grid) that counts connected groups of land cells in a grid.
+
+Requirements:
+- The grid contains "1" for land and "0" for water.
+- Cells are connected horizontally and vertically.
+- Use DFS or BFS.
+- Do not use external libraries.
+- Avoid revisiting cells.
+- Handle empty grids correctly.

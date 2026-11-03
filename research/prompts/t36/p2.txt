@@ -1,0 +1,10 @@
+Write exactly ONE Python function called dijkstra_shortest_path(graph, start) that computes shortest path distances in a weighted graph.
+
+Requirements:
+- Use only one function named dijkstra_shortest_path.
+- The graph may contain weighted edges with positive weights.
+- Return the shortest distance from the start node to every reachable node.
+- Use an efficient implementation of Dijkstra's algorithm.
+- Correctly handle disconnected graphs.
+- Do not use external libraries.
+- The implementation should be robust and readable.

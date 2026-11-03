@@ -1,0 +1,1 @@
+Write a single Python function called word_break(s, word_dict) that takes a string s and a list of strings word_dict, and returns True if s can be segmented into a space-separated sequence of one or more dictionary words, and False otherwise. Words in the dictionary may be reused multiple times.

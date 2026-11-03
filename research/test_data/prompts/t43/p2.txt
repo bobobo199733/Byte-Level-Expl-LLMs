@@ -1,0 +1,10 @@
+Write exactly one Python function named binary_tree_inorder(tree).
+
+The function should perform an inorder traversal of a binary tree represented as a list.
+
+Requirements:
+- Return node values in inorder sequence
+- Handle empty trees correctly
+- Raise ValueError for invalid inputs
+- Output only Python code
+- Do not include explanations or test code

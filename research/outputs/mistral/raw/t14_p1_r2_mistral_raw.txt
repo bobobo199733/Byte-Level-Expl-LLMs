@@ -1,0 +1,36 @@
+To generate all valid combinations of `n` pairs of parentheses, we can use recursion and some basic rules:
+
+1. At the beginning and end of each combination, there should be an equal number of left and right parentheses.
+2. For each level in the recursion, one more opening bracket is added compared to the closing brackets until the desired number of pairs is reached.
+3. An opening bracket can only be placed if there are enough closing brackets available from previous levels.
+4. A closing bracket can only be placed if there is at least one more opening bracket before it in the current level or from previous levels.
+
+Here's a Python function that implements these rules:
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(openings, closings, max_openings=n, output=[]):
+        if len(output) == 2 * n:
+            result.append(''.join(output))
+            return
+
+        # Add opening bracket
+        if openings < max_openings:
+            backtrack(openings + 1, closings, max_openings, output + ['('])
+
+        # Add closing bracket
+        if openings > closings:
+            backtrack(openings, closings + 1, max_openings, output + [')'])
+
+    backtrack(0, 0)
+    return result
+```
+
+You can test the function with:
+
+```python
+print(generate_parentheses(3))
+# Output: [('((()))', '(()())', '(()())', '((()()))']
+```

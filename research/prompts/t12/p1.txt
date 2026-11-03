@@ -1,0 +1,1 @@
+Write a Python function called bfs_shortest_path(graph, start, target) that returns the length of the shortest path between two nodes in an unweighted graph.

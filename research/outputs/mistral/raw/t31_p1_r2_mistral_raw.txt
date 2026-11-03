@@ -1,0 +1,46 @@
+To achieve this, we can use a depth-first search (DFS) approach with a queue and a custom serialization method. Here's the `serialize_tree` function:
+
+```python
+def serialize_tree(root):
+    def _serialize_tree(node, visited):
+        if node:
+            visited.append(str(node.val))
+            _serialize_tree(node.left, visited)
+            _serialize_tree(node.right, visited)
+        else:
+            visited.append('#')
+
+    def _deserialize_tree(nodes, index):
+        if index >= len(nodes) or nodes[index] == '#':
+            return None
+        node = TreeNode(int(nodes[index]))
+        node.left = _deserialize_tree(nodes, 2 * index + 1)
+        node.right = _deserialize_tree(nodes, 2 * index + 2)
+        return node
+
+    if not root:
+        return ''
+
+    visited = []
+    _serialize_tree(root, visited)
+    serialized = '[' + ','.join(visited) + ']'
+    deserialized_tree = _deserialize_tree(serialized[1:-1].split(','), 0)
+
+    return serialized if root.val == deserialized_tree.val else None
+```
+
+In this code, we first serialize the tree using a helper function `_serialize_tree` that performs a DFS on the given binary tree and stores the visited nodes in a list as strings.
+
+Next, we define a separate helper function `_deserialize_tree` to create new TreeNodes according to the serialized string representation.
+
+Finally, we serialize the input root, store it in a string format, and deserialize the string into a TreeNode object to check whether the serialization preserves the tree structure correctly. If the root value matches the deserialized root node's value, we return the serialized string; otherwise, we return `None`.
+
+Note that this code assumes the presence of a `TreeNode` class with attributes `val`, `left`, and `right`. You can define it yourself:
+
+```python
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+```

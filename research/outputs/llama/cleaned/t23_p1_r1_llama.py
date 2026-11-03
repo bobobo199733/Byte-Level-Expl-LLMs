@@ -1,0 +1,18 @@
+def fast_power(base: int, exponent: int) -> int:
+    """
+    Compute base raised to exponent efficiently.
+
+    Args:
+        base (int): The base number.
+        exponent (int): The exponent to which the base is raised.
+
+    Returns:
+        int: The result of base raised to exponent.
+    """
+    if exponent == 0:
+        return 1
+    half_power = fast_power(base, exponent // 2)
+    if exponent % 2 == 0:
+        return half_power * half_power
+    else:
+        return half_power * half_power * base

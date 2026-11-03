@@ -1,0 +1,15 @@
+{
+  "task_id": "t41",
+  "function_name": "group_anagrams",
+  "valid_cases": [
+    [[["eat","tea","tan","ate","nat","bat"]], [["eat","tea","ate"],["tan","nat"],["bat"]]],
+    [[[""]], [[""]]],
+    [[["a"]], [["a"]]],
+    [[["abc","bca","cab","xyz"]], [["abc","bca","cab"],["xyz"]]]
+  ],
+  "invalid_cases": [
+    [[123]],
+    [[null]]
+  ],
+  "expected_exception": "ValueError"
+}

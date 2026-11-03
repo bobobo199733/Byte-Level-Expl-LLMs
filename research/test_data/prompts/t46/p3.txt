@@ -1,0 +1,1 @@
+Write a single Python function called text_justification(words, max_width). Given a list of words and a max line width, return a list of justified lines. Each line is exactly max_width characters. Spread spaces evenly between words, extra spaces go left first. Last line is left-aligned with trailing spaces.

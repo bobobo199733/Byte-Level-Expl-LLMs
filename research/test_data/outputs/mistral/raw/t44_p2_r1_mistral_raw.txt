@@ -1,0 +1,19 @@
+Here's a Python function named `rotate_array` that fulfills your requirements:
+
+```python
+def rotate_array(nums, k):
+    if not isinstance(nums, list) or k < 0 or len(nums) <= k:
+        raise ValueError("Invalid input")
+
+    n = len(nums)
+    k %= n
+    result = [None] * n
+
+    for i in range(n):
+        j = (i + k) % n
+        result[j] = nums[i]
+
+    return result
+```
+
+This function handles large `k` values by using the modulo operator to ensure that the rotation remains within the bounds of the array. It raises a ValueError for invalid inputs, such as non-list arrays or negative k values or cases where the length of the array is less than or equal to k.

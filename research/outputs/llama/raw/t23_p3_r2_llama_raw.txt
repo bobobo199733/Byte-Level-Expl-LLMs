@@ -1,0 +1,35 @@
+```python
+def fast_power(base, exponent):
+    """
+    Quickly computes base to the exponent.
+
+    Args:
+        base (int): The base number.
+        exponent (int): The power to which the base is raised.
+
+    Returns:
+        int: The result of base raised to the power of exponent.
+    """
+
+    # Base case for recursion: if exponent is 0, return 1
+    if exponent == 0:
+        return 1
+    
+    # If the exponent is even, we can divide it by 2 and multiply the result by itself
+    if exponent % 2 == 0:
+        # Recursive call with exponent divided by 2
+        half_power = fast_power(base, exponent // 2)
+        
+        # Multiply the result of the recursive call by itself
+        return half_power * half_power
+    
+    # If the exponent is odd, we can divide it by 2, multiply the result by itself and then multiply by the base
+    else:
+        # Recursive call with exponent divided by 2
+        half_power = fast_power(base, (exponent - 1) // 2)
+        
+        # Multiply the result of the recursive call by itself and then by the base
+        return base * half_power * half_power
+
+# Example usage: print(fast_power(2, 10))
+```

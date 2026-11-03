@@ -1,0 +1,28 @@
+I will provide a recursive solution for the 0/1 Knapsack problem. This solution uses memoization to reduce time complexity from exponential (O(2^n)) to quasi-polynomial (O(nV)). Here's the implementation:
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(weights)
+    dp = [[-1] * (capacity + 1) for _ in range(n)]
+
+    def helper(i, w):
+        if i == n or w == 0:
+            return 0
+
+        if dp[i][w] != -1:
+            return dp[i][w]
+
+        include = 0
+        if weights[i] <= w:
+            include = values[i] + helper(i+1, w-weights[i])
+
+        exclude = helper(i+1, w)
+        dp[i][w] = max(include, exclude)
+        return dp[i][w]
+
+    return helper(0, capacity)
+```
+
+This solution works by creating a 2D table `dp` with dimensions `n x (capacity + 1)`. The base case is when the index reaches the end of the weights list or the remaining capacity equals 0. If the result for the given `i` and `w` has been calculated before, return the previously calculated value.
+
+For each item in the weight-value pair array (excluding the current item), either include or exclude the item from the knapsack, and calculate the maximum achievable value recursively. Update the table with the result and return it at the end.

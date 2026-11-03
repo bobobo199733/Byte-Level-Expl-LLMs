@@ -1,0 +1,54 @@
+**Spiral Matrix Function**
+========================
+
+Here is a Python solution for generating the elements of a matrix in spiral order:
+
+```python
+def spiral_matrix(matrix):
+    """
+    Returns the elements of a matrix in spiral order.
+
+    Args:
+        matrix (list): A 2D list representing the input matrix.
+
+    Returns:
+        list: A 1D list containing the elements of the matrix in spiral order.
+    """
+
+    result = []
+    while matrix:
+
+        # Extract the first row from the matrix and add it to the result
+        result += matrix.pop(0)
+
+        # Rotate the remaining rows clockwise and extract the last column
+        if matrix and matrix[0]:
+            for row in matrix:
+                result.append(row.pop())
+
+            # Reverse the order of the remaining columns
+            matrix = [list(reversed(col)) for col in zip(*matrix)]
+
+    return result
+```
+
+**Example Use Case**
+--------------------
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+In this example, we define a function `spiral_matrix` that takes a 2D list (matrix) as input and returns the elements of the matrix in spiral order. We use a while loop to iterate over the matrix until it's empty.
+
+Inside the loop, we first extract the first row from the matrix using the `pop(0)` method and add it to the result. Then, if there are remaining rows and columns, we rotate the remaining rows clockwise by popping the last column of each row, and reverse the order of the remaining columns using the `reversed` function.
+
+Finally, we return the result list containing the elements of the matrix in spiral order.
+
+Note: This solution assumes that the input matrix is a non-empty 2D list. If the input matrix can be empty or not a list, you should add error handling code to handle these cases accordingly.

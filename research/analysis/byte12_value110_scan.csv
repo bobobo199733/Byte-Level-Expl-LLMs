@@ -1,0 +1,47 @@
+task,prompt,run,true,predicted,correct,shap_toward_true,byte_vote_class,byte_vote_correct,source,file
+t41,p1,r1,llama,mistral,False,0.1067798733711242,llama,True,for word in words:,t41_p1_r1_llama.py
+t41,p1,r2,llama,llama,True,0.1484559476375579,llama,True,for word in words:,t41_p1_r2_llama.py
+t41,p1,r3,llama,mistral,False,0.1036005616188049,llama,True,for word in words:,t41_p1_r3_llama.py
+t41,p3,r1,llama,llama,True,0.0883479490876197,llama,True,for word in words:,t41_p3_r1_llama.py
+t41,p3,r3,llama,mistral,False,0.0725474208593368,llama,True,for word in words:,t41_p3_r3_llama.py
+t41,p1,r2,mistral,llama,False,-0.1458775997161865,llama,False,for word in words:,t41_p1_r2_mistral.py
+t41,p1,r3,mistral,llama,False,-0.1559288501739502,llama,False,for word in words:,t41_p1_r3_mistral.py
+t41,p2,r3,mistral,mistral,True,-0.1266062259674072,llama,False,for word in words:,t41_p2_r3_mistral.py
+t41,p3,r1,mistral,mistral,True,-0.1294713616371154,llama,False,for word in words:,t41_p3_r1_mistral.py
+t41,p3,r2,mistral,llama,False,-0.1428741663694381,llama,False,for word in words:,t41_p3_r2_mistral.py
+t41,p1,r2,qwen,llama,False,0.0367186069488525,llama,False,for word in words:,t41_p1_r2_qwen.py
+t41,p1,r3,qwen,mistral,False,0.049946017563343,llama,False,for word in words:,t41_p1_r3_qwen.py
+t41,p3,r3,qwen,llama,False,0.0406187437474727,llama,False,for word in words:,t41_p3_r3_qwen.py
+t42,p1,r3,mistral,mistral,True,-0.0690167471766471,llama,False,graph = collections.defaultdict(list),t42_p1_r3_mistral.py
+t42,p2,r3,mistral,llama,False,-0.1349117308855056,llama,False,graph = collections.defaultdict(list),t42_p2_r3_mistral.py
+t44,p1,r1,llama,llama,True,0.0774337500333786,qwen,False,k = k % len(nums),t44_p1_r1_llama.py
+t44,p1,r2,llama,mistral,False,0.1130263730883598,llama,True,k = k % len(nums),t44_p1_r2_llama.py
+t44,p1,r3,llama,llama,True,0.0774337500333786,qwen,False,k = k % len(nums),t44_p1_r3_llama.py
+t44,p3,r2,llama,llama,True,0.0774337500333786,qwen,False,k = k % len(nums),t44_p3_r2_llama.py
+t44,p1,r1,mistral,mistral,True,-0.1311248838901519,llama,False,k %= len(nums),t44_p1_r1_mistral.py
+t44,p1,r3,mistral,qwen,False,-0.1185894608497619,llama,False,k = k % len(nums),t44_p1_r3_mistral.py
+t44,p3,r2,mistral,mistral,True,-0.2265564650297165,llama,False,nums += nums[:k],t44_p3_r2_mistral.py
+t44,p3,r3,mistral,mistral,True,-0.2279874235391616,llama,False,nums += nums[:k],t44_p3_r3_mistral.py
+t46,p1,r1,llama,llama,True,0.1558633744716644,llama,True,current_length = 0,t46_p1_r1_llama.py
+t46,p1,r2,llama,qwen,False,0.1539086252450943,llama,True,current_width = 0,t46_p1_r2_llama.py
+t46,p2,r1,llama,llama,True,0.094816580414772,llama,True,current_width = 0,t46_p2_r1_llama.py
+t46,p2,r2,llama,qwen,False,0.1103558912873268,llama,True,current_width = 0,t46_p2_r2_llama.py
+t46,p2,r3,llama,llama,True,0.0703596100211143,llama,True,current_length = 0,t46_p2_r3_llama.py
+t46,p3,r1,llama,llama,True,0.1033808961510658,llama,True,current_width = 0,t46_p3_r1_llama.py
+t46,p3,r2,llama,llama,True,0.1029750183224678,llama,True,total_length = 0,t46_p3_r2_llama.py
+t46,p3,r3,llama,llama,True,0.0922758728265762,llama,True,total_chars = 0,t46_p3_r3_llama.py
+t46,p1,r1,mistral,llama,False,-0.0726726874709129,llama,False,total_spaces = 0,t46_p1_r1_mistral.py
+t46,p3,r1,mistral,llama,False,-0.161225289106369,llama,False,total_length = 0,t46_p3_r1_mistral.py
+t47,p1,r1,llama,llama,True,0.102164901793003,llama,True,"s = s.replace(' ', '')",t47_p1_r1_llama.py
+t47,p1,r3,llama,llama,True,0.1835429668426513,llama,True,res = 0,t47_p1_r3_llama.py
+t47,p2,r1,llama,llama,True,0.0758187919855117,llama,True,sign = '+',t47_p2_r1_llama.py
+t47,p2,r2,llama,llama,True,0.1281388700008392,llama,True,stack = [],t47_p2_r2_llama.py
+t47,p2,r3,llama,llama,True,0.1389261037111282,llama,True,num = 0,t47_p2_r3_llama.py
+t47,p3,r1,llama,qwen,False,0.1353379189968109,llama,True,i = 0,t47_p3_r1_llama.py
+t47,p1,r2,qwen,mistral,False,0.0121461348608136,llama,False,"def greater_precedence(op1, op2):",t47_p1_r2_qwen.py
+t47,p3,r1,qwen,qwen,True,0.0381011813879013,llama,False,def evaluate_stack(stack):,t47_p3_r1_qwen.py
+t47,p3,r2,qwen,mistral,False,-0.0274981167167425,llama,False,def compute(expression):,t47_p3_r2_qwen.py
+t49,p2,r3,llama,qwen,False,0.1077821776270866,llama,True,n = len(s) + 1,t49_p2_r3_llama.py
+t50,p1,r3,llama,mistral,False,0.0903026312589645,llama,True,p_counter = Counter(p),t50_p1_r3_llama.py
+t50,p1,r3,mistral,qwen,False,-0.0844916701316833,llama,False,counter_p = Counter(p),t50_p1_r3_mistral.py
+t50,p3,r1,mistral,llama,False,-0.1219992190599441,llama,False,need = {},t50_p3_r1_mistral.py

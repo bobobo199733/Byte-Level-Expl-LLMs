@@ -1,0 +1,9 @@
+{
+  "function_name": "n_queens",
+  "description": "Return all valid solutions to the N-Queens problem.",
+  "category": "backtracking",
+  "subtype": "combinatorics",
+  "difficulty": "hard",
+  "uses_recursion": true,
+  "uses_graph": false
+}

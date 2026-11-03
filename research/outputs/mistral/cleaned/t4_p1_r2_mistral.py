@@ -1,0 +1,17 @@
+def decode_string(s):
+
+    def helper(sub_str, result=None):
+        if not sub_str:
+            return result or ''
+        number = None
+        bracket = None
+        for i in range(len(sub_str) - 1, -1, -1):
+            if sub_str[i] >= '0' and sub_str[i] <= '9':
+                number = sub_str[:i]
+                bracket = sub_str[i]
+                break
+        if not number or not bracket:
+            raise ValueError(f"Invalid input '{sub_str}'")
+        rep_char = helper(bracket, result) if bracket == '[' else rep_char * int(number)
+        return helper(sub_str.replace(number + bracket, rep_char), result=result + rep_char)
+    return helper(s)

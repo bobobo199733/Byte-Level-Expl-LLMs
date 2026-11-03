@@ -1,0 +1,47 @@
+Certainly! To implement a `binary_search_rotated` function for searching in a rotated sorted array, we need to account for the fact that standard binary search cannot be directly applied due to the rotation. Here’s how you can do it:
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # If we find the target, return its index
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side is properly sorted
+        if values[left] <= values[mid]:  # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1  # Target is in the left half
+            else:
+                left = mid + 1  # Target is in the right half
+        else:  # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1  # Target is in the right half
+            else:
+                right = mid - 1  # Target is in the left half
+    
+    return -1
+
+# Example usage:
+rotated_list = [4, 5, 6, 7, 0, 1, 2]
+target_value = 0
+print(binary_search_rotated(rotated_list, target_value))  # Output: 4
+
+target_value = 3
+print(binary_search_rotated(rotated_list, target_value))  # Output: -1
+```
+
+### Explanation:
+- **Initial Setup**: We start with two pointers `left` and `right` at the beginning and end of the array.
+- **Main Loop**: The loop continues as long as `left` is less than or equal to `right`.
+- **Mid Calculation**: We calculate the middle index `mid`.
+- **Target Found**: If the value at `mid` matches the target, we return `mid`.
+- **Determine Sorted Half**:
+  - Check if the left half from `left` to `mid` is sorted. If it is and the target falls within this range, adjust the right pointer.
+  - Otherwise, check if the right half from `mid+1` to `right` is sorted. Adjust the left pointer accordingly.
+- **Return -1**: If the loop exits without finding the target, return `-1`.
+
+This approach ensures that we efficiently search for the target in a rotated sorted array with logarithmic time complexity.

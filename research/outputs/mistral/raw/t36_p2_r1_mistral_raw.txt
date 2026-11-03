@@ -1,0 +1,27 @@
+Here is a Python function named `dijkstra_shortest_path` that implements Dijkstra's algorithm as required. It uses a priority queue for efficient processing and handles disconnected graphs by returning a dictionary with separate shortest path distances for each connected component.
+
+```python
+from heapq import heappush, heappop, heapify
+
+def dijkstra_shortest_path(graph, start):
+    INF = float('inf')
+    n = len(graph)
+    distances = [INF] * n
+    visited = [False] * n
+    distances[start] = 0
+    priority_queue = [(0, start)]
+    while priority_queue:
+        current_distance, current_node = heappop(priority_queue)
+        if visited[current_node]:
+            continue
+        visited[current_node] = True
+        for neighbor, weight in graph[current_node]:
+            if not visited[neighbor]:
+                new_distance = current_distance + weight
+                if new_distance < distances[neighbor]:
+                    distances[neighbor] = new_distance
+                    heappush(priority_queue, (new_distance, neighbor))
+    return {node: distance for node, distance in enumerate(distances) if 0 <= distance < INF}
+```
+
+In this implementation, the graph is represented as a dictionary of dictionaries where each key is a node and its value is another dictionary mapping neighbors to their weights. The function returns a dictionary where each key is a node and its value is the shortest distance from `start` to that node. If there's no path between `start` and some nodes, their distances are set to `INF`.

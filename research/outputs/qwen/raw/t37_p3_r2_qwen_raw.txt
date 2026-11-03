@@ -1,0 +1,61 @@
+To check if a linked list contains a cycle, you can use Floyd's Tortoise and Hare algorithm. This method uses two pointers: the slow pointer moves one step at a time while the fast pointer moves two steps at a time. If there is a cycle, the fast pointer will eventually meet the slow pointer within the cycle.
+
+Here's how you can implement this in Python:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if head is None or head.next is None:
+        return False
+    
+    slow = head
+    fast = head.next
+    
+    while fast and fast.next:
+        if slow == fast:
+            return True
+        slow = slow.next
+        fast = fast.next.next
+        
+    return False
+
+# Example usage:
+# Creating a linked list with a cycle: 1 -> 2 -> 3 -> 4 -> 5 -> 2 (cycle back to node 2)
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node2  # Creating a cycle
+
+print(linked_list_cycle(node1))  # Output: True
+
+# Example without cycle:
+node6 = ListNode(1)
+node7 = ListNode(2)
+node8 = ListNode(3)
+
+node6.next = node7
+node7.next = node8
+
+print(linked_list_cycle(node6))  # Output: False
+```
+
+This function works as follows:
+
+1. **Initialization**: If the list is empty or has only one element, return `False` because there can't be a cycle.
+2. **Pointers Setup**: Set up two pointers, `slow` and `fast`. `slow` moves one step at a time, while `fast` moves two steps at a time.
+3. **Cycle Detection**: Iterate through the list with both pointers:
+   - If `slow` equals `fast`, there is a cycle, so return `True`.
+4. **Termination**: If `fast` or `fast.next` becomes `None`, it means we've reached the end of the list without finding any cycles, so return `False`.
+
+This approach ensures that you can detect cycles efficiently in O(n) time complexity and O(1) space complexity.

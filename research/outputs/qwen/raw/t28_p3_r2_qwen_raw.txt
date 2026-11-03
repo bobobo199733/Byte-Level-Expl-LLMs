@@ -1,0 +1,19 @@
+```python
+def robot_simulator(commands):
+    x, y = 0, 0  # Starting position
+    direction = 0  # Starting direction: 0 - North, 1 - East, 2 - South, 3 - West
+    
+    for command in commands:
+        if command == 'G':
+            if direction == 0: y += 1
+            elif direction == 1: x += 1
+            elif direction == 2: y -= 1
+            elif direction == 3: x -= 1
+        elif command == 'L':
+            direction = (direction + 3) % 4  # Turn left
+        elif command == 'R':
+            direction = (direction + 1) % 4  # Turn right
+    
+    return x, y
+```
+```

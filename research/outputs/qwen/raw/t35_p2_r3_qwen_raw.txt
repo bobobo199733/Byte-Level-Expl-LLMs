@@ -1,0 +1,62 @@
+Certainly! Below is a Python function `json_validator(text)` that validates whether a string contains syntactically valid JSON. This function uses a stack to handle nested objects and arrays, ensuring proper handling of strings, numbers, booleans, and null values.
+
+```python
+def json_validator(text):
+    # Stack for keeping track of the nesting levels
+    stack = []
+    
+    # Mapping of closing brackets to their corresponding opening brackets
+    bracket_map = {')': '(', '}': '{', ']': '['}
+    
+    # Set of valid JSON characters, including control characters
+    valid_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+.,:/'\"{}[]!@#$%^&*()_<>? ")
+
+    def is_valid_char(c):
+        return c in valid_chars or ord(c) >= 0x80
+
+    # Iterate over each character in the text
+    i = 0
+    while i < len(text):
+        if not is_valid_char(text[i]):
+            return False
+        
+        if text[i] == '"' or text[i] == "'":
+            start = i
+            i += 1
+            while i < len(text) and text[i] != text[start]:
+                if not is_valid_char(text[i]):
+                    return False
+                i += 1
+            if i >= len(text):
+                return False
+        elif text[i] in '{[(':
+            stack.append(text[i])
+        elif text[i] in '}])':
+            if not stack or stack[-1] == bracket_map[text[i]]:
+                stack.pop()
+            else:
+                return False
+        i += 1
+
+    # Ensure the stack is empty, meaning all brackets were properly closed
+    return len(stack) == 0
+
+# Example usage:
+print(json_validator('{"name": "John", "age": 30, "city": "New York"}'))  # True
+print(json_validator('[1, 2, 3]'))  # True
+print(json_validator('{"))}'))  # False
+```
+
+### Explanation:
+
+1. **Stack for Brackets**: We use a stack to keep track of opening brackets `{`, `[`, and `(`. When we encounter a closing bracket `}`, `]`, or `)`, we check if it matches the last seen opening bracket on the stack.
+
+2. **Character Validation**: The function checks if each character is valid (including control characters that can appear in JSON strings).
+
+3. **String Handling**: If the text starts with a quote (`"` or `'`), it checks for matching quotes to ensure proper string handling.
+
+4. **Stack Management**: When an opening bracket is encountered, it's pushed onto the stack. When a closing bracket of the same type is found, the corresponding opening bracket is popped from the stack. If the stack becomes empty without all brackets being properly closed, or if a mismatch occurs, the function returns `False`.
+
+5. **Final Check**: After processing the entire text, the function checks if the stack is empty to ensure all brackets were properly closed.
+
+This implementation handles nested structures and various valid characters in JSON, while returning `True` for valid JSON strings and `False` otherwise.

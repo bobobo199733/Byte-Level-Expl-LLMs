@@ -1,0 +1,46 @@
+```python
+def robot_simulator(commands):
+    """
+    Simulates a robot's movement based on given commands.
+
+    Args:
+        commands (str): A string of commands separated by commas.
+                        The commands can be 'LEFT', 'RIGHT', 'FORWARD', or 'BACKWARD'.
+
+    Returns:
+        tuple: The final position and direction of the robot as a tuple in the format
+               (x, y, direction).
+    """
+
+    # Initialize the initial position at (0, 0) and facing North
+    x, y = 0, 0
+    directions = {'NORTH': (0, 1), 'SOUTH': (0, -1), 'EAST': (1, 0), 'WEST': (-1, 0)}
+    direction = 'NORTH'
+
+    # Parse the commands string into a list of commands
+    commands_list = [command.strip() for command in commands.split(',')]
+
+    # Simulate the robot's movement based on the given commands
+    for command in commands_list:
+        if command == 'LEFT':
+            # Turn left by changing the direction to its previous value
+            global_directions = list(directions.keys())
+            current_index = global_directions.index(direction)
+            direction = global_directions[(current_index - 1) % 4]
+        elif command == 'RIGHT':
+            # Turn right by changing the direction to its next value
+            global_directions = list(directions.keys())
+            current_index = global_directions.index(direction)
+            direction = global_directions[(current_index + 1) % 4]
+        else:
+            # Move forward or backward based on the current direction
+            movement = directions[direction]
+            if command == 'FORWARD':
+                x += movement[0]
+                y += movement[1]
+            elif command == 'BACKWARD':
+                x -= movement[0]
+                y -= movement[1]
+
+    return (x, y, direction)
+```

@@ -1,0 +1,61 @@
+Certainly! Below is the implementation of the `bfs_shortest_path` function that uses Breadth-First Search (BFS) to find the shortest path between two nodes in an unweighted graph represented as a dictionary of adjacency lists. This function will return the length of the shortest path if one exists, or `-1` if there is no path.
+
+```python
+def bfs_shortest_path(graph, start, target):
+    """
+    Compute the shortest distance between two nodes using BFS.
+    
+    :param graph: A dictionary representing an unweighted graph where keys are node labels and values are lists of adjacent nodes.
+    :param start: The starting node label.
+    :param target: The target node label.
+    :return: The length of the shortest path if one exists, otherwise -1.
+    """
+    
+    # Check if the start or target nodes are not in the graph
+    if start not in graph or target not in graph:
+        return -1
+    
+    # Initialize a queue for BFS and dictionaries to keep track of visited nodes and their distances from the start node
+    queue = [(start, 0)]
+    visited = {start: True}
+    
+    while queue:
+        current_node, distance = queue.pop(0)
+        
+        # If we have found the target node, return the distance (length of path)
+        if current_node == target:
+            return distance
+        
+        # Explore each neighbor of the current node
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                # Mark as visited and add to queue with increased distance
+                visited[neighbor] = True
+                queue.append((neighbor, distance + 1))
+    
+    # If we exit the loop without finding the target, return -1 (no path found)
+    return -1
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 2
+print(bfs_shortest_path(graph, 'A', 'G'))  # Output: -1 (no path exists)
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where the keys are node labels and the values are lists of adjacent nodes.
+- **Queue Initialization**: A queue is initialized with the starting node and its distance from itself, which is `0`.
+- **BFS Execution**: Nodes are processed in a FIFO (First-In-First-Out) order. For each node, we check if it has been visited; if not, we mark it as visited and add all its unvisited neighbors to the queue.
+- **Path Detection**: If the target node is encountered, the distance at that point gives the shortest path length.
+- **Cycle Handling**: The use of a `visited` dictionary ensures that nodes are only processed once, effectively handling cycles in the graph.
+
+This implementation works efficiently for larger graphs by ensuring each node and edge is visited only once.

@@ -1,0 +1,53 @@
+Certainly! Below is a Python function `expression_to_postfix(expression)` that converts an infix expression to postfix notation. This function correctly handles operator precedence, parentheses, and supports +, -, *, and / operators.
+
+```python
+def expression_to_postfix(expression):
+    # Define the operator precedence dictionary
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+    
+    # Stack to hold operators temporarily
+    stack = []
+    # List to store postfix expression elements
+    output = []
+
+    # Remove whitespace from the input expression
+    expression = expression.replace(" ", "")
+    
+    for char in expression:
+        if char.isalnum():  # If the character is an operand, add it to the output list
+            output.append(char)
+        elif char == '(':  # If the character is '(', push it onto the stack
+            stack.append(char)
+        elif char == ')':  # If the character is ')', pop from stack and add operators to output until '(' is found
+            top_element = stack.pop()
+            while top_element != '(':
+                output.append(top_element)
+                top_element = stack.pop()
+        else:  # The character must be an operator
+            # Pop and append operators from the stack to the output if they have higher or equal precedence
+            while (stack and stack[-1] in precedence and
+                   precedence[stack[-1]] >= precedence[char]):
+                output.append(stack.pop())
+            stack.append(char)
+
+    # Pop all remaining operators from the stack to the output
+    while stack:
+        output.append(stack.pop())
+
+    return ''.join(output)
+
+# Example usage
+print(expression_to_postfix("3 + 4 * 2 / ( 1 - 5 )"))
+```
+
+### Explanation:
+- **Precedence Dictionary**: Defines the precedence of operators. Higher numbers indicate higher precedence.
+- **Stack for Operators**: Used to temporarily hold operators that need to be processed after certain conditions are met.
+- **Output List**: Stores the postfix expression as we process each character in the input string.
+- **Whitespace Removal**: Removes any whitespace from the input string to ensure accurate processing.
+- **Operator Handling**:
+  - If a character is an operand, it's directly added to the output list.
+  - Parentheses are handled by pushing '(' onto the stack and popping operators until ')' is found in the stack.
+  - Operators are pushed onto the stack or popped into the output based on their precedence.
+
+This implementation ensures that the postfix expression is correctly formed according to operator precedence rules.

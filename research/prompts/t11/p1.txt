@@ -1,0 +1,1 @@
+Write a Python function called coin_change(coins, amount) that returns the minimum number of coins needed to make up the given amount. Return -1 if it is not possible.

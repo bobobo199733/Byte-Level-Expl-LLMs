@@ -1,0 +1,51 @@
+Certainly! Below is the `heap_sort` function in Python, which implements the heap sort algorithm:
+
+```python
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    left_child = 2 * i + 1     # Left child index
+    right_child = 2 * i + 2    # Right child index
+
+    # See if left child of root exists and is greater than root
+    if left_child < n and arr[i] < arr[left_child]:
+        largest = left_child
+
+    # See if right child of root exists and is greater than the largest so far
+    if right_child < n and arr[largest] < arr[right_child]:
+        largest = right_child
+
+    # Change root, if needed
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # Swap
+
+        # Heapify the root.
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    
+    # Build a maxheap.
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+    
+    # One by one extract elements
+    for i in range(n-1, 0, -1):
+        values[i], values[0] = values[0], values[i]  # Swap
+        heapify(values, i, 0)
+
+    return values
+
+# Example usage:
+unsorted_list = [12, 11, 13, 5, 6, 7]
+print(heap_sort(unsorted_list))
+```
+
+This function `heap_sort` works as follows:
+
+1. **Heapify Function**: This is a helper function that ensures the heap property for the node at index `i`. It compares the root with its left and right children and swaps if necessary to maintain the max-heap property.
+
+2. **Building Max-Heap**: The main loop of `heap_sort` builds a max-heap from the input list by calling `heapify` on each non-leaf node, starting from the last parent node down to the root.
+
+3. **Sorting Phase**: After building the heap, elements are extracted one by one from the end (i.e., the largest element) and moved to the beginning of the array. The heap size is reduced by one after each extraction, and `heapify` is called again to maintain the max-heap property for the remaining elements.
+
+4. **Return**: Finally, a new sorted list is returned without modifying the original input list.

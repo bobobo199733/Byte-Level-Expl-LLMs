@@ -1,0 +1,20 @@
+Here is a Python function named `coin_change` that uses dynamic programming (bottom-up approach) to solve the Coin Change problem:
+
+```python
+def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+
+    for i in range(len(coins)):
+        for j in range(coins[i], amount + 1):
+            dp[j] = min(dp[j], dp[j - coins[i]] + 1)
+
+    if dp[-1] == float('inf'):
+        return -1
+    else:
+        return dp[-1]
+```
+
+In this function, `coins` is a list containing the denominations of available coins and `amount` represents the target amount. The function returns the smallest number of coins needed to make up the given `amount`, or `-1` if it's impossible to reach that amount with the provided coins.
+
+The time complexity of this algorithm is O(n * m), where n is the number of unique coins and m is the target amount, since we need to iterate through all possible coin combinations up to the given amount. The space complexity is O(m) due to the dynamic programming array `dp`.

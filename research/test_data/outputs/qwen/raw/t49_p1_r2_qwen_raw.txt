@@ -1,0 +1,48 @@
+Certainly! You can solve this problem using dynamic programming. Here's a Python function `word_break` that implements this logic:
+
+```python
+def word_break(s, word_dict):
+    # Create a set for quick lookup of words in the dictionary
+    word_set = set(word_dict)
+    
+    # Initialize a DP array where dp[i] is True if s[:i+1] can be segmented into dictionary words
+    dp = [False] * (len(s) + 1)
+    dp[0] = True  # Base case: empty string can always be segmented
+    
+    # Fill the DP table
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+                
+    return dp[len(s)]
+
+# Example usage:
+s = "leetcode"
+word_dict = ["leet", "code"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsandog"
+word_dict = ["cats", "dog", "sand", "and", "cat"]
+print(word_break(s, word_dict))  # Output: False
+```
+
+### Explanation:
+1. **DP Array Initialization**:
+   - `dp` is a boolean array of length `len(s) + 1`.
+   - `dp[0] = True` because an empty string can always be segmented (though it's not useful in this context, it simplifies the base case).
+
+2. **Filling the DP Table**:
+   - We iterate through each position `i` in the string.
+   - For each position `i`, we check all possible substrings ending at `i` (`s[j:i]`).
+   - If `dp[j]` is `True` (meaning `s[:j]` can be segmented) and `s[j:i]` is a word in the dictionary, then set `dp[i] = True`.
+
+3. **Result**:
+   - The result will be stored in `dp[len(s)]`, which tells us whether the entire string can be segmented into words from the dictionary.
+
+This approach ensures that we efficiently check each possible segment of the string against the dictionary using dynamic programming, with a time complexity of O(n^2) and space complexity of O(n).

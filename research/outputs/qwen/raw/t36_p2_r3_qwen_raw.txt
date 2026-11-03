@@ -1,0 +1,64 @@
+Certainly! Below is a Python function named `dijkstra_shortest_path` that implements Dijkstra's algorithm to find the shortest path distances from a start node in a weighted graph. This function handles disconnected graphs by checking for connected components.
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+    
+    # Initialize distances dictionary with infinite values for all nodes except the start node
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    
+    # Priority queue to store (distance, node) tuples
+    priority_queue = [(0, start)]
+    
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+        
+        # If the current distance is greater than the recorded distance, skip this node
+        if current_distance > distances[current_node]:
+            continue
+        
+        # Explore each neighbor of the current node
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            
+            # Only consider this new path if it's better (shorter)
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+    
+    return distances
+
+# Example usage:
+if __name__ == "__main__":
+    graph = {
+        'A': {'B': 10, 'C': 3},
+        'B': {'C': 1, 'D': 2},
+        'C': {'B': 4, 'D': 8, 'E': 2},
+        'D': {'E': 7},
+        'E': {'D': 9}
+    }
+    
+    start_node = 'A'
+    print(dijkstra_shortest_path(graph, start_node))
+```
+
+### Explanation:
+1. **Initialization**:
+   - `distances` dictionary is initialized to store the shortest distance from the start node to each node in the graph.
+   - All distances are set to infinity (`float('inf')`), except for the start node which is set to 0.
+   
+2. **Priority Queue**:
+   - A priority queue (min-heap) is used to always expand the node with the smallest known distance.
+
+3. **Main Loop**:
+   - The loop continues until the priority queue is empty.
+   - For each node, it checks if the current path is shorter than any previously recorded paths and updates the distances accordingly.
+   
+4. **Handling Disconnected Graphs**:
+   - If a disconnected graph exists, nodes that are unreachable from `start_node` will remain at their initial infinity value.
+
+5. **Example Usage**:
+   - The example demonstrates how to call the function with a sample weighted graph and start node.
+
+This implementation is efficient and robust, handling both connected and partially connected graphs correctly.

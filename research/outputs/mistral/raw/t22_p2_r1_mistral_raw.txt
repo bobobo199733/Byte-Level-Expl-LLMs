@@ -1,0 +1,22 @@
+Here's the function `sieve_primes(n)` as requested:
+
+```python
+def sieve_primes(n):
+    if n < 2:
+        return []
+
+    composite = [True] * (n + 1)
+    composite[0], composite[1] = False, False
+
+    for i in range(int(n ** 0.5) + 1):
+        if composite[i]:
+            for multiple in range(i*i, n+1, i):
+                composite[multiple] = False
+
+    primes = [x for x in range(2, len(composite)) if composite[x]]
+    return sorted(primes)
+```
+
+This function first checks if the input `n` is less than 2 and returns an empty list if that's the case. Then it initializes a boolean array representing all numbers up to `n`. It sets the first two elements as False, since 0 and 1 are not prime numbers.
+
+Next, it iterates through the numbers up to the square root of `n` and marks their multiples as composite (non-prime) using the `multiple` variable in the for loop. Finally, it returns a sorted list containing only the remaining prime numbers.

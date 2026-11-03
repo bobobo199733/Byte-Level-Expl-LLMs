@@ -1,0 +1,54 @@
+Certainly! To count the number of islands (groups of connected land cells) in a grid, we can use Depth-First Search (DFS) or Breadth-First Search (BFS). Here, I'll provide an implementation using BFS for its simplicity and efficiency. The function `count_islands` will traverse each cell in the grid, performing BFS whenever it encounters a land cell ("1"), and mark all visited cells to avoid revisiting them.
+
+Here's the Python code:
+
+```python
+from collections import deque
+
+def count_islands(grid):
+    if not grid:
+        return 0
+    
+    rows, cols = len(grid), len(grid[0])
+    directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
+    
+    def bfs(r, c):
+        queue = deque([(r, c)])
+        
+        while queue:
+            row, col = queue.popleft()
+            
+            for dr, dc in directions:
+                new_r, new_c = row + dr, col + dc
+                if 0 <= new_r < rows and 0 <= new_c < cols and grid[new_r][new_c] == "1":
+                    grid[new_r][new_c] = "0"  # Mark as visited
+                    queue.append((new_r, new_c))
+    
+    island_count = 0
+    
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1":  # Found an unvisited land cell
+                bfs(r, c)
+                island_count += 1
+                
+    return island_count
+
+# Example usage:
+grid = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "1", "1"],
+    ["0", "0", "0", "0", "0"],
+    ["0", "0", "0", "1", "1"]
+]
+
+print(count_islands(grid))  # Output should be 3
+```
+
+### Explanation:
+1. **Initial Check**: The function first checks if the grid is empty.
+2. **Helper Function `bfs`**: This function performs a Breadth-First Search to mark all connected land cells ("1") starting from a given cell `(r, c)`.
+3. **Grid Traversal**: We iterate over each cell in the grid. If we encounter an unvisited land cell (i.e., "1"), we perform BFS to mark all its connected cells and increment the island count.
+4. **Return Result**: Finally, the function returns the total number of islands found.
+
+This approach ensures that every cell is visited at most once, making it efficient with a time complexity of O(rows * cols) where `rows` and `cols` are the dimensions of the grid.

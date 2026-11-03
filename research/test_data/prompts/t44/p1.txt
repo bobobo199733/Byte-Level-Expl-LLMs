@@ -1,0 +1,3 @@
+Write a Python function named rotate_array(nums, k) that rotates an array to the right by k steps.
+
+Return the rotated array.

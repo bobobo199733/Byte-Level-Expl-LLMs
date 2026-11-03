@@ -1,0 +1,26 @@
+def roman_to_int(s: str) -> int:
+    if s == '':
+        raise ValueError
+    numerals = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    prev_value = 0
+    total = 0
+    for char in s[::-1]:
+        value = numerals.get(char)
+        if value is None:
+            raise ValueError
+        if value < prev_value:
+            total -= value
+        else:
+            total += value
+        prev_value = value
+    allowed_subtracts = {'IV', 'IX', 'XL', 'XC', 'CD', 'CM'}
+    subtracts = set()
+    for i in range(len(s) - 1):
+        pair = s[i:i + 2]
+        if pair in allowed_subtracts:
+            continue
+        else:
+            raise ValueError
+    if total > numerals['M'] * 3 or total < 0:
+        raise ValueError
+    return total

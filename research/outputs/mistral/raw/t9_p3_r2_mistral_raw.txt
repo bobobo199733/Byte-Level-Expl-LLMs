@@ -1,0 +1,25 @@
+Here's a Python function called `merge_intervals` that takes a list of interval tuples and returns a new sorted list of merged intervals:
+
+```python
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+
+    # Sort the intervals by their start times
+    intervals.sort(key=lambda x: x[0])
+
+    merged = [intervals[0]]
+
+    for current in intervals:
+        last = merged[-1]
+
+        # If the end of the last interval is greater than or equal to the start of the current interval, merge them
+        if last[1] >= current[0]:
+            last[1] = max(last[1], current[1])
+        else:
+            merged.append(current)
+
+    return merged
+```
+
+This function first sorts the intervals by their start times, then iterates through them and merges overlapping ones (if any) into a single interval. The resulting list is sorted and returned.

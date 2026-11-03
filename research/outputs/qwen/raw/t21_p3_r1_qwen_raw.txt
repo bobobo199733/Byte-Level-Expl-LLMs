@@ -1,0 +1,35 @@
+```python
+def matrix_multiply(A, B):
+    """
+    Multiplies two matrices A and B.
+
+    Parameters:
+    A (list of list of int/float): The first matrix.
+    B (list of list of int/float): The second matrix.
+
+    Returns:
+    list of list of int/float: The resulting matrix after multiplication.
+    """
+    # Get the dimensions of the matrices
+    rows_A = len(A)
+    cols_A = len(A[0])
+    rows_B = len(B)
+    cols_B = len(B[0])
+
+    # Check if multiplication is possible
+    if cols_A != rows_B:
+        raise ValueError("Number of columns in A must be equal to number of rows in B")
+
+    # Initialize the result matrix with zeros
+    C = [[0 for _ in range(cols_B)] for _ in range(rows_A)]
+
+    # Perform matrix multiplication
+    for i in range(rows_A):
+        for j in range(cols_B):
+            for k in range(cols_A):  # or rows_B, since cols_A == rows_B
+                C[i][j] += A[i][k] * B[k][j]
+
+    return C
+```
+
+This function `matrix_multiply` takes two matrices `A` and `B` as input and returns their product. It first checks if the multiplication is possible by ensuring that the number of columns in the first matrix matches the number of rows in the second matrix. If not, it raises a `ValueError`. Otherwise, it proceeds to multiply the matrices using nested loops and updates the resulting matrix `C` accordingly.

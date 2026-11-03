@@ -1,0 +1,50 @@
+Here's a Python function that uses dynamic programming to solve the problem efficiently:
+
+```python
+def coin_change(coins, amount):
+    """
+    Computes the minimum number of coins required to make the target amount.
+
+    Args:
+        coins (list): A list of positive integers representing the available coin denominations.
+        amount (int): The target amount we want to achieve.
+
+    Returns:
+        int: The minimum number of coins needed. Returns -1 if it's impossible to form the target amount.
+    """
+
+    # Handle edge case where amount is 0
+    if amount == 0:
+        return 0
+
+    # Initialize a list to store the minimum number of coins for each amount from 0 to the target
+    dp = [float('inf')] * (amount + 1)
+    
+    # We can make an amount of 0 with 0 coins
+    dp[0] = 0
+
+    # Iterate over each coin denomination
+    for coin in coins:
+        # Only consider coins that are less than or equal to the target amount
+        if coin <= amount:
+            # For each possible amount, update the minimum number of coins needed by considering the current coin
+            for i in range(coin, amount + 1):
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    # If we can't form the target amount with any combination of coins, return -1
+    if dp[amount] == float('inf'):
+        return -1
+
+    # Otherwise, return the minimum number of coins needed
+    return dp[amount]
+```
+
+Here's an example usage:
+
+```python
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (we can make 11 with 5 + 5 + 1)
+```
+
+This code uses dynamic programming to efficiently solve the problem. The `dp` list stores the minimum number of coins needed for each possible amount from 0 to the target. It iterates over each coin denomination and updates the minimum number of coins needed by considering the current coin. If it's impossible to form the target amount with any combination of coins, it returns -1; otherwise, it returns the minimum number of coins needed.

@@ -1,0 +1,50 @@
+To create a `json_validator` function without using the built-in JSON library, we can implement basic validation logic to check if the input text is a valid JSON-like structure. Here's how you might approach this:
+
+1. **Check for opening and closing braces**: Ensure that there are matching `{}` pairs.
+2. **Check for key-value pairs**: Ensure each pair has a colon `:` between them.
+3. **Check for nested objects**: Make sure nested `{}` are properly closed.
+
+Here is the implementation of such a function:
+
+```python
+def json_validator(text):
+    # Check if the text starts and ends with {}
+    if not (text.startswith('{') and text.endswith('}')):
+        return False
+    
+    stack = []
+    key_mode = False  # Track if we're in between quotes or not
+
+    for i, char in enumerate(text):
+        if char == '"':
+            # Toggle key mode
+            key_mode = not key_mode
+        
+        elif char == '{' and not key_mode:
+            # Start of a new object
+            stack.append('{')
+        
+        elif char == '}' and not key_mode:
+            # End of an object
+            try:
+                stack.pop()
+            except IndexError:
+                return False
+
+    # Check if all objects are closed
+    return len(stack) == 0
+
+# Example usage
+print(json_validator("{}"))       # True
+print(json_validator('{"key": "value"}'))  # True
+print(json_validator('{ "key": "value"'))   # False
+print(json_validator('{"key": "value"}}'))  # False
+```
+
+### Explanation:
+- **Initial Checks**: The function first checks if the string starts and ends with `{}`. If not, it returns `False`.
+- **Stack for Braces**: A stack is used to keep track of opening braces.
+- **Key Mode Tracking**: A boolean flag (`key_mode`) tracks whether we are in between quotes (indicating a key or value).
+- **Brace Handling**: When encountering an opening brace `{`, it is pushed onto the stack. An closing brace `}` triggers popping from the stack to check for balance.
+
+This simple parser will work well for basic JSON-like structures but won't handle all edge cases of full JSON syntax, such as handling numbers, arrays, or escaping quotes properly. For a robust solution, using Python's built-in `json` module is highly recommended.

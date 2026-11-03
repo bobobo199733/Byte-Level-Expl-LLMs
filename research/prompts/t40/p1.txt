@@ -1,0 +1,7 @@
+Write exactly ONE Python function called autocomplete_system(words, prefix) that returns autocomplete suggestions for a given prefix.
+
+Requirements:
+- Use only one function named autocomplete_system.
+- Return matching words in sorted order.
+- Handle empty input correctly.
+- Do not use external libraries.

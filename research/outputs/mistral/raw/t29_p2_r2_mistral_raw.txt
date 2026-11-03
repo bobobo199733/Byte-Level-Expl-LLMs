@@ -1,0 +1,25 @@
+Here's a Python function that meets your requirements:
+
+```python
+def parse_csv_line(line):
+    result = []
+    field = ""
+    in_quote = False
+
+    for char in line:
+        if char == '"':
+            in_quote = not in_quote
+        elif char == ',' and not in_quote:
+            result.append(field)
+            field = ""
+        else:
+            field += char
+
+    # Add the last field (if any) to the result
+    if field:
+        result.append(field)
+
+    return result
+```
+
+This function works by iterating through each character in the input line and keeping track of whether it's currently inside a quoted field or not. If it encounters a comma and is not within quotes, it adds the current field to the result and prepares for the next one. When it reaches the end of the line, it adds the final field (if any) to the result as well.

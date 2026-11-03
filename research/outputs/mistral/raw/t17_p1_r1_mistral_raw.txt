@@ -1,0 +1,35 @@
+To create an LRU (Least Recently Used) cache in Python, we can use a combination of OrderedDict and a dictionary. Here's a function called `lru_cache` that takes two arguments: `operations` (a list of operations where each operation is a tuple containing the key and value to be added or retrieved from the cache) and `capacity` (the maximum number of items the cache can hold).
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    cache = OrderedDict()
+    outputs = []
+
+    for operation in operations:
+        key, value = operation
+        if key in cache:
+            # Move the accessed item to the end of the cache (most recently used)
+            cache.move_to_end(key)
+        # Add or update the item in the cache within the capacity limit
+        cache[key] = value
+
+        # Calculate and append the output for each get operation
+        if isinstance(operation, tuple) and len(operation) == 2:
+            outputs.append(cache.get(key, None))
+
+    return outputs
+```
+
+You can use this function like so:
+
+```python
+operations = [("apple", "fruit"), ("banana", None), ("orange", None),
+              ("apple", None), ("grape", "fruit"), ("orange", None)]
+capacity = 3
+
+outputs = lru_cache(operations, capacity)
+print(outputs)  # Output: ["fruit", None, None, "fruit", None]
+```
+In this example, the LRU cache can hold up to 3 items. The first `("apple", "fruit")` operation adds an item to the cache, the second and third operations do not access any items in the cache (hence, returning `None`), but the fourth operation retrieves the value associated with the key "apple". After that, the "grape" and "orange" are added to the cache replacing the least recently used items. The last "orange" operation tries to retrieve its value but it's not in the cache (returns `None`).

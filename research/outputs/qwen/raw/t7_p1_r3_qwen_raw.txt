@@ -1,0 +1,39 @@
+Certainly! Below is a Python function `word_frequency` that takes a string as input and returns a dictionary where the keys are words from the text, and the values are the frequencies of these words.
+
+```python
+def word_frequency(text):
+    # Convert all characters to lowercase to ensure case-insensitive comparison
+    text = text.lower()
+    
+    # Import necessary library
+    import re
+    
+    # Use regular expression to split the text into words
+    # This handles multiple delimiters such as spaces, punctuation, etc.
+    words = re.findall(r'\b\w+\b', text)
+    
+    # Initialize an empty dictionary to store word frequencies
+    frequency_dict = {}
+    
+    # Iterate through each word and update its count in the dictionary
+    for word in words:
+        if word in frequency_dict:
+            frequency_dict[word] += 1
+        else:
+            frequency_dict[word] = 1
+    
+    return frequency_dict
+
+# Example usage:
+text = "Hello, world! Hello everyone. This is a simple text to demonstrate the function."
+print(word_frequency(text))
+```
+
+### Explanation:
+
+1. **Lowercasing**: The input text is converted to lowercase using `lower()`. This ensures that word counting is case-insensitive.
+2. **Regular Expression for Word Extraction**: The `re.findall` method with the pattern `\b\w+\b` is used to extract words from the text. This pattern matches sequences of alphanumeric characters (`\w+`) while ignoring punctuation and other non-word characters.
+3. **Dictionary Initialization**: An empty dictionary `frequency_dict` is initialized to store word frequencies.
+4. **Counting Words**: The function iterates over each word in the list, updating its count in the dictionary.
+
+This function will output a dictionary where keys are words and values are their respective counts in the text.

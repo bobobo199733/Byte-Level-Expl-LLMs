@@ -1,0 +1,31 @@
+I'm delighted to help you with that! Here's a Python implementation of Dijkstra's algorithm, following your specifications:
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    INF = float('inf')
+    n = len(graph)
+    distances = [INF] * n
+    distances[start] = 0
+    shortest_path = {}
+    unvisited = set(range(n))
+    smallheap = []
+    heapq.heappush(smallheap, (0, start))
+
+    while unvisited:
+        (current_distance, current_node) = heapq.heappop(smallheap)
+        for neighbor, weight in enumerate(graph[current_node]):
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(smallheap, (distance, neighbor))
+                shortest_path[neighbor] = current_node
+        unvisited.remove(current_node)
+
+    return distances, shortest_path
+```
+
+This function takes a graph represented as an adjacency list and a starting node, calculates the shortest path distances from the starting node to all reachable nodes using Dijkstra's algorithm, and returns both the calculated distances and the shortest paths. The `graph` is expected to be a list where `graph[i]` represents the weights between the `i`-th node and its connected neighbors.
+
+The function uses Python's built-in data structures like lists, sets, and tuples, as well as heapq module for maintaining the priority queue in Dijkstra's algorithm.

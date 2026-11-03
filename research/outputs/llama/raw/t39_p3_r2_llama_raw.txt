@@ -1,0 +1,52 @@
+**Knapsack 0/1 Problem Solution**
+=====================================
+
+The following is a Python function to solve the 0/1 Knapsack problem using dynamic programming:
+
+```python
+def knapsack_01(weights, values, capacity):
+    """
+    Solve the 0/1 Knapsack problem.
+
+    Args:
+        weights (list): List of item weights.
+        values (list): List of item values.
+        capacity (int): Maximum weight capacity of the knapsack.
+
+    Returns:
+        int: The maximum possible value that can be put in the knapsack.
+
+    Example:
+        >>> weights = [2, 3, 4]
+        >>> values = [5, 6, 7]
+        >>> capacity = 10
+        >>> print(knapsack_01(weights, values, capacity))
+        14
+    """
+    n = len(values)
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                # Include the current item
+                include = values[i - 1] + dp[i - 1][w - weights[i - 1]]
+                # Exclude the current item
+                exclude = dp[i - 1][w]
+                dp[i][w] = max(include, exclude)
+            else:
+                # The current item's weight exceeds capacity; skip it
+                dp[i][w] = dp[i - 1][w]
+
+    return dp[n][capacity]
+```
+
+**Explanation:**
+
+*   We create a 2D table (`dp`) with dimensions `(n + 1) x (capacity + 1)` to store the maximum value for each subproblem.
+*   For each item `i`, we iterate over all possible weights `w`.
+*   If the current item's weight is less than or equal to `w`, we calculate the maximum value by including (`values[i - 1] + dp[i - 1][w - weights[i - 1]]`) and excluding (`dp[i - 1][w]`) the current item.
+*   We choose the maximum of these two values for `dp[i][w]`.
+*   If the current item's weight exceeds capacity, we simply copy the value from the previous row (`dp[i - 1][w]`).
+
+You can use this function by passing in your specific weights and values lists along with the knapsack capacity.

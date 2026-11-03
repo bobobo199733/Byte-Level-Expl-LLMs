@@ -1,0 +1,6 @@
+Write exactly ONE Python function called knapsack_01(weights, values, capacity) that solves the 0/1 knapsack problem.
+
+Requirements:
+- Use only one function named knapsack_01.
+- Return the maximum achievable value.
+- Do not use external libraries.

@@ -1,0 +1,12 @@
+To solve this problem efficiently, we can combine both sorted arrays into one and sort it again if necessary. Then, depending on the length of the combined array, we return either the middle element or the average of the two middle elements as the median. Here's the implementation:
+
+```python
+def merge_sorted(nums1, nums2):
+    merged = sorted(nums1 + nums2)
+    return merged[len(merged) // 2] if len(merged) % 2 == 0 else (merged[(len(merged) - 1) // 2] + merged[len(merged) // 2]) / 2
+
+def median_of_two_sorted_arrays(nums1, nums2):
+    return merge_sorted(nums1, nums2)
+```
+
+This implementation uses the `merge_sorted()` helper function to first merge the two sorted arrays and then find the median of the resulting merged array. The time complexity of this solution is O(m+n) log(m+n) as it performs a single sorting operation (merging), which has a time complexity of O(m+n) and a logarithmic factor due to the use of merge sort.

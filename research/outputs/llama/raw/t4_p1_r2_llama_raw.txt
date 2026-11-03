@@ -1,0 +1,61 @@
+Here is a high-quality, readable, and well-documented implementation of the `decode_string` function in Python:
+
+```python
+def decode_string(s: str) -> str:
+    """
+    Decodes an encoded string where numbers followed by brackets indicate repetition.
+
+    Args:
+        s (str): The encoded string to be decoded.
+
+    Returns:
+        str: The decoded string.
+
+    Raises:
+        ValueError: If the input string is invalid.
+    """
+
+    stack = []
+    curr_num = 0
+    curr_str = ''
+
+    for char in s:
+        # Handle number or bracket
+        if char.isdigit():
+            curr_num = curr_num * 10 + int(char)
+        elif char == '[':
+            stack.append(curr_str)
+            stack.append(curr_num)
+            curr_str = ''
+            curr_num = 0
+        elif char == ']':
+            num = stack.pop()
+            prev_str = stack.pop()
+            curr_str = prev_str + num * curr_str
+        else:
+            # Handle letter or other character
+            curr_str += char
+
+    if stack:  # Check for unbalanced brackets
+        raise ValueError("Invalid input string")
+
+    return curr_str
+```
+
+Here's an explanation of the code:
+
+1. We use two stacks to keep track of the current string and number.
+2. We iterate over each character in the input string, handling numbers (digit) or brackets (`[` or `]`).
+3. When we encounter a `[`, we push the current string and number onto the stack and reset them for the next pattern.
+4. When we encounter a `]`, we pop the last two elements from the stack, which should be the previous string and number. We then append the repeated string to it by multiplying it with the current string.
+5. Finally, after iterating over all characters, if there are any remaining elements on the stack (i.e., unbalanced brackets), we raise a `ValueError`.
+6. If everything is valid, we return the decoded string.
+
+You can test this function with various inputs to see that it works correctly:
+
+```python
+print(decode_string("3[a]"))  # Output: "aaa"
+print(decode_string("3[a2[c]]"))  # Output: "accaccacc"
+```
+
+Note that this implementation does not print anything but returns the decoded string as a Python string. It raises a `ValueError` if the input is invalid, following your requirements.

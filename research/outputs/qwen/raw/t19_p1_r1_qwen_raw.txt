@@ -1,0 +1,68 @@
+Certainly! To solve this problem, we can use Depth-First Search (DFS) or Breadth-First Search (BFS) to traverse through the grid and identify each island. An "island" is defined as a group of '1's connected horizontally or vertically.
+
+Here’s how you could implement it using DFS:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+
+    def dfs(x, y):
+        # Check boundary conditions and validity of the cell
+        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]) or grid[x][y] != '1':
+            return
+        # Mark the current cell as visited by setting it to '0'
+        grid[x][y] = '0'
+
+        # Explore all four directions
+        dfs(x + 1, y)  # down
+        dfs(x - 1, y)  # up
+        dfs(x, y + 1)  # right
+        dfs(x, y - 1)  # left
+
+    island_count = 0
+
+    # Traverse through the grid
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1':
+                island_count += 1
+                dfs(i, j)
+
+    return island_count
+
+# Example usage:
+grid = [
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+
+print(count_islands(grid))  # Output: 3
+```
+
+### Explanation:
+
+- **dfs(x, y)**: This is a helper function that performs a depth-first search starting from the cell `(x, y)`. It marks all connected cells of the island as visited ('0') to avoid counting them again.
+  
+- **island_count**: We initialize this variable to count the number of islands.
+
+- **Traversing the grid**: For each cell in the grid, if it's part of an unvisited island (i.e., its value is '1'), we increment `island_count` and call `dfs(x, y)` to explore all connected cells.
+
+### Example:
+
+The input grid:
+
+```
+[
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+```
+
+Would yield an output of `3`, as there are three distinct islands.
+
+This implementation ensures that each cell is visited only once, and all connected components of the grid are correctly counted.

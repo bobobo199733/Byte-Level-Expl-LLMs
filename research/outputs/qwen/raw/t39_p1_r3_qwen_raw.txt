@@ -1,0 +1,27 @@
+Certainly! Below is a Python function `knapsack_01` that implements the 0/1 knapsack problem. This function uses dynamic programming to find the maximum value that can be achieved given the weights, values, and capacity.
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(weights)
+    dp = [0] * (capacity + 1)  # DP table where dp[i] is the max value for i capacity
+    
+    # Fill the DP table
+    for i in range(n):
+        for j in range(capacity, weights[i] - 1, -1):
+            dp[j] = max(dp[j], dp[j - weights[i]] + values[i])
+    
+    return dp[capacity]
+
+# Example usage:
+weights = [2, 3, 4, 5]
+values = [3, 4, 5, 6]
+capacity = 5
+print(knapsack_01(weights, values, capacity))  # Output should be the maximum value achievable with given constraints
+```
+
+This function works as follows:
+- It initializes a DP table `dp` where `dp[j]` represents the maximum value that can be obtained with a knapsack capacity of `j`.
+- For each item in the list, it iterates backward through the capacities to ensure that we are considering the item only once for each possible capacity.
+- If an item can fit into the current capacity (`j - weights[i] >= 0`), it updates the DP table with the maximum value achievable by including or excluding the current item.
+
+This approach ensures that all possible combinations of items within the given capacity are considered, and the function returns the maximum value that can be achieved.

@@ -1,0 +1,15 @@
+{
+  "task_id": "t46",
+  "function_name": "text_justification",
+  "valid_cases": [
+    [[["This", "is", "an", "example", "of", "text", "justification."], 16], ["This    is    an", "example  of text", "justification.  "]],
+    [[["What", "must", "be", "acknowledgment", "shall", "be"], 16], ["What   must   be", "acknowledgment  ", "shall be        "]],
+    [[["word"], 10], ["word      "]],
+    [[["a", "b", "c", "d"], 5], ["a   b", "c   d"]]
+  ],
+  "invalid_cases": [
+    [[null, 16]],
+    [[[],  -1]]
+  ],
+  "expected_exception": "ValueError"
+}

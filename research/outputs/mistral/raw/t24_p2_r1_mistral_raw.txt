@@ -1,0 +1,12 @@
+Here's the Python function definition you requested:
+
+```python
+def kth_largest(nums, k):
+    if len(nums) < k or k <= 0:
+        raise ValueError("Invalid value for k")
+
+    nums = sorted(nums, reverse=True)
+    return nums[k-1]
+```
+
+This function takes a list of numbers `nums` and an integer `k`, sorts the list in descending order, then returns the `k`th largest number. It raises a ValueError if the value of `k` is invalid (i.e., less than or equal to 0, or greater than the length of the input list).

@@ -1,0 +1,48 @@
+Here is a Python function that merges k sorted lists using the merge sort algorithm:
+
+```python
+def merge_k_sorted_lists(lists):
+    if len(lists) <= 1:
+        return lists
+
+    mid = len(lists) // 2
+
+    left_half = lists[:mid]
+    right_half = lists[mid:]
+
+    left = merge_k_sorted_lists(left_half)
+    right = merge_k_sorted_lists(right_half)
+
+    return merge_two_sorted_lists(left, right)
+
+def merge_two_sorted_lists(list1, list2):
+    merged_list = []
+    i = j = 0
+
+    while i < len(list1) and j < len(list2):
+        if list1[i] < list2[j]:
+            merged_list.append(list1[i])
+            i += 1
+        else:
+            merged_list.append(list2[j])
+            j += 1
+
+    # Add any remaining elements from both lists
+    merged_list += list1[i:]
+    merged_list += list2[j:]
+
+    return merged_list
+```
+
+You can use the `merge_k_sorted_lists` function to merge multiple sorted lists into one. For example, let's say you have three sorted lists (`list1`, `list2`, and `list3`) that need to be merged:
+
+```python
+list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+list3 = [7, 8, 9]
+
+merged_list = merge_k_sorted_lists([list1, list2, list3])
+print(merged_list)  # Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+This function works by recursively dividing the input lists in half and merging two halves at a time. The merged result is then returned as the final output.

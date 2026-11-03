@@ -1,0 +1,53 @@
+**Linked List Cycle Detection**
+=====================================
+
+Here is a Python function called `linked_list_cycle` that detects whether a linked list contains a cycle:
+```python
+def linked_list_cycle(head):
+    """
+    Detects whether a linked list contains a cycle.
+
+    Args:
+        head (Node): The head of the linked list.
+
+    Returns:
+        bool: True if a cycle exists, False otherwise.
+    """
+    slow = fast = head
+
+    while fast and fast.next:
+        # Move slow pointer one step at a time
+        slow = slow.next
+        # Move fast pointer two steps at a time
+        fast = fast.next.next
+
+        if slow == fast:
+            return True  # Cycle detected!
+
+    return False  # No cycle found
+```
+**How it works:**
+
+* We use two pointers, `slow` and `fast`, both starting from the head of the linked list.
+* The `fast` pointer moves twice as fast as the `slow` pointer.
+* If there is a cycle in the linked list, at some point the `fast` pointer will catch up to the `slow` pointer. This means that they are now pointing to the same node, and we can return True.
+* If the `fast` pointer reaches the end of the linked list (i.e., its next attribute is None), then there is no cycle.
+
+**Example use cases:**
+```python
+# Create a sample linked list with a cycle
+head = Node(1)
+head.next = Node(2)
+head.next.next = Node(3)
+head.next.next.next = head  # This creates a cycle
+
+print(linked_list_cycle(head))  # Output: True
+
+# Create another sample linked list without a cycle
+head = Node(1)
+head.next = Node(2)
+head.next.next = None
+
+print(linked_list_cycle(head))  # Output: False
+```
+Note that this implementation assumes that the linked list nodes have a `next` attribute, which points to the next node in the list. If your linked list nodes have a different structure, you may need to modify the code accordingly.

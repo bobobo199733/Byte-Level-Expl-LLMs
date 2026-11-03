@@ -1,0 +1,31 @@
+Here's a Python function named `min_window_substring` that meets your requirements:
+
+```python
+def min_window_substring(s, t):
+    need = {}
+    wind = {}
+    left, right, minlen, count = 0, 0, len(s) + 1, len(t)
+
+    for c in t:
+        need[c] = need.get(c, 0) + 1
+
+    while right < minlen:
+        ch = s[right]
+        wind[ch] = wind.get(ch, 0) + 1
+        if ch in need and wind[ch] >= need[ch]:
+            count -= 1
+        right += 1
+
+        while left < right and count == 0:
+            ch = s[left]
+            wind[ch] -= 1
+            if ch in need and wind[ch] < need[ch]:
+                count += 1
+            left += 1
+
+        if minlen > right - left:
+            minlen = right - left
+    return s[left:minlen + left] if minlen != len(s) + 1 else ""
+```
+
+This function uses two pointers to find the minimum window substring that contains every character from `t`. It maintains a dictionary called `need` for storing the count of characters in `t`, and another one called `wind` for counting the occurrences of characters in the current sliding window. When a character from `t` is found, it checks if the window's count matches or exceeds the required count. If so, it reduces the `count` variable. When a character leaves the window (i.e., when the left pointer moves), it checks if that character's count in the window is less than the required count and increases the `count`. The function then moves both pointers until it finds the minimum window or reaches the end of the string, after which it returns the corresponding substring or an empty string if no valid window exists.

@@ -1,0 +1,13 @@
+def binary_tree_inorder(tree):
+    if not isinstance(tree, list):
+        raise ValueError('Input must be a list representing the binary tree')
+    result = []
+
+    def inorder_traverse(node):
+        if node is None:
+            return
+        inorder_traverse(node[1])
+        result.append(node[0])
+        inorder_traverse(node[2])
+    inorder_traverse(tree)
+    return result

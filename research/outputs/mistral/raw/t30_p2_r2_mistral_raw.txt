@@ -1,0 +1,18 @@
+Here's a Python function called `max_subarray_sum` that meets your requirements:
+
+```python
+def max_subarray_sum(nums):
+    if not nums:
+        raise ValueError("Input list cannot be empty.")
+
+    max_so_far = nums[0]
+    current_max = nums[0]
+
+    for num in nums[1:]:
+        current_max = max(num, current_max + num)
+        max_so_far = max(max_so_far, current_max)
+
+    return max_so_far
+```
+
+This function uses the Kadane's algorithm to find the maximum sum of a contiguous subarray. It starts with the first element as the initial current and maximum sum and iterates through the list, updating the current maximum sum by considering either the next number or the previous current sum plus the next number. Finally, it returns the maximum sum found so far.

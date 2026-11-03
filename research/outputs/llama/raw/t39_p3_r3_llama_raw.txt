@@ -1,0 +1,47 @@
+**Knapsack 0/1 Problem Solution**
+=====================================
+
+The `knapsack_01` function solves the 0/1 knapsack problem, a classic problem in combinatorial optimization. It takes three inputs: `weights`, `values`, and `capacity`. The function returns the best possible value.
+
+```python
+def knapsack_01(weights, values, capacity):
+    """
+    Solve the 0/1 knapsack problem.
+
+    Parameters:
+        weights (list): Weights of items.
+        values (list): Values of items.
+        capacity (int): Knapsack capacity.
+
+    Returns:
+        int: Best possible value.
+    """
+
+    # Initialize a table to store intermediate results
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(len(values) + 1)]
+
+    # Fill the table in a bottom-up manner
+    for i in range(1, len(values) + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    # The best possible value is stored in the last cell
+    return dp[-1][-1]
+```
+
+**Example Usage**
+---------------
+
+```python
+weights = [2, 3, 4, 5]
+values = [10, 20, 30, 40]
+capacity = 8
+
+best_value = knapsack_01(weights, values, capacity)
+print("Best possible value:", best_value)  # Output: 60
+```
+
+In this example, the function returns `60` as the best possible value.

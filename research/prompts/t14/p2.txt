@@ -1,0 +1,8 @@
+Write a Python function called generate_parentheses(n) that generates all valid parentheses combinations for n pairs of parentheses.
+
+Requirements:
+- Return a list of strings.
+- Use backtracking.
+- Do not generate invalid intermediate states unnecessarily.
+- Do not use external libraries.
+- Handle n = 0 correctly.

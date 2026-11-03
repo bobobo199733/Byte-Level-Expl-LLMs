@@ -1,0 +1,53 @@
+**Coin Change Problem Solution**
+=====================================
+
+Here's a Python solution that uses dynamic programming to find the minimum number of coins required to make up the target `amount`. This function considers each coin value multiple times, which allows it to handle cases where the input list contains duplicate values.
+
+```python
+def coin_change(coins, amount):
+    """
+    Compute the minimum number of coins required to make the target amount.
+    
+    Args:
+        coins (list): A list of positive integers representing coin denominations.
+        amount (int): The target amount to be made up with coins.
+        
+    Returns:
+        int: The minimum number of coins required. Returns -1 if it's impossible to form the target amount.
+    """
+    
+    # Handle edge cases
+    if amount < 0:
+        return -1
+    
+    # Create a table to store the minimum number of coins for each subproblem
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0  # Base case: 0 coins are needed to make an amount of 0
+    
+    # Iterate over coin values and update the minimum number of coins for each subproblem
+    for coin in coins:
+        for i in range(coin, amount + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # Return the minimum number of coins required to make the target amount or -1 if it's impossible
+    return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+**Example Usage**
+-----------------
+
+```python
+coins = [1, 2, 5]
+amount = 11
+
+result = coin_change(coins, amount)
+print(result)  # Output: 3 (minimum number of coins required to make an amount of 11)
+
+coins = [1, 2]
+amount = 4
+
+result = coin_change(coins, amount)
+print(result)  # Output: -1 (it's impossible to form an amount of 4 with these coin denominations)
+```
+
+This function uses a dynamic programming approach to solve the problem efficiently. It initializes a table `dp` to store the minimum number of coins required for each subproblem, from `0` to the target `amount`. The function then iterates over the coin values and updates the `dp` table accordingly. Finally, it returns the minimum number of coins required to make up the target amount or `-1` if it's impossible.

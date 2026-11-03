@@ -1,0 +1,15 @@
+Here's a simple Python function named `rotate_array` that rotates an array to the right by a given number of positions (k):
+
+```python
+def rotate_array(nums, k):
+    nums += nums[:k]  # Append elements from the beginning (left) to the end (right)
+    del nums[0:k]     # Delete the first k elements
+    return nums
+
+# Test case
+arr = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(arr, k))  # Output: [3, 4, 5, 1, 2]
+```
+
+This implementation works by appending the first `k` elements of the array to the end and then removing them from the beginning. This effectively rotates the array to the right by `k` positions.

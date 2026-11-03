@@ -1,0 +1,47 @@
+To serialize a binary tree, we will follow the Depth-First Search (DFS) approach and traverse the tree in a pre-order manner. This means we visit the root, then the left subtree, and finally the right subtree. Each node in the tree will be represented as a string containing its value wrapped in parentheses.
+
+Here's the Python function that performs the serialization using recursion:
+
+```python
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def serialize_tree(root):
+    if not root:
+        return 'None'
+
+    def dfs(node):
+        if not node:
+            return ''
+        result = str(node.val) + ','
+        result += dfs(node.left)
+        result += dfs(node.right)
+        return result
+
+    return dfs(root)[1:-1]  # Remove the initial and final comma
+
+# Example usage:
+
+root = Node('root')
+root.left = Node('left')
+root.right = Node('right')
+root.left.left = Node('left-of-left')
+root.left.right = Node('left-of-right')
+root.right.left = Node('right-of-left')
+root.right.right = Node('right-of-right')
+
+print(serialize_tree(root))  # Output: 'root,left,left-of-left,left-of-right,None,right,right-of-left,right-of-right'
+```
+
+In this example, the binary tree is represented as follows:
+
+```
+   root
+ /     \
+left     right
+/ \        / \
+left-of-left left-of-right None  right-of-left  right-of-right
+```

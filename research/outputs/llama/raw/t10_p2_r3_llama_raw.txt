@@ -1,0 +1,23 @@
+```python
+def longest_palindrome(s):
+    def expand_around_center(left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left + 1:right]
+
+    max_length = 0
+    start = 0
+    for i in range(len(s)):
+        odd_palindrome = expand_around_center(i, i)
+        even_palindrome = expand_around_center(i, i + 1)
+
+        if len(odd_palindrome) > max_length:
+            max_length = len(odd_palindrome)
+            start = i - (len(odd_palindrome) - 1) // 2
+        if len(even_palindrome) > max_length:
+            max_length = len(even_palindrome)
+            start = i - (len(even_palindrome) - 1) // 2
+
+    return s[start:start + max_length]
+```

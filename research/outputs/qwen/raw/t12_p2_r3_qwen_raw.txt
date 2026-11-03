@@ -1,0 +1,71 @@
+Certainly! Below is the Python function `bfs_shortest_path` that implements breadth-first search (BFS) to find the shortest distance between two nodes in an unweighted graph. This implementation meets all your requirements.
+
+```python
+def bfs_shortest_path(graph, start, target):
+    """
+    Computes the shortest path between two nodes in an unweighted graph using BFS.
+    
+    :param graph: A dictionary representing the graph where keys are node names and values are lists of adjacent nodes.
+    :param start: The starting node for the search.
+    :param target: The target node to find the shortest distance to.
+    :return: The shortest distance as an integer, or -1 if no path exists.
+    """
+    
+    # If the graph is empty or does not contain the start node
+    if not graph:
+        return -1
+    
+    # Initialize a queue for BFS and a dictionary to keep track of visited nodes
+    from collections import deque
+    
+    queue = deque()
+    visited = {}
+    
+    # Start by adding the starting node with distance 0 to the queue
+    queue.append((start, 0))
+    visited[start] = True
+    
+    # Perform BFS
+    while queue:
+        current_node, distance = queue.popleft()
+        
+        # If we found the target node, return the shortest path length
+        if current_node == target:
+            return distance
+        
+        # Explore all the neighbors of the current node
+        for neighbor in graph.get(current_node, []):
+            if not visited.get(neighbor, False):
+                queue.append((neighbor, distance + 1))
+                visited[neighbor] = True
+    
+    # If we exhaust the queue without finding the target, return -1
+    return -1
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+start_node = 'A'
+target_node = 'F'
+
+print(bfs_shortest_path(graph, start_node, target_node))  # Output: 2
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where each key-value pair corresponds to a node and its adjacency list.
+- **BFS Initialization**:
+  - A queue is initialized with the starting node along with its distance from the start (initially 0).
+  - A `visited` dictionary keeps track of which nodes have been visited to avoid cycles and redundant work.
+- **Queue Operations**: 
+  - Nodes are dequeued one by one, and their neighbors are explored. If a neighbor is not visited, it's added to the queue with an incremented distance.
+  - If the target node is found during this process, its distance (shortest path) is returned immediately.
+- **Cycle Handling**: The `visited` dictionary ensures that no node is revisited, which implicitly handles cycles.
+
+This function works efficiently on larger graphs and adheres to all specified requirements.

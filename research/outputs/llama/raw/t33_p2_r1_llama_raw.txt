@@ -1,0 +1,92 @@
+Here is the Python function `heap_sort(values)` that sorts a list of integers using the Heap Sort algorithm:
+
+```python
+def heap_sort(values):
+    """
+    Sorts a list of integers in ascending order using the Heap Sort algorithm.
+
+    :param values: A list of integers to be sorted.
+    :return: A new sorted list containing the same integers as the input.
+    """
+
+    # Handle empty or None input lists
+    if not values:
+        return []
+
+    # Make a copy of the input list to avoid modifying it in-place
+    heap = values[:]
+
+    # Build a max heap structure within the array
+    build_max_heap(heap)
+
+    # Perform heap sort by repeatedly removing and re-heapifying elements
+    for end_idx in range(len(heap) - 1, 0, -1):
+        # Swap the maximum element at the root with the last unprocessed element
+        heap[0], heap[end_idx] = heap[end_idx], heap[0]
+
+        # Re-heapify the reduced sub-tree rooted at the new end of the array
+        re_heapify(heap, 0, end_idx)
+
+    return heap
+
+
+def build_max_heap(arr):
+    """
+    Builds a max heap structure within an input array.
+
+    :param arr: A list of integers that will be transformed into a max heap.
+    """
+
+    # Start from the last non-leaf node and work backwards
+    for i in range(len(arr) // 2 - 1, -1, -1):
+        re_heapify(arr, i, len(arr))
+
+
+def re_heapify(heap, idx, end_idx):
+    """
+    Re-establishes the max heap property at a given index within an array.
+
+    :param heap: A list of integers representing a max heap structure.
+    :param idx: The index of the element to be re-heapified.
+    :param end_idx: The current right boundary of the sub-tree rooted at idx.
+    """
+
+    # Initialize the largest child's index
+    largest = 2 * idx + 1
+
+    # Check if the left child exists and is larger than the current node
+    while largest < end_idx:
+        # If the right child exists and is larger, update the largest child's index
+        if largest + 1 < end_idx and heap[largest + 1] > heap[largest]:
+            largest += 1
+
+        # Swap the current node with its largest child
+        if heap[largest] > heap[idx]:
+            heap[largest], heap[idx] = heap[idx], heap[largest]
+
+            # Move down to the largest child's position and continue re-heapifying
+            idx = largest
+            largest = 2 * idx + 1
+
+        else:
+            break
+```
+
+This implementation of Heap Sort maintains a max heap structure within an input list. The `build_max_heap` function constructs this heap by iteratively re-heapifying nodes, starting from the last non-leaf node and moving backwards to the root. Once built, the heap is sorted in descending order; therefore, to sort the array in ascending order, we repeatedly remove and re-heapify elements from the end of the array. The `re_heapify` function ensures that the max heap property remains valid at any given index within the array.
+
+Example usage:
+```python
+# Sort a sample list of integers using Heap Sort
+input_list = [64, 34, 25, 12, 22, 11, 90]
+sorted_list = heap_sort(input_list)
+print(sorted_list)  # Output: [11, 12, 22, 25, 34, 64, 90]
+
+# Test edge cases
+empty_input = []
+sorted_empty = heap_sort(empty_input)
+print(sorted_empty)  # Output: []
+
+single_element_input = [42]
+sorted_single = heap_sort(single_element_input)
+print(sorted_single)  # Output: [42]
+```

@@ -1,0 +1,575 @@
+1. Write a Python function called flatten_list(items) that takes a nested list containing integers and lists of integers, and returns a flat list with all integers in the original left-to-right order.
+
+SUCCESSFUL MISTRAL
+
+def flatten_list(items):
+    flat_list = []
+
+    for item in items:
+        if isinstance(item, (int, float)):
+            flat_list.append(item)
+        elif isinstance(item, list):
+            flat_list += flatten_list(item)
+
+    return flat_list
+
+UNSUCCESFUL LLAMA (mistral):
+
+def flatten_list(items):
+    """
+    Flattens a nested list of integers into a single list.
+
+    Args:
+        items: A nested list containing integers and lists of integers.
+
+    Returns:
+        A flat list with all integers in the original left-to-right order.
+    """
+    def _flatten(item):
+        if isinstance(item, int):
+            return [item]
+        elif isinstance(item, list):
+            return item
+        else:
+            raise TypeError("List must only contain integers and lists")
+
+    result = []
+    for item in items:
+        result.extend(_flatten(item))
+    return result
+
+UNSUCCESFUL QWEN (predicted llama baaad):
+
+def flatten_list(items):
+    flat_list = []
+
+    for item in items:
+        # Check if the current item is a list. If so, call flatten_list recursively.
+        if isinstance(item, list):
+            flat_list.extend(flatten_list(item))
+        else:
+            # If the item is an integer, add it to the flat list.
+            flat_list.append(item)
+
+    return flat_list
+
+
+2. Write a Python function called filter_primes(numbers) that takes a list of integers and returns a new list containing only the prime numbers from the input, sorted in ascending order.
+
+Requirements:
+- Negative numbers, 0, and 1 are not prime.
+- Do not use external libraries.
+- Use a helper function to check if a number is prime.
+- Avoid unnecessary computations by checking divisors only up to the square root of the number.
+- Preserve duplicates if the same prime appears multiple times.
+
+UNSUCCESFUL QWEN (mistral):
+
+def is_prime(n):
+    """Helper function to check if a number is prime."""
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def filter_primes(numbers):
+    """Function that takes a list of integers and returns only the prime numbers sorted in ascending order."""
+    primes = [num for num in numbers if is_prime(num)]
+    return sorted(primes)
+
+
+UNSUCCESFUL LAMA (mistral):
+
+import math
+
+def is_prime(n):
+    """Check if a number is prime."""
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def filter_primes(numbers):
+    """
+    Filter out non-prime numbers and sort the list of primes in ascending order.
+
+    Args:
+        numbers (list): A list of integers.
+
+    Returns:
+        list: A new list containing only the prime numbers from the input, sorted in ascending order.
+    """
+    return sorted([n for n in numbers if is_prime(n)])
+
+3. Write a Python function called rotate_list(values, k) that rotates a list to the right by k positions and returns the rotated list.
+
+Requirements:
+- Do not modify the original list.
+- If k is larger than the length of the list, handle it correctly.
+- Return an empty list if the input list is empty.
+- Preserve duplicate values.
+- Do not use external libraries.
+
+UNSUCCESFUL QWEN (very very very bad mistral):
+
+def rotate_list(values, k):
+    if not values:  # Check if the input list is empty
+        return []
+
+    n = len(values)
+    k = k % n  # Normalize k to avoid unnecessary rotations
+
+    if k == 0:
+        return values  # No need to rotate if k is zero or already a multiple of n
+
+    # Rotate the list by slicing and concatenating
+    return values[-k:] + values[:-k]
+
+SUCCESFUL MISTRAL:
+
+def rotate_list(values, k):
+    if not values:
+        return []
+
+    rotated = values[k:] + values[:k]
+    if len(values) < k:
+        rotated += values
+
+    return rotated
+
+SUCCESFUL LLAMA:
+
+def rotate_list(values, k):
+    """
+    Rotate a list to the right by k positions.
+
+    Args:
+        values (list): The input list.
+        k (int): The number of positions to rotate.
+
+    Returns:
+        list: The rotated list.
+    """
+
+    # Handle edge case where input list is empty
+    if not values:
+        return []
+
+    # Adjust k to be within the bounds of the list length
+    k = k % len(values)
+
+    # Use list slicing to achieve rotation in O(n) time complexity
+    return values[-k:] + values[:-k]
+
+4. Write exactly ONE Python function called longest_unique_substring(s) that returns the length of the longest substring without repeating characters.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- The solution should run efficiently for long strings.
+- Handle empty strings correctly.
+- Preserve case sensitivity.
+
+
+UNSUCCESFUL QWEN (mistral):
+
+def longest_unique_substring(s):
+    if not s:
+        return 0
+    char_map = {}
+    left = 0
+    max_length = 0
+    for right in range(len(s)):
+        if s[right] in char_map and char_map[s[right]] >= left:
+            left = char_map[s[right]] + 1
+        char_map[s[right]] = right
+        max_length = max(max_length, right - left + 1)
+    return max_length
+
+UNSUCCESFUL LLAMA(mistral):
+
+def longest_unique_substring(s):
+    """
+    Returns the length of the longest substring without repeating characters.
+
+    Args:
+        s (str): Input string.
+
+    Returns:
+        int: Length of the longest unique substring.
+    """
+    if not s:  # handle empty strings
+        return 0
+
+    char_set = set()  # keep track of seen characters
+    left = 0  # left pointer of sliding window
+    max_len = 0  # maximum length found so far
+
+    for right, c in enumerate(s):  # iterate over string with right pointer
+        while c in char_set:  # if character is repeated, shrink window from left
+            char_set.remove(s[left])
+            left += 1
+        char_set.add(c)  # add new character to set
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
+
+
+UNSUCCESFUL MISTRAL (predicted llama):
+
+def longest_unique_substring(s):
+    start, max_length = 0, 0
+    current_window = {}
+
+    for index, char in enumerate(s):
+        if char in current_window and start <= current_window[char]:
+            start = current_window[char] + 1
+
+        current_window[char] = index
+        max_length = max(max_length, index - start + 1)
+
+    return max_length
+
+
+5. Write exactly ONE Python function called simplify_path(path) that simplifies a Unix-style file path and returns the canonical path.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Correctly handle:
+  - multiple consecutive slashes
+  - "." directory references
+  - ".." parent directory references
+  - attempts to go above the root directory
+  - empty input
+- Always return a valid absolute path starting with "/".
+- Preserve valid folder names exactly as given.
+- The implementation should be robust and readable.
+- Use only a single function.
+
+SUCCESFUL MISTRAL:
+
+def simplify_path(path):
+    stack = []
+    for item in path.split('/'):
+        if not item or item == '.':
+            pass  # do nothing, stay in the current directory
+        elif item == '..':
+            if stack:
+                stack.pop()
+            else:
+                # can't go above the root directory
+                break
+        else:
+            stack.append(item)
+    return '/' + '/'.join(stack)
+
+
+UNSUCCESFUL LLAMA (qwen):
+
+def simplify_path(path: str) -> str:
+    """
+    Simplify a Unix-style file path and return the canonical path.
+
+    This function correctly handles multiple consecutive slashes, "." directory references,
+    ".." parent directory references, attempts to go above the root directory, and empty input.
+
+    :param path: A string representing the Unix-style file path
+    :return: The simplified absolute path as a string starting with "/"
+    """
+    stack = []  # Initialize an empty stack to store valid folder names
+
+    for token in path.split('/'):  # Split the input path into tokens by '/' character
+        if token == '' or token == '.':  # Ignore empty strings and '.'
+            continue
+        elif token == '..':  # Handle ".." parent directory reference
+            if stack:  # If not at root, pop the last folder from the stack
+                stack.pop()
+            else:
+                pass  # Do nothing when already at root or attempting to go above it
+        else:
+            stack.append(token)  # Add valid token to the stack
+
+    canonical_path = '/' + '/'.join(stack) if stack else ''  # Construct the simplified path
+    return canonical_path  # Return the absolute and simplified path
+
+
+UNSUCCESFUL QWEN (mistral very bad initially went in direction of qwen):
+
+def simplify_path(path):
+    stack = []
+    components = path.split('/')
+    for component in components:
+        if component == '' or component == '.':
+            continue
+        elif component == '..':
+            if stack:
+                stack.pop()
+        else:
+            stack.append(component)
+    return '/' + '/'.join(stack)
+
+6. Write exactly ONE Python function called evaluate_expression(expression) that evaluates a mathematical expression given as a string and returns the computed result.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use eval() or external libraries.
+- Support:
+  - positive and negative integers
+  - whitespace anywhere in the input
+  - parentheses
+  - operator precedence
+  - +, -, *, / operators
+- Division should truncate toward zero.
+- Correctly handle nested parentheses.
+- Raise a ValueError for invalid expressions.
+- The implementation must be fully contained inside a single function.
+- The code should be robust and readable, even if it becomes long.
+
+UNSUCCESFUL QWEN (mistral again first bytes direct toward qwen and gets fucked over by the small things):
+
+def evaluate_expression(expression):
+    def apply_operator(operators, values):
+        operator = operators.pop()
+        right = values.pop()
+        left = values.pop()
+        if operator == '+':
+            values.append(left + right)
+        elif operator == '-':
+            values.append(left - right)
+        elif operator == '*':
+            values.append(left * right)
+        elif operator == '/':
+            values.append(int(left / right))
+
+    def greater_precedence(op1, op2):
+        return (op1 in '*/') and (op2 in '+-')
+
+    operators = []
+    values = []
+    i = 0
+    while i < len(expression):
+        if expression[i].isspace():
+            i += 1
+            continue
+        if expression[i] in '0123456789-':
+            j = i + 1
+            while j < len(expression) and (expression[j].isdigit() or expression[j] == '-'):
+                j += 1
+            values.append(int(expression[i:j]))
+            i = j - 1
+        elif expression[i] in '+-*':
+            while operators and greater_precedence(operators[-1], expression[i]):
+                apply_operator(operators, values)
+            operators.append(expression[i])
+        elif expression[i] == '(':
+            operators.append(expression[i])
+        elif expression[i] == ')':
+            while operators[-1] != '(':
+                apply_operator(operators, values)
+            operators.pop()
+        else:
+            raise ValueError("Invalid character")
+        i += 1
+
+    while operators:
+        apply_operator(operators, values)
+
+    return values[0]
+
+SUCCESFUL MISTRAL:
+
+def operate(operator, x, y):
+    if operator == '+':
+        return x + y
+    elif operator == '-':
+        return x - y
+    elif operator == '*':
+        return x * y
+    elif operator == '/':
+        return int(x / y)
+    else:
+        raise ValueError("Invalid operator")
+
+def get_operator(token):
+    if token == "+":
+        return "+"
+    elif token == "-":
+        return "-"
+    elif token == "*":
+        return "*"
+    elif token == "/":
+        return "/"
+    else:
+        raise ValueError("Invalid operator")
+
+def get_operands(token):
+    if token.isdigit():
+        return int(token)
+    else:
+        raise ValueError("Invalid operand")
+
+def is_operator(token):
+    return token in "+-*/"
+
+def get_precedence(operator):
+    if operator == "*":
+        return 2
+    elif operator == "/":
+        return 2
+    elif operator == "+":
+        return 1
+    elif operator == "-":
+        return 1
+    else:
+        raise ValueError("Invalid operator")
+
+def apply_operator(operands, operators, index):
+    while index > 0 and get_precedence(operators[index - 1]) >= get_precedence(operators[index]):
+        operands[-1] = operate(operators[index - 1], operands[-2], operands[-1])
+        operators.pop(index - 1)
+        del operands[-2]
+        index -= 1
+    return index
+
+def evaluate_expression(expression):
+    operators = []
+    operands = [None]
+
+    for token in expression:
+        if token.isdigit():
+            operands.append(get_operands(token))
+        elif token == "(":
+            operators.append(token)
+            operands.append(0)
+        elif token == ")":
+            while operators and operators[-1] != "(":
+                operators.pop()
+                operands.pop()
+            operators.pop()
+        else:
+            index = apply_operator(operands, operators, len(operands))
+            operators.append(get_operator(token))
+
+    while operators:
+        operators.pop()
+        operands.pop()
+
+    if len(operands) != 1:
+        raise ValueError("Invalid expression")
+
+    return operands[0]
+
+
+UNSUCCESFUL LLAMA(mistral):
+
+def evaluate_expression(expression):
+    """
+    Evaluates a mathematical expression given as a string.
+
+    Args:
+        expression (str): A string representing a mathematical expression.
+
+    Returns:
+        int: The result of the evaluated expression.
+
+    Raises:
+        ValueError: If the input expression is invalid.
+    """
+
+    # Remove whitespace from the input expression
+    expression = expression.replace(" ", "")
+
+    # Check for invalid characters in the expression
+    if not set(expression).issubset({'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                                    '+', '-', '*', '/', '(', ')'}):
+        raise ValueError("Invalid character in expression")
+
+    # Use a stack to keep track of operands and operators
+    stack = []
+    operator = "+"
+
+    for char in expression:
+        # Check if the current character is an operand
+        if char.isdigit():
+            num = int(char)
+
+            # Handle negative numbers separately
+            if not stack or (len(stack) == 1 and isinstance(stack[0], tuple)) or \
+               (isinstance(stack[-1], tuple) and stack[-1][1] != "-"):
+                stack.append(num)
+            elif stack and isinstance(stack[-1], int):
+                prev_num = stack.pop()
+
+                # Apply the current operator to the previous operand
+                if operator == "+":
+                    stack.append(prev_num + num)
+                elif operator == "-":
+                    stack.append(prev_num - num)
+                elif operator == "*":
+                    stack.append(prev_num * num)
+                elif operator == "/":
+                    stack.append(int(prev_num / num))  # Truncate toward zero
+
+                stack.append((num, operator))
+            else:
+                raise ValueError("Invalid expression")
+        # Check if the current character is an operator
+        elif char in "+-*/":
+            # If we encounter a new operator, apply the previous one to the operands
+            if isinstance(stack[-1], int):
+                prev_num = stack.pop()
+
+                # Apply the current operator to the previous operand
+                if operator == "+":
+                    stack.append(prev_num + num)
+                elif operator == "-":
+                    stack.append(prev_num - num)
+                elif operator == "*":
+                    stack.append(prev_num * num)
+                elif operator == "/":
+                    stack.append(int(prev_num / num))  # Truncate toward zero
+
+            # Update the current operator and push it onto the stack
+            operator = char
+            stack.append((char,))
+
+    # Apply any remaining operators to the operands
+    if isinstance(stack[-1], int):
+        prev_num = stack.pop()
+
+        # Apply the last operator to the previous operand
+        if operator == "+":
+            stack.append(prev_num + num)
+        elif operator == "-":
+            stack.append(prev_num - num)
+        elif operator == "*":
+            stack.append(prev_num * num)
+        elif operator == "/":
+            stack.append(int(prev_num / num))  # Truncate toward zero
+
+    elif isinstance(stack[-1], tuple):
+        prev_char, = stack.pop()
+
+        if operator == "+":
+            stack.append((prev_num + num))
+        elif operator == "-":
+            stack.append((prev_num - num))
+        elif operator == "*":
+            stack.append((prev_num * num))
+        elif operator == "/":
+            stack.append((int(prev_num / num)))  # Truncate toward zero
+
+    # Check if there is exactly one operand left in the stack
+    if len(stack) != 1:
+        raise ValueError("Invalid expression")
+
+    return stack[0]

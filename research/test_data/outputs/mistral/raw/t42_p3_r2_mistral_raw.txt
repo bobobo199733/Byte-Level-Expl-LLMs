@@ -1,0 +1,31 @@
+To create the `course_schedule` function in Python, we can use Depth-First Search (DFS) algorithm to check if all courses can be completed without any circular dependencies (prerequisite cycles). Here's an implementation of the function:
+
+```python
+from collections import defaultdict
+
+def course_schedule(num_courses, prerequisites):
+    graph = defaultdict(list)
+    indegrees = [0] * num_courses
+
+    # Build the adjacency list and calculate in-degrees
+    for prerequisite in prerequisites:
+        graph[prerequisite[1]].append(prerequisite[0])
+        indegrees[prerequisite[0]] += 1
+
+    queue = [i for i, degree in enumerate(indegrees) if degree == 0]
+    schedule = []
+
+    while queue:
+        course = queue.pop(0)
+        schedule.append(course)
+
+        for prerequisite in graph[course]:
+            indegrees[prerequisite] -= 1
+            if indegrees[prerequisite] == 0:
+                queue.append(prerequisite)
+
+    # Check if there are any remaining courses that haven't been scheduled yet
+    return len(schedule) == num_courses
+```
+
+The `course_schedule` function takes two arguments - `num_courses` (the total number of courses) and `prerequisites` (a list of tuples containing prerequisite-course pairs). The function returns True if all the courses can be completed, and False otherwise.

@@ -1,0 +1,28 @@
+Here is a Python function that converts a Roman numeral string into its integer value. This function follows the given rules and raises a `ValueError` for invalid inputs:
+
+```python
+ROMAN_VALUES = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+def roman_to_int(s: str) -> int:
+    if not all(char in ROMAN_VALUES for char in s):
+        raise ValueError("Invalid Roman numeral")
+
+    num = 0
+    for i in range(len(s)):
+        if i > 0 and ROMAN_VALUES[s[i - 1]] > ROMAN_VALUES[s[i]]:
+            raise ValueError("Incorrect subtractive notation")
+
+        num += ROMAN_VALUES[s[i]]
+
+    return num
+```
+
+This function iterates through the given Roman numeral string and checks for invalid characters, incorrect subtractive notation (e.g., IV, IX, XL, XC, CD, CM), and validates the repetition of characters. If any issues are found, it raises a `ValueError` with an appropriate message.
+
+You can test this function with the following examples:
+
+```python
+print(roman_to_int("III"))  # Output: 3
+print(roman_to_int("IV"))   # Raises ValueError
+print(roman_to_int("MCMLXXXVI"))  # Output: 1986
+```

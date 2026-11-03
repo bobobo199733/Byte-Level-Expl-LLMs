@@ -1,0 +1,62 @@
+Here's a Python function that fulfills all your requirements.
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target value inside a rotated sorted array using binary search principles.
+
+    Args:
+        values (list): A rotated sorted list of integers.
+        target (int): The number to be searched in the array.
+
+    Returns:
+        int: Index of the target if it exists. -1 otherwise.
+
+    Raises:
+        TypeError: If input is not a list or integer.
+    """
+
+    # Check for valid input types
+    if not isinstance(values, list) or not all(isinstance(num, (int, float)) for num in values):
+        raise TypeError("Input 'values' must be a list of integers")
+    if not isinstance(target, (int, float)):
+        raise TypeError("Input 'target' must be an integer")
+
+    # Handle empty array
+    if len(values) == 0:
+        return -1
+
+    # Initialize pointers for binary search
+    left = 0
+    right = len(values) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if values[mid] == target:
+            return mid
+        elif values[left] <= values[mid]:
+            # Check if the target could be in the left half of the rotated array
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            # The array has been rotated, so check the other half
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+    return -1
+
+
+# Example use cases:
+
+print(binary_search_rotated([4,5,6,7,0,1,2], 0))  # Output: 4
+print(binary_search_rotated([4,5,6,7,0,1,2], 3))  # Output: -1
+print(binary_search_rotated([], 10))  # Output: -1
+```
+
+This function works by maintaining two pointers (`left` and `right`) that represent the current search space. It repeatedly calculates the middle index and checks if the target value is there, or which half of the array it could potentially be in based on its sorted properties. The algorithm shifts the pointers according to this information until it finds the target (or determines that it's not present). If the input list is empty, it immediately returns -1 as per your requirements.
+
+The implementation uses Python's built-in `//` operator for integer division to calculate the middle index and is designed to be readable. It includes type checks and error messages for input validation.

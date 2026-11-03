@@ -1,0 +1,54 @@
+Here is the Python function that meets your requirements:
+
+```python
+def search_insert_position(nums, target):
+    def check_valid_input(lst, val):
+        if not isinstance(lst, list) or not all(isinstance(i, (int, float)) for i in lst):
+            raise ValueError("Invalid input: nums must be a sorted list of numbers")
+        if not isinstance(val, (int, float)):
+            raise ValueError("Invalid input: target must be a number")
+
+    check_valid_input(nums, target)
+
+    left = 0
+    right = len(nums)
+    mid = 0
+
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+
+    # If the target is not in the list, we find the correct insertion point
+    if nums and nums[-1] < target:
+        return len(nums)
+    elif not nums or nums[0] > target:
+        return 0
+    else:
+        return binary_search_insert_index(nums, target, 0, len(nums))
+
+def binary_search_insert_index(arr, val, low, high):
+    if low < high:
+        mid = (low + high) // 2
+        if arr[mid] == val:
+            return mid
+        elif arr[mid] < val:
+            return binary_search_insert_index(arr, val, mid+1, high)
+        else:
+            return binary_search_insert_index(arr, val, low, mid-1)
+    else:
+        # If the value is greater than the last element in the array
+        if arr[-1] < val:
+            return len(arr)
+        elif arr[0] > val:
+            return 0
+        else:
+            # If the value is equal to the first element, then it's already at the correct position
+            return 0
+```
+
+This code uses a binary search algorithm with some helper functions to validate input and find the insertion index when the target is not in the list. The function `binary_search_insert_index` is used for both the main search and the insertion search to ensure that it's efficient even when searching for the correct insertion point.

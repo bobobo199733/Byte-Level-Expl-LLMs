@@ -1,0 +1,22 @@
+task,prompt,run,true,predicted,correct,raw_value,opname,shap_toward_true,byte_vote_class,byte_vote_correct,source,file
+t41,p2,r2,qwen,llama,False,110,STORE_FAST,0.6094401478767395,qwen,True,for word in words:,t41_p2_r2_qwen.py
+t42,p1,r1,mistral,mistral,True,115,SWAP,-0.1010655686259269,qwen,False,indegree[a] += 1,t42_p1_r1_mistral.py
+t42,p1,r3,qwen,qwen,True,112,STORE_FAST_STORE_FAST,0.4745978116989136,qwen,True,"for course, prereq in prerequisites:",t42_p1_r3_qwen.py
+t42,p2,r2,qwen,mistral,False,115,SWAP,0.5142717361450195,qwen,True,graph = {i: [] for i in range(num_courses)},t42_p2_r2_qwen.py
+t42,p2,r3,qwen,llama,False,115,SWAP,0.6370358467102051,qwen,True,graph = {i: [] for i in range(num_courses)},t42_p2_r3_qwen.py
+t42,p3,r1,qwen,llama,False,109,STORE_DEREF,0.5947579741477966,qwen,True,visiting_status = [0] * num_courses,t42_p3_r1_qwen.py
+t42,p3,r3,qwen,mistral,False,115,SWAP,0.6058228611946106,qwen,True,in_degree[course] += 1,t42_p3_r3_qwen.py
+t43,p1,r1,qwen,mistral,False,100,POP_JUMP_IF_TRUE,-0.0116390837356448,mistral,False,if index >= len(tree) or tree[index] is None:,t43_p1_r1_qwen.py
+t43,p3,r2,qwen,qwen,True,149,RESUME,0.8471521735191345,qwen,True,class TreeNode:,t43_p3_r2_qwen.py
+t44,p2,r1,mistral,mistral,True,110,STORE_FAST,0.032759241759777,qwen,False,k %= n,t44_p2_r1_mistral.py
+t45,p2,r1,mistral,llama,False,110,STORE_FAST,0.0130915753543376,qwen,False,right = len(nums) - 1,t45_p2_r1_mistral.py
+t45,p2,r3,qwen,llama,False,100,POP_JUMP_IF_TRUE,0.0152497002854943,mistral,False,"if not isinstance(target, (int, float)):",t45_p2_r3_qwen.py
+t47,p3,r1,mistral,mistral,True,102,RERAISE,0.0285435281693935,qwen,False,,t47_p3_r1_mistral.py
+t47,p3,r1,qwen,qwen,True,112,STORE_FAST_STORE_FAST,0.6526281237602234,qwen,True,"for i, char in enumerate(s + '+'):",t47_p3_r1_qwen.py
+t48,p1,r1,llama,llama,True,112,STORE_FAST_STORE_FAST,-0.2123823314905166,qwen,False,"left, right = (0, len(nums1))",t48_p1_r1_llama.py
+t48,p2,r3,mistral,mistral,True,110,STORE_FAST,0.0053407019004225,qwen,False,for i in range(m + n + 1):,t48_p2_r3_mistral.py
+t48,p2,r2,qwen,qwen,True,110,STORE_FAST,0.4938093721866607,qwen,True,"imin, imax, half_len = (0, m, (m + n + 1) // 2)",t48_p2_r2_qwen.py
+t48,p2,r3,qwen,qwen,True,110,STORE_FAST,0.5111107230186462,qwen,True,half_len = (m + n + 1) // 2,t48_p2_r3_qwen.py
+t49,p1,r1,mistral,mistral,True,110,STORE_FAST,-0.0013828389346599,qwen,False,for word in word_dict:,t49_p1_r1_mistral.py
+t50,p1,r1,llama,llama,True,112,STORE_FAST_STORE_FAST,-0.1399222612380981,qwen,False,"left, right = (0, 0)",t50_p1_r1_llama.py
+t50,p2,r2,qwen,mistral,False,110,STORE_FAST,0.4758224487304687,qwen,True,result_indices = [],t50_p2_r2_qwen.py

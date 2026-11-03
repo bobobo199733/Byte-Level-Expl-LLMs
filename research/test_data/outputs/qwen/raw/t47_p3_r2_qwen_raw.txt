@@ -1,0 +1,70 @@
+Certainly! To create a `basic_calculator` function that evaluates a mathematical expression containing numbers, addition (`+`), subtraction (`-`), and parentheses without using `eval()`, we can use a stack-based approach to handle the operations and parentheses.
+
+Here's how you can implement it:
+
+```python
+def basic_calculator(s: str) -> int:
+    def apply_op(op, b, a):
+        return a + b if op == '+' else a - b
+
+    def compute(expression):
+        operand = 0
+        stack = []
+        sign = 1
+        result = 0
+        
+        for char in expression:
+            if char.isdigit():
+                operand = (operand * 10) + int(char)
+            elif char == '+':
+                result += sign * operand
+                operand = 0
+                sign = 1
+            elif char == '-':
+                result += sign * operand
+                operand = 0
+                sign = -1
+            elif char == '(':
+                stack.append(result)
+                stack.append(sign)
+                sign, result = 1, 0
+            elif char == ')':
+                result += sign * operand
+                result *= stack.pop()  # apply the previous sign
+                result += stack.pop()  # add the previous result
+                operand = 0
+        
+        if operand:
+            result += sign * operand
+
+        return result
+
+    s = s.replace(' ', '')
+    return compute(s)
+
+# Example usage:
+print(basic_calculator("1 + 2 - (3 + (4 - 5))"))  # Output: 3
+```
+
+### Explanation:
+
+1. **Helper Function `apply_op`**:
+   This function is a simple utility to handle the arithmetic operations (`+` and `-`) between two operands.
+
+2. **Main Calculation Logic in `compute`**:
+   - We initialize variables for the current operand, the result, and the sign of the next number.
+   - We use a stack to handle parentheses: pushing the current result and sign onto the stack when we encounter an open parenthesis (`(`), and popping them off when we encounter a close parenthesis (`)`).
+
+3. **Processing Characters**:
+   - If the character is a digit, we build the current operand.
+   - If it's `+` or `-`, we add the current operand to the result with the correct sign, reset the operand, and update the sign accordingly.
+   - If it's an open parenthesis (`(`), push the current result and sign onto the stack.
+   - If it's a close parenthesis (`)`), pop off the last result and sign from the stack, multiply the current result by the sign, add the previous result to get the correct value after the parentheses.
+
+4. **Final Processing**:
+   After processing all characters, if there is any remaining operand, we add it to the final result with the appropriate sign.
+
+5. **Example Usage**:
+   The function `basic_calculator` processes a string like `"1 + 2 - (3 + (4 - 5))"` and returns the correct result, which is `3`.
+
+This approach ensures that the expression is evaluated correctly according to the rules of arithmetic and parentheses handling.

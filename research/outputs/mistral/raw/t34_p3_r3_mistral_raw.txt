@@ -1,0 +1,31 @@
+Here's a Python function named `binary_search_rotated` that searches for a target value in a rotated sorted list:
+
+```python
+def binary_search_rotated(values, target):
+    low = 0
+    high = len(values) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # Check if the middle element is the target or the left half is sorted
+        if values[mid] == target or (values[low] <= values[mid] <= values[high]):
+            return mid
+
+        # If the middle element is greater than the right boundary, the left half must contain the answer
+        elif values[mid] > values[high]:
+            high = mid - 1
+
+        else:  # The middle element is smaller than the left boundary, the right half must contain the answer
+            low = mid + 1
+
+    return -1  # Return -1 if the value is missing
+```
+
+You can test this function with examples like so:
+
+```python
+values = [5, 7, 9, 10, 1, 3]  # Rotated sorted list
+print(binary_search_rotated(values, 6))  # Output: -1 (as the target value is missing)
+print(binary_search_rotated(values, 3))  # Output: 4 (the index of the target value)
+```

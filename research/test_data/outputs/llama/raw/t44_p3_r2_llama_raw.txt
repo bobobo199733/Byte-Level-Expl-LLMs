@@ -1,0 +1,40 @@
+Here is a Python function called `rotate_array` that uses slicing to rotate an array to the right:
+```python
+def rotate_array(nums, k):
+    """
+    Rotate the input array to the right by k positions.
+
+    Args:
+        nums (list): The input list to be rotated.
+        k (int): The number of positions to rotate the list.
+
+    Returns:
+        list: The rotated list.
+    """
+    # Handle edge case where k is greater than length of list
+    k = k % len(nums)
+    
+    return nums[-k:] + nums[:-k]
+```
+Here's an explanation of how this function works:
+
+1. We first handle the edge case where `k` is greater than the length of the input list. In such cases, we can simply take the modulus of `k` with the length of the list to get a value between 0 and `len(nums) - 1`. This is because rotating the list by `k` positions is equivalent to rotating it by `(k % len(nums))` positions.
+2. We then use slicing to rotate the list to the right by `k` positions. The expression `nums[-k:]` gets the last `k` elements of the list, and `nums[:-k]` gets all elements except the last `k`. By concatenating these two slices in reverse order, we effectively rotate the list to the right.
+
+Here are some example use cases:
+```python
+>>> nums = [1, 2, 3, 4, 5]
+>>> k = 2
+>>> rotate_array(nums, k) 
+[4, 5, 1, 2, 3]
+
+>>> nums = [1, 2, 3, 4, 5]
+>>> k = 7
+>>> rotate_array(nums, k)
+[4, 5, 1, 2, 3]
+
+>>> nums = ['a', 'b', 'c', 'd']
+>>> k = 3
+>>> rotate_array(nums, k)
+['d', 'a', 'b', 'c']
+```

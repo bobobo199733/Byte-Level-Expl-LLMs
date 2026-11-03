@@ -1,0 +1,49 @@
+Here is the Python function to group anagrams:
+
+```python
+def group_anagrams(words):
+    """
+    Groups together words that are anagrams of each other.
+
+    Args:
+        words (list): A list of words.
+
+    Returns:
+        list: A list of grouped anagrams.
+    """
+
+    # Create a dictionary to store the sorted characters as keys and the corresponding words as values
+    anagram_dict = {}
+
+    for word in words:
+        # Sort the characters in the current word
+        sorted_word = "".join(sorted(word))
+
+        # If the sorted word is already a key, append the current word to its value list
+        if sorted_word in anagram_dict:
+            anagram_dict[sorted_word].append(word)
+        else:
+            # Otherwise, add the sorted word as a new key and initialize its value with the current word
+            anagram_dict[sorted_word] = [word]
+
+    # Convert the dictionary values (lists of anagrams) into a list of lists
+    grouped_anagrams = list(anagram_dict.values())
+
+    return grouped_anagrams
+
+# Example usage:
+input_words = ["eat","tea","tan","ate","nat","bat"]
+output_anagrams = group_anagrams(input_words)
+
+print(output_anagrams)
+```
+
+Output:
+
+```python
+[['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+```
+
+In this function, we create a dictionary where the keys are strings formed by sorting each word in the input list. Words with the same sorted characters will have their corresponding keys, allowing us to group anagrams together in the same value lists. Finally, we convert these value lists into a single list of grouped anagrams and return it as output.
+
+This solution assumes that all words are lowercase (as in your example). If you need to handle uppercase letters as well, simply remove the `lower()` method calls from within the function body or modify them according to your specific requirements.

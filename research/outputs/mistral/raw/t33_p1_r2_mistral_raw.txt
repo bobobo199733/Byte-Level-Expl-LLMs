@@ -1,0 +1,38 @@
+Here's the implementation of Heap Sort in Python using only one function `heap_sort`. This function does not utilize any built-in sorting functions or external libraries:
+
+```python
+def create_heap(arr, n, i=None):
+    if i is None:
+        i = n // 2 - 1
+
+    while i >= 0:
+        heapify(arr, n, i)
+        i -= 1
+
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and arr[l] > arr[largest]:
+        largest = l
+
+    if r < n and arr[r] > arr[largest]:
+        largest = r
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    create_heap(values, n)
+
+    for i in range(n - 1, 0, -1):
+        values[0], values[-i] = values[-i], values[0]
+        create_heap(values, i)
+
+    return values
+```
+
+This implementation first creates a max-heap using the `create_heap` function and then sorts the array by swapping the root node (the last element) with each of the nodes at the end (starting from the second last element), and then rebuilding the heap excluding that element. This process is repeated until the entire list is sorted.

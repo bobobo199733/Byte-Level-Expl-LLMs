@@ -1,0 +1,9 @@
+Write exactly one Python function called count_set_bits(n) that counts how many bits are set to 1 in a non-negative integer.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Do not use bin().
+- Raise ValueError for negative input.
+- Use arithmetic or bitwise operations.

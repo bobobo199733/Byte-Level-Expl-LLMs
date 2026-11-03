@@ -1,0 +1,56 @@
+Here's how you could implement it:
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target in a rotated sorted array using binary search.
+
+    Args:
+        values (list): A rotated sorted list of numbers.
+        target: The number to find.
+
+    Returns:
+        int: Index of the target if found; -1 otherwise.
+    """
+
+    # Ensure the list has at least one element
+    if not values:
+        return -1
+
+    low = 0
+    high = len(values) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # If target is found, return its index
+        if values[mid] == target:
+            return mid
+        
+        # If left half is sorted
+        if values[low] <= values[mid]:
+            # Target in the left half?
+            if values[low] <= target < values[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:
+            # Right half must be sorted
+            # Target in the right half?
+            if values[mid] < target <= values[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    return -1
+
+
+# Example usage:
+
+print(binary_search_rotated([4, 5, 6, 7, 0, 1, 2], 0))   # Output: 4
+print(binary_search_rotated([4, 5, 6, 7, 0, 1, 2], 3))   # Output: -1
+```
+
+This function takes advantage of the fact that a rotated sorted array is still sorted after the rotation point. Therefore, it can use binary search to efficiently locate the target value in `O(log n)` time complexity.
+
+In case you want more information about this function and how it works, I'd be happy to provide additional explanations!

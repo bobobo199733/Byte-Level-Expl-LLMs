@@ -1,0 +1,33 @@
+Sure! Here's a simple implementation of a function called `rotate_array()` in Python that rotates an array to the right by `k` steps:
+
+```python
+def rotate_array(nums, k):
+    # First, we ensure k is within the range of the list length
+    k = k % len(nums)
+
+    # Create a copy of the original array since we're going to modify it in-place
+    nums_copy = nums[:]
+
+    # Rotate the array by swapping elements at the start and end, then repeat for the remaining segments
+    for i in range(k):
+        start = len(nums) - 1
+        end = 0
+        temp = nums[end]
+        while end < start:
+            nums[end], nums[start] = nums[start], nums[end]
+            end += 1
+            start -= 1
+
+    # Return the modified array
+    return nums_copy
+```
+
+This function first checks if `k` is within the range of the list length. It then creates a copy of the original array since we're going to modify it in-place. The rotation takes place by swapping elements at the start and end, then moving on to the remaining segments. Finally, it returns the modified array.
+
+Here's an example usage:
+
+```python
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(nums, k))  # Output: [3, 4, 5, 1, 2]
+```

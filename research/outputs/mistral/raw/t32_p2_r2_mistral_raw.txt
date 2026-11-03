@@ -1,0 +1,28 @@
+Here's a Python function named `n_queens` that solves the N-Queens problem with the mentioned requirements:
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or abs(board[i] - col) == abs(i - row):
+                return False
+        return True
+
+    def solve(row):
+        if row > n:
+            yield tuple(board)
+            return
+
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                solve(row + 1)
+                board[row] = -1
+
+    board = [-1]*n
+    solve(0)
+
+n_queens = lambda n: list(n_queens(n)) if n > 1 else [[]] if n == 1 else []
+```
+
+This function defines a helper function `is_safe` to check for valid positions on the board, and another helper function `solve` to recursively find solutions. The main function `n_queens` handles edge cases of 0 or 1 queen.

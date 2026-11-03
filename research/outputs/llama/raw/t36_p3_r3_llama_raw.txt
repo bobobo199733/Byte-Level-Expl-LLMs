@@ -1,0 +1,70 @@
+**Dijkstra's Shortest Path Function**
+=====================================
+
+Here is the implementation of Dijkstra's algorithm to find the shortest path between nodes in a weighted graph:
+```python
+def dijkstra_shortest_path(graph, start):
+    """
+    Compute the shortest paths from `start` node to all other nodes in the graph.
+
+    :param graph: A dictionary representing the graph where each key is a node and its value is another dictionary.
+                  The inner dictionary's keys are neighboring nodes and values are edge weights.
+    :type graph: dict
+    :param start: The node from which to compute shortest paths.
+    :type start: str
+    :return: A dictionary where the keys are destination nodes and the values are dictionaries with 'distance' and 'previous_node' attributes.
+             These attributes represent the minimum distance and previous node in the shortest path, respectively.
+    :rtype: dict
+    """
+    # Initialize distances and previous nodes for all nodes
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0  # Distance to start node is 0
+
+    unvisited_nodes = list(graph.keys())
+
+    while unvisited_nodes:
+        current_node = min(unvisited_nodes, key=lambda node: distances[node])
+
+        # Mark current node as visited
+        unvisited_nodes.remove(current_node)
+
+        for neighbor, weight in graph[current_node].items():
+            distance = distances[current_node] + weight
+
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                graph[neighbor]['previous_node'] = current_node
+
+    # Remove 'previous_node' attribute from nodes that have no predecessor
+    for node in graph:
+        if node != start and not hasattr(graph[node], 'previous_node'):
+            del graph[node]['previous_node']
+
+    return distances
+```
+**Example Use Case**
+--------------------
+
+Suppose we have a weighted graph represented as follows:
+```python
+graph = {
+    'A': {'B': 2, 'C': 5},
+    'B': {'A': 2, 'C': 1, 'D': 4},
+    'C': {'A': 5, 'B': 1, 'D': 3},
+    'D': {'B': 4, 'C': 3}
+}
+```
+We can compute the shortest paths from node `'A'` to all other nodes using the `dijkstra_shortest_path` function:
+```python
+shortest_paths = dijkstra_shortest_path(graph, 'A')
+print(shortest_paths)
+```
+This will output a dictionary where each key is a destination node and its corresponding value is another dictionary with `'distance'` and `'previous_node'` attributes. For example:
+```python
+{
+    'B': {'distance': 2, 'previous_node': None},
+    'C': {'distance': 3, 'previous_node': 'B'},
+    'D': {'distance': 5, 'previous_node': 'C'}
+}
+```
+This indicates that the shortest path from node `'A'` to node `'B'` has a distance of `2`, with no previous node (i.e., it's a direct connection). The shortest path from node `'A'` to node `'D'` has a distance of `5` and passes through nodes `'C'`.

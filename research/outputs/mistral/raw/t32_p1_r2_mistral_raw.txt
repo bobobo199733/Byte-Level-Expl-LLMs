@@ -1,0 +1,28 @@
+Due to the constraints you've provided, it's challenging to return _all_ valid solutions within a single Python function without using recursion or an iterative approach. However, I can provide you with a Python function that returns all valid board configurations for a specific `n` using recursion.
+
+Here's the implementation:
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        for i in range(row):
+            if board[i] == col or abs(board[i] - col) == abs(i - row):
+                return False
+        return True
+
+    def solve_n_queens(n, solutions, board=[-1]*n, row=0):
+        if row == n:
+            solutions.append([str(x) for x in board])
+            return
+
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                solve_n_queens(n, solutions, board, row+1)
+
+    solutions = []
+    solve_n_queens(n, solutions)
+    return solutions
+```
+
+This function uses an auxiliary helper function `solve_n_queens` to place queens on the board and `is_safe` to check if it's safe to place a queen at a specific position. The main function `n_queens` returns a list of all valid board configurations as strings.

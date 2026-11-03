@@ -1,0 +1,55 @@
+Certainly! Below is a Python function `json_validator` that validates whether a string contains syntactically valid JSON. This function uses a stack-based approach to handle nested objects and arrays, and it checks for the presence of valid characters and structures.
+
+```python
+def json_validator(text):
+    # Mapping of opening symbols to their corresponding closing symbols
+    brackets = { '{': '}', '[': ']', '"': '"', "'": "'" }
+    
+    # Stack to keep track of opening symbols
+    stack = []
+    
+    i = 0
+    while i < len(text):
+        char = text[i]
+        
+        if char in "{'[":
+            # Push the expected closing symbol onto the stack
+            if not stack or (len(stack) > 0 and brackets[stack[-1]] != char):
+                return False
+            
+            stack.append(brackets[char])
+        
+        elif char == '}':
+            if len(stack) == 0 or stack.pop() != '{':
+                return False
+        
+        elif char == ']':
+            if len(stack) == 0 or stack.pop() != '[':
+                return False
+        
+        elif char in ",'":
+            # Ignore commas and quotes for now
+            pass
+
+        else:
+            # Check for invalid characters
+            if not (char.isspace() or char.isdigit() or char.isalpha() or char in "'\""):
+                return False
+
+        i += 1
+    
+    # Ensure all opening symbols have matching closing symbols
+    return len(stack) == 0
+
+# Example usage:
+print(json_validator(r'{"key": "value", "array": [1, 2, 3], "nested": {"innerKey": true}}'))  # True
+print(json_validator('{"key": "value", "array": [1, 2, 3]'))  # False
+```
+
+### Explanation:
+- **Stack Usage**: The stack is used to track the expected closing symbols. For each opening symbol (like `{`, `[`, or `"'), we push its corresponding closing symbol onto the stack.
+- **Closing Symbols Handling**: When a closing symbol (`}`, `]`) is encountered, it is compared with the top of the stack. If they match, the stack is popped; otherwise, the string is invalid.
+- **Commas and Quotes Ignored**: Commas (`,`) and quotes (`"`, `'`) are ignored since JSON parsing rules allow for whitespace between values but not as separators in the same way that commas do.
+- **Invalid Characters Check**: Any character other than alphanumeric, whitespace, or known symbols used in JSON is considered invalid.
+
+This function ensures that nested objects and arrays are properly closed and that all strings are enclosed correctly.

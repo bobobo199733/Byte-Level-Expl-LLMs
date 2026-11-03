@@ -1,0 +1,7 @@
+Write a Python function merge_intervals(intervals) that merges overlapping intervals.
+
+Return the merged intervals as a list of lists.
+
+Return only valid Python code.
+Do not include example usage.
+Do not print anything.

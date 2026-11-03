@@ -1,0 +1,10 @@
+Write exactly one Python function called parse_csv_line(line) that parses one CSV row.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Commas separate fields.
+- Quoted fields may contain commas.
+- Remove the surrounding quotes from quoted fields.
+- Preserve empty fields.

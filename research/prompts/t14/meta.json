@@ -1,0 +1,12 @@
+{
+  "task_id": "t14",
+  "function_name": "generate_parentheses",
+  "valid_cases": [
+    [[1], ["()"]],
+    [[2], ["(())","()()"]],
+    [[0], [""]],
+    [[3], ["((()))","(()())","(())()","()(())","()()()"]]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

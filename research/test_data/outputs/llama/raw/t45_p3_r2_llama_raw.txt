@@ -1,0 +1,47 @@
+Here is a high-quality Python function to solve this problem:
+
+### Search Insert Position
+```python
+def search_insert_position(nums, target):
+    """
+    Returns the correct index or insertion position of the target value in a sorted array.
+
+    Args:
+        nums (list): A sorted list of integers.
+        target (int): The target value to be searched.
+
+    Returns:
+        int: The index where the target value should be inserted to maintain sorted order.
+    """
+    left, right = 0, len(nums) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            # If the middle element is equal to the target, return its index
+            return mid
+        elif nums[mid] < target:
+            # If the middle element is less than the target, move right half
+            left = mid + 1
+        else:
+            # If the middle element is greater than the target, move left half
+            right = mid - 1
+
+    # If the target value is not found, return its insertion position
+    return left
+```
+### Example Use Cases:
+
+```python
+# Test case 1: Target exists in the list
+print(search_insert_position([1, 3, 5, 6], 5))  # Output: 2
+
+# Test case 2: Target does not exist in the list
+print(search_insert_position([1, 3, 5, 6], 2))  # Output: 1
+
+# Test case 3: Empty list
+print(search_insert_position([], 5))  # Output: 0
+
+# Test case 4: Single-element list
+print(search_insert_position([5], 5))  # Output: 0
+```
+This function uses a binary search algorithm to efficiently find the correct index or insertion position of the target value in a sorted array. It has a time complexity of O(log n), where n is the number of elements in the list.

@@ -1,0 +1,22 @@
+Here is a simple implementation of the `rotate_array` function in Python. This function rotates an array to the right by a given number of positions (k). The rotation is done in-place, meaning the original array is modified. If `k` exceeds the length of the array, it wraps around and behaves as if k were the remaining length:
+
+```python
+def rotate_array(nums, k):
+    n = len(nums)
+    k %= n
+
+    reversed_part1 = nums[-k:] + nums[:-k]  # reverse the last k elements and concatenate with the rest of the array
+    reversed_part2 = nums[n - k:]            # reverse the first k - n % k elements
+
+    nums[len(reversed_part1):] = reversed_part1[::-1]  # insert the reversed part back into the array at the end and reverse it in place
+    nums[:n - len(reversed_part2)] = reversed_part2[::-1]  # insert the reversed part back into the array at the beginning and reverse it in place
+```
+
+You can test this function using the following code:
+
+```python
+nums = [1, 2, 3, 4, 5, 6]
+k = 3
+rotate_array(nums, k)
+print(nums)  # Output: [5, 1, 2, 3, 4, 6]
+```

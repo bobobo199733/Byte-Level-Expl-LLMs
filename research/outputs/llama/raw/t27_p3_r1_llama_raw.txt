@@ -1,0 +1,52 @@
+```python
+def trapping_rain_water(heights):
+    """
+    Calculate the total amount of rain water that can be trapped between bars in a histogram.
+
+    Args:
+        heights (list): A list of integers representing the height of each bar in the histogram.
+
+    Returns:
+        int: The total amount of rain water that can be trapped.
+    """
+
+    # Initialize two pointers, one at the beginning and one at the end of the list
+    left = 0
+    right = len(heights) - 1
+
+    # Initialize the maximum height on the left and right sides
+    max_left = heights[left]
+    max_right = heights[right]
+
+    # Initialize the total amount of trapped rain water
+    total_water = 0
+
+    # Loop through the list until the two pointers meet
+    while left <= right:
+        # If the maximum height on the left is less than the maximum height on the right,
+        # then we can trap water on the left side
+        if max_left < max_right:
+            # The amount of trapped water on the left side is the difference between the 
+            # current maximum height and the height at the current position, times the 
+            # number of positions that have been processed so far
+            total_water += max(0, max_left - heights[left]) * (right - left)
+            # Move the left pointer to the right
+            left += 1
+            # Update the maximum height on the left side
+            max_left = max(heights[left], max_left)
+
+        # If the maximum height on the right is less than or equal to the maximum 
+        # height on the left, then we can trap water on the right side
+        else:
+            # The amount of trapped water on the right side is the difference between the 
+            # current maximum height and the height at the current position, times the 
+            # number of positions that have been processed so far
+            total_water += max(0, max_right - heights[right]) * (right - left)
+            # Move the right pointer to the left
+            right -= 1
+            # Update the maximum height on the right side
+            max_right = max(heights[right], max_right)
+
+    # Return the total amount of trapped rain water
+    return total_water
+```

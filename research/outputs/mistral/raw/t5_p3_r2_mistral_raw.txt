@@ -1,0 +1,18 @@
+Here is the Python function that meets your requirements:
+
+```python
+def remove_k_digits(num, k):
+    stack = []
+    for digit in num:
+        while stack and stack[-1] > digit and k:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    stack = stack[:-k]
+    result = ''.join(stack)
+    if not result:
+        return "0"
+    return ''.join(filter(bool, result))
+```
+
+This function uses a stack to store the digits, and iterates through the input string. If it finds a digit smaller than the top of the stack and `k` is greater than zero, it removes the top element from the stack and decrements `k`. After processing the entire input, it removes any leading zeros from the result.

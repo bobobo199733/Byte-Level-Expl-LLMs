@@ -1,0 +1,50 @@
+**Word Break Function**
+=======================
+
+The following function solves the word break problem using dynamic programming.
+
+```python
+def word_break(s: str, word_dict: list[str]) -> bool:
+    """
+    Checks if a given string can be segmented into words from a dictionary.
+
+    Args:
+        s (str): The input string to segment.
+        word_dict (list[str]): A list of words that can be used for segmentation.
+
+    Returns:
+        bool: True if the string can be segmented, False otherwise.
+    """
+
+    # Initialize dp array with False values
+    dp = [False] * (len(s) + 1)
+    
+    # Base case: empty string can always be segmented
+    dp[0] = True
+
+    for i in range(1, len(s) + 1):
+        # For each word ending at index i
+        for j in range(i):
+            # If the substring from j to i is a valid word and dp[j] is True
+            if s[j:i] in word_dict and dp[j]:
+                # Then dp[i] is True
+                dp[i] = True
+
+    return dp[-1]
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Example 1:
+print(word_break("leetcode", ["leet", "code"]))  # True
+
+# Example 2:
+print(word_break("applepenapple", ["apple", "pen"]))  # True
+
+# Example 3:
+print(word_break("catsandog", ["cats", "dog", "sand", "and", "cat"]))  # False
+```
+
+In the above code, we first initialize a dynamic programming (dp) array with `False` values. We then set the base case: an empty string can always be segmented. For each word ending at index `i`, we check if the substring from `j` to `i` is in the dictionary and `dp[j]` is `True`. If both conditions are met, we set `dp[i]` to `True`. Finally, we return `dp[-1]`, which represents whether the entire string can be segmented into words from the dictionary.

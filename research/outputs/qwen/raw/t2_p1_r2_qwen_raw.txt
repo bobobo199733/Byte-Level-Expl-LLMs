@@ -1,0 +1,29 @@
+```python
+def is_balanced(s: str) -> bool:
+    # Dictionary to hold matching pairs of brackets
+    bracket_pairs = {')': '(', ']': '[', '}': '{'}
+    
+    # Stack to keep track of opening brackets
+    stack = []
+    
+    for char in s:
+        # Check if the character is a closing bracket
+        if char in bracket_pairs.values():
+            # If it's an opening bracket, push it onto the stack
+            stack.append(char)
+        elif char in bracket_pairs:
+            # If it's a closing bracket but the stack is empty or doesn't match the last opening bracket, return False
+            if not stack or stack.pop() != bracket_pairs[char]:
+                return False
+    
+    # If the stack is empty, all brackets were balanced; otherwise, return False
+    return len(stack) == 0
+
+# Test cases
+print(is_balanced("()"))        # True
+print(is_balanced("()[]{}"))    # True
+print(is_balanced("(]"))        # False
+print(is_balanced("([)]"))      # False
+print(is_balanced("{[]}"))      # True
+```
+This function uses a stack to keep track of the opening brackets encountered. When a closing bracket is found, it checks if it matches the last unmatched opening bracket by popping from the stack. If at any point the stack doesn't have a matching opening bracket for the current closing bracket, or if there are unmatched opening brackets left in the stack after processing the entire string, the function returns `False`. Otherwise, it returns `True` if the string is balanced.

@@ -1,0 +1,31 @@
+task,prompt,run,true,predicted,correct,shap_toward_true,byte_vote_class,byte_vote_correct,source,file
+t41,p3,r2,llama,mistral,False,-0.2221685647964477,mistral,False,for word in words:,t41_p3_r2_llama.py
+t41,p1,r1,mistral,mistral,True,0.7192161679267883,mistral,True,for word in words:,t41_p1_r1_mistral.py
+t41,p2,r2,mistral,mistral,True,0.6691762804985046,mistral,True,for word in words:,t41_p2_r2_mistral.py
+t41,p3,r3,mistral,mistral,True,0.5475587844848633,mistral,True,for word in words:,t41_p3_r3_mistral.py
+t42,p3,r1,mistral,mistral,True,0.680583119392395,mistral,True,ordered_courses = topological_sort(graph),t42_p3_r1_mistral.py
+t45,p3,r1,mistral,mistral,True,0.4811882972717285,mistral,True,right = len(nums) - 1,t45_p3_r1_mistral.py
+t45,p3,r2,qwen,mistral,False,-0.0344502553343772,mistral,False,right = len(nums) - 1,t45_p3_r2_qwen.py
+t46,p1,r3,llama,mistral,False,-0.1555888503789901,mistral,False,for word in words:,t46_p1_r3_llama.py
+t47,p1,r3,llama,llama,True,-0.1787588596343994,mistral,False,sign = 1,t47_p1_r3_llama.py
+t47,p1,r1,qwen,llama,False,-0.070842333137989,mistral,False,result = 0,t47_p1_r1_qwen.py
+t47,p1,r2,qwen,mistral,False,-0.0326525196433067,mistral,False,operators = [],t47_p1_r2_qwen.py
+t48,p1,r2,llama,mistral,False,-0.1711626350879669,mistral,False,nums2 = list(nums2),t48_p1_r2_llama.py
+t48,p1,r3,mistral,mistral,True,0.5017037987709045,mistral,True,total = len(nums1) + len(nums2),t48_p1_r3_mistral.py
+t48,p2,r3,mistral,mistral,True,0.531595766544342,mistral,True,n = len(nums2),t48_p2_r3_mistral.py
+t48,p3,r1,mistral,mistral,True,0.4487018585205078,mistral,True,total_len = len(nums1) + len(nums2),t48_p3_r1_mistral.py
+t48,p1,r1,qwen,mistral,False,-0.0728916227817535,mistral,False,total_length = len(nums1) + len(nums2),t48_p1_r1_qwen.py
+t48,p1,r2,qwen,mistral,False,-0.0542173907160759,mistral,False,total_length = len(nums1) + len(nums2),t48_p1_r2_qwen.py
+t48,p1,r3,qwen,llama,False,-0.0661922320723533,mistral,False,total_length = len(nums1) + len(nums2),t48_p1_r3_qwen.py
+t48,p3,r1,qwen,mistral,False,-0.0377038903534412,mistral,False,total_length = len(nums1) + len(nums2),t48_p3_r1_qwen.py
+t48,p3,r2,qwen,mistral,False,-0.064908780157566,mistral,False,total_length = len(nums1) + len(nums2),t48_p3_r2_qwen.py
+t48,p3,r3,qwen,mistral,False,-0.0431798473000526,mistral,False,total_length = len(nums1) + len(nums2),t48_p3_r3_qwen.py
+t49,p1,r1,mistral,mistral,True,0.4707878232002258,mistral,True,dp = {len(s) + 1: False},t49_p1_r1_mistral.py
+t49,p1,r3,mistral,mistral,True,0.7314193248748779,mistral,True,n = len(s),t49_p1_r3_mistral.py
+t49,p3,r2,mistral,mistral,True,0.73866206407547,mistral,True,n = len(s),t49_p3_r2_mistral.py
+t49,p2,r2,qwen,mistral,False,-0.1010210961103439,mistral,False,n = len(s),t49_p2_r2_qwen.py
+t49,p3,r2,qwen,mistral,False,-0.1010210961103439,mistral,False,n = len(s),t49_p3_r2_qwen.py
+t50,p1,r3,llama,mistral,False,-0.117452785372734,mistral,False,left = 0,t50_p1_r3_llama.py
+t50,p1,r1,mistral,mistral,True,0.5471493005752563,mistral,True,for char in p:,t50_p1_r1_mistral.py
+t50,p1,r2,mistral,mistral,True,0.5550089478492737,mistral,True,for char in p:,t50_p1_r2_mistral.py
+t50,p3,r3,mistral,mistral,True,0.4902560710906982,mistral,True,for char in p:,t50_p3_r3_mistral.py

@@ -1,0 +1,33 @@
+The N-Queens problem is a classic computer science puzzle. It asks for how many ways we can place n queens on an nxn chessboard such that no two queens attack each other (i.e., they are not in the same row, column, or diagonal).
+
+Here's Python code to find all valid solutions for the N-Queens problem:
+
+```python
+def is_valid(board, col):
+    for i in range(col):
+        if board[col] == board[i] or abs(board[col] - board[i]) == abs(col - i):
+            return False
+    return True
+
+def n_queens(n):
+    def backtrack(row, queens):
+        if row >= n:
+            yield tuple(queens)
+            return
+
+        for col in range(n):
+            new_queens = queens[:]
+            new_queens[row] = col
+            if is_valid(new_queens, col):
+                backtrack(row + 1, new_queens)
+
+    backtrack(0, [-1]*n)
+
+if __name__ == "__main__":
+    for solution in n_queens(4):
+        print(solution)
+```
+
+This code defines a helper function `is_valid()` to check if it's safe to place a queen at the given column. The main function `n_queens()` uses recursion and backtracking to find all solutions. The inner `backtrack()` function is responsible for the actual algorithm by exploring each possible column placement for a row and recursively calling itself until it finds a solution or runs out of possibilities for that row.
+
+The main block at the end prints the solutions for an n=4 chessboard as an example. You can change the value of `n` to find solutions for other board sizes.

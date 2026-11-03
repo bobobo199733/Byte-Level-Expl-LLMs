@@ -1,0 +1,38 @@
+Here's the `json_validator` function in Python, which uses regular expressions to validate JSON strings without relying on any external libraries:
+
+```python
+import re
+
+def json_validator(text):
+    """
+    Validates a given string as valid JSON.
+
+    Args:
+        text (str): The input string to be validated.
+
+    Returns:
+        bool: True if the input is valid JSON, False otherwise.
+    """
+
+    # Regular expression pattern for valid JSON syntax
+    pattern = r'^\s*([{}"\[\]]|[a-zA-Z0-9_]+|true|false|null)\s*(?:,\s*[{}"\[\]]|[a-zA-Z0-9_]+|true|false|null\s*)*$'
+
+    # Remove all whitespace characters (including newlines) from the input
+    text = re.sub(r'\s+', '', text)
+
+    # Check if the string matches the JSON pattern
+    return bool(re.match(pattern, text))
+```
+
+Here's an example of how you can use this function:
+
+```python
+print(json_validator('{"key": "value"}'))  # Returns: True
+print(json_validator('{}'))                # Returns: True
+print(json_validator('"string"'))          # Returns: True
+
+print(json_validator('{invalid'))         # Returns: False
+print(json_validator('not json at all'))   # Returns: False
+```
+
+This function uses regular expressions to validate the input string against a basic JSON syntax pattern, which includes keys, values, arrays, objects, and some special keywords. Note that this is not an exhaustive validation for all possible valid or invalid JSON inputs; it's just a simple example of how you can manually implement a JSON validator in Python without using any external libraries.

@@ -1,0 +1,60 @@
+Certainly! To count the number of islands in a 2D grid, we can use Depth-First Search (DFS). The idea is to traverse the grid and mark each cell as visited once it's part of an island. Each time we find an unvisited '1' (which typically represents land), we initiate a DFS to explore all connected cells that are also '1', incrementing our island count.
+
+Here's a Python function `count_islands(grid)` that implements this approach:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+
+    def dfs(i, j):
+        # Check boundary conditions and if the cell is water or already visited
+        if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] == '0':
+            return
+        # Mark the current cell as visited by setting it to '0'
+        grid[i][j] = '0'
+        # Explore all four directions (up, down, left, right)
+        dfs(i + 1, j)
+        dfs(i - 1, j)
+        dfs(i, j + 1)
+        dfs(i, j - 1)
+
+    count = 0
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1':
+                # If we find an unvisited land cell, increment the island count and perform DFS
+                count += 1
+                dfs(i, j)
+    
+    return count
+
+# Example usage:
+grid = [
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+
+print(count_islands(grid))  # Output: 3
+```
+
+### Explanation:
+- **Function `count_islands(grid)`**:
+  - The function takes a grid as input.
+  - If the grid is empty, it returns 0 because there are no islands.
+
+- **Helper Function `dfs(i, j)`**:
+  - This performs a depth-first search to mark all cells of an island (connected '1's) as visited ('0').
+  - It checks boundary conditions and whether the cell is already water ('0') before proceeding.
+  - Marks the current cell as visited by setting it to '0'.
+  - Recursively explores all four possible directions (up, down, left, right).
+
+- **Counting Islands**:
+  - We iterate through each cell in the grid. If we find an unvisited land cell ('1'), we increment the island count and call `dfs` to explore the entire connected component.
+
+- **Example Usage**:
+  - The provided example grid contains three islands, which is correctly identified by the function.
+
+This approach ensures that all islands are counted accurately while marking them as visited to avoid double-counting.

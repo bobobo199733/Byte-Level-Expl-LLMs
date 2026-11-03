@@ -1,0 +1,1 @@
+Write one function called kth_largest(nums, k) that returns the kth largest number. Return only the function.

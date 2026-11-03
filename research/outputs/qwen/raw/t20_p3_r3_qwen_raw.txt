@@ -1,0 +1,94 @@
+Certainly! To combine multiple sorted linked lists into one sorted linked list, we can use the Python `heapq` module which provides an efficient implementation of priority queues. Here's how you can implement the `merge_k_sorted_lists` function:
+
+```python
+import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+    
+    def __lt__(self, other):
+        # Define comparison based on node values for heapq to work correctly
+        return self.val < other.val
+
+def merge_k_sorted_lists(lists):
+    if not lists:
+        return None
+    
+    # Use a min heap to store the nodes from all lists
+    heap = []
+    
+    # Initialize the heap with the first node of each list
+    for lst in lists:
+        if lst:  # Ensure there's at least one element in the list
+            heapq.heappush(heap, lst)
+    
+    dummy = ListNode()  # Dummy head to simplify the result construction
+    current = dummy
+    
+    while heap:
+        # Pop the smallest node from the heap
+        node = heapq.heappop(heap)
+        
+        # Add the next node of the popped node (if any) to the heap
+        if node.next:
+            heapq.heappush(heap, node.next)
+        
+        # Append the current node's value to the result list
+        current.next = node
+        current = current.next
+    
+    return dummy.next
+
+# Example usage:
+def create_linked_list(elements):
+    if not elements:
+        return None
+    head = ListNode(elements[0])
+    current = head
+    for element in elements[1:]:
+        current.next = ListNode(element)
+        current = current.next
+    return head
+
+# Create multiple sorted linked lists
+list1 = create_linked_list([1, 4, 5])
+list2 = create_linked_list([1, 3, 4])
+list3 = create_linked_list([2, 6])
+
+# Merge the k sorted linked lists
+merged_head = merge_k_sorted_lists([list1, list2, list3])
+
+# Function to print the linked list for verification
+def print_linked_list(head):
+    current = head
+    while current:
+        print(current.val, end=" -> ")
+        current = current.next
+    print("None")
+
+# Print the merged sorted linked list
+print_linked_list(merged_head)
+```
+
+### Explanation:
+
+1. **ListNode Class**: Defines a simple `ListNode` class with basic attributes and comparison logic for use in the heap.
+
+2. **merge_k_sorted_lists Function**:
+   - Initializes an empty heap.
+   - Pushes the first node of each list into the heap.
+   - Uses a dummy head to simplify constructing the result linked list.
+   - Continuously pops the smallest element from the heap, appends it to the result list, and pushes its next node (if any) back into the heap until all elements are processed.
+
+3. **create_linked_list Function**: A helper function to quickly create a linked list from a list of values.
+
+4. **print_linked_list Function**: A simple utility function to print the contents of a linked list for verification.
+
+### Example Output:
+```
+1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6 -> None
+```
+
+This code merges multiple sorted linked lists into one, ensuring that the resulting linked list is also sorted.

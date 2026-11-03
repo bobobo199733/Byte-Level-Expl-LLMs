@@ -1,0 +1,33 @@
+```python
+def robot_simulator(commands):
+    """
+    Simulate a robot's movement based on given commands.
+
+    Args:
+        commands (list): A list of strings containing the robot's commands. Each string is either 'UP', 'DOWN', 'LEFT', or 'RIGHT'.
+
+    Returns:
+        tuple: The final position of the robot as a tuple in the format (x, y).
+    """
+
+    # Initialize the robot's position at the origin
+    x, y = 0, 0
+
+    # Iterate over each command
+    for command in commands:
+        # Move up by incrementing y
+        if command == 'UP':
+            y += 1
+        # Move down by decrementing y
+        elif command == 'DOWN':
+            y -= 1
+        # Move left by decrementing x
+        elif command == 'LEFT':
+            x -= 1
+        # Move right by incrementing x
+        elif command == 'RIGHT':
+            x += 1
+
+    # Return the final position of the robot
+    return x, y
+```

@@ -1,0 +1,72 @@
+Certainly! To implement a topological sort for a Directed Acyclic Graph (DAG), we can use Kahn's algorithm, which is based on the idea of performing a breadth-first search starting from nodes with no incoming edges.
+
+Here's a Python function that implements this approach:
+
+```python
+from collections import defaultdict
+
+def topological_sort(graph):
+    # Step 1: Initialize in-degree count for each node and an empty list to store the result
+    in_degree = {node: 0 for node in graph}
+    for u in graph:
+        for v in graph[u]:
+            in_degree[v] += 1
+    
+    # Step 2: Enqueue all nodes with zero in-degree
+    queue = [node for node, degree in in_degree.items() if degree == 0]
+    
+    # Step 3: Process nodes (remove them from the graph and decrease the in-degree of their neighbors)
+    result = []
+    while queue:
+        current_node = queue.pop(0)
+        result.append(current_node)
+        
+        # Decrease the in-degree for each neighbor
+        for neighbor in graph[current_node]:
+            in_degree[neighbor] -= 1
+            
+            # If a neighbor's in-degree becomes zero, enqueue it
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # Step 4: Check if the graph has all nodes processed (i.e., the result contains all nodes)
+    if len(result) == len(graph):
+        return result
+    else:
+        raise ValueError("Graph is not a Directed Acyclic Graph (DAG)")
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+print(topological_sort(graph))
+```
+
+### Explanation:
+
+1. **Initialization**:
+   - We initialize the in-degree dictionary to keep track of how many edges are pointing into each node.
+   - We also create a queue that will hold nodes with an in-degree of zero.
+
+2. **Enqueue Zero-In-Degree Nodes**:
+   - All nodes that have no incoming edges (i.e., their in-degree is 0) are added to the queue initially.
+
+3. **Processing**:
+   - We process each node by removing it from the graph and decreasing the in-degree of its neighbors.
+   - If a neighbor's in-degree becomes zero, we add it to the queue for processing later.
+
+4. **Result Collection**:
+   - The order in which nodes are processed is our topological sort.
+
+5. **Validation**:
+   - Finally, if all nodes have been processed (i.e., the result list has the same length as the graph), then the graph was a DAG and we return the sorted list. Otherwise, an exception is raised indicating that the graph may not be a DAG.
+
+### Example:
+
+For the given example graph, running `topological_sort(graph)` will output `[A, C, F, B, E, D]`, which is one of many valid topological orders for this graph.

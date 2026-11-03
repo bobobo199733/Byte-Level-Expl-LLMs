@@ -1,0 +1,48 @@
+Sure, to solve the problem using dynamic programming and ensure efficiency, we can follow these steps:
+
+1. **Initialize a DP array**: Create an array `dp` where each index represents the minimum number of coins needed to make that amount. Initialize all values to infinity (indicating that it's not possible yet), except for `dp[0]`, which is 0 because no coins are needed to make up an amount of 0.
+
+2. **Fill the DP array**: Iterate over each coin value and update the DP array such that `dp[i]` represents the minimum number of coins needed to make amount `i`.
+
+3. **Handle edge cases**: Ensure that if the target amount cannot be formed, return -1.
+
+Here's the implementation:
+
+```python
+def coin_change(coins, amount):
+    # Handle edge case where amount is 0
+    if amount == 0:
+        return 0
+    
+    # Initialize DP array with infinity
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: no coins needed to make the target of 0
+    dp[0] = 0
+    
+    # Iterate over each coin value
+    for coin in coins:
+        for x in range(coin, amount + 1):
+            dp[x] = min(dp[x], dp[x - coin] + 1)
+    
+    # If we cannot form the target amount, return -1
+    if dp[amount] == float('inf'):
+        return -1
+    
+    return dp[amount]
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (because we can use 5 + 5 + 1)
+```
+
+### Explanation:
+
+- **Initialization**: `dp` is initialized with `float('inf')`, which means "not possible" to form that amount. We set `dp[0]` to 0 because no coins are needed to make an amount of zero.
+  
+- **DP Array Update**: For each coin, we iterate from the value of the coin up to the target amount. At each step, we check if using this coin can lead to a better solution (fewer coins) for the current amount.
+
+- **Edge Case Handling**: If `dp[amount]` remains infinity after filling the DP array, it means that the amount cannot be formed with the given coins.
+
+This approach ensures that we efficiently compute the minimum number of coins needed using dynamic programming. The time complexity is O(n * m) where n is the target amount and m is the number of coin denominations.

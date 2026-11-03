@@ -1,0 +1,9 @@
+{
+  "function_name": "dijkstra_shortest_path",
+  "description": "Compute shortest paths in a weighted graph using Dijkstra's algorithm.",
+  "category": "graph",
+  "subtype": "weighted_shortest_path",
+  "difficulty": "hard",
+  "uses_recursion": false,
+  "uses_graph": true
+}

@@ -1,0 +1,15 @@
+```python
+def group_anagrams(words):
+    if not isinstance(words, list) or not all(isinstance(word, str) for word in words):
+        raise ValueError("Input must be a list of strings")
+
+    anagrams = {}
+    for word in words:
+        sorted_word = "".join(sorted(word))
+        if sorted_word in anagrams:
+            anagrams[sorted_word].append(word)
+        else:
+            anagrams[sorted_word] = [word]
+
+    return list(anagrams.values())
+```

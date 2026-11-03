@@ -1,0 +1,48 @@
+Here's a Python function that meets the requirements you've specified:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    m = len(nums1)
+    n = len(nums2)
+
+    if m > n:
+        nums1, nums2 = nums2, nums1
+        m, n = n, m
+
+    x_min, x_max = 0, m
+    for i in range(m+n+1):
+        partition = (x_max + x_min) // 2
+        left1 = max(0, partition - m//2) if partition >= m/2 else 0
+        right1 = min(partition, m)
+        left2 = partition - right1
+
+        if left1 > right1:
+            x_max = partition - 1
+        elif left2 > right2:
+            x_min = partition + 1
+        else:
+            index1 = left1
+            index2 = left2
+            total = right1 + right2
+            if total == m+n:
+                return sorted([nums1[index1], nums2[index2]])[1]
+            elif total > m+n:
+                # Move to the next partition on the right side
+                x_min = partition + 1
+            else:
+                # Move to the next partition on the left side
+                x_max = partition - 1
+
+    # Edge case: arrays of different lengths and total length is odd
+    if m == n:
+        return sorted(nums1 + nums2)[m//2]
+
+    # Edge case: arrays of different lengths and total length is even
+    mid1 = x_min + (m - x_max) // 2
+    mid2 = x_min + (n - x_max) // 2
+    return sum(sorted([nums1[mid1], nums2[mid2]])) / 2
+```
+
+This function first checks if the two input arrays have different lengths and, if so, swaps them so that the smaller array is always considered as `nums1`. It then uses binary search to find the correct partition between the two arrays. If the total length of both arrays is odd, it returns the average of the two middle elements from each array. If the total length is even, it finds the medians from each array and returns their average.
+
+The time complexity of this function is O(log min(m, n)) as required.

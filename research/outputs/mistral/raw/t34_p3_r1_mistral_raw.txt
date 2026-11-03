@@ -1,0 +1,33 @@
+Here's a Python function named `binary_search_rotated` that performs a binary search on a rotated sorted list:
+
+```python
+def binary_search_rotated(values, target):
+    low = 0
+    high = len(values) - 1
+
+    # Edge case: empty list
+    if not values:
+        return -1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # Checking for the potential minimum value in the right half
+        if mid > 0 and values[mid] < values[mid - 1]:
+            rotate_point = mid
+
+        # Check if target is found at the mid index
+        if values[mid] == target:
+            return mid
+
+        # Update search range based on whether the found value is smaller or larger than the target
+        if values[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    # If we haven't found the target, return -1
+    return -1
+```
+
+This function performs a binary search on the rotated sorted list by initially setting a lower and higher bound. It checks for the potential minimum value in the right half of the array to determine the rotation point. After that, it continues with the standard binary search approach, adjusting the search range based on whether the found value is smaller or larger than the target. If the target is not found, it returns -1.

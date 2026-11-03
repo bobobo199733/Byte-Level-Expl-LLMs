@@ -1,0 +1,4 @@
+def kth_largest(nums, k):
+    if k <= 0 or k > len(nums):
+        raise ValueError('k must be a valid positive number within the length of nums')
+    return sorted(nums, reverse=True)[k - 1]

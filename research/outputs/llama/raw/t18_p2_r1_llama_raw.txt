@@ -1,0 +1,55 @@
+**Edit Distance Calculation using Dynamic Programming**
+=====================================================
+
+Below is the Python function `edit_distance` that calculates the Levenshtein distance between two strings. This function uses dynamic programming to efficiently handle longer strings.
+
+```python
+def edit_distance(word1, word2):
+    """
+    Compute the Levenshtein distance between two strings.
+    
+    This function supports insertions, deletions, and substitutions.
+    
+    Parameters:
+    word1 (str): The first string.
+    word2 (str): The second string.
+    
+    Returns:
+    int: The Levenshtein distance between word1 and word2.
+    """
+
+    # Initialize a matrix to store the edit distances
+    m = len(word1) + 1
+    n = len(word2) + 1
+    
+    dp = [[0] * n for _ in range(m)]
+    
+    # Fill the first row and column with incremental values
+    for i in range(1, m):
+        dp[i][0] = i
+        
+    for j in range(1, n):
+        dp[0][j] = j
+    
+    # Compute edit distances using dynamic programming
+    for i in range(1, m):
+        for j in range(1, n):
+            cost = 0 if word1[i - 1] == word2[j - 1] else 1
+            
+            # Calculate the minimum of three operations: substitution, insertion, and deletion
+            dp[i][j] = min(dp[i - 1][j] + 1,      # Deletion
+                          dp[i][j - 1] + 1,      # Insertion
+                          dp[i - 1][j - 1] + cost)  # Substitution
+    
+    return dp[m - 1][n - 1]
+```
+
+**Example Usage:**
+
+```python
+print(edit_distance("kitten", "sitting"))  # Output: 3
+print(edit_distance("", "apple"))  # Output: 5
+print(edit_distance("abc", ""))  # Output: 3
+```
+
+This implementation follows best practices and adheres to the given requirements. It is efficient for longer strings because it uses dynamic programming, which avoids redundant calculations by storing previously computed results in a matrix.

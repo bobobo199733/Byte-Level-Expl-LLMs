@@ -1,0 +1,77 @@
+To implement the `reconstruct_itinerary` function, we need to ensure that it can handle the constraints and requirements specified. Here are the steps to follow:
+
+1. **Validate Input**: Check if the input is valid (not null or empty).
+2. **Graph Construction**: Build a graph where each node represents an airport and edges represent flights.
+3. **DFS with Lexicographical Order Handling**: Use Depth-First Search (DFS) to find the itinerary, ensuring that we always choose the lexicographically smallest path at each step.
+
+Here's how you can implement this:
+
+```python
+def reconstruct_itinerary(tickets):
+    if not tickets:
+        raise ValueError("Tickets list cannot be empty")
+    
+    # Create a dictionary to hold adjacency lists for our graph
+    graph = {}
+    for ticket in tickets:
+        from_airport, to_airport = ticket
+        if from_airport not in graph:
+            graph[from_airport] = []
+        graph[from_airport].append(to_airport)
+    
+    # Sort the destinations lexicographically for each airport
+    for key in graph.keys():
+        graph[key].sort()
+    
+    # Initialize the result list and start DFS with "JFK"
+    itinerary = ["JFK"]
+    dfs("JFK", graph, tickets, itinerary)
+    
+    return itinerary
+
+def dfs(current, graph, tickets, itinerary):
+    if len(itinerary) == len(tickets) + 1:
+        return True
+    
+    if current not in graph or not graph[current]:
+        return False
+    
+    temp = graph[current].copy()
+    
+    for i in range(len(graph[current])):
+        next_stop = graph[current].pop(0)
+        
+        itinerary.append(next_stop)
+        
+        # If we can reconstruct the itinerary, return True
+        if dfs(next_stop, graph, tickets, itinerary):
+            return True
+        
+        # Backtrack: remove from itinerary and add back to current's list of neighbors
+        itinerary.pop()
+        graph[current].append(next_stop)
+    
+    return False
+
+# Example usage:
+tickets = [["JFK","SFO"],["JFK","ATL"],["ATL","JFK"],["ATL","SFO"]]
+print(reconstruct_itinerary(tickets))
+```
+
+### Explanation:
+
+1. **Input Validation**: The function first checks if the `tickets` list is empty and raises a `ValueError` if it is.
+
+2. **Graph Construction**: A dictionary (`graph`) is used to store adjacency lists for each airport. Each ticket pair `[from, to]` adds an entry in this dictionary.
+
+3. **DFS with Lexicographical Order Handling**:
+   - We start the DFS from "JFK".
+   - For each airport, we sort its outgoing tickets lexicographically.
+   - During the DFS, we always try to take the first (lexicographically smallest) destination and continue recursively.
+   - If a valid path is found that uses all tickets exactly once, we return `True`.
+
+4. **Backtracking**: If adding a ticket does not lead to a solution, we backtrack by removing the added ticket from the itinerary and re-adding it to the graph's adjacency list.
+
+5. **Return the Result**: Once the DFS completes successfully, the `itinerary` contains the lexicographically smallest valid path.
+
+This approach ensures that all constraints are met, including handling multiple valid solutions correctly.

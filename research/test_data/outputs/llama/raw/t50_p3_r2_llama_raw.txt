@@ -1,0 +1,58 @@
+Here is the Python function that finds all starting indices of anagrams of `p` within string `s` using a sliding window approach:
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    """
+    Returns a list of start indices where an anagram of p starts in s.
+    
+    Args:
+        s (str): The string to search for anagrams.
+        p (str): The pattern string whose anagrams we're searching for.
+
+    Returns:
+        list: List of start indices where an anagram of p is found in s.
+    """
+    if len(p) > len(s):
+        return []  # An anagram cannot be larger than its original string
+
+    p_counter = Counter(p)
+    required_chars = len(set(p))  # Number of unique characters in pattern
+    window_counts = Counter()  # Counter to store counts within the current window
+
+    start_idx, max_len = 0, len(p)  # Initialize start index and max length
+    anagram_indices = []  # List to store indices where anagrams are found
+
+    for end_idx, char in enumerate(s):
+        # Add character to the window counter
+        if char not in p_counter:
+            continue  # If character is not in pattern, skip it
+        window_counts[char] += 1
+
+        # Shrink the window from the left until we have enough characters
+        while len(window_counts) > required_chars:
+            # Remove character at the start of the window from counter
+            char_at_start = s[start_idx]
+            if char_at_start not in p_counter:
+                start_idx += 1
+                continue
+            window_counts[char_at_start] -= 1
+            if window_counts[char_at_start] == 0:
+                del window_counts[char_at_start]
+
+            # Increment the start index of the window to shrink it further
+            start_idx += 1
+
+        # If we've reached a position where an anagram is possible, check if it's an actual anagram
+        if end_idx - start_idx + 1 >= max_len:
+            if window_counts == p_counter:
+                anagram_indices.append(start_idx)
+
+    return anagram_indices
+```
+Example usage:
+```python
+print(find_all_anagrams("abxaba", "ab"))  # Output: [0, 3]
+print(find_all_anagrams("abcde", "cd"))  # Output: []
+```
+This function works by maintaining a sliding window of characters that matches the pattern `p`. It uses a counter to store the frequency of each character within the current window. When an anagram is detected (i.e., when the window's counter matches the pattern's counter), its start index is added to the list of indices where anagrams are found.

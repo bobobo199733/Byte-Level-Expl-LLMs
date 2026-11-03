@@ -1,0 +1,61 @@
+**Spiral Matrix Traversal Function**
+=====================================
+
+The following Python function, `spiral_matrix`, traverses a given matrix in spiral order and returns the visited elements as a list. It handles empty matrices correctly and supports rectangular matrices.
+
+```python
+def spiral_matrix(matrix):
+    """
+    Traverse a matrix in spiral order and return visited elements as a list.
+
+    Args:
+        matrix (list of lists): A 2D list representing the matrix.
+
+    Returns:
+        list: A list of visited elements.
+    """
+
+    if not matrix or not any(matrix):
+        # Handle empty matrices
+        return []
+
+    rows, cols = len(matrix), len(matrix[0])
+    visited = [[False for _ in range(cols)] for _ in range(rows)]
+    result = []
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
+    dir_index = 0
+    row, col = 0, 0
+
+    while len(result) < rows * cols:
+        visited[row][col] = True
+        result.append(matrix[row][col])
+
+        next_row, next_col = row + directions[dir_index][0], col + directions[dir_index][1]
+
+        if (next_row >= 0 and next_row < rows and
+            next_col >= 0 and next_col < cols and not visited[next_row][next_col]):
+            # Move in the current direction if valid
+            row, col = next_row, next_col
+        else:
+            # Change direction when invalid move or edge reached
+            dir_index = (dir_index + 1) % 4
+
+        row += directions[dir_index][0]
+        col += directions[dir_index][1]
+
+    return result
+```
+
+**Example Usage:**
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+This function uses a `visited` matrix to keep track of visited elements and a `directions` list to move in the current direction. It changes direction when an invalid move or edge is reached. The result list stores the visited elements in spiral order.

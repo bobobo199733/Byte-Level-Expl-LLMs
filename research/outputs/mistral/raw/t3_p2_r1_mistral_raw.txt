@@ -1,0 +1,16 @@
+Here is a Python function that evaluates the given arithmetic expression using the `eval()` function. However, it's important to note that using `eval()` can be risky as it executes arbitrary code. In this case, I assume you are providing safe expressions.
+
+```python
+import ast
+
+def evaluate(expr: str) -> int:
+    try:
+        expression = ast.parse(expr, mode='eval')
+        result = eval(compile(expression, '<string>', 'eval'))
+        return int(result)
+    except Exception as e:
+        print(f"Error evaluating the expression: {str(e)}")
+        return None
+```
+
+This function takes a string `expr`, parses it into an Abstract Syntax Tree (AST), compiles the AST to Python bytecode, and then evaluates the bytecode using the `eval()` function. The result is converted to an integer if possible. If there's any error during this process, it prints the error message and returns `None`.

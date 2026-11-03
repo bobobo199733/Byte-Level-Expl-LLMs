@@ -1,0 +1,11 @@
+Write exactly one Python function named course_schedule(num_courses, prerequisites).
+
+The function should determine whether it is possible to finish all courses given prerequisite dependencies.
+
+Requirements:
+- Detect cycles in the dependency graph
+- Return True if all courses can be completed
+- Return False if there is a cyclic dependency
+- Raise ValueError for invalid inputs
+- Only output Python code
+- Do not include explanations

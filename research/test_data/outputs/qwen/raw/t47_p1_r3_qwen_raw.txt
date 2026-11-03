@@ -1,0 +1,78 @@
+Certainly! To create a `basic_calculator` function in Python without using the `eval()` function, we can implement a simple algorithm that processes the string step by step. The approach involves handling parentheses first and then evaluating the expression.
+
+Here's a complete implementation of the `basic_calculator` function:
+
+```python
+def basic_calculator(s):
+    def compute_expression(tokens):
+        stack = []
+        current_number = 0
+        operation = '+'
+        
+        for token in tokens:
+            if token.isdigit():
+                current_number = (current_number * 10) + int(token)
+            elif token == '(':
+                # Evaluate the expression within parentheses and replace with its value
+                i, j = stack.pop(), len(stack) - 1
+                inner_result = compute_expression(stack[i+1:j])
+                stack[j-1] = str(inner_result)
+            else:
+                if operation == '+':
+                    stack.append(current_number)
+                elif operation == '-':
+                    stack.append(-current_number)
+                current_number = 0
+                operation = token
+        
+        # Handle the last number and operation
+        if operation == '+':
+            stack.append(current_number)
+        elif operation == '-':
+            stack.append(-current_number)
+
+        return sum(stack)
+    
+    # Remove spaces from the input string
+    s = s.replace(" ", "")
+    tokens = []
+    
+    i = 0
+    while i < len(s):
+        if s[i].isdigit():
+            j = i + 1
+            while j < len(s) and s[j].isdigit():
+                j += 1
+            tokens.append(int(s[i:j]))
+            i = j - 1
+        elif s[i] == '(':
+            # Find the corresponding closing parenthesis
+            count = 1
+            j = i + 1
+            while j < len(s):
+                if s[j] == '(':
+                    count += 1
+                elif s[j] == ')':
+                    count -= 1
+                if count == 0:
+                    break
+                j += 1
+            tokens.append(compute_expression(s[i+1:j].split()))
+        i += 1
+    
+    return compute_expression(tokens)
+
+# Example usage:
+print(basic_calculator("1 + 2 - (3 + (4 - 5))"))  # Output: 3
+```
+
+### Explanation:
+
+1. **Tokenization**: The input string is first cleaned by removing spaces and then split into tokens (numbers, operators, and parentheses).
+2. **Parentheses Handling**: When a parenthesis `(` is encountered, the function recursively evaluates the expression inside it.
+3. **Evaluation Logic**:
+   - A stack is used to handle the current numbers and operations.
+   - The function processes each token: if it's a number, it adds it to the current number; if it's an operator, it applies it to the last stored number.
+4. **Final Result**: After processing all tokens, the sum of the stack gives the final result.
+
+This approach ensures that nested parentheses are handled correctly and non-nested operations are evaluated as expected.

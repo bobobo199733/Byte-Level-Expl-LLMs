@@ -1,0 +1,80 @@
+**Sudoku Solver Function**
+=========================
+
+The following is a Python function to solve a Sudoku puzzle using backtracking.
+
+```python
+def is_valid(board, row, col, num):
+    """
+    Checks if it's possible to place a number at the given position on the board.
+
+    :param board: The Sudoku board.
+    :param row: The row index.
+    :param col: The column index.
+    :param num: The number to check.
+    :return: True if the number can be placed, False otherwise.
+    """
+    # Check the row and column
+    for i in range(9):
+        if board[row][i] == num or board[i][col] == num:
+            return False
+
+    # Check the box
+    start_row = row - row % 3
+    start_col = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[start_row + i][start_col + j] == num:
+                return False
+
+    return True
+
+
+def sudoku_solver(board):
+    """
+    Solves a Sudoku puzzle in-place using backtracking.
+
+    :param board: The Sudoku board.
+    """
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, row, col, num):
+                        board[row][col] = num
+                        if sudoku_solver(board):  # Recursive call
+                            return True
+                        else:
+                            board[row][col] = 0  # Backtrack
+
+                return False  # If no number can be placed
+    return True  # If the puzzle is solved
+
+
+# Example usage
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+if sudoku_solver(board):
+    for row in board:
+        print(row)
+else:
+    print("No solution exists")
+```
+
+**Explanation**
+
+This function works by attempting to place numbers in the Sudoku puzzle using a recursive approach. The `is_valid` function checks whether a number can be placed at a given position on the board.
+
+In the main loop, if an empty cell is found (represented by 0), it tries each possible number from 1 to 9. If any of these numbers are valid according to `is_valid`, it places that number in the current cell and makes a recursive call to solve the rest of the puzzle. If this recursive call returns True, it means the puzzle has been successfully solved.
+
+If no valid number can be placed at a given position (i.e., all possible numbers have been tried), it backtracks by setting the current cell's value back to 0 and returning False, which triggers the function to try another number in the same position or move on to the next one. This process continues until the puzzle is solved or no solution exists.

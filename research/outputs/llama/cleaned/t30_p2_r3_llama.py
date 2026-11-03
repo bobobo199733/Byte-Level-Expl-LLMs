@@ -1,0 +1,20 @@
+def max_subarray_sum(nums):
+    """
+    This function computes the largest possible sum of a contiguous subarray.
+
+    Args:
+        nums (list): A list of integers.
+
+    Returns:
+        int: The maximum sum of a contiguous subarray.
+
+    Raises:
+        ValueError: If the input list is empty.
+    """
+    if not nums:
+        raise ValueError('Input list cannot be empty')
+    max_current = max_global = nums[0]
+    for num in nums[1:]:
+        max_current = max(num, max_current + num)
+        max_global = max(max_global, max_current)
+    return max_global

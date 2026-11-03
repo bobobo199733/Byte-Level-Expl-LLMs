@@ -1,0 +1,18 @@
+Here is the Python function for finding the maximum sum of any contiguous subarray:
+
+```python
+def max_subarray_sum(nums):
+    if not nums:
+        return 0
+
+    current_max = nums[0]
+    global_max = nums[0]
+
+    for num in nums[1:]:
+        current_max = max(num, current_max + num)
+        global_max = max(current_max, global_max)
+
+    return global_max
+```
+
+This function uses the Kadane's algorithm to solve the problem. It maintains two variables: `current_max`, which keeps track of the maximum sum within a contiguous subarray up to the current number being processed; and `global_max`, which stores the maximum sum found so far in the array. The function returns the `global_max` value at the end.

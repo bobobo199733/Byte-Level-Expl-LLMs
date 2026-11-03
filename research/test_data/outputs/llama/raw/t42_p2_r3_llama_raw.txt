@@ -1,0 +1,51 @@
+```python
+def course_schedule(num_courses, prerequisites):
+    """
+    Determines whether it is possible to finish all courses given prerequisite dependencies.
+
+    Args:
+        num_courses (int): The number of courses.
+        prerequisites (list[list[int]]): A list of pairs of course numbers where the first one is a prerequisite for the second.
+
+    Returns:
+        bool: True if all courses can be completed, False otherwise.
+
+    Raises:
+        ValueError: If there are invalid inputs.
+    """
+    
+    # Check for invalid inputs
+    if num_courses <= 0 or not isinstance(num_courses, int):
+        raise ValueError("num_courses must be a positive integer")
+        
+    if prerequisites is None or not all(isinstance(x, list) and len(x) == 2 and isinstance(y, int) for x in prerequisites for y in x):
+        raise ValueError("prerequisites must be a list of pairs of integers")
+    
+    # Create adjacency list representation
+    graph = [[] for _ in range(num_courses)]
+    visited = [0] * num_courses
+    
+    for u, v in prerequisites:
+        if u < 0 or u >= num_courses or v < 0 or v >= num_courses:
+            raise ValueError("Course indices out of bounds")
+        
+        graph[u].append(v)
+    
+    # Depth-first search to detect cycles
+    def dfs(node):
+        if visited[node] == -1:  # already in stack, cycle found
+            return False
+        if visited[node] == 0:  # not visited yet
+            visited[node] = -1
+            for neighbor in graph[node]:
+                if not dfs(neighbor):
+                    return False
+            visited[node] = 1  # mark as visited
+        return True
+    
+    for node in range(num_courses):
+        if visited[node] == 0 and not dfs(node):
+            return False
+            
+    return True
+```

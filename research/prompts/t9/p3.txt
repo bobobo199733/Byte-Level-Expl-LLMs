@@ -1,0 +1,3 @@
+Write a Python function merge_intervals(intervals).
+
+Return only valid Python code.

@@ -1,0 +1,1 @@
+Write one function called fast_power(base, exponent) that quickly computes base to the exponent. Return only the function.

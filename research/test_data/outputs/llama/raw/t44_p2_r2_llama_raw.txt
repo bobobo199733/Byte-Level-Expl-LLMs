@@ -1,0 +1,30 @@
+```python
+def rotate_array(nums, k):
+    """
+    Rotate the input array to the right by k positions.
+    
+    Args:
+        nums (list): The input list of numbers.
+        k (int): The number of positions to rotate.
+        
+    Returns:
+        list: The rotated list of numbers.
+        
+    Raises:
+        ValueError: If k is larger than the length of the input list or if k is negative.
+    """
+    
+    # Check for invalid inputs
+    if not isinstance(nums, list) or len(nums) == 0:
+        raise ValueError("Input must be a non-empty list")
+    if not isinstance(k, int):
+        raise ValueError("k must be an integer")
+    if k < 0:
+        raise ValueError("k cannot be negative")
+    
+    # Correctly handle large k values
+    k = k % len(nums)
+    
+    # Rotate the array to the right by k positions
+    return nums[-k:] + nums[:-k]
+```

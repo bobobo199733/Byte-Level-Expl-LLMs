@@ -1,0 +1,60 @@
+Certainly! To solve this problem, we can use a Depth-First Search (DFS) approach. We'll define the `count_islands` function that iterates through each cell in the grid and performs DFS to count connected groups of land cells.
+
+Here's the implementation:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+
+    def dfs(x, y):
+        # Check boundaries and if the cell is water or already visited
+        if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0]) or grid[x][y] == "0":
+            return
+        # Mark the cell as visited by setting it to '0'
+        grid[x][y] = "0"
+        
+        # Explore all four directions
+        dfs(x + 1, y)  # down
+        dfs(x - 1, y)  # up
+        dfs(x, y + 1)  # right
+        dfs(x, y - 1)  # left
+
+    count = 0
+    rows, cols = len(grid), len(grid[0])
+
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == "1":
+                dfs(i, j)
+                count += 1
+
+    return count
+
+# Example usage:
+grid1 = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"]
+]
+
+grid2 = [
+    ["1", "1", "1"],
+    ["0", "1", "0"],
+    ["1", "1", "1"]
+]
+
+print(count_islands(grid1))  # Output: 3
+print(count_islands(grid2))  # Output: 1
+```
+
+### Explanation:
+- **Function Definition**: `count_islands` takes a 2D grid as input.
+- **Edge Case Handling**: If the grid is empty, it returns 0.
+- **DFS Function**: The inner function `dfs(x, y)` performs depth-first search to mark all connected land cells (cells with "1") and sets them to "0" to avoid revisiting.
+- **Count Initialization**: We initialize a count variable to keep track of the number of islands found.
+- **Grid Iteration**: We iterate through each cell in the grid. If we find a cell with "1", we perform DFS from that cell and increment the count.
+- **DFS Execution**: For each island, we call `dfs` starting from each land cell, marking all connected cells as water.
+
+This approach ensures that each cell is visited only once, and it correctly counts all distinct groups of connected land cells.

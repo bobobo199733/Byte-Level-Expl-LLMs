@@ -1,0 +1,9 @@
+Write a Python function validate_password(password).
+
+Requirements:
+- Minimum 8 characters
+- At least one uppercase letter
+- At least one lowercase letter
+- At least one digit
+- At least one special character
+- Return True or False

@@ -1,0 +1,49 @@
+Certainly! Below is the Python function `word_break` that uses dynamic programming to solve the problem:
+
+```python
+def word_break(s, word_dict):
+    # Convert word_dict to a set for O(1) lookup
+    word_set = set(word_dict)
+    
+    # Create a DP array where dp[i] means s[:i+1] can be segmented using words from word_dict
+    dp = [False] * (len(s) + 1)
+    
+    # Base case: an empty string is always valid
+    dp[0] = True
+    
+    # Fill the DP table
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+    
+    # The result is stored in dp[len(s)]
+    return dp[len(s)]
+
+# Example usage:
+s = "leetcode"
+word_dict = ["leet", "code"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsandog"
+word_dict = ["cats", "dog", "sand", "and", "cat"]
+print(word_break(s, word_dict))  # Output: False
+```
+
+### Explanation:
+- **DP Array**: The DP array `dp` is initialized with length `len(s) + 1`. Each element `dp[i]` indicates whether the substring `s[:i]` can be segmented into words from `word_dict`.
+  
+- **Base Case**: We start by setting `dp[0] = True`, as an empty string is always a valid segment.
+
+- **Filling DP Table**: For each position `i` in the string, we check all possible substrings `s[j:i]` where `j < i`. If `dp[j]` is true (meaning that `s[:j]` can be segmented) and `s[j:i]` exists in `word_set`, then set `dp[i] = True`.
+
+- **Set for Lookup**: Converting `word_dict` to a set allows for O(1) time complexity when checking if a substring is part of the dictionary.
+
+- **Result**: The final result, which indicates whether the entire string can be segmented using words from `word_dict`, is stored in `dp[len(s)]`.
+
+This approach ensures that each position in the string is checked only once, leading to efficient computation.

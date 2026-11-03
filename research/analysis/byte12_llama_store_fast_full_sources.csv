@@ -1,0 +1,26 @@
+task,prompt,llama_run,llama_op,llama_raw,llama_source,llama_shap,llama_correct,mistral_run,mistral_op,mistral_raw,mistral_source,mistral_shap,mistral_correct,qwen_run,qwen_op,qwen_raw,qwen_source,qwen_shap,qwen_correct
+t41,p1,r1,STORE_FAST,110,for word in words:,0.1067798733711242,False,r1,GET_ITER,19,for word in words:,0.2060896605253219,True,r1,POP_TOP,32,from collections import defaultdict,-0.1373506933450698,True
+t41,p1,r2,STORE_FAST,110,for word in words:,0.1484559476375579,True,r1,GET_ITER,19,for word in words:,0.2060896605253219,True,r1,POP_TOP,32,from collections import defaultdict,-0.1373506933450698,True
+t41,p1,r3,STORE_FAST,110,for word in words:,0.1036005616188049,False,r1,GET_ITER,19,for word in words:,0.2060896605253219,True,r1,POP_TOP,32,from collections import defaultdict,-0.1373506933450698,True
+t41,p3,r1,STORE_FAST,110,for word in words:,0.0883479490876197,True,r1,STORE_FAST,110,for word in words:,-0.1294713616371154,True,r1,POP_TOP,32,from collections import defaultdict,-0.1373506933450698,True
+t41,p3,r3,STORE_FAST,110,for word in words:,0.0725474208593368,False,r1,STORE_FAST,110,for word in words:,-0.1294713616371154,True,r1,POP_TOP,32,from collections import defaultdict,-0.1373506933450698,True
+t44,p1,r1,STORE_FAST,110,k = k % len(nums),0.0774337500333786,True,r1,STORE_FAST,110,k %= len(nums),-0.1311248838901519,True,r1,BINARY_OP,45,k = k % n,-0.1522704511880874,False
+t44,p1,r2,STORE_FAST,110,k = k % len(nums),0.1130263730883598,False,r1,STORE_FAST,110,k %= len(nums),-0.1311248838901519,True,r1,BINARY_OP,45,k = k % n,-0.1522704511880874,False
+t44,p1,r3,STORE_FAST,110,k = k % len(nums),0.0774337500333786,True,r1,STORE_FAST,110,k %= len(nums),-0.1311248838901519,True,r1,BINARY_OP,45,k = k % n,-0.1522704511880874,False
+t44,p3,r2,STORE_FAST,110,k = k % len(nums),0.0774337500333786,True,r1,BINARY_OP,45,k %= n,0.0979571565985679,False,r1,BINARY_OP,45,k %= n,-0.1315447241067886,False
+t46,p1,r1,STORE_FAST,110,current_length = 0,0.1558633744716644,True,r1,STORE_FAST,110,total_spaces = 0,-0.0726726874709129,False,r1,BUILD_LIST,47,result = [],-0.0761594399809837,False
+t46,p1,r2,STORE_FAST,110,current_width = 0,0.1539086252450943,False,r1,STORE_FAST,110,total_spaces = 0,-0.0726726874709129,False,r1,BUILD_LIST,47,result = [],-0.0761594399809837,False
+t46,p2,r1,STORE_FAST,110,current_width = 0,0.094816580414772,True,r1,LOAD_FAST,85,lines = [words[0]],-0.0502812974154949,True,r1,STORE_DEREF,109,result = [],0.018497671931982,False
+t46,p2,r2,STORE_FAST,110,current_width = 0,0.1103558912873268,False,r1,LOAD_FAST,85,lines = [words[0]],-0.0502812974154949,True,r1,STORE_DEREF,109,result = [],0.018497671931982,False
+t46,p2,r3,STORE_FAST,110,current_length = 0,0.0703596100211143,True,r1,LOAD_FAST,85,lines = [words[0]],-0.0502812974154949,True,r1,STORE_DEREF,109,result = [],0.018497671931982,False
+t46,p3,r1,STORE_FAST,110,current_width = 0,0.1033808961510658,True,r1,STORE_FAST,110,total_length = 0,-0.161225289106369,False,r1,BUILD_LIST,47,result = [],-0.0760286524891853,False
+t46,p3,r2,STORE_FAST,110,total_length = 0,0.1029750183224678,True,r1,STORE_FAST,110,total_length = 0,-0.161225289106369,False,r1,BUILD_LIST,47,result = [],-0.0760286524891853,False
+t46,p3,r3,STORE_FAST,110,total_chars = 0,0.0922758728265762,True,r1,STORE_FAST,110,total_length = 0,-0.161225289106369,False,r1,BUILD_LIST,47,result = [],-0.0760286524891853,False
+t47,p1,r1,STORE_FAST,110,"s = s.replace(' ', '')",0.102164901793003,True,r1,BUILD_LIST,47,operator_stack = [],0.0624033845961093,False,r1,STORE_DEREF,109,"def evaluate_expression(stack, sign):",0.0192788206040859,False
+t47,p1,r3,STORE_FAST,110,res = 0,0.1835429668426513,True,r1,BUILD_LIST,47,operator_stack = [],0.0624033845961093,False,r1,STORE_DEREF,109,"def evaluate_expression(stack, sign):",0.0192788206040859,False
+t47,p2,r1,STORE_FAST,110,sign = '+',0.0758187919855117,True,r1,BUILD_TUPLE,52,"def handle_parentheses(s, stack):",0.0901101380586624,False,r1,LOAD_CONST,83,"s = s.replace(' ', '')",-0.0362721569836139,False
+t47,p2,r2,STORE_FAST,110,stack = [],0.1281388700008392,True,r1,BUILD_TUPLE,52,"def handle_parentheses(s, stack):",0.0901101380586624,False,r1,LOAD_CONST,83,"s = s.replace(' ', '')",-0.0362721569836139,False
+t47,p2,r3,STORE_FAST,110,num = 0,0.1389261037111282,True,r1,BUILD_TUPLE,52,"def handle_parentheses(s, stack):",0.0901101380586624,False,r1,LOAD_CONST,83,"s = s.replace(' ', '')",-0.0362721569836139,False
+t47,p3,r1,STORE_FAST,110,i = 0,0.1353379189968109,False,r1,PUSH_EXC_INFO,33,,0.1468071639537811,True,r1,STORE_FAST,110,def evaluate_stack(stack):,0.0381011813879013,True
+t49,p2,r3,STORE_FAST,110,n = len(s) + 1,0.1077821776270866,False,r1,BUILD_LIST,47,dp = [True] + [False] * len(s),0.1633232831954956,False,r1,LOAD_CONST,83,dp = [False] * (len(s) + 1),-0.0555516742169857,False
+t50,p1,r3,STORE_FAST,110,p_counter = Counter(p),0.0903026312589645,False,r1,GET_ITER,19,for char in p:,0.1502730995416641,True,r1,POP_TOP,32,from collections import Counter,-0.106554701924324,False

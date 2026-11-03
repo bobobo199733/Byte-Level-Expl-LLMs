@@ -1,0 +1,65 @@
+```python
+from collections import defaultdict
+
+def min_window_substring(s: str, t: str) -> str:
+    """
+    Returns the shortest substring in string s which contains all characters of string t.
+
+    Args:
+        s (str): The main string to search for the substring.
+        t (str): The string containing the characters that should be present in the substring.
+
+    Returns:
+        str: The shortest substring in s containing all characters of t, or an empty string if no such substring exists.
+    """
+    
+    # If string t is longer than string s, there can't be a substring that contains all characters
+    if len(t) > len(s):
+        return ""
+
+    # Create a dictionary to store the frequency of each character in string t
+    t_count = defaultdict(int)
+    for char in t:
+        t_count[char] += 1
+
+    # Initialize variables to keep track of the minimum window and its length
+    min_window = ""
+    min_length = float('inf')
+
+    # Initialize variables to keep track of the current window's start and end indices
+    left = 0
+    formed = 0
+
+    # Create a dictionary to store the frequency of each character in the current window
+    window_counts = defaultdict(int)
+
+    # Iterate over string s
+    for right in range(len(s)):
+        # Add the current character to the window's frequency dictionary
+        character = s[right]
+        window_counts[character] += 1
+
+        # If the current character is in t and its frequency in the window is equal to its frequency in t, increment formed
+        if character in t_count and window_counts[character] == t_count[character]:
+            formed += 1
+
+        # While the window contains all characters of t and the left pointer is not at the start of the window
+        while left <= right and formed == len(t_count):
+            # Update the minimum window if the current window is smaller
+            if right - left + 1 < min_length:
+                min_length = right - left + 1
+                min_window = s[left:right + 1]
+
+            # Remove the character at the left pointer from the window's frequency dictionary
+            character = s[left]
+            window_counts[character] -= 1
+
+            # If the removed character is in t and its frequency in the window is less than its frequency in t, decrement formed
+            if character in t_count and window_counts[character] < t_count[character]:
+                formed -= 1
+
+            # Move the left pointer to the right
+            left += 1
+
+    return min_window
+```

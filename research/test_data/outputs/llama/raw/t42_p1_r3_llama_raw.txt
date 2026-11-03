@@ -1,0 +1,53 @@
+Here is the Python function to solve this problem:
+
+```python
+from collections import defaultdict, deque
+
+def course_schedule(num_courses, prerequisites):
+    """
+    Determine whether all courses can be completed based on given prerequisites.
+
+    Args:
+        num_courses (int): The total number of courses.
+        prerequisites (list[list[int]]): Each inner list contains a prerequisite pair [a, b] meaning course a depends on course b.
+
+    Returns:
+        bool: True if all courses can be completed, otherwise False.
+    """
+    # Create adjacency list to represent graph
+    graph = defaultdict(list)
+    in_degree = {i: 0 for i in range(num_courses)}
+
+    # Populate graph and in-degree dictionary
+    for a, b in prerequisites:
+        graph[b].append(a)
+        in_degree[a] += 1
+
+    # Initialize queue with nodes having in-degree of 0 (no dependencies)
+    queue = deque([i for i in in_degree if in_degree[i] == 0])
+
+    # Perform topological sorting
+    while queue:
+        course = queue.popleft()
+        for neighbor in graph[course]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # If there are still nodes with non-zero in-degree, it means a cycle exists
+    return all(in_degree[i] == 0 for i in in_degree)
+```
+
+Example use cases:
+
+```python
+num_courses = 4
+prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]
+print(course_schedule(num_courses, prerequisites))  # Output: True
+
+num_courses = 2
+prerequisites = [[1, 0]]
+print(course_schedule(num_courses, prerequisites))  # Output: False
+```
+
+This solution uses a topological sorting approach to solve the problem. It first constructs an adjacency list representing the graph and initializes the in-degree dictionary. Then, it performs a breadth-first search using a queue to traverse the graph. Finally, it checks if there are any nodes with non-zero in-degree after the traversal, which indicates whether all courses can be completed or not.

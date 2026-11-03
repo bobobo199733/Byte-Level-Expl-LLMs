@@ -1,0 +1,66 @@
+To determine whether all courses can be completed given the prerequisites, we need to detect cycles in the dependency graph. If there's a cycle, it means that at least one course cannot be completed because some prerequisite will never be satisfied.
+
+Here’s how you can implement this:
+
+1. **Graph Representation**: Represent each course as a node and each prerequisite as a directed edge.
+2. **Cycle Detection**: Use Depth-First Search (DFS) to detect cycles in the graph. If a cycle is detected, return `False`.
+
+Below is the Python function that implements this logic:
+
+```python
+def course_schedule(num_courses, prerequisites):
+    # Create an adjacency list for the graph
+    from collections import defaultdict
+    
+    def build_graph(num_courses, prerequisites):
+        graph = defaultdict(list)
+        indegree = [0] * num_courses
+        
+        for course, prerequisite in prerequisites:
+            graph[prerequisite].append(course)
+            indegree[course] += 1
+        
+        return graph, indegree
+
+    # Build the graph and indegree array
+    graph, indegree = build_graph(num_courses, prerequisites)
+
+    # Stack to perform DFS
+    stack = []
+    
+    # Initialize the stack with all courses that have no incoming edges (indegree == 0)
+    for i in range(num_courses):
+        if indegree[i] == 0:
+            stack.append(i)
+    
+    count = 0
+    
+    while stack:
+        course = stack.pop()
+        count += 1
+        
+        for neighbor in graph[course]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                stack.append(neighbor)
+    
+    # If the number of courses completed is equal to the total number of courses, return True
+    return count == num_courses
+
+# Example usage:
+print(course_schedule(2, [[1, 0]]))  # Output: True
+print(course_schedule(2, [[1, 0], [0, 1]])])  # Output: False
+```
+
+### Explanation:
+
+1. **Graph Construction**:
+   - We use a dictionary to store the adjacency list representation of the graph.
+   - `indegree` array keeps track of how many prerequisites each course has.
+
+2. **Cycle Detection via DFS (Topological Sort)**:
+   - We start by adding all courses with no prerequisites (`indegree == 0`) to the stack.
+   - For each course, we decrement the indegree of its neighbors and add them to the stack if their indegree becomes zero.
+   - If at the end, the number of completed courses is equal to `num_courses`, it means there are no cycles, and all courses can be completed.
+
+This approach ensures that you correctly detect whether a cycle exists in the graph using topological sorting.

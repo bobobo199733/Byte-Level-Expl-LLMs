@@ -1,0 +1,54 @@
+Certainly! Below is a Python function `knapsack_01` that implements the 0/1 knapsack problem using dynamic programming. This approach ensures that we maximize the total value without exceeding the given capacity.
+
+```python
+def knapsack_01(weights, values, capacity):
+    # Handle empty input lists correctly
+    if not weights or not values:
+        return 0
+
+    n = len(weights)
+    
+    # Base case: If there are no items or the capacity is zero, we cannot add any value.
+    if n == 0 or capacity <= 0:
+        return 0
+    
+    # Create a DP table where dp[i][w] represents the maximum value that can be attained with i items and w capacity
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+    
+    # Fill the DP table
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+            else:
+                dp[i][w] = dp[i - 1][w]
+    
+    # The value in the bottom-right corner of the DP table is our answer
+    return dp[n][capacity]
+
+# Example usage:
+weights = [2, 3, 4, 5]
+values = [3, 4, 5, 6]
+capacity = 5
+
+print(knapsack_01(weights, values, capacity))  # Output should be the maximum value achievable
+```
+
+### Explanation:
+
+- **Initialization**: 
+  - `dp[i][w]` is used to store the maximum value that can be achieved with the first `i` items and a knapsack of size `w`.
+  - We initialize the DP table such that `dp[0][w] = 0` for all capacities, as no items means zero value. Similarly, `dp[i][0] = 0` because if the capacity is zero, we cannot add any value.
+
+- **Filling the DP Table**:
+  - For each item from `1` to `n`, and for each possible weight from `1` to `capacity`:
+    - If the current item's weight (`weights[i-1]`) is less than or equal to the current capacity `w`, we have two choices:
+      - Include the item, which would add its value (`values[i-1]`) to the maximum value achievable with the remaining capacity (`dp[i-1][w - weights[i-1]]`).
+      - Exclude the item, in which case the value remains as `dp[i-1][w]`.
+    - We take the maximum of these two choices.
+  - If the current item's weight exceeds the current capacity, we exclude it and keep the previous state (`dp[i-1][w]`).
+
+- **Result**:
+  - The final answer is found in `dp[n][capacity]`, which represents the maximum value achievable with all items and a knapsack of size `capacity`.
+
+This approach ensures that we efficiently compute the optimal solution while adhering to the constraints.

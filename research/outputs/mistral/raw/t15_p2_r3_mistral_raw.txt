@@ -1,0 +1,48 @@
+Here's a Python function that performs a topological sort on a directed acyclic graph (DAG). The function uses Depth-First Search (DFS) to traverse the graph and maintain the order of nodes.
+
+```python
+def topological_sort(graph):
+    def dfs(node, visited, stack, recursion):
+        if node in recursion or node in visited:
+            raise ValueError("Cycle detected!")
+
+        visited.add(node)
+        recursion.add(node)
+
+        for neighbor in graph[node]:
+            dfs(neighbor, visited, stack, recursion)
+
+        recursion.remove(node)
+        stack.append(node)
+
+    visited = set()
+    recursion = set()
+    stack = []
+
+    for node in graph:
+        if node not in visited:
+            dfs(node, visited, stack, recursion)
+
+    if len(recursion) > 0 or len(graph) != len(stack):
+        raise ValueError("Graph is not a Directed Acyclic Graph!")
+
+    return list(reversed(stack))
+```
+
+You can use this function as follows:
+
+```python
+graph = {
+    "A": ["B", "C"],
+    "B": ["D", "E"],
+    "C": ["F"],
+    "D": [],
+    "E": ["A"],
+    "F": []
+}
+
+result = topological_sort(graph)
+print(result)  # Output: ['D', 'E', 'A', 'B', 'C', 'F']
+```
+
+This function ensures that all nodes are included in the result, detects cycles, and does not use any external libraries.

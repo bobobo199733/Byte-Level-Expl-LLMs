@@ -1,0 +1,74 @@
+Certainly! Below is a Python function `dijkstra_shortest_path` that implements Dijkstra's algorithm efficiently for finding the shortest paths from a start node in a weighted graph. This function handles weighted edges with positive weights, disconnected graphs, and returns the shortest distance from the start node to every reachable node.
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    # Initialize distances dictionary with infinity for all nodes except the start node
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    
+    # Priority queue to store (distance, node) pairs
+    priority_queue = [(0, start)]
+    
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+        
+        # If the current distance is greater than the recorded distance, skip this node
+        if current_distance > distances[current_node]:
+            continue
+        
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            
+            # Only consider this new path if it's better
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+    
+    return distances
+
+# Example usage:
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'D': 2, 'E': 7},
+    'C': {'A': 4, 'F': 3},
+    'D': {'B': 2},
+    'E': {'B': 7, 'F': 5},
+    'F': {'C': 3, 'E': 5}
+}
+
+start_node = 'A'
+shortest_paths = dijkstra_shortest_path(graph, start_node)
+print(shortest_paths)
+```
+
+### Explanation:
+1. **Initialization**:
+   - A dictionary `distances` is initialized where all nodes are set to infinity except the start node which is set to 0.
+   
+2. **Priority Queue**:
+   - We use a priority queue implemented with `heapq` to always expand the shortest path first.
+
+3. **Graph Traversal**:
+   - The algorithm iteratively extracts the smallest distance from the queue and updates the distances of its neighbors if a shorter path is found.
+
+4. **Handling Disconnected Graphs**:
+   - Nodes that are not reachable will remain at infinity in the `distances` dictionary until they are visited or determined to be unreachable.
+
+### Example Output:
+For the provided graph, with start node 'A', the function would output:
+
+```python
+{'A': 0, 'B': 1, 'C': 3, 'D': 3, 'E': 8, 'F': 6}
+```
+
+This indicates that the shortest distance from node `A` to each other node is as follows:
+- Node `A` to itself: 0
+- Node `B`: 1
+- Node `C`: 3
+- Node `D`: 3
+- Node `E`: 8
+- Node `F`: 6
+
+This function ensures that the shortest paths are computed efficiently and handles disconnected components properly.

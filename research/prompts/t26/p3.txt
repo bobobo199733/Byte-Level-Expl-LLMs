@@ -1,0 +1,1 @@
+Write one function called min_window_substring(s, t) that returns the shortest part of s containing all characters of t. Return only the function.

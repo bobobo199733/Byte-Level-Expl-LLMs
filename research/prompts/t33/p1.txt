@@ -1,0 +1,7 @@
+Write exactly ONE Python function called heap_sort(values) that sorts a list using heap sort.
+
+Requirements:
+- Use only one function named heap_sort.
+- Do not use built-in sorting functions.
+- Return a new sorted list.
+- Do not use external libraries.

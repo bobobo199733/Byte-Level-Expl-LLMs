@@ -1,0 +1,17 @@
+Here's a Python function called `coin_change` that uses dynamic programming (bottom-up approach) to solve the Coin Change problem:
+
+```python
+def coin_change(coins, amount):
+    dp = [float('inf')] + [0] * amount  # In Python3, we use float('inf') instead of sys.maxsize as it can be more accurate
+
+    for c in coins:
+        for j in range(c, amount+1):
+            dp[j] = min(dp[j], dp[j - c] + 1)
+
+    if dp[-1] >= amount:
+        return -1
+    else:
+        return dp[-1]
+```
+
+In this function, `coins` is a list containing coin denominations and `amount` represents the target amount. The function returns the minimum number of coins needed to make up the given amount or -1 if it's not possible.

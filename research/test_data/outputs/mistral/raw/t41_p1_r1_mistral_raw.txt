@@ -1,0 +1,27 @@
+Here is a Python function named `group_anagrams` that achieves the desired behavior:
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    anagram_groups = defaultdict(list)
+
+    for word in words:
+        sorted_word = "".join(sorted(word))
+        anagram_groups[sorted_word].append(word)
+
+    result = list(anagram_groups.values())
+    return result
+```
+
+In this code, we use `defaultdict` from the `collections` module to create a dictionary where each key is a sorted version of a word and the corresponding value is a list containing all anagrams of that sorted form. By sorting the letters in each word, we can group together words that have the same characters but in different orders (anagrams).
+
+For your example input:
+```python
+words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+group_anagrams(words)
+```
+The output would be:
+```python
+[["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+```

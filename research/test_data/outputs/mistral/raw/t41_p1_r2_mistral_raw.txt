@@ -1,0 +1,28 @@
+Here is the Python function `group_anagrams(words)` that groups together words that are anagrams of each other:
+
+```python
+def group_anagrams(words):
+    anagram_groups = {}
+    for word in words:
+        sorted_word = ''.join(sorted(word))
+        if sorted_word not in anagram_groups:
+            anagram_groups[sorted_word] = []
+        anagram_groups[sorted_word].append(word)
+
+    result = list(anagram_groups.values())
+    return result
+```
+
+This function works by first creating an empty dictionary (`anagram_groups`) to store the groups of anagrams as key-value pairs, where the keys are sorted versions of each word and the values are lists containing the original words in each group.
+
+The function then iterates through all words in the input list, sorts them, and checks if the sorted version of the current word (`sorted_word`) already exists as a key in `anagram_groups`. If it doesn't exist yet, we create a new entry for it with an empty list. Then, we append the original word to the corresponding group.
+
+After processing all words, the function converts the dictionary into a list of values (i.e., groups) and returns the result.
+
+Example:
+
+```python
+words = ["eat","tea","tan","ate","nat","bat"]
+print(group_anagrams(words))
+# Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+```

@@ -1,0 +1,63 @@
+Certainly! To implement the `roman_to_int` function in Python, we need to handle both simple and subtractive notations of Roman numerals. Here's a step-by-step approach:
+
+1. Define the mapping from Roman symbols to their integer values.
+2. Check if the input string is valid (i.e., contains only allowed characters).
+3. Iterate through the string, handling both simple and subtractive notations.
+
+Here's the implementation:
+
+```python
+def roman_to_int(s: str) -> int:
+    # Mapping of Roman numerals to integers
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    # Check if the input string is valid
+    for char in s:
+        if char not in roman_values:
+            raise ValueError("Invalid Roman numeral: contains invalid characters")
+    
+    # Initialize result and previous value
+    result = 0
+    prev_value = 0
+    
+    # Iterate through each character in the Roman numeral string
+    for char in reversed(s):
+        curr_value = roman_values[char]
+        
+        # Check subtractive notation
+        if curr_value < prev_value:
+            result -= curr_value
+        else:
+            result += curr_value
+        
+        # Update previous value
+        prev_value = curr_value
+    
+    return result
+
+# Example usage:
+print(roman_to_int("III"))  # Output: 3
+print(roman_to_int("IV"))   # Output: 4
+print(roman_to_int("IX"))   # Output: 9
+print(roman_to_int("LVIII"))  # Output: 58
+print(roman_to_int("MCMXCIV"))  # Output: 1994
+```
+
+### Explanation:
+
+1. **Mapping**: We define a dictionary `roman_values` that maps each Roman numeral character to its corresponding integer value.
+2. **Validation**: Before processing the string, we check if all characters in the input are valid Roman numerals. If any invalid character is found, a `ValueError` is raised.
+3. **Iteration and Calculation**:
+   - We iterate through the string from right to left (backwards).
+   - For each character, we get its integer value from the dictionary.
+   - We use a previous value (`prev_value`) to handle subtractive notation correctly: if the current value is less than the previous value, it means this is part of a subtractive notation and should be subtracted; otherwise, it's added to the result.
+
+This implementation ensures that both simple and subtractive notations are handled correctly.

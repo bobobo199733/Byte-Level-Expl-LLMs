@@ -1,0 +1,67 @@
+Certainly! Below is a Python function that implements the text justification logic as described:
+
+```python
+def text_justification(words, max_width):
+    def justify_line(line_words, width):
+        if len(line_words) == 1:
+            # If there's only one word in this line, left-justify it and pad with spaces.
+            return line_words[0] + ' ' * (width - len(line_words[0]))
+        
+        num_spaces = width - sum(len(word) for word in line_words)
+        num_gaps = len(line_words) - 1
+        base_spaces = num_spaces // num_gaps
+        extra_spaces = num_spaces % num_gaps
+        
+        justified_line = ''
+        for i, word in enumerate(line_words):
+            # Add the word and necessary spaces
+            justified_line += word + ' ' * (base_spaces + (i < extra_spaces))
+        
+        return justified_line.rstrip()  # Remove trailing space at the end of the line
+
+    result = []
+    current_line = []
+    current_length = 0
+    
+    for word in words:
+        if len(word) + current_length > max_width:
+            # Join all elements in current_line except the last one with a single space
+            result.append(justify_line(current_line, max_width))
+            
+            # Reset current line and update current length
+            current_line = [word]
+            current_length = len(word)
+        else:
+            current_line.append(word)
+            current_length += len(word) + 1
+    
+    # Handle the last line separately (left-justified with trailing spaces)
+    result.append(' '.join(current_line).ljust(max_width))
+    
+    return result
+
+# Example usage:
+words_example = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width_example = 16
+print(text_justification(words_example, max_width_example))
+```
+
+### Explanation:
+
+- **Function `justify_line`**: This helper function justifies a line of words according to the rules specified. It handles both cases where there are multiple words and need to distribute spaces evenly, as well as when there's only one word left-justified with trailing spaces.
+  
+- **Main Function Logic**:
+  - We iterate through each word in `words`.
+  - For each word, we check if adding it to the current line (`current_line`) will exceed the maximum width. If it does, we justify the current line and start a new one with just that word.
+  - After processing all words or reaching the end of the sentence, we handle any leftover line (which is guaranteed by the problem constraints).
+
+### Example Output:
+
+For `words_example = ["This", "is", "an", "example", "of", "text", "justification."]` and `max_width_example = 16`, the output will be:
+```
+['This    is    an',
+ 'example  of text',
+ 'justification.   ']
+```
+
+Each line in the result list adheres to the rules specified, ensuring proper justification based on `max_width`.

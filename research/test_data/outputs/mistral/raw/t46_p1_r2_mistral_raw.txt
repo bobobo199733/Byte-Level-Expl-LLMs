@@ -1,0 +1,27 @@
+Here's a Python function called `text_justification` that fulfills your requirements:
+
+```python
+def text_justification(words, max_width):
+    if not words:
+        return []
+
+    line = []
+    lines = []
+
+    for word in words:
+        if not line or (len(line) > 0 and len(line[-1]) + len(word) + 1 <= max_width):
+            line.append(word + ' ')
+        else:
+            lines.append(''.join(line))
+            line = [word + ' ']
+
+    lines.append(' '.join(line))
+
+    # Add extra spaces to the last line to make it max_width characters long
+    while len(' '.join(lines[-1].split())) < max_width:
+        lines[-1] += ' '
+
+    return lines
+```
+
+This function works by iterating through each word in the input list and checking if it can be added to the current line without exceeding `max_width`. If not, a new line is started, and the remaining words are added to that. Once all the words have been processed, any extra spaces are added to the last line to make it `max_width` characters long.

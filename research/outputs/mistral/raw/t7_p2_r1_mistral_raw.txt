@@ -1,0 +1,16 @@
+Here is a simple implementation of the `word_frequency` function in Python that meets your requirements:
+
+```python
+def word_frequency(text):
+    words = text.lower().split()
+    freq_dict = {}
+
+    for word in words:
+        word = ''.join(c for c in word if c.isalnum())  # Remove extra spaces and non-alphanumeric characters
+        if word:  # Skip empty strings that may result from removing non-alphanumeric characters
+            freq_dict[word] = freq_dict.get(word, 0) + 1
+
+    return freq_dict
+```
+
+This function works by first converting the input text to lowercase and splitting it into words using the space character as a delimiter. It then removes extra spaces and non-alphanumeric characters from each word and counts their occurrences in the text, storing the results in a dictionary. The `get` method is used to update the count of existing words or initialize them with a default value of 0 if they do not already exist in the dictionary.

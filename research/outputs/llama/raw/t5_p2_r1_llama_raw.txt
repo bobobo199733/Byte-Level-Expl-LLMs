@@ -1,0 +1,68 @@
+Here's a Python solution for the problem using a stack data structure.
+
+```python
+from collections import deque
+
+def remove_k_digits(num: str, k: int) -> str:
+    """
+    Remove k digits from the number string so the result is as small as possible.
+
+    Args:
+        num (str): The input number as a string.
+        k (int): The number of digits to be removed.
+
+    Returns:
+        str: The smallest possible number after removing k digits.
+    """
+
+    # Convert the input string into a deque for efficient append and pop operations
+    d = deque(list(num))
+
+    while k > 0 and d:
+        # Remove all occurrences of the smallest digit that appears at least twice in the current number
+        while len(d) >= 2 and d[0] == d[1]:
+            d.popleft()
+            d.popleft()
+
+        # Remove the smallest digit from the deque
+        d.popleft()
+        k -= 1
+
+    # Join the remaining digits in the deque into a string
+    res = ''.join(d)
+
+    # If there are remaining digits and the length of the result is still less than the original number, 
+    # it means that we have removed too many digits. In this case, append the first digit back to the result.
+    if len(res) < len(num):
+        res += num[0]
+
+    return str(int(res)) if res else '0'
+```
+
+This function uses a deque to store the digits of the number. It iteratively removes the smallest digit from the front of the deque until either all required digits are removed or no more digits can be removed (i.e., when there's only one digit left in the deque). After removing k digits, it joins the remaining digits into a string and returns the result.
+
+Note that this function assumes that the input number does not start with zeros. If the input number starts with zeros, we need to handle it specially because removing zeros from the beginning of the number would change its value. The modified function is as follows:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    if num[0] == '0':
+        return '0' if k >= 1 else num
+
+    d = deque(list(num))
+    while k > 0 and d:
+        # Remove all occurrences of the smallest digit that appears at least twice in the current number
+        while len(d) >= 2 and d[0] == d[1]:
+            d.popleft()
+            d.popleft()
+
+        # Remove the smallest digit from the deque
+        d.popleft()
+        k -= 1
+
+    # Join the remaining digits in the deque into a string
+    res = ''.join(d)
+
+    return str(int(res)) if res else '0'
+```
+
+This function checks at the beginning whether the first digit of the number is zero. If it is, we immediately return '0' or the original number depending on k.

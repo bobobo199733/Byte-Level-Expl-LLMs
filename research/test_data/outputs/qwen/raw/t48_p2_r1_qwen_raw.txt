@@ -1,0 +1,64 @@
+Certainly! To achieve an `O(log(min(m, n)))` time complexity, we can use binary search on the smaller array to find the correct partition that splits both arrays into two halves such that the median is in one of these halves.
+
+Here's the implementation:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    if len(nums1) > len(nums2):
+        return median_of_two_sorted_arrays(nums2, nums1)
+
+    m, n = len(nums1), len(nums2)
+    imin, imax = 0, m
+
+    while imin <= imax:
+        i = (imin + imax) // 2
+        j = (m + n + 1) // 2 - i
+
+        if i < m and nums2[j-1] > nums1[i]:
+            # i is too small, must increase it
+            imin = i + 1
+        elif i > 0 and nums1[i-1] > nums2[j]:
+            # i is too big, must decrease it
+            imax = i - 1
+        else:
+            # i is perfect
+
+            if i == 0: max_left = float('-inf')
+            else:       max_left = nums1[i-1]
+
+            if j == 0: min_right = float('inf')
+            else:      min_right = nums2[j-1]
+
+            if (m + n) % 2 == 1:
+                return float(max_left)
+
+            return (max_left + min_right) / 2.0
+
+# Example usage
+print(median_of_two_sorted_arrays([1, 3], [2]))          # Output: 2.0
+print(median_of_two_sorted_arrays([1, 2], [3, 4]))       # Output: 2.5
+```
+
+### Explanation:
+
+1. **Input Handling**:
+   - If `nums1` is larger than `nums2`, we swap them to ensure that the smaller array (`nums1`) always has the first argument.
+   
+2. **Binary Search on Smaller Array**:
+   - We perform binary search on the smaller array (`nums1`). The variable `imin` and `imax` represent the range of possible indices for partitioning `nums1`.
+   
+3. **Partition Calculation**:
+   - For a given `i`, we calculate `j` which represents the corresponding index in `nums2` such that both arrays are split into two halves.
+   
+4. **Median Conditions**:
+   - We check if the current partition is valid by comparing elements from both arrays.
+   - If not, adjust the binary search range (`imin` or `imax`).
+   
+5. **Finding the Median**:
+   - Once we find a correct partition, we determine the maximum of the left parts and minimum of the right parts to calculate the median.
+
+6. **Edge Cases**:
+   - Handle cases where one array is empty.
+   - Ensure that the total length of both arrays results in an even or odd number of elements correctly.
+
+This approach ensures the time complexity remains `O(log(min(m, n)))`, as required.

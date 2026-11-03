@@ -1,0 +1,13 @@
+Write a Python function:
+
+def wildcard_match(s: str, p: str) -> bool
+
+Return True if the entire string s matches the wildcard pattern p, otherwise return False.
+
+Rules:
+- '?' matches exactly one character
+- '*' matches any sequence of characters, including the empty sequence
+- Matching must cover the entire string
+
+Do not print anything.
+Output only Python code.

@@ -1,0 +1,57 @@
+Certainly! A topological sort of a Directed Acyclic Graph (DAG) is an ordering of its vertices such that for every directed edge `u -> v`, vertex `u` comes before vertex `v` in the ordering.
+
+Here's a Python function to perform topological sorting using Depth-First Search (DFS):
+
+```python
+def dfs(graph, node, visited, stack):
+    if not visited[node]:
+        visited[node] = True
+        for neighbor in graph[node]:
+            dfs(graph, neighbor, visited, stack)
+        stack.append(node)
+
+def topological_sort(graph):
+    from collections import defaultdict
+    
+    # Initialize the visited array and the stack to store the result
+    visited = defaultdict(bool)
+    stack = []
+    
+    # Perform DFS on each node that has not been visited yet
+    for node in graph:
+        if not visited[node]:
+            dfs(graph, node, visited, stack)
+    
+    # The stack contains nodes in reverse topological order. To get the correct order,
+    # we can reverse it.
+    return stack[::-1]
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D', 'E'],
+    'D': [],
+    'E': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'C', 'B', 'E', 'D']
+```
+
+### Explanation:
+1. **DFS Function**: 
+   - The `dfs` function is a recursive function that performs Depth-First Search.
+   - It marks the current node as visited and then recursively visits all its neighbors.
+   - After visiting all neighbors, it adds the current node to the stack.
+
+2. **Topological Sort Function**:
+   - We initialize an empty list called `stack` which will store the result in reverse order.
+   - We also create a `visited` dictionary (using `defaultdict(bool)`) to keep track of visited nodes and avoid revisiting them.
+   - We iterate through all nodes. If a node has not been visited, we call the `dfs` function on that node.
+   - After performing DFS for all unvisited nodes, we reverse the stack to get the topological order.
+
+3. **Example**:
+   - The example graph provided (`graph`) is a simple DAG with an ordering of vertices based on dependencies.
+   - Running `topological_sort(graph)` will give you a valid topological sort of this graph.
+
+This implementation works well for small to moderately sized graphs and handles the case where multiple nodes may have no incoming edges (e.g., 'A' in the example) by starting DFS from each such node.

@@ -1,0 +1,66 @@
+**Binary Search Rotated Sorted List**
+=====================================
+
+### Function: `binary_search_rotated`
+
+ Searches for a target value in a rotated sorted list using binary search algorithm.
+
+#### Parameters:
+
+*   `values`: A list of numbers that is initially sorted but has been rotated at some point (e.g., `[4, 5, 6, 7, 1, 2]`).
+*   `target`: The number to be searched in the list.
+
+#### Returns:
+
+*   `-1` if the value is missing from the list.
+*   The index of the target value if it exists in the list.
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches a rotated sorted list for a target value using binary search algorithm.
+
+    Args:
+        values (list): A list of numbers that is initially sorted but has been rotated at some point.
+        target (int): The number to be searched in the list.
+
+    Returns:
+        int: Index of the target value if it exists, -1 otherwise.
+    """
+
+    # Initialize search boundaries
+    low = 0
+    high = len(values) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # If the middle element is equal to the target, return its index
+        if values[mid] == target:
+            return mid
+
+        # Check if the left half is sorted
+        if values[low] <= values[mid]:
+            # If the target is within the sorted range of the left half, repeat search in this subarray
+            if values[low] <= target < values[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+        else:  # Right half is sorted
+            # If the target is within the sorted range of the right half, repeat search in this subarray
+            if values[mid] < target <= values[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    return -1  # Target value not found in the list
+```
+
+### Example Usage:
+
+```python
+print(binary_search_rotated([4, 5, 6, 7, 1, 2], 2))   # Output: 5
+print(binary_search_rotated([4, 5, 6, 7, 1, 2], 3))   # Output: -1
+```
+
+This function maintains a search range `[low, high]` and iteratively divides it into two halves until the target value is found or the search range becomes empty. The time complexity of this algorithm remains O(log n), where n is the number of elements in the list.

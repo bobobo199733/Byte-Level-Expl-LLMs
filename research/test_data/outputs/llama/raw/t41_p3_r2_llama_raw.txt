@@ -1,0 +1,45 @@
+**Grouping Anagrams Together**
+=====================================
+
+The following is a Python function `group_anagrams` that takes in a list of words and returns a dictionary where the keys are the sorted versions of the words (i.e., their anagram representations) and the values are lists of words that are anagrams of each other.
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    """
+    Group anagrams together.
+
+    Args:
+        words (list): A list of words to group by anagrams.
+
+    Returns:
+        dict: A dictionary where keys are the sorted versions of the words and values are lists of words that are anagrams of each other.
+    """
+
+    # Initialize a defaultdict with default value as empty list
+    anagram_dict = defaultdict(list)
+
+    # Iterate over each word in the input list
+    for word in words:
+        # Sort the characters in the word to create its anagram representation
+        sorted_word = "".join(sorted(word))
+
+        # Add the original word to the corresponding list of anagrams
+        anagram_dict[sorted_word].append(word)
+
+    return dict(anagram_dict)
+```
+
+**Example Use Case**
+--------------------
+
+```python
+words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(words))
+# Output: {'aet': ['eat', 'tea', 'ate'], 'ant': ['tan', 'nat'], 'abt': ['bat']}
+```
+
+This function works by using a `defaultdict` to automatically create a new list for each unique anagram representation encountered during the iteration. The sorted version of each word is used as its key in this dictionary, and the original words that correspond to these keys are collected into lists as values. Finally, the function returns the resulting dictionary after all input words have been processed.
+
+Please note that this function has a time complexity of O(n \* m log(m)) where n is the number of words and m is the maximum length of a word in the input list, due to the sorting operation required for each word.

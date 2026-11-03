@@ -1,0 +1,53 @@
+To decode strings that may contain multiple levels of nesting, such as `"2[a2[b]]"`, we need to handle the nested structure properly. Here's a Python function that can decode these types of encoded strings:
+
+```python
+def decode_string(s: str) -> str:
+    stack = []
+    current_num = 0
+    current_str = ''
+    
+    for char in s:
+        if char.isdigit():
+            current_num = current_num * 10 + int(char)
+        elif char == '[':
+            # Push the current string and number onto the stack
+            stack.append((current_str, current_num))
+            current_str = ''  # Reset current string
+            current_num = 0   # Reset current number
+        elif char.isalpha():
+            current_str += char
+        elif char == ']':
+            prev_str, num = stack.pop()
+            current_str = prev_str + num * current_str
+    
+    return current_str
+
+# Example usage:
+print(decode_string("3[a]"))  # Output: "aaa"
+print(decode_string("2[a2[b]]"))  # Output: "ababab"
+```
+
+### Explanation:
+
+1. **Initialization**: We initialize an empty stack to handle nested structures, `current_num` to keep track of the current number being processed, and `current_str` to build the current decoded string.
+
+2. **Iterate through each character**:
+   - If the character is a digit, we update `current_num`.
+   - If the character is `[`, it means we are starting a new nested structure. We push the current string and number onto the stack and reset them.
+   - If the character is an alphabet letter, we append it to the current decoded string.
+   - If the character is `]`, it indicates the end of a nested structure. We pop from the stack to get the previous string and number, then concatenate the new string with this previous string.
+
+3. **Return the final result**: After processing all characters, `current_str` contains the fully decoded string.
+
+### Example Walkthrough:
+- For `"2[a2[b]]"`:
+  - When we encounter `'2'`, it becomes `current_num`.
+  - We see `[`, so push current state (`'', 0`) onto stack and reset.
+  - Then `a`: append to current_str -> `a`
+  - Next, `[` again: push current state (`'a', 1`) onto stack and reset.
+  - Encounter `2`: update `current_num` -> `2`
+  - Encounter `b`: append to current_str -> `ab`
+  - Encounter `]`: pop from stack, get previous string `'a'` and number `1`, concatenate `2 * 'ab'` -> `abab`.
+  - Final result: `abab` is concatenated with the remaining part of the outer structure `a` -> `ababab`.
+
+This approach ensures that nested structures are handled correctly by managing states on a stack.

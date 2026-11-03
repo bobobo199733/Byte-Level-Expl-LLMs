@@ -1,0 +1,20 @@
+def roman_to_int(s: str) -> int:
+    if not s:
+        raise ValueError('Invalid input')
+    valid_symbols = 'IVXLCDM'
+    if any((c not in valid_symbols for c in s)):
+        raise ValueError('Invalid input')
+    numeral_values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    total = 0
+    for i in range(len(s)):
+        if i > 0 and numeral_values[s[i]] > numeral_values[s[i - 1]]:
+            if s[i] == 'I' and s[i - 1] not in ['V', 'X'] or (s[i] == 'X' and s[i - 1] != 'C') or (s[i] == 'C' and s[i - 1] not in ['D', 'M']):
+                raise ValueError('Invalid input')
+            total += numeral_values[s[i]] - 2 * numeral_values[s[i - 1]]
+        else:
+            total += numeral_values[s[i]]
+    if any((s[i] * (i + 1 < len(s) and s[i + 1] == s[i]) > 3 for i, c in enumerate(s) if 'IM' not in s and c in ['I', 'X', 'C'])):
+        raise ValueError('Invalid input')
+    if any((s.count(c) >= 2 for c in ['V', 'L', 'D'])):
+        raise ValueError('Invalid input')
+    return total

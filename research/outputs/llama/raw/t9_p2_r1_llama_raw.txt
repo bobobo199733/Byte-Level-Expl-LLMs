@@ -1,0 +1,40 @@
+```python
+def merge_intervals(intervals):
+    """
+    Merge all overlapping intervals in a given list of intervals.
+
+    Args:
+        intervals (list): A list of intervals, where each interval is [start, end]
+
+    Returns:
+        list: The merged intervals as a list of lists
+    """
+
+    # Create a copy of the input list to avoid modifying it directly
+    intervals_copy = intervals.copy()
+
+    # If the input list is empty, return an empty list
+    if not intervals_copy:
+        return []
+
+    # Sort the intervals by start value
+    intervals_copy.sort(key=lambda x: x[0])
+
+    # Initialize the merged intervals with the first interval
+    merged_intervals = [intervals_copy[0]]
+
+    # Iterate over the remaining intervals
+    for current_interval in intervals_copy[1:]:
+        # Get the last merged interval
+        last_merged_interval = merged_intervals[-1]
+
+        # Check if the current interval overlaps with the last merged interval
+        if current_interval[0] <= last_merged_interval[1]:
+            # Merge the current interval with the last merged interval
+            merged_intervals[-1][1] = max(last_merged_interval[1], current_interval[1])
+        else:
+            # Add the current interval to the list of merged intervals
+            merged_intervals.append(current_interval)
+
+    return merged_intervals
+```

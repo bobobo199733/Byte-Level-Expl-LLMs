@@ -1,0 +1,72 @@
+**LRU Cache Implementation**
+=====================================
+
+Here's a Python implementation of a Least Recently Used (LRU) cache using an OrderedDict to keep track of the order in which keys were accessed.
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulates an LRU cache and returns the outputs of all get operations.
+
+    Args:
+        operations (list): A list of tuples containing operation type ('get' or 'put') and key.
+        capacity (int): The maximum size of the cache.
+
+    Returns:
+        list: A list of results from all 'get' operations in the order they were accessed.
+    """
+
+    cache = OrderedDict()
+
+    results = []
+
+    for op, key in operations:
+        if op == 'get':
+            # If key exists in cache, move it to end (mark as recently used)
+            if key in cache:
+                del cache[key]
+                cache[key] = None  # To mark it as visited
+
+                # Add result of get operation to results list
+                results.append(key)
+
+            elif len(cache) >= capacity:
+                # If cache is full, remove the least recently used item (first item)
+                cache.popitem(last=False)
+
+            else:
+                # If key does not exist in cache and it's not full, add it
+                cache[key] = None
+
+        elif op == 'put':
+            if len(cache) >= capacity:
+                # If cache is full, remove the least recently used item (first item)
+                cache.popitem(last=False)
+
+            cache[key] = None  # To mark it as visited
+
+    return results
+```
+
+**Example Use Cases**
+-----------------------
+
+```python
+# Example usage
+operations = [
+    ('get', 'key1'),
+    ('put', 'key2'),
+    ('get', 'key1'),
+    ('get', 'key3')
+]
+capacity = 2
+
+result = lru_cache(operations, capacity)
+print(result)  # Output: ['key1', 'key1']
+```
+
+In this example, we simulate an LRU cache with a capacity of 2. The `lru_cache` function returns the results of all 'get' operations in the order they were accessed. If the cache is full and a new key is added, it removes the least recently used item (first item) to make room for the new key.
+
+Note that this implementation assumes that the input list contains only tuples with two elements: the operation type ('get' or 'put') and the key. It also returns the results of all 'get' operations in the order they were accessed, as per the problem statement.

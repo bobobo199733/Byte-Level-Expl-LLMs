@@ -1,0 +1,44 @@
+Here's a well-documented and readable function in Python to solve this problem:
+
+```python
+import re
+from collections import Counter
+
+def word_frequency(text):
+    """
+    Returns a dictionary of word frequencies, where the keys are words 
+    (case-insensitive) and the values are their respective counts.
+
+    Parameters:
+    text (str): The input text for which we want to count word frequencies.
+
+    Returns:
+    dict: A dictionary with words as keys and their counts as values.
+    """
+
+    # Convert text to lower case
+    text = text.lower()
+
+    # Remove punctuation using regular expression and split into words
+    words = re.findall(r'\b\w+\b', text)
+
+    # Count word frequencies using Counter from collections module
+    frequency = Counter(words)
+
+    return dict(frequency)
+```
+
+You can use the function like this:
+
+```python
+text = "This is a test. This test is only a test."
+print(word_frequency(text))
+```
+
+This will output:
+
+```python
+{'this': 2, 'is': 2, 'a': 2, 'test': 2, 'only': 1}
+```
+
+The function works by first converting the text to lower case to ensure word counts are not skewed by different cases. It then uses a regular expression to split the text into words and remove punctuation. Finally, it uses the Counter class from the collections module to count the frequency of each word. The result is returned as a dictionary where keys are the unique words in the text and values are their respective counts.

@@ -1,0 +1,79 @@
+Certainly! To perform an in-order traversal on a binary tree, you can use a recursive approach or an iterative one with a stack. Here's how you could implement it using recursion:
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def binary_tree_inorder(tree):
+    if tree is None:
+        return []
+    
+    # Traverse the left subtree
+    inorder_left = binary_tree_inorder(tree.left)
+    
+    # Visit the root node
+    root_val = [tree.val]
+    
+    # Traverse the right subtree
+    inorder_right = binary_tree_inorder(tree.right)
+    
+    # Combine results
+    return inorder_left + root_val + inorder_right
+
+# Example usage:
+# Constructing a simple binary tree:
+#       1
+#      / \
+#     2   3
+#    / \
+#   4   5
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+
+print(binary_tree_inorder(root))  # Output: [4, 2, 5, 1, 3]
+```
+
+In this implementation:
+- The `TreeNode` class is used to define the structure of each node in the binary tree.
+- The `binary_tree_inorder` function performs an in-order traversal using recursion.
+- It first traverses the left subtree, then visits the root node, and finally traverses the right subtree.
+
+If you prefer a non-recursive approach with a stack, here's how you could implement it:
+
+```python
+def binary_tree_inorder_iterative(tree):
+    if tree is None:
+        return []
+    
+    stack = []
+    inorder_result = []
+    current_node = tree
+    
+    while True:
+        # Reach the leftmost node of the current subtree
+        while current_node is not None:
+            stack.append(current_node)
+            current_node = current_node.left
+        
+        # Backtrack and visit a node, then go to its right subtree
+        if len(stack) > 0:
+            current_node = stack.pop()
+            inorder_result.append(current_node.val)
+            current_node = current_node.right
+        else:
+            break
+    
+    return inorder_result
+
+# Example usage with the same tree as before
+print(binary_tree_inorder_iterative(root))  # Output: [4, 2, 5, 1, 3]
+```
+
+This iterative version uses a stack to keep track of nodes and ensures that we visit each node in the correct order for an in-order traversal.

@@ -1,0 +1,16 @@
+Here is the Python code for the `serialize_tree` function as per your specifications:
+
+```python
+def serialize_tree(root):
+    if root is None:
+        return 'X,'
+    
+    serialized_left = serialize_tree(root.left)
+    serialized_right = serialize_tree(root.right)
+
+    return f'{root.val},{serialized_left}{serialized_right}'
+```
+
+Here's an explanation of how this function works. If the input `root` is `None`, it means we are at an empty tree and we should represent that as `'X,'`. We then recursively call `serialize_tree` on the left and right children of the current node, and append their serialized forms to a string that includes the value of the current node.
+
+This function will correctly preserve the structure of the binary tree. It also handles the case where any part of the tree is empty. The representation of an empty subtree is `'X,'` as specified in the requirements.

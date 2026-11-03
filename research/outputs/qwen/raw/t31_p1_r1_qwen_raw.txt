@@ -1,0 +1,56 @@
+Certainly! Below is the `serialize_tree` function that serializes a binary tree into a string using pre-order traversal. The function ensures a deterministic representation by consistently using parentheses and commas to separate nodes.
+
+```python
+def serialize_tree(root):
+    def helper(node):
+        if node is None:
+            return "None,"
+        else:
+            return f"{node.val},"
+    
+    result = ""
+    stack = [root]
+    
+    while stack:
+        current_node = stack.pop()
+        if current_node == "None":
+            continue
+        result += helper(current_node)
+        stack.append(helper(current_node.right))
+        stack.append(helper(current_node.left))
+    
+    return result.strip(",")
+```
+
+### Explanation:
+
+- **Helper Function**: The `helper` function is a nested function used to convert a node into its string representation. If the node is `None`, it returns `"None,"`. Otherwise, it returns the value of the node followed by a comma.
+  
+- **Stack-based Traversal**: We use a stack to perform pre-order traversal (root -> left -> right) on the tree. This ensures that the nodes are processed in the correct order.
+
+- **Result Construction**: As we traverse the tree, each node's string representation is appended to `result`. For each node, its right and left children are pushed onto the stack for further processing.
+
+- **Final Processing**: The result string is stripped of trailing commas before being returned.
+
+### Example Usage:
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Constructing a sample binary tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+root.right.right = TreeNode(5)
+
+# Serializing the tree
+serialized_tree = serialize_tree(root)
+print(serialized_tree)  # Output: "1,2,{},3,4,5,"
+```
+
+This function will correctly serialize a binary tree into a string representation that can be used for further processing or storage.

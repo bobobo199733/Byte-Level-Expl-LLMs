@@ -1,0 +1,28 @@
+Sure, here's a Python function named `longest_palindrome` that finds the longest palindrome in a given string:
+
+```python
+def longest_palindrome(s):
+    if len(s) == 0:
+        return ""
+
+    max_length = 1
+    start_index = 0
+
+    for i in range(len(s)):
+        # Odd-length palindromes centered around each character
+        temp = s[i:i+max_length+1]
+        if len(temp) > max_length and temp == temp[::-1]:
+            start_index = i
+            max_length = len(temp)
+
+        # Even-length palindromes that lie between each pair of characters
+        for j in range(i+1, len(s)):
+            temp = s[i:j+1]
+            if len(temp) > max_length and temp == temp[::-1]:
+                start_index = i
+                max_length = len(temp)
+
+    return s[start_index:start_index + max_length]
+```
+
+This function works by iterating through the string and checking for both odd-length (centered around each character) and even-length palindromes (between pairs of characters). The longest one found is returned.

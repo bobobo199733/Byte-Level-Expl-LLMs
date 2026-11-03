@@ -1,0 +1,9 @@
+{
+  "function_name": "binary_search_rotated",
+  "description": "Find a target value in a rotated sorted array.",
+  "category": "search",
+  "subtype": "binary_search",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

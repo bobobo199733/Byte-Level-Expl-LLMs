@@ -1,0 +1,21 @@
+Here is a Python function that converts a Roman numeral string to its integer value. It follows the rules you've specified and raises a `ValueError` for invalid input:
+
+```python
+ROMAN_VALUES = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+def roman_to_int(s: str) -> int:
+    if not s or len(set(s)) != len(ROMAN_VALUES):
+        raise ValueError("Invalid Roman numeral")
+
+    result = 0
+    for i in range(len(s)):
+        if (i > 0 and ROMAN_VALUES[s[i]] > ROMAN_VALUES[s[i - 1]]) or (i == len(s) - 1):
+            result += ROMAN_VALUES[s[i]]
+        elif i < len(s) - 1 and ROMAN_VALUES[s[i]] < ROMAN_VALUES[s[i + 1]]:
+            result += ROMAN_VALUES[s[i]]
+        else:
+            raise ValueError("Incorrect subtractive notation or invalid repetitions")
+    return result
+```
+
+This function first checks if the input is valid by ensuring that all Roman numerals are present and that there are no duplicate characters. Then it iterates through the string, adding the value of each numeral to a running total. If a subtractive notation is incorrect or there's an invalid repetition, it raises a `ValueError`.

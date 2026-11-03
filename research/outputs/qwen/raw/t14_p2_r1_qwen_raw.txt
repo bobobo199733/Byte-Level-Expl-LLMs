@@ -1,0 +1,36 @@
+Certainly! Below is the Python function `generate_parentheses(n)` that generates all valid combinations of `n` pairs of parentheses using a backtracking approach. The function avoids generating invalid intermediate states by ensuring that at any point, the number of closing brackets does not exceed the number of opening brackets.
+
+```python
+def generate_parentheses(n):
+    def backtrack(s='', left=0, right=0):
+        # Base case: if we have used both types of parentheses n times each, add to result
+        if len(s) == 2 * n:
+            results.append(s)
+            return
+        
+        # Add an opening parenthesis only if there's a remaining one
+        if left < n:
+            backtrack(s + '(', left + 1, right)
+        
+        # Add a closing parenthesis only if it doesn't exceed the number of open ones
+        if right < left:
+            backtrack(s + ')', left, right + 1)
+
+    results = []
+    backtrack()
+    return results
+
+# Example usage:
+n = 3
+print(generate_parentheses(n))
+```
+
+### Explanation:
+
+- **Base Case**: If `len(s)` equals `2 * n`, it means we have used all opening and closing parentheses, so the string is valid. We add this string to the `results` list.
+  
+- **Adding Opening Parentheses (`(`)**: We can only add an opening parenthesis if there are still some left (i.e., `left < n`). This ensures that we don't exceed the number of pairs.
+
+- **Adding Closing Parentheses (`)`)**: A closing parenthesis can be added only if it doesn't exceed the number of open parentheses already in the string (`right < left`), ensuring validity at each step.
+
+This approach guarantees that all intermediate states are valid and avoids unnecessary backtracking by only considering valid options.

@@ -1,0 +1,47 @@
+Certainly! To generate all valid combinations of `n` pairs of parentheses, we can use a backtracking approach. Here's how you can implement the `generate_parentheses` function:
+
+```python
+def generate_parentheses(n):
+    def backtrack(s='', left=0, right=0):
+        # If both left and right are zero, it means all pairs are used up
+        if left == 0 and right == 0:
+            result.append(s)
+            return
+        
+        # Add a left parenthesis only if we have not used all of them yet
+        if left > 0:
+            backtrack(s + '(', left - 1, right + 1)
+        
+        # Add a right parenthesis only if it is valid (i.e., there are more or equal left parentheses)
+        if right > 0:
+            backtrack(s + ')', left, right - 1)
+    
+    result = []
+    backtrack()
+    return result
+
+# Example usage
+n = 3
+print(generate_parentheses(n))
+```
+
+### Explanation:
+
+- **backtrack function**:
+  - `s`: The current string being built.
+  - `left`: Number of left parentheses that can still be added.
+  - `right`: Number of right parentheses that have been added but not yet closed.
+
+- When both `left` and `right` are zero, it means we've used all the pairs correctly, so we add the current string to the result list.
+
+- We can only add a left parenthesis if there are still more left parentheses available.
+- We can only add a right parenthesis if there is at least one unmatched left parenthesis (i.e., `right > 0`).
+
+### Example Output:
+
+For `n = 3`, the output will be:
+```
+['((()))', '(()())', '(())()', '()(())', '()()()']
+```
+
+These are all the valid combinations of 3 pairs of parentheses.

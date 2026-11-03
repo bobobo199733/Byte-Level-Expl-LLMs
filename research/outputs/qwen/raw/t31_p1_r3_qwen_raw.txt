@@ -1,0 +1,41 @@
+Certainly! Below is a Python function `serialize_tree(root)` that serializes a binary tree into a string. The function uses a pre-order traversal to ensure the serialization is deterministic and handles empty trees properly.
+
+```python
+def serialize_tree(root):
+    if root is None:
+        return "None,"
+
+    def helper(node):
+        if node is None:
+            return "None,"
+        return f"{node.val},{''.join(helper(child) for child in (node.left, node.right))}"
+
+    return helper(root)
+```
+
+### Explanation:
+- The function `serialize_tree` takes the root of a binary tree as an argument.
+- If the root is `None`, it returns `"None,"` to represent an empty tree.
+- The inner function `helper(node)` performs a pre-order traversal (root, left, right) and constructs the string representation recursively.
+  - If a node is `None`, it appends `"None,"`.
+  - Otherwise, it appends the value of the current node followed by a comma-separated concatenation of the serialized left and right subtrees.
+
+### Example Usage:
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Constructing a simple binary tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+root.right.right = TreeNode(5)
+
+print(serialize_tree(root))  # Output: "1,2,None,None,3,4,None,None,5,None,None,"
+```
+
+This function will generate a deterministic string representation of the tree, which can be used for serialization and deserialization.

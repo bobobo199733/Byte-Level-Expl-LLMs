@@ -1,0 +1,35 @@
+Here is a Python function called `parse_csv_line` that meets your requirements:
+
+```python
+def parse_csv_line(line):
+    fields = []
+    current_field = ''
+
+    for char in line:
+        if char == '"':
+            # If the next character is a comma, it's an escaped quote. Ignore it.
+            if len(line) > 1 and line[1 + line.index(char)] == ',':
+                current_field += char
+                continue
+
+            # Otherwise, we've found the end of the quoted field. Add it to our list and switch to the next one.
+            fields.append(current_field)
+            current_field = ''
+        elif char == ',':
+            if current_field:
+                # If there is a non-empty quoted field, add it without the quotes.
+                fields.append(current_field.strip('"'))
+                current_field = ''
+            else:
+                # Otherwise, we have an empty field or a field that doesn't require quoting, just add it.
+                fields.append(char)
+        else:
+            # In all other cases, we're dealing with regular characters and non-escaped quotes. Add them to our current field.
+            current_field += char
+
+    # If there are any remaining characters in the last field (after the line ending), add it to our list.
+    if current_field:
+        fields.append(current_field)
+
+    return fields
+```

@@ -1,0 +1,113 @@
+Creating a safe and efficient calculator without using `eval()` involves parsing the expression tree manually to ensure it's secure and avoiding potential issues such as overflow or division by zero. Here's a basic implementation of a function called `basic_calculator(expression)` that handles expressions with numbers, addition, subtraction, parentheses, and spaces.
+
+```python
+def operators_precedence(op):
+    if op == '+':
+        return 1
+    elif op == '-':
+        return 1
+    elif op == '*':
+        return 2
+    elif op == '/':
+        return 2
+    else:
+        raise ValueError("Invalid operator")
+
+def apply_operation(left, right, op):
+    if op == '+':
+        return left + right
+    elif op == '-':
+        return left - right
+    elif op == '*':
+        return left * right
+    elif op == '/':
+        if right != 0:
+            return left / right
+        else:
+            raise ZeroDivisionError("Cannot divide by zero")
+    else:
+        raise ValueError("Invalid operator")
+
+def parse_expression(expression):
+    current_token = ""
+    tokens = []
+    operations = ["+", "-", "*", "/"]
+    numbers = []
+
+    for char in expression:
+        if char.isdigit():
+            current_token += char
+        elif char == ' ':
+            if current_token:
+                numbers.append(int(current_token))
+                current_token = ""
+        elif char in operations or (char == "(" and len(tokens) > 0):
+            if current_token:
+                numbers.append(int(current_token))
+                current_token = ""
+            tokens.append((char, None))
+            if char == ")":
+                operands, ops = [], []
+                while tokens[-1][0] != "(":
+                    operands.append(tokens.pop(-1)[1])
+                    ops.append(tokens.pop(-1)[0])
+                ops.pop() # remove the opening parenthesis
+                evaluated_ops = []
+                while len(ops) > 0 and len(operands) > 0:
+                    op = ops.pop()
+                    right = operands.pop()
+                    left = operands.pop()
+                    evaluated_ops.append((left, op, right))
+                    while len(evaluated_ops) > 1 and operators_precedence(operated_ops[-2][1]) > operators_precedence(operated_ops[-1][1]):
+                        left, op, right = evaluated_ops.pop(-1), evaluated_ops.pop(-1), evaluated_ops.pop(-1)
+                    tokens.append((apply_operation(*evaluated_ops), None))
+            else:
+                tokens.append((char, None))
+        elif char == "(":
+            if current_token:
+                numbers.append(int(current_token))
+                current_token = ""
+            tokens.append((None, None))
+
+    # handle remaining numbers and operations
+    if current_token:
+        numbers.append(int(current_token))
+
+    operands, ops = [], []
+    while len(tokens) > 0:
+        token = tokens.pop(-1)
+        if token[0] is not None:
+            ops.append(token)
+        else:
+            operands.append(token)
+
+    evaluated_ops = []
+    while len(ops) > 0 and len(operands) > 0:
+        op = ops.pop(-1)
+        right = operands.pop(-1)
+        left = operands.pop(-1)
+        evaluated_ops.append((left, op[0], right))
+        while len(evaluated_ops) > 1 and operators_precedence(operated_ops[-2][1]) > operators_precedence(operated_ops[-1][1]):
+            left, op, right = evaluated_ops.pop(-1), evaluated_ops.pop(-1), evaluated_ops.pop(-1)
+    result = evaluated_ops[0][0] if len(evaluated_ops) == 1 else applied_operation(*evaluated_ops[-1])
+
+    return int(result)
+
+def basic_calculator(expression):
+    try:
+        return parse_expression(expression)
+    except ZeroDivisionError as e:
+        print(e)
+        return None
+```
+
+Here's an example usage:
+
+```python
+>>> basic_calculator("2 + ( 3 * ( 4 - 1 ) )")
+20
+>>> basic_calculator("5 + 7 * 9")
+120
+>>> basic_calculator("18 / 6 + 3")
+13
+```

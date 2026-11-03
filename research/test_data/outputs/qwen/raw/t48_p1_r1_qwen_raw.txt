@@ -1,0 +1,65 @@
+To find the median of two sorted arrays with an overall time complexity of O(log(m+n)), we can use a binary search approach to partition both arrays such that elements on the left side are less than or equal to elements on the right side, and then calculate the median based on these partitions. Here's how you can implement this:
+
+```python
+def find_kth(nums1, nums2, k):
+    # Ensure we always pick up the smaller array as nums1 for efficiency.
+    if len(nums1) > len(nums2):
+        return find_kth(nums2, nums1, k)
+    
+    m, n = len(nums1), len(nums2)
+    imin, imax = 0, min(k, m)
+
+    while imin <= imax:
+        i = (imin + imax) // 2
+        j = k - i
+        
+        if i < m and nums1[i] < nums2[j-1]:
+            # i is too small, must increase it
+            imin = i + 1
+        elif i > 0 and nums1[i-1] > nums2[j]:
+            # i is too big, must decrease it
+            imax = i - 1
+        else:
+            # i is perfect
+            if i == 0: max_of_left = nums2[j-1]
+            elif j == 0: max_of_left = nums1[i-1]
+            else: 
+                max_of_left = max(nums1[i-1], nums2[j-1])
+            
+            if (m + n) % 2 == 1:
+                return max_of_left
+            
+            if i == m: min_of_right = nums2[j]
+            elif j == n: min_of_right = nums1[i]
+            else: 
+                min_of_right = min(nums1[i], nums2[j])
+            
+            return (max_of_left + min_of_right) / 2.0
+
+def median_of_two_sorted_arrays(nums1, nums2):
+    total_length = len(nums1) + len(nums2)
+    
+    if total_length % 2 == 1:
+        return find_kth(nums1, nums2, (total_length // 2) + 1)
+    else:
+        return (find_kth(nums1, nums2, total_length // 2) +
+                find_kth(nums1, nums2, total_length // 2 + 1)) / 2.0
+
+# Example usage:
+nums1 = [1, 3]
+nums2 = [2]
+print(median_of_two_sorted_arrays(nums1, nums2))  # Output: 2.0
+```
+
+### Explanation:
+
+- **find_kth Function**: This function finds the k-th smallest element in two sorted arrays using binary search.
+  - `imin` and `imax` are used to limit the range of possible indices for partitioning.
+  - We ensure that we always pick up the smaller array as `nums1` for efficiency.
+  - The while loop adjusts `i` until the correct partition is found.
+
+- **median_of_two_sorted_arrays Function**: This function calculates the median based on the total length of both arrays:
+  - If the total number of elements is odd, it directly calls `find_kth` to get the middle element.
+  - If the total number of elements is even, it finds the two middle elements and returns their average.
+
+This approach ensures that the function runs in O(log(m+n)) time complexity.

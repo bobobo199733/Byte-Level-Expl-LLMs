@@ -1,0 +1,10 @@
+Write a python function:
+
+def roman_to_int(s: str) -> int
+
+The function should convert a Roman numeral string into its integer value.
+
+Use the standard symbols: I, V, X, L, C, D, M.
+
+Raise ValueError for invalid input, including incorrect subtractive notation or invalid repetitions.
+

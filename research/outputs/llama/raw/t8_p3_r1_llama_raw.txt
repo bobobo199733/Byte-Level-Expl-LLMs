@@ -1,0 +1,56 @@
+**Password Validation Function**
+====================================
+
+The following function checks if a given password meets certain strength criteria.
+
+```python
+import re
+
+def validate_password(password):
+    """
+    Validate a password based on the following rules:
+        - At least 8 characters long
+        - Contains at least one uppercase letter
+        - Contains at least one lowercase letter
+        - Contains at least one digit
+        - Does not contain any whitespace
+        - Does not match a common password
+
+    Returns True if the password is strong, False otherwise.
+    """
+
+    # Define common passwords to check against
+    common_passwords = ['password123', 'qwerty', 'letmein']
+
+    # Check length and whitespace
+    if len(password) < 8 or any(char.isspace() for char in password):
+        return False
+
+    # Check for required character types
+    has_uppercase = re.search(r"[A-Z]", password)
+    has_lowercase = re.search(r"[a-z]", password)
+    has_digit = re.search(r"\d", password)
+
+    if not (has_uppercase and has_lowercase and has_digit):
+        return False
+
+    # Check against common passwords
+    for common_password in common_passwords:
+        if password == common_password:
+            return False
+
+    # If all checks pass, the password is strong
+    return True
+```
+
+**Example Usage**
+-----------------
+
+```python
+print(validate_password("weakpassword"))  # False (too short)
+print(validate_password("StrongP@ssw0rd!"))  # True (strong)
+print(validate_password("password123"))  # False (common password)
+print(validate_password("qwerty"))  # False (common password and too short)
+```
+
+Note that this function does not cover all possible security requirements for passwords, but it provides a good starting point for basic validation.

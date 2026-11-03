@@ -1,0 +1,11 @@
+Write exactly ONE Python function called heap_sort(values) that sorts a list of integers using the heap sort algorithm.
+
+Requirements:
+- Use only one function named heap_sort.
+- Do not use sorted() or list.sort().
+- Correctly build and maintain a heap structure.
+- Preserve duplicate values.
+- Handle empty input lists.
+- Do not modify the original input list.
+- Do not use external libraries.
+- The implementation should be robust and readable.

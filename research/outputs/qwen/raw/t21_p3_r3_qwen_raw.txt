@@ -1,0 +1,28 @@
+```python
+def matrix_multiply(A, B):
+    """
+    Multiplies two matrices A and B.
+
+    Parameters:
+    A (list of lists): The first matrix.
+    B (list of lists): The second matrix.
+
+    Returns:
+    list of lists: The resulting matrix after multiplication.
+    """
+    # Check if the number of columns in A is equal to the number of rows in B
+    if len(A[0]) != len(B):
+        raise ValueError("The number of columns in A must be equal to the number of rows in B")
+
+    # Initialize the result matrix with zeros
+    result = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
+
+    # Perform matrix multiplication
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+
+    return result
+```
+```

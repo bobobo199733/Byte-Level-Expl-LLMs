@@ -1,0 +1,1 @@
+Write one function called robot_simulator(commands) that returns where the robot ends up. Return only the function.

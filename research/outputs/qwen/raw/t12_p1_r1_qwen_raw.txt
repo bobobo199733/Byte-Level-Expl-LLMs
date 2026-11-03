@@ -1,0 +1,65 @@
+Certainly! To implement the `bfs_shortest_path` function, we'll use the Breadth-First Search (BFS) algorithm. BFS is well-suited for finding the shortest paths in unweighted graphs because it explores all of the neighboring nodes at the present depth level before moving on to nodes at the next depth level.
+
+Here's how you can implement this:
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Perform a Breadth-First Search (BFS) in an unweighted graph and return the length of the shortest path between 
+    the start node and the target node.
+
+    :param graph: A dictionary representing the adjacency list of the graph.
+    :param start: The starting node.
+    :param target: The target node.
+    :return: The length of the shortest path from start to target, or -1 if no path exists.
+    """
+    
+    # Initialize a queue with the starting node and its distance (which is 0)
+    queue = deque([(start, 0)])
+    
+    # Initialize a set to keep track of visited nodes
+    visited = {start}
+    
+    while queue:
+        current_node, distance = queue.popleft()
+        
+        if current_node == target:
+            return distance
+        
+        # Explore all the neighbors of the current node
+        for neighbor in graph.get(current_node, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, distance + 1))
+    
+    # If we exit the loop without finding the target, there is no path
+    return -1
+
+# Example usage:
+
+# Define an unweighted graph as a dictionary (adjacency list)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# Test the function
+start_node = 'A'
+target_node = 'F'
+print(f"The shortest path from {start_node} to {target_node} has length: {bfs_shortest_path(graph, start_node, target_node)}")
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where each key is a node and the value is a list of its neighboring nodes.
+- **Queue Initialization**: We initialize a queue with the starting node along with its distance (which is 0).
+- **Visited Set**: A set keeps track of visited nodes to avoid processing them more than once, which can help in reducing unnecessary computations.
+- **BFS Loop**: The loop continues until we either find the target node or exhaust all possibilities. For each node, we explore its neighbors and add unvisited neighbors to the queue with an incremented distance.
+- **Distance Return**: When we reach the target node, we return the current distance as it represents the shortest path length.
+
+This implementation ensures that `bfs_shortest_path` works correctly for any given graph and nodes.

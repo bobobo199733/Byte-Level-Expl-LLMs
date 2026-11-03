@@ -1,0 +1,32 @@
+Here is a high-quality, readable, and well-documented Python function:
+
+```python
+def autocomplete_system(words, prefix):
+    """
+    Returns a list of words that match the given prefix.
+
+    Args:
+        words (list): A list of words to search in.
+        prefix (str): The prefix to match against each word.
+
+    Returns:
+        list: A sorted list of matching suggestions.
+    """
+
+    # Filter the list of words to include only those that start with the prefix
+    matches = [word for word in words if word.startswith(prefix)]
+
+    # Sort the matches alphabetically
+    matches.sort()
+
+    return matches
+
+# Example usage:
+words = ["apple", "banana", "cherry", "date", "elderberry"]
+prefix = "d"
+print(autocomplete_system(words, prefix))  # Output: ['date']
+```
+
+This function uses a list comprehension to filter the words that match the given prefix. It then sorts these matches alphabetically using the `sort()` method. Finally, it returns the sorted list of matches.
+
+Note: This implementation has a time complexity of O(n log n) due to the sorting step, where n is the number of matching words. If you need a more efficient solution for very large lists of words, consider using a data structure like a trie or a prefix tree.

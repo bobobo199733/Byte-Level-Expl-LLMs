@@ -1,0 +1,41 @@
+To achieve a logarithmic time complexity for finding the median of two sorted arrays, we can use the Merge Sort algorithm to merge both arrays first and then find the middle index of the merged array. Here's the implementation:
+
+```python
+def merge_sort(nums):
+    if len(nums) <= 1:
+        return nums
+
+    mid = len(nums) // 2
+    left = merge_sort(nums[:mid])
+    right = merge_sort(nums[mid:])
+
+    return _merge(left, right)
+
+def _merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result += left[i:]
+    result += right[j:]
+
+    return result
+
+def median_of_two_sorted_arrays(nums1, nums2):
+    total = len(nums1) + len(nums2)
+    merged = merge_sort(nums1 + nums2)
+
+    if total % 2 == 0:
+        return (merged[len(nums1) // 2] + merged[len(nums1) // 2 + 1]) / 2
+    else:
+        return merged[len(nums1) // 2]
+```
+
+This implementation first sorts both arrays using Merge Sort, then merges them and finds the median based on whether the total length of the merged array is even or odd. The time complexity for this solution is O(log(m+n)) as required.

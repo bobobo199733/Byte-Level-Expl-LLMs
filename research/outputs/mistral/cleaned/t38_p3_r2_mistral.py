@@ -1,0 +1,44 @@
+precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+operators = ['+', '-', '*', '/']
+
+def expression_to_postfix(expression):
+    def apply_operator(operators_stack, operator, operand2, operand1):
+        operators_stack.append((precedence[operator] > precedence[operators[-1]] if operators else True, operator, operand2, operand1))
+
+    def pop_top(operators_stack):
+        while operators_stack and (not operators or precedence[operators[-1]] >= precedence[op])):
+            op = operators_stack.pop()
+            result = ('\n'.join(map(str, reversed(op[2:]))) if op[0] else f'{op[2]} {op[1]}')
+            postfix.append(result)
+        return operands_stack.pop()
+
+    def pop_paren(operators_stack):
+        while operators_stack and operators_stack[-1][-1] == '(':
+            op = operators_stack.pop()
+            if not op[0]:
+                postfix.append(op[2])
+            else:
+                operands_stack.append(op[2])
+
+    postfix = []
+    operands_stack = []
+    operators_stack = []
+
+    for token in expression + ' ':
+        if token.isalnum():
+            operands_stack.append(token)
+        elif token in operators:
+            while (operators_stack and operators_stack[-1] != '(' and precedence[token] <= precedence[operators_stack[-1]]):
+                operands_stack.append(pop_top(operators_stack))
+            operators_stack.append((False, token))
+        elif token == '(':
+            operators_stack.append((True, token))
+        elif token == ')':
+            pop_paren(operators_stack)
+
+    while operators_stack:
+        op = pop_top(operators_stack)
+        postfix.append(op if not op[0] else operands_stack.pop())
+
+    result = '\n'.join(reversed(postfix))
+    return result

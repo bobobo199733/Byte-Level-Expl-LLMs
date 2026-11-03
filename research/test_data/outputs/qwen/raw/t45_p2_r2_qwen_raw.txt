@@ -1,0 +1,33 @@
+```python
+def search_insert_position(nums, target):
+    """
+    Finds the index of the target in a sorted list or the insertion position if it's not found.
+
+    Args:
+        nums (List[int]): A sorted list of integers.
+        target (int): The target value to search for.
+
+    Returns:
+        int: The index of the target if it exists, otherwise the insertion point.
+
+    Raises:
+        ValueError: If `nums` is not a list or contains non-integer elements.
+    """
+    if not isinstance(nums, list) or not all(isinstance(x, int) for x in nums):
+        raise ValueError("Input 'nums' must be a list of integers.")
+    
+    left, right = 0, len(nums)
+    
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    
+    return left
+```
+
+This function implements a binary search to efficiently find the insertion position for the target in a sorted list. It raises a `ValueError` if the input does not meet the specified requirements.

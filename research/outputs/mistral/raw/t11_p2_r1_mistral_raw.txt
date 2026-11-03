@@ -1,0 +1,27 @@
+I will provide you with a Python function named `coin_change` that meets your requirements. This solution uses bottom-up dynamic programming and handles all the specified edge cases.
+
+```python
+def coin_change(coins, amount):
+    if not coins or amount < 1:
+        return -1
+
+    # Create a table to store the minimum number of coins required for each amount from 0 to target.
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+
+    for coin in coins:
+        for i in range(coin, amount + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    return dp[-1] if dp[-1] != float('inf') else -1
+```
+
+You can test the function as follows:
+
+```python
+coins = [1, 5, 10, 25]
+amount = 34
+print(coin_change(coins, amount))  # Output: 4
+```
+
+The time complexity of this solution is O(n * amount) due to the nested loop iteration over coins and amounts. It is efficient enough for larger amounts, but if you have a large set of distinct coins (e.g., a coin set from 1 to 10,000), you may want to consider alternative solutions like binary search or using a memoization method to avoid redundant computations.

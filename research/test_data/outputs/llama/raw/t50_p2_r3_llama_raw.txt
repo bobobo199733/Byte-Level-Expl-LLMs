@@ -1,0 +1,62 @@
+Here's how you can implement this function using Python:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s: str, p: str) -> list[int]:
+    """
+    Find all anagram starting indices in string s of length p.
+
+    Args:
+        s (str): The input string.
+        p (str): The pattern string for which to find anagrams.
+
+    Returns:
+        list[int]: A sorted list of starting indices where the pattern is an anagram of the corresponding substring in s.
+    """
+    
+    # Edge case: If length of pattern is greater than string, return empty list
+    if len(p) > len(s):
+        return []
+
+    # Initialize frequency counters and result list
+    p_freq = Counter(p)
+    window_freq = {}
+    start_indices = []
+    window_size = len(p)
+
+    # Slide through the string and maintain a window of length |p|
+    for i in range(len(s)):
+        # If we're still within the first window, add new characters to the frequency counter
+        if i < window_size:
+            window_freq[s[i]] = window_freq.get(s[i], 0) + 1
+
+        # If the window is full and matches p's frequency counter, record start index
+        if i >= window_size - 1 and Counter(window_freq) == p_freq:
+            start_indices.append(i - window_size + 1)
+
+        # Move the window one step forward by removing the first character that left the window
+        if i > 0 and i >= window_size - 1:
+            removed_char = s[i - window_size]
+            window_freq[removed_char] -= 1
+            if window_freq[removed_char] == 0:
+                del window_freq[removed_char]
+
+    return sorted(start_indices)
+```
+
+Here's how this code works:
+
+- The function initializes two frequency counters: `p_freq` for the pattern string and an empty dictionary to track the characters in the current sliding window.
+- It maintains a variable `start_indices` that stores the starting indices of anagrams found so far, which is initialized as an empty list.
+- As it slides through the input string using a loop from 0 to `len(s)`, at each position `i` within the first window (or when entering a new window), the function adds characters to the frequency counter for that window until its size reaches `|p|`.
+- When the window's size is equal to `|p|` and the two counters match, it records the current start index in the list.
+- As it moves the window forward by removing the first character that left it, the function subtracts 1 from its frequency counter entry. If a character disappears entirely (its count becomes zero), it removes this character from the dictionary to keep memory usage constant as the window slides through the string.
+- Finally, after traversing all positions in `s`, the function returns the sorted list of starting indices where anagrams were found.
+
+Example use cases:
+
+```python
+print(find_all_anagrams("abxaba", "ab"))  # Output: [0]
+print(find_all_anagrams("cbacdcbcabddcaca", "abc"))  # Output: [1, 6]
+```

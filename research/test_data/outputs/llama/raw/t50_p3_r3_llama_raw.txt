@@ -1,0 +1,51 @@
+Here's the Python function to solve this problem using a sliding window approach:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s: str, p: str) -> list:
+    """
+    Find all start indices of anagrams of substring p in string s.
+
+    Args:
+        s (str): The main string.
+        p (str): The pattern to look for anagrams of.
+
+    Returns:
+        list: A list of start indices where an anagram of p starts.
+    """
+
+    if len(p) > len(s):
+        return []  # No possible matches
+
+    p_counter = Counter(p)
+    s_window = {}
+    start_indices = []
+
+    for i in range(len(s)):
+        char = s[i]
+        
+        # Add to window
+        s_window[char] = s_window.get(char, 0) + 1
+        
+        if i >= len(p):
+            prev_char = s[i - len(p)]
+            s_window[prev_char] -= 1
+            
+            if s_window[prev_char] == 0:
+                del s_window[prev_char]
+        
+        # Check match
+        if Counter(s_window) == p_counter:
+            start_indices.append(i - len(p) + 1)
+    
+    return start_indices
+```
+
+Example usage:
+
+```python
+print(find_all_anagrams('abcabc', 'ab'))  # [0, 2, 4]
+print(find_all_anagrams('abcdabcde', 'caba'))  # []
+print(find_all_anagrams('aabbccdefghhijkllmmmnnnoooo', 'mm'))  # [13]
+```

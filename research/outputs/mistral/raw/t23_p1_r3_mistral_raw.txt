@@ -1,0 +1,15 @@
+Here is a Python function called `fast_power` that computes base raised to exponent efficiently using recursion and memoization (using a dictionary to store previously computed results):
+
+```python
+def fast_power(base, exponent, power_table={}):
+    if exponent == 0:
+        return 1
+    key = (base, exponent)
+
+    if key in power_table:
+        return power_table[key]
+
+    result = base * fast_power(base, exponent - 1)
+    power_table[key] = result
+    return result
+```

@@ -1,0 +1,4 @@
+model,rows,ok_rows,out_of_range_rows,error_rows,mean_byte_value,median_byte_value,min_byte_value,max_byte_value,most_common_byte_value,most_common_opname,most_common_position_type
+llama,90,82,8,0,9.207317073170731,0.0,0.0,148.0,0.0,LOAD_GLOBAL,argument_or_cache_byte
+mistral,90,72,14,4,0.8611111111111112,0.0,0.0,20.0,0.0,LOAD_GLOBAL,argument_or_cache_byte
+qwen,90,83,6,1,12.831325301204819,2.0,0.0,148.0,0.0,LOAD_ATTR,argument_or_cache_byte

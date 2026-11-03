@@ -1,0 +1,69 @@
+Certainly! Below is the Python function `n_queens(n)` that solves the N-Queens problem using backtracking. This function returns all valid solutions where no queens can attack each other.
+
+```python
+def n_queens(n):
+    def backtrack(row):
+        # If all rows are filled, we have a solution.
+        if row == n:
+            result.append(["." * col + "Q" + "." * (n - col - 1) for col in board])
+            return
+        
+        # Try placing a queen in each column of the current row
+        for col in range(n):
+            # Check if the column and diagonals are safe to place a queen.
+            if all(
+                not conflict[col] and
+                not conflict[row + i + col] and
+                not conflict[n - 1 + col - i]
+                for i in range(n)
+            ):
+                board.append(col)
+                conflict[col] = True
+                conflict[row + col] = True
+                conflict[n - 1 + col - row] = True
+                
+                # Move on to the next row with this column chosen.
+                backtrack(row + 1)
+                
+                # Backtrack: undo the last queen placement.
+                board.pop()
+                conflict[col] = False
+                conflict[row + col] = False
+                conflict[n - 1 + col - row] = False
+    
+    if n <= 0:
+        return []
+    
+    result = []
+    board = []
+    conflict = [False] * (2 * n)  # To track column and diagonals conflicts.
+    
+    backtrack(0)
+    return result
+
+# Example usage
+print(n_queens(4))
+```
+
+### Explanation:
+
+1. **Backtracking Function (`backtrack`)**:
+   - The function `backtrack(row)` is used to place queens row by row.
+   - If all rows are filled, a valid solution is found and added to the result list.
+
+2. **Placing Queens**:
+   - For each column in the current row, check if placing a queen at that position would conflict with any previously placed queens.
+   - Conflicts are checked for columns and both diagonals.
+
+3. **Conflict Tracking**:
+   - A `conflict` array of size `2 * n` is used to track conflicts in columns and diagonals efficiently.
+   - `conflict[col]`, `conflict[row + col]`, and `conflict[n - 1 + col - row]` are toggled as the queen is placed or removed.
+
+4. **Edge Cases**:
+   - If `n <= 0`, an empty list is returned to handle cases where no queens can be placed.
+
+5. **Efficiency**:
+   - The function uses efficient backtracking and conflict checking, ensuring that only valid configurations are explored.
+   - The use of a single `conflict` array helps in keeping track of conflicts across rows and diagonals efficiently.
+
+This implementation ensures all constraints are met, providing an efficient and readable solution to the N-Queens problem.

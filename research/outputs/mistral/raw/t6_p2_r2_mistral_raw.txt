@@ -1,0 +1,15 @@
+Here is a Python function that implements the wildcard matching logic:
+
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    def match(i, j):
+        if not j:
+            return not i
+        if j == '*':
+            return match(i, p[1:]) or (not i and match(0, p))
+        return i == j or j == '?'
+
+    return match(s, p)
+```
+
+This function uses a helper function `match()` to compare the characters in the string `s` and pattern `p`. The `match()` function checks if the current characters are equal (if not the wildcard character '?'), or if the wildcard character '*' is matched by an empty string, which means that any sequence of characters matches. If a match is found for all characters in both strings, then the pattern `p` matches the string `s`.

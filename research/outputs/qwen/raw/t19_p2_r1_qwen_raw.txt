@@ -1,0 +1,54 @@
+Certainly! To count the number of islands in a given 2D grid, where '1' represents land and '0' represents water, we can use Depth First Search (DFS) to explore each group of connected land cells. Here's how you can implement this:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+    
+    rows = len(grid)
+    cols = len(grid[0])
+    
+    def dfs(r, c):
+        # Check for out-of-bound indices and water or visited land
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != '1':
+            return
+        
+        # Mark the cell as visited by changing it to '0'
+        grid[r][c] = '0'
+        
+        # Explore all four directions: up, down, left, right
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+    
+    island_count = 0
+    
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1':
+                # Found a new island
+                island_count += 1
+                # Mark the land as visited by performing DFS from this cell
+                dfs(r, c)
+    
+    return island_count
+
+# Example usage:
+grid = [
+    ['1', '1', '0', '0', '0'],
+    ['1', '1', '0', '1', '1'],
+    ['0', '0', '0', '0', '0'],
+    ['0', '0', '0', '1', '1']
+]
+
+print(count_islands(grid))  # Output should be 3
+```
+
+### Explanation:
+1. **Input Check**: First, we check if the grid is empty.
+2. **DFS Function**: The `dfs` function is defined to explore all connected land cells from a given cell `(r, c)`. It marks each visited land cell as water ('0') to avoid revisiting it.
+3. **Counting Islands**: We initialize a counter `island_count` and iterate through every cell in the grid. If we find a '1', it means we've found an island. We increment the count and perform DFS from that cell to mark all connected land cells as visited.
+4. **Return Result**: Finally, we return the total number of islands.
+
+This approach ensures that each cell is visited at most once, making the solution efficient with a time complexity of O(rows * cols).

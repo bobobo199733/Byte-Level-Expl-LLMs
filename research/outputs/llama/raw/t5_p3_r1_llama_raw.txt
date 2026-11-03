@@ -1,0 +1,15 @@
+def remove_k_digits(num: str, k: int) -> str:
+    num = list(num)
+    for i in range(k):
+        found = False
+        for j in range(len(num)-1):
+            if num[j] > num[j+1]:
+                num.pop(j)
+                num.insert(j, '0')
+                found = True
+                break
+        if not found:
+            num.pop()
+    while num and num[0] == '0':
+        num.pop(0)
+    return ''.join(num)

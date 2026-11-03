@@ -1,0 +1,61 @@
+Here is the Python function to return all elements of a 2D matrix in spiral order:
+
+```python
+def spiral_matrix(matrix):
+    """
+    Returns all elements of a 2D matrix in spiral order.
+
+    Args:
+        matrix (list): A 2D list representing the input matrix.
+
+    Returns:
+        list: A 1D list containing all elements of the input matrix in spiral order.
+    """
+
+    result = []
+    top = 0
+    bottom = len(matrix) - 1
+    left = 0
+    right = len(matrix[0]) - 1
+
+    while top <= bottom and left <= right:
+        # Traverse from left to right (top row)
+        for i in range(left, right + 1):
+            result.append(matrix[top][i])
+        top += 1
+        
+        # Traverse from top to bottom (right column)
+        for i in range(top, bottom + 1):
+            result.append(matrix[i][right])
+        right -= 1
+
+        # Check if we need to break the loop
+        if top > bottom or left > right:
+            break
+
+        # Traverse from right to left (bottom row)
+        for i in range(right, left - 1, -1):
+            result.append(matrix[bottom][i])
+        bottom -= 1
+        
+        # Traverse from bottom to top (left column)
+        for i in range(bottom, top - 1, -1):
+            result.append(matrix[i][left])
+        left += 1
+
+    return result
+```
+
+Here's an example usage of the function with a sample matrix:
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+This function iterates through the matrix in a spiral manner by maintaining track of the current top, bottom, left, and right boundaries. It uses four nested loops to traverse each row/column in the correct order. The `result` list accumulates all elements visited during traversal.

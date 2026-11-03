@@ -1,0 +1,10 @@
+Write exactly one Python function named search_insert_position(nums, target).
+
+The function receives a sorted list and a target value.
+
+Requirements:
+- Return the index if the target exists
+- Otherwise return the insertion index
+- Use efficient searching logic
+- Raise ValueError for invalid inputs
+- Only output Python code

@@ -1,0 +1,1 @@
+Create a Python function called course_schedule(num_courses, prerequisites) that checks if all courses can be completed.

@@ -1,0 +1,80 @@
+Here's an implementation of `topological_sort` that meets all your requirements:
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Performs a topological sort on a directed acyclic graph.
+
+    Args:
+        graph (dict): A dictionary representing the adjacency list of the graph.
+
+    Returns:
+        list: The ordering as a list. If a cycle is detected, raises a ValueError.
+
+    Raises:
+        ValueError: If a cycle exists in the graph.
+    """
+
+    # Initialize visited set and stack for DFS
+    visited = set()
+    stack = []
+    incoming_edges = defaultdict(int)
+
+    # Populate incoming edges count dictionary
+    for node in graph:
+        for neighbor in graph[node]:
+            incoming_edges[neighbor] += 1
+
+    # Perform DFS to detect cycles and build the ordering
+    def dfs(node):
+        visited.add(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                incoming_edges[neighbor] -= 1
+                if incoming_edges[neighbor] == 0:
+                    dfs(neighbor)
+            elif neighbor in stack:
+                # If we encounter a node that's already in the stack, it means there's a cycle
+                raise ValueError("Cycle detected")
+
+    for node in graph:
+        if node not in visited and incoming_edges[node] == 0:
+            dfs(node)
+
+    # Build the ordering by reversing the DFS order
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            stack.appendleft(node)
+            visited.add(node)
+        else:
+            stack.append(node)
+
+    return list(stack)
+
+
+# Example usage
+if __name__ == "__main__":
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['D'],
+        'C': ['D'],
+        'D': []
+    }
+
+    try:
+        ordering = topological_sort(graph)
+        print("Topological ordering:", ordering)
+    except ValueError as e:
+        print(e)
+```
+
+In this implementation, we first initialize the `visited` set and stack for DFS. We then populate an `incoming_edges` count dictionary to keep track of how many edges point into each node.
+
+We perform a depth-first search (DFS) on all nodes with no incoming edges (i.e., roots). During the DFS traversal, if we encounter a neighbor that's already in the `stack`, it means there's a cycle. If a cycle is detected, we raise a `ValueError`.
+
+Finally, we build the ordering by reversing the DFS order. We iterate over the graph again and append each node to the ordering based on whether it was visited before or not.
+
+Note that this implementation assumes that the input graph does not contain self-loops (edges from a node to itself). If you need to handle such cases, additional logic may be required to keep track of incoming edges for self-loops.

@@ -1,0 +1,20 @@
+Here's a Python function that meets the requirements:
+
+```python
+def is_balanced(s):
+    brackets = {')': '(', ']': '[', '}': '{'}
+    bracket_map = {'(': 1, '[': 2, '{}': 3}
+    stack = []
+
+    for char in s:
+        if char in brackets:
+            top_char = stack.pop() if stack else None
+            if not top_char or brackets[top_char] != char:
+                return False
+        elif char in bracket_map:
+            stack.append(bracket_map[char])
+
+    return not stack
+```
+
+This function uses two dictionaries to map closing brackets to their corresponding opening brackets and assigns a unique integer for each type of bracket, allowing us to keep track of them in the stack. It iterates through the string, pushing the encountered brackets into the stack when they are opened and popping them out when they are closed. If there's an unmatched closing bracket or if the stack is not empty at the end, it returns `False`. Otherwise, it returns `True`.

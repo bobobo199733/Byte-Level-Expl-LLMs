@@ -1,0 +1,56 @@
+Certainly! Below is the Python function `bfs_shortest_path` that computes the shortest distance between two nodes in an unweighted graph using breadth-first search (BFS). This function uses a dictionary to represent the adjacency list of the graph and returns -1 if no path exists.
+
+```python
+def bfs_shortest_path(graph, start, target):
+    """
+    Computes the shortest distance between two nodes in an unweighted graph using BFS.
+    
+    :param graph: A dictionary representing the adjacency list of the graph.
+    :param start: The starting node for the search.
+    :param target: The target node to find the path to.
+    :return: The shortest distance from 'start' to 'target', or -1 if no path exists.
+    """
+    # Initialize a queue and visited set
+    queue = [(start, 0)]  # Each element is a tuple (node, distance_from_start)
+    visited = set()
+    
+    while queue:
+        current_node, distance = queue.pop(0)  # Dequeue the first item in the list
+        
+        if current_node == target:
+            return distance
+        
+        if current_node not in visited:
+            visited.add(current_node)
+            
+            for neighbor in graph.get(current_node, []):
+                if neighbor not in visited:
+                    queue.append((neighbor, distance + 1))
+    
+    # If we exit the loop without finding the target, there is no path
+    return -1
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+start_node = 'A'
+target_node = 'F'
+
+shortest_distance = bfs_shortest_path(graph, start_node, target_node)
+print(f"The shortest distance from {start_node} to {target_node} is: {shortest_distance}")
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where keys are nodes and values are lists of adjacent nodes.
+- **BFS Initialization**: We use a queue to manage the nodes we need to visit. Each element in the queue is a tuple containing the current node and its distance from the start node.
+- **Visited Set**: A set is used to keep track of visited nodes to avoid cycles and redundant processing.
+- **Path Finding**: The algorithm iterates through each level of nodes until it either finds the target node or exhausts all possible paths.
+
+This function will efficiently handle larger graphs as well, provided that the graph is not excessively large or complex.

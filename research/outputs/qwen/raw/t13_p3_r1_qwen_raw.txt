@@ -1,0 +1,73 @@
+Certainly! Below is an implementation of the `spiral_matrix` function in Python:
+
+```python
+def spiral_matrix(matrix):
+    if not matrix or not matrix[0]:
+        return []
+    
+    rows, cols = len(matrix), len(matrix[0])
+    result = []
+    
+    # Define boundaries for the current layer to be processed
+    top, bottom, left, right = 0, rows - 1, 0, cols - 1
+    
+    while top <= bottom and left <= right:
+        # Traverse from left to right along the top boundary
+        for i in range(left, right + 1):
+            result.append(matrix[top][i])
+        
+        # Move the top boundary down by one row
+        top += 1
+        
+        # Traverse from top to bottom along the right boundary
+        for i in range(top, bottom + 1):
+            result.append(matrix[i][right])
+        
+        # Move the right boundary left by one column
+        right -= 1
+        
+        if top <= bottom:
+            # Traverse from right to left along the bottom boundary
+            for i in range(right, left - 1, -1):
+                result.append(matrix[bottom][i])
+            
+            # Move the bottom boundary up by one row
+            bottom -= 1
+        
+        if left <= right:
+            # Traverse from bottom to top along the left boundary
+            for i in range(bottom, top - 1, -1):
+                result.append(matrix[i][left])
+            
+            # Move the left boundary right by one column
+            left += 1
+    
+    return result
+
+# Example usage:
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+### Explanation:
+- **Initialization**: The function starts by checking if the matrix is empty. It then initializes boundaries for the current layer (`top`, `bottom`, `left`, `right`).
+  
+- **Traversing Layers**:
+  - Traverse from left to right along the top boundary.
+  - Move the top boundary down by one row.
+  - Traverse from top to bottom along the right boundary.
+  - Move the right boundary left by one column.
+  - If there are still elements in the current layer, traverse from right to left along the bottom boundary.
+  - Move the bottom boundary up by one row.
+  - If there are still elements in the current layer, traverse from bottom to top along the left boundary.
+  - Move the left boundary right by one column.
+
+- **Returning Result**: The function collects all the elements in a list and returns it after processing all layers of the matrix.
+
+### Example:
+For the given `matrix`, the output will be `[1, 2, 3, 6, 9, 8, 7, 4, 5]`.

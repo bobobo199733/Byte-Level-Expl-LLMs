@@ -1,0 +1,33 @@
+def robot_simulator(commands):
+    grid = [['.', '#', '.', '#'], ['#', '.', '#', '.']]
+    directions = {'N': (0, -1), 'S': (0, 1), 'E': (1, 0), 'W': (-1, 0)}
+    position = (0, 0)
+    direction = 'N'
+    for command in commands:
+        if command == 'F':
+            new_position = tuple(map(sum, zip(position, directions[direction])))
+            if grid[new_position[1]][new_position[0]] != '#':
+                position = new_position
+            else:
+                print('Collision!')
+                break
+        elif command == 'B':
+            new_position = tuple(map(sum, zip(position, directions[direction])))[-2:]
+            if grid[new_position[1]][new_position[0]] != '#':
+                position = new_position
+            else:
+                print('Collision!')
+                break
+        elif command in ['L', 'R']:
+            direction = rotate(direction, command)
+    result = (position[0], position[1], direction)
+    return result
+
+def rotate(dir, turn):
+    if turn == 'L':
+        directions = {v: k for k, v in directions.items()}
+        direction = list(directions.get(direction, None))[1]
+    elif turn == 'R':
+        directions = {k: v for k, v in sorted(list(directions.items()), key=lambda x: len(x[0]))}
+        direction = list(directions.get(direction, None))[0]
+    return direction

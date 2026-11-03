@@ -1,0 +1,64 @@
+```python
+from collections import defaultdict
+
+def min_window_substring(s: str, t: str) -> str:
+    """
+    Returns the smallest substring of `s` containing all characters from `t`.
+
+    Args:
+        s (str): The string to search for a substring in.
+        t (str): The string containing the characters to search for.
+
+    Returns:
+        str: The smallest substring of `s` containing all characters from `t`.
+             If no such substring exists, returns an empty string.
+    """
+
+    # Base case: if t is longer than s or both are empty, return an empty string
+    if len(t) > len(s) or not t and not s:
+        return ""
+
+    # Create a dictionary to store the frequency of characters in t
+    t_freq = defaultdict(int)
+    for char in t:
+        t_freq[char] += 1
+
+    # Initialize variables to keep track of the minimum window
+    min_window = ""
+    min_len = float('inf')
+
+    # Initialize variables to keep track of the current window
+    left = 0
+    formed = 0
+    window_counts = defaultdict(int)
+
+    # Iterate over the string s
+    for right in range(len(s)):
+        # Add the character at the right of the window to the window counts
+        char = s[right]
+        window_counts[char] += 1
+
+        # If the added character is in t and its frequency in the window is equal to its frequency in t, increment formed
+        if char in t_freq and window_counts[char] == t_freq[char]:
+            formed += 1
+
+        # While the window contains all characters from t and the left of the window is not too far away
+        while left <= right and formed == len(t_freq):
+            # Update the minimum window if the current window is smaller
+            char = s[left]
+            if right - left + 1 < min_len:
+                min_len = right - left + 1
+                min_window = s[left:right + 1]
+
+            # Remove the character at the left of the window from the window counts
+            window_counts[char] -= 1
+
+            # If the removed character is in t and its frequency in the window is less than its frequency in t, decrement formed
+            if char in t_freq and window_counts[char] < t_freq[char]:
+                formed -= 1
+
+            # Move the left of the window to the right
+            left += 1
+
+    return min_window
+```

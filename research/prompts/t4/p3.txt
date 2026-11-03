@@ -1,0 +1,24 @@
+Write exactly one Python function with this signature:
+
+def decode_string(s: str) -> str
+
+The function must decode expressions of the form k[encoded_string], where k is a positive integer repeat count.
+
+Requirements:
+- Support nested encoding
+- Support multi-digit numbers
+- Examples:
+  - "3[a]" -> "aaa"
+  - "2[ab]" -> "abab"
+  - "3[a2[c]]" -> "accaccacc"
+  - "10[x]" -> "xxxxxxxxxx"
+- Raise ValueError for invalid input
+- Invalid input includes:
+  - empty string
+  - unmatched brackets
+  - missing repeat counts before brackets
+  - malformed nesting
+  - empty bracket groups such as "3[]"
+- Do not print anything
+- Do not include explanations
+- Output only the Python function

@@ -1,0 +1,64 @@
+Certainly! Below is a Python implementation of an LRU (Least Recently Used) cache using the `OrderedDict` class from the `collections` module for maintaining the order of elements based on their usage. This approach ensures that we can efficiently manage the cache with both insertion and deletion in O(1) time.
+
+Here's how you can implement it:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulates an LRU Cache.
+    
+    Args:
+        operations (list): A list of strings representing cache operations. 
+                           Each string is either "set key value" or "get key".
+        capacity (int): The maximum number of items the cache can hold.
+
+    Returns:
+        dict: A dictionary containing the results of each operation in the order they were performed.
+              For 'get' operations, the result will be the value if the key exists, otherwise -1.
+              For 'set' operations, no return value.
+    """
+    
+    # Initialize an ordered dictionary and a counter for the results
+    cache = OrderedDict()
+    results = []
+    
+    # Process each operation in the input list
+    for op in operations:
+        if "get" in op:
+            key = int(op.split()[1])
+            if key in cache:
+                results.append(cache[key])  # Append the value to the result
+                del cache[key]              # Remove the entry to make room at the end
+                cache[key] = key            # Insert it again so it's considered "used"
+            else:
+                results.append(-1)          # Key not found, append -1 to the result
+        elif "set" in op:
+            key, value = map(int, op.split()[1:])
+            if len(cache) >= capacity:
+                cache.popitem(last=False)  # Remove the least recently used item first
+            cache[key] = value            # Insert or update the new item
+    
+    return results
+
+# Example usage:
+operations = ["set 1 10", "set 2 20", "get 1", "set 3 30", "get 2", "get 3"]
+capacity = 2
+print(lru_cache(operations, capacity))  # Output: [10, -1, 30]
+```
+
+### Explanation:
+- **Operations**: The input is a list of strings. Each string can be either `"set key value"` or `"get key"`.
+- **Cache Initialization**: We use an `OrderedDict` to maintain the order of elements and manage the cache efficiently.
+- **Set Operation**:
+  - If the cache has reached its capacity, we remove the least recently used item using `popitem(last=False)`.
+  - Then, we add or update the key-value pair in the cache.
+- **Get Operation**:
+  - We check if the key exists in the cache. If it does, we append the value to the results and move the entry to the end of the order (most recently used).
+  - If the key doesn't exist, we append `-1` to the results.
+
+### Example Usage:
+In the example provided, you can see how the `lru_cache` function processes a series of operations on an LRU cache with a capacity of 2. The output shows the result of each operation in order.
+
+Feel free to modify or extend this implementation according to your needs!

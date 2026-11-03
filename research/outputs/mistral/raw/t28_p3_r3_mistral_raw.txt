@@ -1,0 +1,24 @@
+Here's a simple implementation of the `robot_simulator` function in Python, assuming the commands are given as a list of directions ('U', 'D', 'L', 'R') and the initial position is (0, 0):
+
+```python
+def robot_simulator(commands):
+    x = 0
+    y = 0
+    for command in commands:
+        if command == 'U':
+            y += 1
+        elif command == 'D':
+            y -= 1
+        elif command == 'L':
+            x -= 1
+        elif command == 'R':
+            x += 1
+
+    return x, y
+```
+
+You can call this function with a list of commands like so:
+
+```python
+robot_simulator(['U', 'R', 'D', 'L'])  # returns (1, -1) assuming the initial position is (0, 0)
+```

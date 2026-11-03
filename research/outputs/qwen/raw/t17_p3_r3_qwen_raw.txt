@@ -1,0 +1,62 @@
+Certainly! An LRU (Least Recently Used) Cache is a data structure that maintains the order of operations based on use: it removes the least recently used item when the cache reaches its capacity. Here’s how you can implement such a function in Python:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulates an LRU Cache.
+
+    :param operations: A list of strings representing the operations on the cache.
+                       Each string is either "get" or "put" followed by two integers.
+                       Example: ["put 1 2", "put 2 3", "get 1", "put 3 4", "get 2"]
+    :param capacity: An integer representing the maximum number of items the cache can hold.
+
+    :return: A list of results for each get operation. Each result is the value associated with
+             the key if it exists, otherwise -1.
+    """
+    # Dictionary to store the actual cache values
+    cache = OrderedDict()
+    
+    # List to store the results of 'get' operations
+    results = []
+    
+    for operation in operations:
+        op, *args = operation.split()  # Split the string into operation and arguments
+        key, value = int(args[0]), args[1]
+        
+        if op == "put":
+            # Remove the least recently used item first if the cache is full
+            if len(cache) >= capacity:
+                cache.popitem(last=False)
+            
+            # Add or update the key-value pair in the cache
+            cache[key] = value
+            
+        elif op == "get":
+            # If the key exists, move it to the end (to indicate recent use)
+            if key in cache:
+                results.append(cache.pop(key))
+                cache[key] = value  # Re-insert with new value
+            else:
+                results.append(-1)  # Key not found
+    
+    return results
+
+# Example usage:
+operations_example = ["put 1 10", "put 2 20", "get 1", "put 3 30", "get 2", "get 3"]
+capacity_example = 2
+print(lru_cache(operations_example, capacity_example))
+```
+
+### Explanation:
+
+- **OrderedDict**: This is used to maintain the order of operations. It keeps track of the most recently accessed items.
+- **Operation Splitting**: Each operation (either "put" or "get") and its arguments are split into separate variables for clarity.
+- **Cache Management**:
+  - For `put` operations, if the cache is at full capacity, we remove the least recently used item (`popitem(last=False)`).
+  - We then add or update the key-value pair in the cache.
+  - For `get` operations, if the key exists, we move it to the end of the ordered dictionary (indicating recent use) and return its value. If not, we append `-1`.
+- **Result Storage**: The results for each `get` operation are stored in a list which is returned at the end.
+
+This implementation ensures that both `put` and `get` operations are handled efficiently according to LRU cache rules.

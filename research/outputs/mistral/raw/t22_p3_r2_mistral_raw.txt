@@ -1,0 +1,16 @@
+Here is a Python implementation of the Sieve of Eratosthenes algorithm, which generates all prime numbers up to `n`. This function does not return an empty list when `n` is 0 or 1, as per your request.
+
+```python
+def sieve_primes(n):
+    primes = [True] * (n + 1)
+    p = 2
+    while p**2 <= n:
+        if primes[p]:
+            for i in range(p**2, n + 1, p):
+                primes[i] = False
+        p += 1
+    prime_numbers = [x for x in range(2, n + 1) if primes[x]]
+    return prime_numbers
+```
+
+This function initializes a list `primes` of boolean values representing whether each number up to and including `n` is prime (initially set as true). Then it iteratively marks the multiples of numbers that we have already found to be primes. The loop runs until we reach the square of the current prime value `p`. Finally, it returns a list containing all the remaining prime numbers.

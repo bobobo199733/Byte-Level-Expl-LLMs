@@ -1,0 +1,25 @@
+In Python, here is a simple implementation of the `merge_k_sorted_lists` function using a min-heap approach:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    heap = []
+    for list_ in lists:
+        if list_:
+            heapq.heappush(heap, (list_[0], list_, 0))
+
+    result = []
+    while heap:
+        _, current_list, index = heapq.heappop(heap)
+        result.append(current_list[index])
+        index += 1
+        if index < len(current_list):
+            heapq.heappush(heap, (current_list[index], current_list, index))
+
+    return result
+```
+
+In this function, we create an empty min-heap and push the first elements from each input list to it. The tuple structure `(priority, element, index)` ensures that the next available unprocessed element with the smallest priority is at the front of the heap. We then iteratively pop the minimum item from the heap, add its corresponding value to the result array, and update the min-heap accordingly.
+
+The time complexity for this implementation is O(n log k), where n is the total number of elements in all lists combined, and k is the number of input lists. This is optimal due to using a min-heap data structure to combine multiple sorted lists efficiently.

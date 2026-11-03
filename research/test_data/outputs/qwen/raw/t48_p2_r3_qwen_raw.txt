@@ -1,0 +1,57 @@
+To compute the median of two sorted integer arrays with a time complexity of O(log(min(m, n))), we can use binary search on the smaller array. Here's how you can implement the `median_of_two_sorted_arrays` function:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    # Ensure nums1 is the smaller array to minimize the search space
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
+
+    m, n = len(nums1), len(nums2)
+    imin, imax = 0, m
+    half_len = (m + n + 1) // 2
+
+    while imin <= imax:
+        i = (imin + imax) // 2
+        j = half_len - i
+
+        if i < m and nums2[j-1] > nums1[i]:
+            # i is too small, must increase it
+            imin = i + 1
+        elif i > 0 and nums1[i-1] > nums2[j]:
+            # i is too big, must decrease it
+            imax = i - 1
+        else:
+            # i is perfect
+            if i == 0: max_of_left = nums2[j-1]
+            elif j == 0: max_of_left = nums1[i-1]
+            else: max_of_left = max(nums1[i-1], nums2[j-1])
+
+            if (m + n) % 2 == 1:
+                return float(max_of_left)
+
+            if i == m: min_of_right = nums2[j]
+            elif j == n: min_of_right = nums1[i]
+            else: min_of_right = min(nums1[i], nums2[j])
+
+            return (max_of_left + min_of_right) / 2.0
+
+# Example usage:
+print(median_of_two_sorted_arrays([1, 3], [2]))    # Output: 2.0
+print(median_of_two_sorted_arrays([1, 2], [3, 4])) # Output: 2.5
+```
+
+### Explanation:
+
+1. **Ensure `nums1` is the smaller array**: This helps in minimizing the binary search space.
+2. **Binary Search on Smaller Array**: We use a binary search approach to find the correct partition point (`i`) for the smaller array (`nums1`). The corresponding partition of the larger array (`nums2`) would be determined as `j = half_len - i`.
+3. **Partition Conditions**:
+   - If `i` is too small, we need more elements on the left side of `nums1`, so we increase `imin`.
+   - If `i` is too large, we need fewer elements on the left side of `nums1`, so we decrease `imax`.
+4. **Edge Cases**:
+   - When `i == 0`, it means no element from `nums1` is to the left of the partition.
+   - When `j == 0`, it means no element from `nums2` is to the left of the partition.
+5. **Calculate Median**: 
+   - If the total length `(m + n)` is odd, the median will be the maximum of the elements on the left side.
+   - If the total length is even, the median will be the average of the two middle numbers.
+
+This approach ensures that we handle all edge cases and achieve a time complexity of O(log(min(m, n))).

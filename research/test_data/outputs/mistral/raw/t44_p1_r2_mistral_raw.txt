@@ -1,0 +1,30 @@
+Sure! Here's a Python function called `rotate_array` that rotates an array to the right by `k` steps:
+
+```python
+def rotate_array(nums, k):
+    # Calculate the number of elements to be shifted (wrapping around if necessary)
+    n = len(nums)
+    k %= n
+
+    # Store the original array in a new variable before performing rotation
+    original = nums[:]
+
+    # Reverse the first part of the array and the last part separately
+    reversed_first = nums[-k:][::-1]
+    reversed_last = nums[:n - k][::-1]
+
+    # Concatenate the reversed parts to get the rotated array
+    rotated = reversed_first + original[k:] + reversed_last
+
+    return rotated
+```
+
+This function first calculates the number of elements to be shifted (`k % n`) because we want to handle cases where `k` is greater than the length of the array. It then stores the original array in a new variable before performing the rotation. The function reverses the first part and the last part of the array separately, concatenates them, and returns the rotated array.
+
+Here's an example usage:
+
+```python
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(nums, k))  # Output: [3, 4, 5, 1, 2]
+```

@@ -1,0 +1,39 @@
+To create a function that returns all elements of a 2D matrix in spiral order, we can follow these steps:
+1. Initialize direction constants (top, right, bottom, left).
+2. Create an empty list to store the visited elements.
+3. Implement the main loop which iterates through the rows and columns based on the current direction.
+4. Inside the main loop, add the current element to the result list and mark it as visited.
+5. Update the row, column indices according to the chosen direction.
+6. Check if we need to change the direction after visiting a certain number of elements in each direction.
+7. Continue until all elements have been processed.
+
+Here's the code for the `spiral_matrix` function:
+
+```python
+def spiral_matrix(matrix):
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    result, row, col, direction = [], 0, 0, 0
+
+    while True:
+        x, y = row + directions[direction][0], col + directions[direction][1]
+
+        if 0 <= x < len(matrix) and 0 <= y < len(matrix[0]) and (x, y) not in result:
+            result.append(matrix[x][y])
+            matrix[x][y] = visited = True
+            row, col = x, y
+
+        if visited:
+            visited = False
+            row, col, direction = row, col, (direction + 1) % len(directions)
+        elif not matrix[row + directions[(direction - 1) % len(directions)][0]][col + directions[(direction - 1) % len(directions)][1]]:
+            break
+
+    return result
+```
+
+Example usage:
+
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```

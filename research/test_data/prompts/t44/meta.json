@@ -1,0 +1,15 @@
+{
+  "task_id": "t44",
+  "function_name": "rotate_array",
+  "valid_cases": [
+    [[ [1,2,3,4,5,6,7], 3 ], [5,6,7,1,2,3,4]],
+    [[ [-1,-100,3,99], 2 ], [3,99,-1,-100]],
+    [[ [1,2], 0 ], [1,2]],
+    [[ [1], 10 ], [1]]
+  ],
+  "invalid_cases": [
+    [[null, 2]],
+    [["abc", 1]]
+  ],
+  "expected_exception": "ValueError"
+}

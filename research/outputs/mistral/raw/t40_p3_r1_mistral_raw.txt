@@ -1,0 +1,20 @@
+Here's a simple implementation of the `autocomplete_system` function using Python's built-in data structures. This example assumes you have a list of words and are looking for suggestions starting with the given prefix:
+
+```python
+def autocomplete_system(words, prefix):
+    # Filter out words that don't start with the given prefix
+    matches = [word for word in words if word.startswith(prefix)]
+
+    # Sort the list of matches alphabetically
+    matches.sort()
+
+    return matches
+```
+
+To use this function, you can create a list of words and call it with your prefix:
+
+```python
+words = ["apple", "banana", "carrot", "orange", "pear", "potato"]
+prefix = "app"
+print(autocomplete_system(words, prefix))  # Output: ['apple']
+```

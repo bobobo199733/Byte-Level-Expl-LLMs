@@ -1,0 +1,44 @@
+**Word Frequency Counter Function**
+=====================================
+
+Here is a Python function `word_frequency` that takes a string of text as input and returns a dictionary where the keys are words in the text, and the values are their respective frequencies.
+
+```python
+import re
+
+def word_frequency(text):
+    """
+    Count how many times each word appears in the given text.
+
+    Args:
+        text (str): The input text.
+
+    Returns:
+        dict: A dictionary with words as keys and their frequencies as values.
+    """
+
+    # Convert text to lower case and split it into words
+    words = re.findall(r'\b\w+\b', text.lower())
+
+    # Use a dictionary comprehension to count word frequencies
+    frequency = {word: words.count(word) for word in set(words)}
+
+    return frequency
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```
+
+**Output:**
+```python
+{'this': 2, 'is': 2, 'an': 2, 'example': 2, 'sentence': 2, 'just': 1}
+```
+
+In this code:
+
+*   We use the `re` module to extract words from the input text. The regular expression `\b\w+\b` matches word boundaries and captures one or more alphanumeric characters.
+*   We convert the entire text to lower case using the `lower()` method to ensure that the same word in different cases is not counted as two separate words.
+*   We use a dictionary comprehension to count the frequency of each unique word in the `words` list. The outer loop iterates over each unique word, and the inner loop counts its occurrences in the entire list.
+
+This function should work correctly for most standard English text inputs. However, if you need to handle more complex texts (e.g., with numbers or special characters), you may need to adjust the regular expression used to extract words.

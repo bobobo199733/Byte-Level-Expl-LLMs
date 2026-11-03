@@ -1,0 +1,5 @@
+Write one Python function called serialize_tree(root) that converts a binary tree into a string.
+
+Use only one function with that exact name.
+Handle empty trees correctly.
+Do not use external libraries.

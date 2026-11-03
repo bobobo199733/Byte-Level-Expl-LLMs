@@ -1,0 +1,58 @@
+Here's how you can write the `serialize_tree` function in Python to convert a binary tree into a string:
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def serialize_tree(root):
+    """
+    Converts a binary tree into a string.
+
+    Args:
+        root (TreeNode): The root of the binary tree.
+
+    Returns:
+        str: A string representation of the binary tree.
+    """
+
+    def preorder_traversal(node):
+        # If node is None, return 'X' to represent an empty node
+        if node is None:
+            return 'X'
+        
+        # Recursively traverse left and right subtrees, then the current node
+        return str(node.val) + ',' + preorder_traversal(node.left) + ',' + preorder_traversal(node.right)
+
+    return preorder_traversal(root)
+```
+
+Here's an explanation of how this works:
+
+-   The function `serialize_tree` defines a helper function called `preorder_traversal` that uses a depth-first, pre-order traversal strategy to traverse the tree.
+-   It starts at the root node and checks if it exists (is not None).
+-   If the current node is None, it returns 'X' as a placeholder for an empty node.
+-   Otherwise, it constructs a string representation of the current node by concatenating its value with ',' separated strings representing the left child, current node, and right child.
+
+Here's how you can test this function:
+
+```python
+# Create a sample binary tree:
+#        1
+#       / \
+#      2   3
+#     /
+#    4
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+
+print(serialize_tree(root))  # Output: "1,2,4,X,X,3"
+```
+
+This output string represents the binary tree's structure. The commas separate child nodes from their parents and each other, and 'X' denotes an empty node.

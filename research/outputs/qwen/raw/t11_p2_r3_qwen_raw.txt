@@ -1,0 +1,48 @@
+To solve this problem using dynamic programming, we can create a DP array where `dp[i]` represents the minimum number of coins needed to make up the amount `i`. If it is not possible to form an amount, we will return -1. Here's how you can implement the function:
+
+```python
+def coin_change(coins, amount):
+    # Handle edge case: if the target amount is 0, no coins are needed.
+    if amount == 0:
+        return 0
+    
+    # Initialize the DP array with a large number (infinity) to represent an impossible state.
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 coins are needed to make up the amount 0.
+    dp[0] = 0
+    
+    # Fill the DP table
+    for coin in coins:
+        for x in range(coin, amount + 1):
+            # Update the DP array if we can use this coin to form the current amount.
+            dp[x] = min(dp[x], dp[x - coin] + 1)
+    
+    # If dp[amount] is still infinity, it means no combination of coins can form the given amount.
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (1+5+5)
+
+coins = [2]
+amount = 3
+print(coin_change(coins, amount))  # Output: -1
+
+coins = [1]
+amount = 0
+print(coin_change(coins, amount))  # Output: 0
+
+coins = [1, 4, 5]
+amount = 10
+print(coin_change(coins, amount))  # Output: 2 (1+1+1+1+1+1+1+1+1+1 or 4+4+2)
+```
+
+### Explanation:
+- **Initialization**: We initialize a `dp` array of size `(amount + 1)` with `float('inf')`. This represents that initially, we assume it's impossible to form any amount other than 0.
+- **Base Case**: For the base case, `dp[0] = 0`, because no coins are needed to make up an amount of 0.
+- **Filling DP Table**: We iterate over each coin and for every possible amount from that coin value up to the target amount. If using the current coin can form a smaller number of coins, we update `dp[x]`.
+- **Result Check**: After filling the table, if `dp[amount]` is still infinity, it means no combination of given coins can make up that amount.
+
+This approach ensures that we efficiently handle larger amounts and duplicate coin values. The time complexity is `O(n * m)`, where `n` is the target amount and `m` is the number of different coin denominations.

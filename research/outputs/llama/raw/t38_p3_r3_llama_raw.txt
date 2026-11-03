@@ -1,0 +1,76 @@
+Here is the Python function `expression_to_postfix` to convert an infix expression into postfix notation:
+
+```python
+def expression_to_postfix(expression):
+    """
+    Convert an infix expression into postfix notation.
+
+    Args:
+        expression (str): The infix expression as a string.
+
+    Returns:
+        str: The equivalent postfix expression.
+    """
+
+    # Define the precedence of operators
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+    output = []
+    operator_stack = []
+
+    for char in expression:
+
+        # Handle whitespace and parentheses
+        if char.isspace():
+            continue
+        elif char in ['(', ')']:
+            if char == '(':
+                operator_stack.append(char)
+            else:  # Closing parenthesis
+                while operator_stack[-1] != '(':
+                    output.append(operator_stack.pop())
+                operator_stack.pop()  # Remove the opening parenthesis
+
+        # Handle operators with lower precedence
+        elif char in precedence:
+
+            # Pop operators of higher or equal precedence from stack and append to output
+            while (operator_stack and 
+                   operator_stack[-1] != '(' and 
+                   precedence[operator_stack[-1]] >= precedence[char]):
+                output.append(operator_stack.pop())
+
+            # Push the current operator onto the stack
+            operator_stack.append(char)
+
+        # Handle other characters (operands)
+        else:
+            output.append(char)
+
+    # Append remaining operators from stack to output
+    while operator_stack:
+        if operator_stack[-1] == '(':
+            raise ValueError("Unbalanced parentheses in the input expression")
+        output.append(operator_stack.pop())
+
+    return ''.join(output)
+```
+
+This function works by maintaining two stacks: `output` for the postfix notation and `operator_stack` to handle operator precedence. The function iterates through each character of the infix expression, applying the following rules:
+
+*   Treat whitespace characters as insignificant.
+*   Handle parentheses correctly by pushing opening parentheses onto the stack and popping them with matching closing parentheses in postfix order.
+*   For operators with lower precedence than the last operator on the stack (or equal if they are at the same level), pop all operators from the stack and append to the output, then push the current operator. This ensures that operators of higher or equal precedence are evaluated first.
+*   For operands (non-operator characters), simply append them to the output.
+
+After processing the entire expression, any remaining operators on the stack are appended to the output as they must be at the end in postfix notation.
+
+You can use this function like so:
+
+```python
+infix_expr = "A + B * C - D / E"
+postfix_expr = expression_to_postfix(infix_expr)
+print(postfix_expr)  # Output: ABC*+DE-/-
+```
+
+This demonstrates that `expression_to_postfix` correctly handles the infix expression and produces its equivalent postfix notation.

@@ -1,0 +1,14 @@
+Here is a recursive implementation of the `fast_power` function in Python using exponential time reduction:
+
+```python
+def fast_power(base, exponent):
+    if exponent == 0:
+        return 1
+    elif exponent % 2 == 0:
+        half = fast_power(base, exponent // 2)
+        return half * half
+    else:
+        return base * fast_power(base, exponent - 1)
+```
+
+This function takes advantage of the even/odd property of exponents to quickly compute the power using a divide-and-conquer approach. The time complexity is `O(log(exponent))`.

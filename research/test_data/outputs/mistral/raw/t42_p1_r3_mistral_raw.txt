@@ -1,0 +1,33 @@
+Here is a Python function named `course_schedule` that uses Depth-First Search (DFS) to check if it's possible to complete all courses given the prerequisites:
+
+```python
+import collections
+
+def course_schedule(num_courses, prerequisites):
+    graph = collections.defaultdict(list)
+    indegrees = [0] * num_courses
+
+    for course, prerequisite in prerequisites:
+        graph[prerequisite].append(course)
+        indegrees[course] += 1
+
+    queue = [i for i, degree in enumerate(indegrees) if degree == 0]
+
+    while queue:
+        current_course = queue.pop(0)
+        num_courses -= 1
+
+        if num_courses == 0:
+            return True
+
+        for prerequisite in graph[current_course]:
+            indegrees[prerequisite] -= 1
+            if indegrees[prerequisite] == 0:
+                queue.append(prerequisite)
+
+    return num_courses == 0
+```
+
+In this function, we first create a directed graph from the given prerequisites and initialize an array `indegrees` to store the incoming edges count for each course. Then, we find all courses that have no prerequisites (i.e., indegree = 0) and enqueue them into a priority queue (or stack in this case).
+
+During the DFS process, we pop a course from the queue, decrement its prerequisites' indegrees, and if any prerequisite becomes independent (i.e., its indegree is now 0), enqueue it into the queue for further exploration. The function returns `True` when all courses have been visited or there are no more courses left to explore. Otherwise, it returns `False`.

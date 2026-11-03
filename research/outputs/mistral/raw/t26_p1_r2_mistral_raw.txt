@@ -1,0 +1,42 @@
+Here's the Python function `min_window_substring` as requested:
+
+```python
+def min_window_substring(s, t):
+    pass
+```
+
+To make this function work, you need to implement the algorithm within it. A possible solution could be based on Sliding Window approach where we maintain a dictionary for characters in `t` and two pointers `start` and `end` for the sliding window over `s`. Here's an example of how the implementation might look like:
+
+```python
+def min_window_substring(s, t):
+    if not t or len(t) > len(s): return ""
+
+    result = ""
+    window = {}
+    need = {}
+    left, right, min_len = 0, 0, float('inf')
+
+    for char in t:
+        if char in need:
+            need[char] += 1
+        else:
+            need[char] = 1
+
+    while right < len(s):
+        window[s[right]] = window.get(s[right], 0) + 1
+        while left <= right and not all(v >= u for u, v in zip(need.values(), window.values())):
+            window[s[left]] -= 1
+            if window[s[left]] < 0:
+                del window[s[left]]
+            left += 1
+
+        if len(window) == len(need):
+            curr_len = right - left + 1
+            if curr_len < min_len:
+                result = s[left:right+1]
+                min_len = curr_len
+
+        right += 1
+
+    return result
+```

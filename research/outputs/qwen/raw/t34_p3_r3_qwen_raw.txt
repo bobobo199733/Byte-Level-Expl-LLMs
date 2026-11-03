@@ -1,0 +1,41 @@
+Certainly! To implement a binary search for a rotated sorted array, we need to handle the rotation by adjusting our search boundaries. Here's how you can write the `binary_search_rotated` function:
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if values[mid] == target:
+            return mid
+        
+        # Check which side is properly sorted
+        if values[left] <= values[mid]:  # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+rotated_list = [4, 5, 6, 7, 0, 1, 2]
+target_value = 0
+print(binary_search_rotated(rotated_list, target_value))  # Output: 4
+
+target_value = 3
+print(binary_search_rotated(rotated_list, target_value))  # Output: -1
+```
+
+### Explanation:
+- **Binary Search with Adjusted Boundaries**: The function `binary_search_rotated` performs a binary search on the rotated array. It first checks if the middle element is the target value.
+- **Checking Sorted Sides**: If the left half is sorted, it further checks whether the target lies within that range or in the right half which might be unsorted. Similarly, if the right half is sorted, it performs the same check but on the right half.
+- **Adjusting Boundaries**: Depending on where the target might lie (either in the left or right half), it adjusts the `left` and `right` pointers accordingly.
+
+This approach ensures that the function works correctly for rotated sorted arrays.

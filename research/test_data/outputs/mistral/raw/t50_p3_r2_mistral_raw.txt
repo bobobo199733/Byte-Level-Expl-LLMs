@@ -1,0 +1,22 @@
+Here's a Python function that finds all the starting indices of anagrams within a string `s` for a given pattern `p`. It uses a sliding window approach:
+
+```python
+def find_all_anagrams(s, p):
+    result = []
+    window = Collections.defaultdict(int)  # Use defaultdict to simplify initializing values as zero
+    char_frequency = Collections.Counter(p)  # Count the frequency of each character in pattern p
+
+    for end in range(len(s)):
+        window[s[end]] += 1
+        while len(window) > len(char_frequency):
+            window[s[end - len(window)]] -= 1
+            if window[s[end - len(window)]] == 0:
+                del window[s[end - len(window)]]
+
+        if window == char_frequency and end >= len(p) - 1:
+            result.append(end - len(p) + 1)
+
+    return result
+```
+
+In this function, I have used the `defaultdict` and `Counter` classes from the `collections` module in Python 3 to simplify handling dictionaries with default values and counting character frequencies. The sliding window approach maintains a dictionary `window` of characters found in the current window of string `s`. The `char_frequency` dictionary is pre-computed with the frequency of each character in the pattern `p`. The function finds anagram matches by comparing `window` and `char_frequency`, and it appends starting indices to the result list when a match is found.

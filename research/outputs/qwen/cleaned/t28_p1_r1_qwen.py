@@ -1,0 +1,52 @@
+def robot_simulator(commands):
+    """
+    Simulates a robot moving on a grid based on a series of commands.
+    
+    Parameters:
+        commands (list): A list of strings representing the commands for the robot.
+                         Each command can be 'U' (up), 'D' (down), 'L' (left), or 'R' (right).
+    
+    Returns:
+        tuple: The final position and direction of the robot as (x, y, direction).
+               Direction is a string: 'N' for North, 'S' for South, 'E' for East, 'W' for West.
+    """
+    x, y = (0, 0)
+    direction = 'N'
+    for command in commands:
+        if direction == 'N':
+            if command == 'U':
+                y += 1
+            elif command == 'D':
+                y -= 1
+            elif command == 'L':
+                direction = 'W'
+            elif command == 'R':
+                direction = 'E'
+        elif direction == 'S':
+            if command == 'U':
+                y -= 1
+            elif command == 'D':
+                y += 1
+            elif command == 'L':
+                direction = 'E'
+            elif command == 'R':
+                direction = 'W'
+        elif direction == 'E':
+            if command == 'U':
+                x -= 1
+            elif command == 'D':
+                x += 1
+            elif command == 'L':
+                direction = 'N'
+            elif command == 'R':
+                direction = 'S'
+        elif direction == 'W':
+            if command == 'U':
+                x += 1
+            elif command == 'D':
+                x -= 1
+            elif command == 'L':
+                direction = 'S'
+            elif command == 'R':
+                direction = 'N'
+    return (x, y, direction)

@@ -1,0 +1,82 @@
+To create a `json_validator` function in Python without using built-in JSON libraries, we can implement a simple parser. This will involve validating the structure of the text to ensure it conforms to JSON syntax rules such as having proper key-value pairs, correct use of quotes, and valid object and array structures.
+
+Here is a basic implementation:
+
+```python
+def json_validator(text):
+    def parse_value(value, stack=None):
+        if value.startswith('{') or value.startswith('['):
+            return parse_container(value, stack)
+        else:
+            return parse_string_or_number(value)
+
+    def parse_container(container, stack):
+        level = 1
+        index = 0
+        while index < len(container) - 1:  # Avoid out of bounds error
+            if container[index] == ',' and (stack[-1][1] in ('[', '{')):
+                return False, "Unexpected comma"
+            elif container[index:index + 2] == ': ':
+                key = parse_string(container[index + 2:])
+                value = parse_value(key)
+                stack.append((key, value))
+            elif container[index] in [']', '}']:
+                level -= 1
+                if level < 0:
+                    return False, "Unmatched closing bracket"
+                else:
+                    index += 1
+                    continue
+
+            index += 1
+        if len(stack) == 1 and not isinstance(stack[0][1], (dict, list)):
+            return stack[0]
+        return False, "Incomplete container"
+
+    def parse_string(string):
+        level = 0
+        start = None
+        for i, char in enumerate(string):
+            if char == '"' and (not level or string[i - 1] != '\\'):
+                if not start:
+                    start = i + 1
+                else:
+                    return string[start:i].strip()
+            elif char in ['"', '\n']:
+                continue
+            elif char == '\\' and string[i - 1] != '\\':
+                continue
+
+            level += (char == '"') - (char == '"')
+        return False, "Invalid string"
+
+    def parse_string_or_number(string):
+        if string[0].isdigit() or string[0] in ['-', '+']:
+            try:
+                value = eval(string)
+                if isinstance(value, (int, float)):
+                    return value
+            except Exception:
+                pass
+        return False, "Invalid number"
+
+    # Remove leading/trailing whitespace and check for empty input
+    text = text.strip()
+    if not text:
+        return False
+
+    parsed_data, error = parse_value(text)
+    if not error:
+        return True
+
+    return f"JSON validation failed: {error}"
+
+# Example usage
+print(json_validator('{"name": "John", "age": 30}'))  # Should return True
+print(json_validator('[1, 2, 3]'))  # Should return True
+print(json_validator('{"name": "John", "age": 30,'))  # Should return False with error message
+```
+
+This function `json_validator` checks for basic JSON syntax rules without using the built-in `json` library. It supports simple string and number values, but does not fully validate complex structures like nested objects or arrays within strings.
+
+Please note that this is a simplified parser and might not handle all edge cases or more complex scenarios present in actual JSON data. For production use, it's recommended to use the built-in `json` library for parsing JSON data.

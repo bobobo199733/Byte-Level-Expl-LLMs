@@ -1,0 +1,30 @@
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    stack = []
+    
+    for digit in num:
+        # While stack is not empty and current digit is smaller than the last digit in stack,
+        # we pop from stack. This helps to form a smaller number.
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    
+    # If there are still digits to remove, remove them from the end
+    while k > 0:
+        stack.pop()
+        k -= 1
+    
+    # Construct the result string by popping elements from stack
+    result = ''.join(stack).lstrip('0')
+    
+    # If result is empty, return '0'
+    return result if result else '0'
+
+# Example usage:
+print(remove_k_digits("1432219", 3))  # Output: "1219"
+print(remove_k_digits("10200", 1))    # Output: "200"
+print(remove_k_digits("10", 2))       # Output: "0"
+```
+
+This function uses a stack to ensure that the digits are popped off in such a way that we always get the smallest possible number after removing `k` digits. The process involves comparing each digit with the previous one and popping from the stack when necessary to form a smaller number.

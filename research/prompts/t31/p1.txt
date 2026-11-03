@@ -1,0 +1,9 @@
+Write exactly ONE Python function called serialize_tree(root) that serializes a binary tree into a string.
+
+Requirements:
+- Use only one function named serialize_tree.
+- Do not define classes.
+- Preserve tree structure correctly.
+- Handle empty trees.
+- Return a deterministic representation.
+- Do not use external libraries.

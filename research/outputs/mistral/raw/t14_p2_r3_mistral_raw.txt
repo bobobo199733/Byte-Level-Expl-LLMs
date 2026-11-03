@@ -1,0 +1,30 @@
+I'll provide you with a Python function called `generate_parentheses` that meets your requirements using backtracking:
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(left, right, output):
+        if left == right and left == n:
+            result.append(output)
+
+        if left > n or right > left:
+            return
+
+        # Add opening parenthesis
+        backtrack(left + 1, right, output + '(')
+
+        # Remove the last added opening parenthesis
+        if left > 0:
+            backtrack(left, right + 1, output + ')')
+
+    backtrack(0, 0, '')
+    return result
+```
+
+You can test the function like this:
+
+```python
+print(generate_parentheses(3))
+# Output: [('(())', '((()))', '()()']
+```

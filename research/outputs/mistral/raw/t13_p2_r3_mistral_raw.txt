@@ -1,0 +1,45 @@
+Here's a Python function called `spiral_matrix` that meets your requirements:
+
+```python
+def spiral_matrix(matrix):
+    if not matrix or not matrix:
+        return []
+
+    rows, cols = len(matrix), len(matrix[0])
+    traversed = []
+    top, bottom = 0, rows - 1
+    left, right = 0, cols - 1
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    direction_idx = 0
+
+    while traversed < rows * cols:
+        traversed.append(matrix[top][left])
+        next_pos_x, next_pos_y = left + directions[direction_idx][0], top + directions[direction_idx][1]
+
+        if (
+            next_pos_x < 0 or
+            next_pos_x > right or
+            next_pos_y < 0 or
+            next_pos_y > bottom or
+            matrix[next_pos_y][next_pos_x] in traversed
+        ):
+            direction_idx = (direction_idx + 1) % len(directions)
+
+        left += directions[direction_idx][0]
+        top += directions[direction_idx][1]
+
+    return traversed
+```
+
+You can use this function to traverse a matrix in spiral order:
+
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+spiral_result = spiral_matrix(matrix)
+print(spiral_result)  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```

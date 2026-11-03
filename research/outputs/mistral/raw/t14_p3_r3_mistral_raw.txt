@@ -1,0 +1,20 @@
+In Python, the following recursive function generates all valid parentheses combinations for a given integer `n`. This function uses two variables, `left` and `right`, to keep track of the number of opening and closing parentheses respectively. The base case is when both `left` and `right` are equal to `n`, indicating a valid combination has been found.
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(left, right, openings):
+        if left == n and right == n:
+            result.append(openings)
+        elif left > n or right > n:
+            return  # Skip invalid combinations
+        else:
+            backtrack(left + 1, right, openings + '(')
+            backtrack(left, right + 1, openings + ')')
+
+    backtrack(0, 0, '')
+    return result
+```
+
+This function works by calling itself recursively with adjusted values for `left`, `right`, and the accumulated string of parentheses until it finds valid combinations or reaches an invalid state.

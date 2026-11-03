@@ -1,0 +1,28 @@
+def find_all_anagrams(s, p):
+    result = []
+    p_count = {}
+    for char in p:
+        if char not in p_count:
+            p_count[char] = 0
+        p_count[char] += 1
+    window = {}
+    for start in range(len(s)):
+        end = start + len(p)
+        if start < len(s):
+            if s[start] not in window:
+                window[s[start]] = 0
+            window[s[start]] += 1
+            if end <= len(s):
+                if s[end] in window:
+                    window[s[end]] -= 1
+                    if window[s[end]] == 0:
+                        del window[s[end]]
+                if len(window) == len(p_count):
+                    match = True
+                    for char, count in p_count.items():
+                        if char not in window or window[char] != count:
+                            match = False
+                            break
+                    if match:
+                        result.append(start)
+    return result

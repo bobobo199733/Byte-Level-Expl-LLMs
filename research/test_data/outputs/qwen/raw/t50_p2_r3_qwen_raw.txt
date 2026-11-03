@@ -1,0 +1,60 @@
+Certainly! Below is a Python function `find_all_anagrams` that uses a sliding window approach to find all starting indices of anagrams of string `p` within string `s`. The function uses two frequency counters for tracking the characters in both strings and updates these counters as it slides through `s`.
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    if len(p) > len(s):
+        return []
+
+    # Initialize the count of each character in p
+    p_count = Counter(p)
+    s_count = Counter()
+
+    # Initialize the window size and results list
+    left = 0
+    anagram_indices = []
+
+    for right in range(len(s)):
+        # Add the new character to the current window's counter
+        s_count[s[right]] += 1
+
+        # If we have processed a full window of length len(p)
+        if right - left + 1 > len(p):
+            # Remove the character that is sliding out of the window
+            s_count[s[left]] -= 1
+            if s_count[s[left]] == 0:
+                del s_count[s[left]]
+            left += 1
+
+        # When the two counters are equal, we found an anagram
+        if p_count == s_count:
+            anagram_indices.append(left)
+
+    return anagram_indices
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+
+1. **Edge Case Handling**: The function first checks if the length of `p` is greater than `s`. If so, it returns an empty list since no anagram can exist.
+
+2. **Initialization**:
+   - Two counters (`p_count` and `s_count`) are created to keep track of character frequencies in `p` and the current window in `s`, respectively.
+   - A sliding window approach is used with two pointers, `left` and `right`.
+
+3. **Sliding Window Logic**:
+   - The `right` pointer iterates through each character in `s`.
+   - As characters enter and exit the window, their counts are updated in `s_count`.
+   - When the window size exceeds `len(p)`, the oldest character (pointed by `left`) is removed from consideration.
+
+4. **Anagram Check**:
+   - The function compares `p_count` with `s_count`. If they match, it means we found an anagram, and the starting index (`left`) is added to `anagram_indices`.
+
+5. **Return Result**: Finally, the list of all start indices where the substring in `s` matches `p` as an anagram.
+
+This function ensures that the solution is efficient with a time complexity of O(n) for strings of length n.

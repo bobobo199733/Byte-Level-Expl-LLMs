@@ -1,0 +1,71 @@
+Here's a Python function that follows your requirements:
+
+```python
+import collections
+
+def topological_sort(adj_list):
+    indegrees = [0] * len(adj_list)
+    stack = []
+
+    for node, neighbors in adj_list.items():
+        for neighbor in neighbors:
+            indegrees[neighbor] += 1
+
+    zero_indegree_queue = collections.deque([node for node in range(len(adj_list)) if indegrees[node] == 0])
+
+    while zero_indegree_queue:
+        current_node = zero_indegree_queue.popleft()
+        stack.append(current_node)
+
+        for neighbor in adj_list[current_node]:
+            indegrees[neighbor] -= 1
+            if indegrees[neighbor] == 0:
+                zero_indegree_queue.append(neighbor)
+
+    if len(stack) != len(adj_list):
+        return False
+    return list(stack)
+
+def has_cycle(adj_list):
+    visited = set()
+    stack = []
+
+    def dfs(node, visited, adj_list):
+        if node in visited:
+            return True
+
+        visited.add(node)
+        for neighbor in adj_list[node]:
+            if dfs(neighbor, visited, adj_list):
+                return True
+
+        stack.append(node)
+        return False
+
+    for node in adj_list:
+        if dfs(node, visited, adj_list):
+            return True
+
+    return False
+
+def course_schedule(num_courses, prerequisites):
+    if num_courses <= 0 or type(num_courses) not in (int, float):
+        raise ValueError("Invalid number of courses")
+
+    if type(prerequisites) != list:
+        raise ValueError("Invalid prerequisites")
+
+    adj_list = collections.defaultdict(list)
+    for course, prereq in prerequisites:
+        if 0 <= course < num_courses and 0 <= prereq < num_courses:
+            adj_list[prereq].append(course)
+
+    sorted_courses = topological_sort(adj_list)
+
+    if has_cycle(adj_list):
+        return False
+
+    return sorted_courses
+```
+
+This function first checks the input validity, then constructs an adjacency list representing the dependency graph of the courses. It performs a topological sort to determine if it is possible to finish all courses without cycles. If there are cycles in the dependency graph, it returns `False`. Otherwise, it returns the sorted order of the course numbers.

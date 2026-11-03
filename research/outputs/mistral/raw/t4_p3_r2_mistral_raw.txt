@@ -1,0 +1,20 @@
+Here is a Python function that meets the specified requirements:
+
+```python
+import re
+
+def decode_string(s):
+    def _decode(match):
+        count, inner = match.group(1, 2)
+        return count * _decode(inner) if inner else count
+
+    pattern = re.compile(r'(\d+)\[([^\]\\]+)\]')
+    result = pattern.sub(_decode, s)
+
+    try:
+        return result
+    except Exception as e:
+        raise ValueError("Invalid input") from e
+```
+
+This function uses regular expressions to match and decode the given string. It first defines a helper function `_decode` which handles the recursive decoding of nested brackets. The main function then applies this helper function on the input string using the `sub` method, replacing matched groups with their corresponding decoded result. If an error occurs during the decoding process (e.g., due to unmatched brackets or empty bracket groups), it raises a ValueError with an appropriate message.

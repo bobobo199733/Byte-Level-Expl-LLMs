@@ -1,0 +1,26 @@
+Here's a Python function that meets your requirements. It uses recursion to handle nested patterns and supports multi-digit numbers:
+
+```python
+def decode_string(s):
+    def _decode_string(acc, seq):
+        if not seq:
+            return acc
+        number, pattern = seq[0], seq[1:]
+        multiplier = int(number)
+        result = acc * multiplier
+        if number == '0':
+            return result
+        if pattern[0] != '[':
+            raise ValueError("Invalid input")
+        for char in _decode_string('', pattern):
+            result += char * multiplier
+        return result
+
+    if not s:
+        return ''
+    if not s[0].isdigit() or (len(s) > 1 and not s[1] == '['):
+        raise ValueError("Invalid input")
+    return _decode_string('', [s])
+```
+
+This function works by defining a helper function `_decode_string` that does the actual work. The outer function checks the input string for validity and calls the helper function with an empty accumulator and the input string as arguments. The helper function processes the number (if present) and the pattern, recursively calling itself if necessary. It raises a ValueError when encountering invalid input such as non-numeric numbers or patterns without brackets.

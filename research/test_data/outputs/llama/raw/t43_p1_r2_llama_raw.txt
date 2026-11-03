@@ -1,0 +1,106 @@
+**Binary Tree Inorder Traversal Function**
+=====================================
+
+Here's a Python function to perform an inorder traversal on a binary tree represented as a list:
+```python
+def binary_tree_inorder(tree):
+    """
+    Returns the inorder traversal of a binary tree.
+
+    Args:
+        tree (list): A list representing the binary tree.
+            Each element is either a value or another list,
+            where the first element is the root and subsequent
+            elements are left and right children, respectively.
+
+    Returns:
+        list: The inorder traversal of the binary tree as a list.
+    """
+    result = []
+    stack = []
+
+    def traverse(node):
+        if node:
+            # Traverse left subtree
+            traverse(get_left_child(tree, node))
+
+            # Append value to result
+            result.append(get_value(tree, node))
+
+            # Traverse right subtree
+            traverse(get_right_child(tree, node))
+
+    # Start traversal from root
+    stack = [0]  # Index of root in tree list
+
+    while stack:
+        current_index = stack.pop()
+        traverse(current_index)
+
+    return result
+
+
+def get_left_child(tree, index):
+    """
+    Returns the left child index of a given node.
+
+    Args:
+        tree (list): A list representing the binary tree.
+        index (int): The index of the node in the tree list.
+
+    Returns:
+        int: The index of the left child if it exists, None otherwise.
+    """
+    return 2 * index + 1
+
+
+def get_right_child(tree, index):
+    """
+    Returns the right child index of a given node.
+
+    Args:
+        tree (list): A list representing the binary tree.
+        index (int): The index of the node in the tree list.
+
+    Returns:
+        int: The index of the right child if it exists, None otherwise.
+    """
+    return 2 * index + 2
+
+
+def get_value(tree, index):
+    """
+    Returns the value of a given node.
+
+    Args:
+        tree (list): A list representing the binary tree.
+        index (int): The index of the node in the tree list.
+
+    Returns:
+        any: The value of the node.
+    """
+    return tree[index]
+```
+Here's an explanation of how this function works:
+
+1. We use a stack to keep track of indices that we need to visit.
+2. We define two helper functions, `get_left_child` and `get_right_child`, which return the indices of the left and right children of a given node, respectively.
+3. The main `traverse` function takes an index as input and performs the following actions:
+   * Traverse the left subtree by calling `traverse(get_left_child(tree, current_index))`.
+   * Append the value of the current node to the result list using `result.append(get_value(tree, current_index))`.
+   * Traverse the right subtree by calling `traverse(get_right_child(tree, current_index))`.
+4. We start the traversal from the root index (index 0) and push it onto the stack.
+5. We then enter a loop where we keep popping indices from the stack, traversing their subtrees, and appending their values to the result list until the stack is empty.
+
+Here's an example usage:
+```python
+tree = [
+    1,
+    [2, 3],
+    [4, 5]
+]
+
+inorder_traversal = binary_tree_inorder(tree)
+print(inorder_traversal)  # Output: [4, 2, 5, 3, 1]
+```
+This function assumes that the input tree is a list where each element is either a value or another list representing its children. It returns the inorder traversal of the tree as a list.

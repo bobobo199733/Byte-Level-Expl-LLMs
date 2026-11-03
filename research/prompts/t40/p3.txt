@@ -1,0 +1,4 @@
+Write one Python function called autocomplete_system(words, prefix) that returns matching autocomplete suggestions.
+
+Use only one function with that exact name.
+Return sorted matches.

@@ -1,0 +1,20 @@
+Here's a Python function that follows your requirements:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    if len(num) <= k:
+        return "0" if not num else num
+
+    stack = []
+    for digit in num:
+        while stack and stack[-1] > digit and k > 0:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+
+    remaining_digits = stack[:-k]
+    result = ''.join(sorted(remaining_digits))
+    return result or "0"
+```
+
+This function uses a stack to maintain the current number and removes digits from the smallest possible position until k digits are removed. It then sorts the remaining digits and returns them as a string. If there are no remaining digits, it returns "0".

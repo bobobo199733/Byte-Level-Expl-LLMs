@@ -1,0 +1,21 @@
+Here's a Python function that validates password according to your requirements:
+
+```python
+import re
+
+def validate_password(password):
+    if len(password) < 8:
+        return False
+
+    has_upper = bool(re.search("[A-Z]", password))
+    has_lower = bool(re.search("[a-z]", password))
+    has_digit = bool(re.search("\d", password))
+    has_special = bool(re.search("[\W\_]", password))
+
+    if not (has_upper and has_lower and has_digit and has_special):
+        return False
+
+    return True
+```
+
+This function uses regular expressions to check for the presence of uppercase letters, lowercase letters, digits, and special characters. It returns `True` if the password meets all the criteria and `False` otherwise.

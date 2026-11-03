@@ -1,0 +1,18 @@
+Here's a Python function that meets all of your requirements:
+
+```python
+def max_subarray_sum(nums):
+    if not nums:
+        raise ValueError("Input list cannot be empty")
+
+    max_so_far = float('-inf')
+    current_max = float('-inf')
+
+    for num in nums:
+        current_max = max(num, current_max + num)
+        max_so_far = max(max_so_far, current_max)
+
+    return max_so_far
+```
+
+This function uses Kadane's algorithm, which is an efficient method to find the maximum sum of a subarray within an array. It handles empty lists by raising ValueError and also works for lists containing only negative numbers.

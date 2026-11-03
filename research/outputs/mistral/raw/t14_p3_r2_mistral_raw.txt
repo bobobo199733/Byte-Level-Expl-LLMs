@@ -1,0 +1,34 @@
+In Python, the recursive backtracking approach can be used to generate all valid parentheses combinations. Here is a function `generate_parentheses(n)` that returns all valid parentheses combinations for a given integer `n`.
+
+```python
+def generate_parentheses(n):
+    res = []
+
+    def backtrack(left=0, right=0, open_parens=n, closed_parens=n, result=''):
+        if left == open_parens and right == closed_parens:
+            res.append(result)
+            return
+
+        if open_parens > left:
+            backtrack(left + 1, right, open_parens, closed_parens, result + '(')
+
+        if closed_parens > right and right < open_parens:
+            backtrack(left, right + 1, open_parens, closed_parens, result + ')')
+
+    backtrack()
+
+    return res
+```
+
+This function uses a helper function `backtrack` to explore all possibilities. The main function `generate_parentheses` initializes an empty list `res` and calls the `backtrack` function with starting values for left, right, open_parens, closed_parens, and result as 0, 0, `n`, `n`, and an empty string respectively. The `backtrack` function explores valid combinations by recursively calling itself with updated parameters while ensuring that the generated strings are valid parentheses combinations.
+
+For example, if you call `generate_parentheses(3)`, it will return:
+```
+[
+    '((()))',
+    '(()())',
+   '(())()',
+    '()(())',
+    '()()()'
+]
+```

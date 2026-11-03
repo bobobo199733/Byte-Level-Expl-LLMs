@@ -1,0 +1,27 @@
+Here is a simple implementation of the function using recursion and precedence rules for operator evaluation:
+
+```python
+def operator_precedence(op):
+    return { '+': 1, '-': 1, '*': 2, '/': 2 }[op]
+
+def evaluate(expr: str) -> int:
+    def _eval(token):
+        if token.isdigit():
+            return int(token)
+        elif token == '(':
+            return _subexpr(token + '+')
+        elif token == ')':
+            return _subexpr(token + '-')
+        elif op := next((op for op in ('+', '-', '*', '/') if token.startswith(op)), None):
+            right = _eval(tokens.pop(0))
+            left = _eval(tokens.pop(0))
+            return { '+': left + right, '-': left - right, '*': left * right, '/': int(left / right) }[op]
+        else:
+            raise ValueError(f"Invalid token '{token}' in expression")
+
+    tokens = list(filter(lambda x: x != ' ', expr))
+    _subexpr = lambda op: _eval(next((token for token in reversed(tokens) if token.startswith(op)), None))
+    return _eval(tokens[-1])
+```
+
+This function first defines helper functions to handle parentheses and operator precedence, then implements the main `evaluate()` function that handles parsing and evaluating the arithmetic expression. It respects operator precedence by using reversed order while popping tokens from the list during evaluation and using a dictionary for lookup to perform operations accordingly. It also truncates division towards zero by using the `//` floor division operator instead of regular division (`/`).

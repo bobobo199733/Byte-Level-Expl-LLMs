@@ -1,0 +1,1 @@
+Write a single Python function called basic_calculator(s). Evaluate a math string with +, -, parentheses, and spaces. Return the integer result. No eval() allowed.

@@ -1,0 +1,38 @@
+```python
+def trapping_rain_water(heights):
+    """
+    Calculate the amount of rainwater that can be trapped between bars.
+
+    Args:
+        heights (list): A list of integers representing the height of each bar.
+
+    Returns:
+        int: The total amount of rainwater that can be trapped.
+    """
+
+    # Initialize two pointers, one at the start and one at the end
+    left = 0
+    right = len(heights) - 1
+
+    # Initialize the maximum heights on the left and right sides
+    max_left = 0
+    max_right = 0
+
+    # Initialize the total trapped water
+    total_water = 0
+
+    while left <= right:
+        # If the current bar on the left is shorter than the one on the right,
+        # update the maximum height on the left and add the difference to the total
+        if heights[left] < heights[right]:
+            max_left = max(heights[left], max_left)
+            total_water += max_left - heights[left]
+            left += 1
+        # Otherwise, update the maximum height on the right and add the difference to the total
+        else:
+            max_right = max(heights[right], max_right)
+            total_water += max_right - heights[right]
+            right -= 1
+
+    return total_water
+```

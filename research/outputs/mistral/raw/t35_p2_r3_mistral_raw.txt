@@ -1,0 +1,43 @@
+I've written a Python function named `json_validator` that follows your requirements. It checks for syntactically valid JSON without using any external libraries or built-in JSON parsers:
+
+```python
+import re
+
+def json_validator(text):
+    # Define regular expressions to match JSON elements
+    json_elements = {
+        'object': r'{{(\s*(?:"[^"]+"|\d+\.\d+|\d+|\t|\\|,|{\s.*\s}|}\s*,)*(\s*\}))',
+        'array': r'(\[\s*(?:"[^"]+"|\d+\.\d+|\d+|\t|\\|,|{|}\s*,)*(\s*\]))',
+        'string': r'"([^"\\]|\\.)*"',
+        'number': r'(0|[1-9]\d*)(\.\d+)?([eE][-+]?\d+)?',
+        'boolean': r'true|false',
+        'null': r'null'
+    }
+
+    def find_all(pattern, string):
+        return re.findall(pattern, string) if string else []
+
+    # Initialize valid as True
+    valid = True
+
+    # Check for each JSON element type
+    for key, pattern in json_elements.items():
+        matches = find_all(pattern, text)
+        if not matches:
+            return False
+        for match in matches:
+            # Check for invalid characters within elements
+            if re.search(r'[^{}\[\]\t"\\]+', match):
+                valid = False
+                break
+    return valid
+```
+
+You can use this function to validate JSON strings as follows:
+
+```python
+json_validator('{"name": "John", "age": 30, "city": "New York"}')  # True
+json_validator('{"name": "John","age": 30,"city": "New York'}')  # False (missing comma)
+json_validator('[1, 2, "three"]')                               # True
+json_validator('[1, 2,"three']')                                # False (missing closing quote)
+```

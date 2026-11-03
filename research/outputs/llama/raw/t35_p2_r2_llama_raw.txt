@@ -1,0 +1,85 @@
+Here's a Python function that meets your requirements:
+
+```python
+def json_validator(text):
+    """
+    Validates whether a string contains syntactically valid JSON.
+
+    Args:
+        text (str): A string containing JSON data.
+
+    Returns:
+        bool: True if the string is valid JSON, False otherwise.
+    """
+
+    # Remove leading and trailing whitespace from input
+    text = text.strip()
+
+    # Define stack to store opening brackets and quotes
+    stack = []
+
+    # Keep track of whether we are currently inside a quoted value or not
+    in_quote = False
+
+    # Flag for invalid character found
+    has_invalid_char = False
+
+    # Iterate over the input string
+    i = 0
+    while i < len(text):
+        if text[i] == '"' and not in_quote:
+            # If we encounter a quote, push it onto the stack and mark that we are inside a quoted value
+            stack.append('"')
+            in_quote = True
+        elif text[i] == '"' and in_quote:
+            # If we encounter a matching quote, pop the previous quote from the stack and unmark that we are inside a quoted value
+            if len(stack) > 0 and stack[-1] == '"':
+                stack.pop()
+                in_quote = False
+        elif text[i] == '{' or text[i] == '[':
+            # If we encounter an opening bracket, push it onto the stack
+            stack.append(text[i])
+        elif text[i] == '}' or text[i] == ']':
+            # If we encounter a closing bracket and there's no matching opening bracket on the stack, indicate that the string contains an invalid character
+            if len(stack) < 1:
+                has_invalid_char = True
+                break
+            else:
+                # Pop the previous opening bracket from the stack
+                opening_bracket = stack.pop()
+                if (text[i] == '}' and opening_bracket != '{') or (text[i] == ']' and opening_bracket != '['):
+                    has_invalid_char = True
+                    break
+        elif text[i] in ',:;':
+            # If we encounter a comma, colon, semicolon or newline character while not inside a quoted value, indicate that the string contains an invalid character
+            if not in_quote:
+                has_invalid_char = True
+                break
+
+        # Check for invalid characters between brackets and quotes
+        if (text[i] == ',' or text[i] == '{' or text[i] == '[') and in_quote:
+            has_invalid_char = True
+            break
+        elif (text[i] == '}' or text[i] == ']') and not in_quote:
+            has_invalid_char = True
+            break
+
+        # Move to the next character
+        i += 1
+
+    # If there are still opening brackets on the stack at the end, indicate that the string contains an invalid character
+    if len(stack) > 0 or has_invalid_char:
+        return False
+
+    # If we've reached this point, it means the input string is syntactically valid JSON
+    return True
+```
+
+You can use this function like so:
+
+```python
+print(json_validator('{"name": "John", "age": 30}'))   # prints: True
+print(json_validator('[1, 2, 3]'))                     # prints: True
+print(json_validator('{key: value}'))                  # prints: False (invalid colon)
+print(json_validator('["Hello, world!"]'))            # prints: False (invalid comma in string)
+```

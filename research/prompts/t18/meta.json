@@ -1,0 +1,14 @@
+{
+  "task_id": "t18",
+  "function_name": "edit_distance",
+  "valid_cases": [
+    [["kitten", "sitting"], 3],
+    [["flaw", "lawn"], 2],
+    [["", ""], 0],
+    [["abc", ""], 3],
+    [["", "abc"], 3],
+    [["intention", "execution"], 5]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

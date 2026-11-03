@@ -1,0 +1,42 @@
+```python
+def serialize_tree(root):
+    """
+    Serializes a binary tree into a string.
+
+    This function uses a pre-order traversal to create the serialized string, 
+    which is a string of space-separated node values where # represents an empty subtree.
+
+    :param root: The root node of the binary tree.
+    :return: A string representing the serialized binary tree.
+    """
+
+    def serialize(node):
+        if node:
+            yield str(node.val)
+            yield from serialize(node.left)
+            yield from serialize(node.right)
+        else:
+            yield '#'
+
+    return ' '.join(yield_from(serialize(root)))
+
+# Example usage:
+
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.right.left = Node(4)
+root.right.right = Node(5)
+
+print(serialize_tree(root))
+```
+
+This function works by using a generator to yield the node values in pre-order, and then joining these values with spaces. The `serialize` generator is a nested function that handles recursive calls for each subtree. It yields the current node's value, or '#', if it's None.
+
+In the example usage, we define a simple Node class to create sample binary trees, and use the `serialize_tree` function to print their serialized string representations.

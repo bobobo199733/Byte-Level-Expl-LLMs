@@ -1,0 +1,47 @@
+Certainly! The function `search_insert_position` will find the correct index to insert the `target` value into a sorted array `nums` while maintaining its sorted order. This can be efficiently achieved using binary search.
+
+Here's the Python code for the function:
+
+```python
+def search_insert_position(nums, target):
+    left = 0
+    right = len(nums) - 1
+    
+    # Perform binary search to find the insertion position
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if nums[mid] == target:
+            return mid  # Target found at index mid
+        elif nums[mid] < target:
+            left = mid + 1  # Search in the right half
+        else:
+            right = mid - 1  # Search in the left half
+    
+    # At this point, `left` is the correct insertion position
+    return left
+
+# Example usage:
+nums = [1, 3, 5, 6]
+target = 5
+print(search_insert_position(nums, target))  # Output: 2
+
+target = 2
+print(search_insert_position(nums, target))  # Output: 1
+
+target = 7
+print(search_insert_position(nums, target))  # Output: 4
+```
+
+### Explanation:
+- **Binary Search**: The function uses binary search to efficiently find the correct insertion position. 
+- **Initialization**: `left` is initialized to 0 and `right` to the last index of the array.
+- **Loop Condition**: The loop continues as long as `left` is less than or equal to `right`.
+- **Mid Calculation**: In each iteration, the middle index (`mid`) is calculated using integer division.
+- **Comparison**:
+  - If the value at `nums[mid]` equals the target, return `mid`.
+  - If `nums[mid]` is less than the target, adjust `left` to `mid + 1` (search in the right half).
+  - Otherwise, adjust `right` to `mid - 1` (search in the left half).
+- **Insertion Position**: Once the loop exits, `left` will be the correct insertion position.
+
+This approach ensures that the function runs in O(log n) time complexity, making it very efficient for large arrays.

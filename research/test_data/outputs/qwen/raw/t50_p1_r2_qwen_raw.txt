@@ -1,0 +1,54 @@
+Certainly! To solve this problem, we can use a sliding window approach to keep track of character counts and compare them with the target string's character counts. Here's a Python function that implements this logic:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    # Early exit if s is shorter than p
+    if len(s) < len(p):
+        return []
+    
+    # Count characters in the pattern
+    p_count = Counter(p)
+    window_count = Counter()
+    
+    # Initialize the sliding window with the first `len(p)` characters of s
+    for i in range(len(p)):
+        window_count[s[i]] += 1
+    
+    result = []
+    
+    # Check if initial window is an anagram
+    if p_count == window_count:
+        result.append(0)
+    
+    # Slide the window from start to end-`len(p)` of string s
+    for i in range(len(p), len(s)):
+        # Remove the character that is sliding out of the window
+        window_count[s[i - len(p)]] -= 1
+        if window_count[s[i - len(p)]] == 0:
+            del window_count[s[i - len(p)]]
+        
+        # Add the new character that is sliding into the window
+        window_count[s[i]] += 1
+        
+        # Check if current window is an anagram of p
+        if p_count == window_count:
+            result.append(i - len(p) + 1)
+    
+    return sorted(result)
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+1. **Initial Checks**: We first check if the length of `s` is less than that of `p`. If it is, we return an empty list since no valid anagrams can be found.
+2. **Counting Characters**: We use `Counter` to count occurrences of characters in both the pattern `p` and the initial window of `s`.
+3. **Sliding Window**: As we slide the window across the string `s`, we adjust the counts within the current window by removing the character that is sliding out and adding the new character that is sliding in.
+4. **Checking for Anagrams**: We compare the counts from the pattern with those of the current window to determine if it's an anagram.
+5. **Result Collection**: If a valid anagram is found, we add its starting index to the result list.
+
+This approach ensures that we efficiently find all start indices where an anagram of `p` begins in `s`.

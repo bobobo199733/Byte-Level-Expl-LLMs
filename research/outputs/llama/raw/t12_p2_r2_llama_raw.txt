@@ -1,0 +1,69 @@
+**Breadth-First Search (BFS) Shortest Path Function**
+=====================================================
+
+Here is a Python function that implements BFS to find the shortest path between two nodes in an unweighted graph.
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Compute the shortest distance between two nodes in an unweighted graph using breadth-first search.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+        start (node): Starting node.
+        target (node): Target node.
+
+    Returns:
+        int: Shortest distance between start and target nodes. Returns -1 if no path exists.
+    """
+    # Check if start or target is not in the graph
+    if start not in graph or target not in graph:
+        return -1
+
+    # Create a queue for BFS, enqueue the starting node with distance 0
+    queue = deque([(start, 0)])
+
+    # Create a set to keep track of visited nodes
+    visited = {start}
+
+    while queue:
+        # Dequeue the next node
+        node, distance = queue.popleft()
+
+        # If this is the target node, return the distance
+        if node == target:
+            return distance
+
+        # Enqueue all unvisited neighbors with updated distances
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                queue.append((neighbor, distance + 1))
+                visited.add(neighbor)
+
+    # If no path exists, return -1
+    return -1
+```
+
+**Example Usage**
+---------------
+
+```python
+# Define an unweighted graph as a dictionary of adjacency lists
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# Find the shortest distance between nodes A and F
+shortest_distance = bfs_shortest_path(graph, 'A', 'F')
+
+print(shortest_distance)  # Output: 2
+```
+
+This function works efficiently by utilizing a queue to keep track of nodes to visit next. It also uses a set to avoid revisiting nodes, ensuring that the algorithm correctly handles cycles in the graph. The time complexity is O(V + E), where V is the number of vertices and E is the number of edges, making it suitable for larger graphs.

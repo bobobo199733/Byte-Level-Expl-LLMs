@@ -1,0 +1,15 @@
+Here is the Python function `count_set_bits(n)` that meets your requirements:
+
+```python
+def count_set_bits(n):
+    if n < 0:
+        raise ValueError("Input must be non-negative")
+
+    count = 0
+    while n > 0:
+        n &= n - 1
+        count += 1
+    return count
+```
+
+This function works by repeatedly removing the least significant set bit (rightmost 1) from the number and incrementing a counter for each operation. The `&` operator is used to perform a bitwise AND operation, which clears the least significant set bit if it's present in either operand.

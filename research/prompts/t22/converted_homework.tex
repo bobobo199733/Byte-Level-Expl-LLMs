@@ -1,0 +1,199 @@
+
+\documentclass[11pt]{article}
+
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{qtree}
+\usepackage{url}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\rule{\textwidth}{1pt}
+\begin{center}
+\textbf{Taaltheorie en Taalverwerking -- Homework Submission}
+\end{center}
+\rule{\textwidth}{0.5pt}\\
+
+\textbf{Week:} ...
+
+\textbf{Group:} ...
+
+\textbf{Student names and IDs:} ...
+
+\textbf{Date:} ...
+
+\rule{\textwidth}{1pt}
+
+\begin{enumerate}
+
+\item
+\begin{enumerate}
+\item
+
+\begin{tabular}{l|c|c|c|c|c}
+Rijksmuseum & doc1 & doc2 & doc3 & doc4 & q = what is the rijksmuseum in Amsterdam, Netherlands \\
+\hline
+Amsterdam & 1 & 1 &  & 1 & 1\\
+Netherlands & 1 &  &  &  & 1\\
+Dutch &  &  & 1 &  & 1\\
+Museum & 1 &  & 1 & 1 & 0\\
+Museumplein & 1 & 1 &  &  & 0\\
+Van Gogh &  & 1 &  &  & 0\\
+Stedelijk &  & 1 &  &  & 0\\
+concertgebouw &  & 1 &  & 1 & 0\\
+Rembrandt &  &  & 1 &  & 0\\
+Vermeer &  &  & 1 &  & 0\\
+Hals &  &  & 1 &  & 0
+\end{tabular}
+
+\item
+
+$\vec{q}=(1,1,1,0,0,0,0,0,0,0)$
+
+\[
+\vec{doc1}\cdot\vec{q}=1+1+1+1+0+0+1+0+1+0+0+0=2
+\]
+
+\[
+\vec{doc2}\cdot\vec{q}=1
+\]
+
+\[
+\vec{doc3}\cdot\vec{q}=1
+\]
+
+\[
+\vec{doc4}\cdot\vec{q}=1
+\]
+
+\item
+
+\[
+\cos(\widehat{doc1,q})=\frac{2}{\sqrt{4}\cdot\sqrt{3}}=0.5773...\approx0.577
+\]
+
+\[
+\cos(\widehat{doc2,q})=\frac{1}{\sqrt{5}\cdot\sqrt{3}}=0.2581...\approx0.258
+\]
+
+\[
+\cos(\widehat{doc3,q})=\frac{1}{\sqrt{5}\cdot\sqrt{3}}\approx0.258
+\]
+
+\[
+\cos(\widehat{doc4,q})=\frac{1}{\sqrt{3}\cdot\sqrt{3}}=0.333...\approx0.333
+\]
+
+\item
+
+For this query and document collection, the dot product similarity ranks doc1 as the most similar to the query, and doc 2,3,4 as equally similar to each other.
+
+The cosine equality ranks most similar to be doc2=doc3$<$doc4$<$doc1
+
+The difference in this case is not huge, both methods result in doc1 having the highest similarity. But the cosine similarity values rank 4 higher than 2,3, while 4 is intuitively less similar to the query.
+
+\end{enumerate}
+
+\item
+
+\begin{enumerate}
+
+\item
+Doc1, doc2, doc3 are true positives, Doc4 is a false positive, it's about a concert, not the museum
+
+\item
+There are 5 relevant documents, 3 of which were retrieved, so there are $5-3=2$ false negatives.
+
+There are 24 documents total, so $24-4-2=18$ true negatives
+
+\item
+
+\[
+Precision=\frac{TP}{TP+FP}=\frac{3}{3+1}=\frac{3}{4}=0.75
+\]
+
+\[
+Recall=\frac{TP}{TP+FN}=\frac{3}{3+2}=\frac{3}{5}=0.6
+\]
+
+\item
+
+\[
+F_{score}=2\cdot\frac{P\cdot R}{P+R}
+\]
+
+\[
+=2\cdot\frac{0.75\cdot0.6}{0.75+0.6}
+=0.666...\approx0.67
+\]
+
+\item
+
+\[
+idf_t=\log\left(\frac{N}{n_t}\right)
+\]
+
+For term Rijksmuseum:
+
+\[
+idf_t=\log\left(\frac{24}{10}\right)
+\]
+
+\[
+tf-idf=1\cdot\log\left(\frac{24}{10}\right)=0.3802...\approx0.38
+\]
+
+For term Museumplein:
+
+\[
+idf_t=\log\left(\frac{24}{3}\right)
+\]
+
+\[
+tf-idf=1\cdot\log\left(\frac{24}{3}\right)=0.9030...\approx0.90
+\]
+
+\item
+
+Museumplein has a higher tf-idf value, this is due to the document frequency; museumplein occurs in less documents, so it gets weighted more.
+
+\end{enumerate}
+
+\item
+
+\begin{enumerate}
+
+\item
+
+first, we compute the context from the sentence
+
+\[
+context=\{metal, collapsed, repeated, freezing, thawing, water\}
+\]
+
+Then we will compute the signature for every sense using the gloss and examples;
+
+bridge$_1$: \{structure, people, vehicles, cross, obstacle, river, canal, railway, bridge, spans, Tacoma, Narrows, famously, collapsed, 1940\}
+
+bridge$_2$: \{Upper, deck, ship, steered, captain, stands, wave, high, water, touched, bridge, modern, vessels, bridges, metal\}
+
+Now for each sense, compute the overlap between context and the sense signature. The overlap count is the score.
+
+bridge$_1$: overlap=1
+
+bridge$_2$: overlap=2
+
+\item
+
+the sense bridge$_2$ would be the correct one, since the score from the simplified lesk algorithm is the highest.
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

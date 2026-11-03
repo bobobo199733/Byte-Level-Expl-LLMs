@@ -1,0 +1,61 @@
+Here's a well-documented, efficient Python function to search for a target value in a rotated sorted array:
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target value inside a rotated sorted array.
+
+    Args:
+        values (list): The input array of integers.
+        target (int): The target integer to find.
+
+    Returns:
+        int: Index of the target in the array if found. -1 otherwise.
+    """
+
+    # Handle edge case where input list is empty
+    if not values:
+        return -1
+
+    # Initialize pointers for binary search
+    left, right = 0, len(values) - 1
+
+    while left <= right:
+        mid = (left + right) // 2  # Calculate the middle index
+
+        # If target matches at the midpoint, return its index
+        if values[mid] == target:
+            return mid
+
+        # Check which half of the array is sorted
+        if values[left] <= values[mid]:
+            # Target in left sorted portion? Continue searching there
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # Right side is sorted, continue search on the right half or its end
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+    # Target not found in the array
+    return -1
+```
+
+Here's an example use case:
+
+```python
+# Define a rotated sorted list
+numbers = [4, 5, 6, 7, 0, 1, 2]
+
+# Search for target values
+print(binary_search_rotated(numbers, 3))   # Output: -1 (not found)
+print(binary_search_rotated(numbers, 0))   # Output: 4 (index of the first occurrence of 0)
+print(binary_search_rotated(numbers, 7))   # Output: 3 (index of the last occurrence of 7)
+
+# Search in an empty array
+empty_list = []
+print(binary_search_rotated(empty_list, 10))   # Output: -1
+```

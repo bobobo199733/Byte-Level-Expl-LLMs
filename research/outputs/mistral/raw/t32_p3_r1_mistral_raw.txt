@@ -1,0 +1,36 @@
+To find all the valid solutions for the N-Queens problem, I will provide you with a recursive function using backtracking algorithm in Python. The function `n_queens(n)` returns a list of all possible solutions for an nxn chessboard.
+
+```python
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i][col] == 1:
+            return False
+
+    for j in range(row + 1, min(len(board), row - col + len(board))):
+        if abs(row - j) == abs(col - board[j][0]):
+            return False
+
+    return True
+
+def n_queens(n, solution=None):
+    if not solution:
+        solution = []
+
+    if len(solution) == n:
+        result.append(tuple(solution))  # Save the solution in a list of solutions
+        return solution
+
+    for i in range(n):
+        if is_safe(solution, i):
+            solution.append(i)
+            n_queens(n, solution)
+            solution.pop()
+
+    return solution
+
+result = []  # Store all solutions as a list of tuples
+n_queens(4)   # Call the function for 4 queens problem
+print(result)
+```
+
+This code defines the `is_safe()` function to check if placing a queen at a specific position is safe, and the main `n_queens()` function that uses backtracking to find all valid solutions. The results of the 4 queens problem are printed out as a list of tuples containing the positions of each queen on the board.

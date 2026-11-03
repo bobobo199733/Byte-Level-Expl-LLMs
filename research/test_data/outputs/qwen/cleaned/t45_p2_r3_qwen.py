@@ -1,0 +1,24 @@
+def search_insert_position(nums, target):
+    """
+    Finds the index of the target in a sorted list or returns the insertion position.
+
+    :param nums: List[int] - A list of integers sorted in ascending order.
+    :param target: int - The target value to search for.
+    :return: int - The index of the target if it exists, otherwise the insertion index.
+    
+    Raises ValueError for invalid inputs.
+    """
+    if not isinstance(nums, list) or not all((isinstance(x, (int, float)) for x in nums)):
+        raise ValueError('nums must be a list of integers')
+    if not isinstance(target, (int, float)):
+        raise ValueError('target must be an integer')
+    left, right = (0, len(nums))
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    return left

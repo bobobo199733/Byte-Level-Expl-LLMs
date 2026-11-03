@@ -1,0 +1,63 @@
+**BFS Shortest Path Function**
+=====================================
+
+Here is a Python implementation of the Breadth-First Search (BFS) algorithm to find the shortest path between two nodes in a graph:
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Returns the shortest distance between two nodes using BFS.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+        start (node): Starting node.
+        target (node): Target node.
+
+    Returns:
+        int: Shortest distance between start and target nodes. If no path exists, returns -1.
+    """
+    if start not in graph or target not in graph:
+        raise ValueError("Start or target node is not in the graph")
+
+    # Create a queue for BFS, enqueue start node
+    queue = deque([(start, 0)])  # (node, distance)
+
+    # Create a set to keep track of visited nodes
+    visited = set()
+
+    while queue:
+        node, dist = queue.popleft()
+
+        if node == target:
+            return dist
+
+        if node not in visited:
+            visited.add(node)
+
+            for neighbor in graph[node]:
+                queue.append((neighbor, dist + 1))
+
+    # If no path is found, return -1
+    return -1
+```
+**Example Use Case**
+--------------------
+
+Suppose we have a graph represented as an adjacency list:
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+```
+To find the shortest distance between nodes `A` and `F`, we call:
+```python
+shortest_distance = bfs_shortest_path(graph, 'A', 'F')
+print(shortest_distance)  # Output: 2 (path: A -> C -> F)
+```
+Note that this implementation assumes an unweighted graph. If you have a weighted graph, you'll need to modify the distance calculation accordingly.

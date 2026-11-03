@@ -1,0 +1,19 @@
+Here is a simple Python function that calculates the frequency of each word in a given text:
+
+```python
+import re
+from collections import Counter
+
+def word_frequency(text):
+    # Remove punctuation and convert to lowercase
+    words = re.findall(r'\w+', text.lower())
+
+    # Count the frequency of each word
+    word_count = Counter(words)
+
+    return word_count
+```
+
+In this code, `re.findall(r'\w+', text.lower())` is used to find all words in the given text (ignoring case). The `\w+` regular expression matches one or more word characters (letters, digits, and underscores), so it will capture any sequence of these as a word.
+
+The `Counter(words)` function from the `collections` module is then used to count the frequency of each word. The resulting dictionary shows how many times each word appears in the text.

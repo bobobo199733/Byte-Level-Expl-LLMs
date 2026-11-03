@@ -1,0 +1,14 @@
+{
+  "task_id": "t28",
+  "function_name": "robot_simulator",
+  "valid_cases": [
+    [[["F","F","R","F"]], [1,2,"E"]],
+    [[["R","R","F"]], [0,-1,"S"]],
+    [[["L","F","F"]], [-2,0,"W"]],
+    [[[]], [0,0,"N"]],
+    [[["F","L","F","R","F"]], [-1,2,"N"]],
+    [[["R","F","R","F","R","F","R","F"]], [0,0,"N"]]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

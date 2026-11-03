@@ -1,0 +1,58 @@
+Certainly! Below is a Python function `expression_to_postfix(expression)` that converts an infix expression to postfix notation. This function correctly handles operator precedence, parentheses, and supports basic arithmetic operators +, -, *, and /.
+
+```python
+def expression_to_postfix(expression):
+    # Define the operator precedence
+    prec = {
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2,
+        '(': 0,
+    }
+    
+    # Stack to hold operators
+    stack = []
+    # Output list for postfix expression
+    output = []
+    
+    # Iterate over each character in the input expression
+    for char in expression.replace(' ', ''):  # Remove whitespace
+        if char.isalnum():  # If it's an operand, append to output
+            output.append(char)
+        elif char == '(':  # If it's an opening parenthesis, push onto stack
+            stack.append(char)
+        elif char == ')':  # If it's a closing parenthesis, pop from stack to output until '(' is found
+            top_token = stack.pop()
+            while top_token != '(':
+                output.append(top_token)
+                top_token = stack.pop()
+        else:  # It must be an operator
+            while (stack and prec[stack[-1]] >= prec[char]):
+                output.append(stack.pop())
+            stack.append(char)
+    
+    # Pop all remaining operators from the stack to the output
+    while stack:
+        output.append(stack.pop())
+    
+    return ''.join(output)
+
+# Example usage:
+infix_expression = "( 5 + ( 3 * 2 ) ) / 7 - 8"
+postfix_expression = expression_to_postfix(infix_expression)
+print(postfix_expression)  # Expected output: "532*+7/8-"
+```
+
+### Explanation
+1. **Operator Precedence**: A dictionary `prec` is used to assign precedence values to operators.
+2. **Stack for Operators**: A list `stack` is used to temporarily hold operators while processing the expression.
+3. **Output List**: A list `output` is used to build the postfix expression as we process the input.
+4. **Character Iteration**:
+   - If a character is an operand, it is added directly to `output`.
+   - If a character is '(', it is pushed onto the stack.
+   - If a character is ')', operators are popped from the stack and appended to `output` until '(' is encountered (ignoring it).
+   - For any other character (operator), if its precedence is greater than or equal to the top of the stack, operators from the stack are popped into `output` until a lower precedence operator or an opening parenthesis is found. The current operator is then pushed onto the stack.
+5. **Post Processing**: After all characters have been processed, any remaining operators in the stack are popped into `output`.
+
+This function handles parentheses correctly and ensures that operators of higher precedence are placed before those with lower precedence in the output list.

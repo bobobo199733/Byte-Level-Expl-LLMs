@@ -1,0 +1,30 @@
+Here's a Python function called `text_justification` that justifies the given words within the specified maximum line width. The function uses the greedy algorithm to distribute spaces evenly between words and places any extra spaces at the beginning of the line:
+
+```python
+def text_justification(words, max_width):
+    lines = []
+    current_line = []
+    total_length = 0
+
+    for word in words:
+        if total_length + len(word) + len(current_line) > max_width:
+            lines.append(' '.join(current_line))
+            current_line = [word]
+            total_length = len(word)
+        else:
+            current_line.append(word) if total_length > 0 else current_line.insert(0, word)
+            total_length += len(word) + 1
+
+    lines.append(' '.join(current_line))
+
+    return lines
+```
+
+You can use the function like this:
+
+```python
+words = ["This", "is", "a", "test", "of", "text", "justification"]
+max_width = 10
+print(text_justification(words, max_width))
+# Output: ['This   is', 'a      test', 'of     text', 'justifi n']
+```

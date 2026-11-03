@@ -1,0 +1,44 @@
+To implement an LRU (Least Recently Used) cache in Python, we can use a combination of OrderedDict and a list to keep track of the order of accesses. Here's a simple implementation of the `lru_cache` function:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    cache = OrderedDict()
+    accessed = set()
+
+    results = []
+
+    for operation in operations:
+        if operation[0] == 'get':
+            key, result = cache.get(operation[1], None)
+            if key is not None:
+                accessed.remove(key)
+            results.append(result)
+            if len(accessed) < capacity:
+                cache[operation[1]] = operation[1]
+                accessed.add(operation[1])
+            elif key is None:
+                least_recently_used = next(iter(accessed))
+                del cache[least_recently_used]
+                del accessed[least_recently_used]
+                cache[operation[1]] = operation[1]
+                accessed.add(operation[1])
+        elif operation[0] == 'put':
+            if len(accessed) >= capacity:
+                least_recently_used = next(iter(accessed))
+                del cache[least_recently_used]
+                del accessed[least_recently_used]
+            cache[operation[1]] = operation[2]
+            accessed.add(operation[1])
+
+    return results
+```
+
+In the example above, `operations` is a list of tuples representing get or put operations on the cache, where each tuple contains three elements:
+
+- The first element ('get' or 'put') specifies the type of operation to be performed.
+- The second element (key) is the key for the operation.
+- The third element (value, optional) specifies the value to store in the cache during a put operation. If not provided, we assume it as None.
+
+The function returns a list containing the results of all get operations.

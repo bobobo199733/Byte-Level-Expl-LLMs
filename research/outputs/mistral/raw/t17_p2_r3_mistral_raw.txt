@@ -1,0 +1,107 @@
+Here's a Python function that simulates an LRU cache with the specified requirements:
+
+```python
+class Node:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = None
+        self.size = 0
+
+    def get(self, key):
+        if not self.cache or key not in {node.key for node in self.cache}:
+            return None
+
+        node = None
+        for current_node in self.cache:
+            if current_node.key == key:
+                node = current_node
+                break
+
+        # Move the accessed node to the end of the list.
+        if self.cache:
+            if node.prev:
+                node.prev.next = node.next
+            else:
+                self.cache = node.next
+
+            if node.next:
+                node.next.prev = node.prev
+            else:
+                self.cache = None
+
+            last_node = self.cache[-1]
+            last_node.next = node
+            node.prev = last_node
+            node.next = None
+            last_node.next = None
+
+        return node.value if node else None
+
+    def put(self, key, value):
+        if self.get(key):
+            # Update the value and move it to the end of the list (update its LRU status).
+            self.put_without_eviction(key, value)
+            return
+
+        if self.size >= self.capacity:
+            # Evict the least recently used key.
+            evicted_key = self.cache[0].key
+            self.cache.pop(0)
+            self.size -= 1
+
+        new_node = Node(key, value)
+        if not self.cache:
+            self.cache = [new_node]
+        else:
+            last_node = self.cache[-1]
+            new_node.next = None
+            new_node.prev = last_node
+            last_node.next = new_node
+            self.cache.append(new_node)
+        self.size += 1
+
+    def put_without_eviction(self, key, value):
+        for node in self.cache:
+            if node.key == key:
+                node.value = value
+                # Move the updated node to the end of the list (update its LRU status).
+                last_node = self.cache[-1]
+                node.next = None
+                node.prev = last_node
+                last_node.next = node
+                node.next = None
+                last_node.next = None
+                return
+
+        # If the key isn't found, add it to the end of the list.
+        new_node = Node(key, value)
+        if not self.cache:
+            self.cache = [new_node]
+        else:
+            last_node = self.cache[-1]
+            new_node.next = None
+            new_node.prev = last_node
+            last_node.next = new_node
+            self.cache.append(new_node)
+
+results = []
+operations = [("put", 1, 1), ("put", 2, 2), ("get", 1), ("put", 2, 3), ("get", 2),
+              ("get", 1), ("put", 4, 4), ("get", 2), ("get", 1), ("get", 3)]
+lru_cache = LRUCache(2)
+for operation in operations:
+    if operation[0] == "put":
+        lru_cache.put(*operation[1:])
+    else:
+        results.append(lru_cache.get(*operation[1:]))
+print(results)  # Output: [None, 1, 3, None, 2]
+```
+
+This implementation uses a doubly linked list to store the keys and values in the cache. The `LRUCache` class has three methods: `get`, `put`, and `put_without_eviction`. When the capacity is exceeded, the least recently used key will be evicted from the cache during put operations by moving it to the beginning of the list.

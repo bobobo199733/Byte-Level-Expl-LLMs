@@ -1,0 +1,22 @@
+Here's the Python function that meets the requirements you provided:
+
+```python
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+
+    sorted_intervals = sorted(intervals, key=lambda x: x[0])
+
+    merged_intervals = [sorted_intervals[0]]
+
+    for interval in sorted_intervals[1:]:
+        last_merged = merged_intervals[-1]
+        if interval[0] <= last_merged[1]:
+            last_merged[1] = max(last_merged[1], interval[1])
+        else:
+            merged_intervals.append(interval)
+
+    return merged_intervals
+```
+
+This function first sorts the input list of intervals by their start values, then iterates through the sorted intervals and merges overlapping ones. It creates a new list `merged_intervals` to store the merged intervals, and does not modify the original input list directly. If the input list is empty, it returns an empty list as well.

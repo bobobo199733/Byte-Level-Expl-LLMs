@@ -1,0 +1,1 @@
+Write a Python function word_frequency(text) that counts how many times each word appears.

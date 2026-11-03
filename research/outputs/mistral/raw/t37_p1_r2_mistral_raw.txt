@@ -1,0 +1,29 @@
+I will provide you with a Python function called `linked_list_cycle` that uses the Floyd's Cycle-Finding Algorithm to detect whether a linked list contains a cycle. This function utilizes two pointers, one moving at a normal pace (`fast`) and another moving at half the speed (`slow`). If a cycle exists, they will eventually meet.
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head or not head.next:
+        return False
+
+    dummy_slow = slow = head
+    dummy_fast = fast = head.next
+
+    while fast and fast.next:
+        if slow is fast:
+            return True
+
+        slow = slow.next
+        fast = fast.next.next
+
+        if not fast:
+            return False
+
+    return False
+```
+
+In the above code, we define a `ListNode` class to represent each node in the linked list. The `linked_list_cycle` function checks whether the linked list contains a cycle by comparing two pointers moving at different speeds (one moves one step at a time and another moves two steps). If they meet, it means there is a cycle in the list, so we return True. Otherwise, if fast reaches None or an endpoint of the list before meeting slow, then we know that there is no cycle, so we return False.

@@ -1,0 +1,32 @@
+Here is a Python implementation of the Dijkstra's Shortest Path Algorithm for a graph represented as an adjacency list, where `graph` is a dictionary containing nodes as keys and lists of their adjacent nodes (and weights) as values. The function returns a dictionary `distances` that maps each node to its shortest distance from the starting node:
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    # Initialize unvisited nodes with infinite distances and their predecessors as None.
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    visited = set()
+
+    # Create a priority queue using a list and the heapq library.
+    priority_queue = [(0, start)]
+
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+
+        if current_node in visited:
+            continue
+
+        visited.add(current_node)
+
+        for neighbor, weight in graph[current_node]:
+            new_distance = current_distance + weight
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                heapq.heappush(priority_queue, (new_distance, neighbor))
+
+    return distances
+```
+
+This function uses a priority queue to keep track of nodes with the smallest known distance from the starting node, allowing it to efficiently find the shortest path distances to all reachable nodes.

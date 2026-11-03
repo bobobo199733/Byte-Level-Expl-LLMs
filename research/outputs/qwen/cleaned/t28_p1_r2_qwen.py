@@ -1,0 +1,32 @@
+def robot_simulator(commands):
+    x, y = (0, 0)
+    direction = 'N'
+    for command in commands:
+        if command == 'G':
+            if direction == 'N':
+                y += 1
+            elif direction == 'S':
+                y -= 1
+            elif direction == 'E':
+                x += 1
+            elif direction == 'W':
+                x -= 1
+        elif command == 'L':
+            if direction == 'N':
+                direction = 'W'
+            elif direction == 'W':
+                direction = 'S'
+            elif direction == 'S':
+                direction = 'E'
+            elif direction == 'E':
+                direction = 'N'
+        elif command == 'R':
+            if direction == 'N':
+                direction = 'E'
+            elif direction == 'E':
+                direction = 'S'
+            elif direction == 'S':
+                direction = 'W'
+            elif direction == 'W':
+                direction = 'N'
+    return (x, y, direction)

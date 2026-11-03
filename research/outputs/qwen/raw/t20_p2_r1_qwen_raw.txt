@@ -1,0 +1,54 @@
+To merge `k` sorted lists efficiently, we can use a min-heap (priority queue) to keep track of the smallest elements from each list. This approach ensures that we always pick the smallest element among all the lists and add it to our result.
+
+Here's how you can implement this in Python:
+
+```python
+from heapq import heappush, heappop
+
+def merge_k_sorted_lists(lists):
+    # Initialize an empty heap to store the smallest elements from each list
+    min_heap = []
+    
+    # Each element in the heap will be a tuple (value, index, list_index)
+    for i, lst in enumerate(lists):
+        if lst:  # Check if the list is not empty
+            heappush(min_heap, (lst[0], 0, i))
+    
+    result = []
+    
+    while min_heap:
+        val, idx, list_index = heappop(min_heap)
+        result.append(val)
+        
+        # If there are more elements in the current list, add the next element to the heap
+        if idx + 1 < len(lists[list_index]):
+            next_val = lists[list_index][idx + 1]
+            heappush(min_heap, (next_val, idx + 1, list_index))
+    
+    return result
+
+# Example usage:
+lists = [
+    [1, 4, 5],
+    [1, 3, 4],
+    [2, 6]
+]
+
+merged_list = merge_k_sorted_lists(lists)
+print(merged_list)  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
+```
+
+### Explanation:
+1. **Initialization**: We initialize a min-heap to keep track of the smallest elements from each list. Each element in the heap is a tuple `(value, index, list_index)` where `value` is the current value being considered, `index` is the next index to consider in the corresponding list, and `list_index` is the index of the original list.
+
+2. **Heap Population**: We populate the heap with the first element from each non-empty list. This ensures that we start with the smallest elements across all lists.
+
+3. **Merging Process**:
+   - We repeatedly extract the smallest element from the heap and add it to our result.
+   - If there are more elements in the current list, we push the next element into the heap.
+
+4. **Handling Duplicates**: The process ensures that duplicates are preserved because each time a value is added to the heap, it will be considered only once per position in its respective list.
+
+5. **Empty Lists**: Empty lists are handled by not pushing any elements from them initially. This means they won't affect the heap or the result if no elements are present.
+
+This approach ensures an efficient merge of `k` sorted lists with a time complexity of approximately `O(N log k)`, where `N` is the total number of elements across all lists, and `k` is the number of lists.

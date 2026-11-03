@@ -1,0 +1,25 @@
+def min_window_substring(s: str, t: str) -> str:
+    if not t or not s:
+        return ''
+    from collections import Counter
+    need = Counter(t)
+    have = Counter()
+    match = 0
+    start = 0
+    min_len = float('inf')
+    min_start = 0
+    for end in range(len(s)):
+        if need[s[end]] > 0:
+            have[s[end]] += 1
+            if have[s[end]] <= need[s[end]]:
+                match += 1
+        while match == len(need):
+            window_len = end - start + 1
+            if window_len < min_len:
+                min_len = window_len
+                min_start = start
+            have[s[start]] -= 1
+            if need[s[start]] > 0 and have[s[start]] < need[s[start]]:
+                match -= 1
+            start += 1
+    return s[min_start:min_start + min_len] if min_len != float('inf') else ''

@@ -1,0 +1,71 @@
+Here's a Python function that performs topological sort on a directed acyclic graph:
+
+```python
+def topological_sort(graph):
+    """
+    Performs a topological sort on a directed acyclic graph.
+
+    Args:
+        graph (dict): A dictionary representing the adjacency list of the graph.
+
+    Returns:
+        list: A list containing the nodes in a valid topological order.
+
+    Raises:
+        ValueError: If the graph contains cycles.
+    """
+
+    # Initialize variables to track visited and current path
+    visited = set()
+    current_path = set()
+
+    # Initialize result as an empty list
+    result = []
+
+    def dfs(node):
+        """
+        Performs depth-first search on a node.
+
+        Args:
+            node: The node to start the DFS from.
+        """
+
+        # Mark the current node as visited and add it to the current path
+        visited.add(node)
+        current_path.add(node)
+
+        # Iterate over adjacent nodes
+        for neighbor in graph.get(node, []):
+            # If the adjacent node is already in the current path, a cycle exists
+            if neighbor in current_path:
+                raise ValueError("Cycle detected")
+
+            # If the adjacent node has not been visited yet, continue DFS from it
+            if neighbor not in visited:
+                dfs(neighbor)
+
+        # Remove the current node from the current path and add it to the result
+        current_path.remove(node)
+        result.append(node)
+
+    # Iterate over all nodes in the graph and perform DFS if they have not been visited yet
+    for node in graph:
+        if node not in visited:
+            dfs(node)
+
+    return result
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'B', 'C', 'D']
+```
+
+This code defines a recursive function called `dfs` that performs depth-first search on the nodes in the graph. It keeps track of visited and current path to detect cycles and ensures all nodes are included in the result.
+
+In the main function, it initializes variables for tracking visited and current path, and iterates over all nodes in the graph to perform DFS if they have not been visited yet. The ordering is returned as a list. If a cycle exists, a `ValueError` is raised.

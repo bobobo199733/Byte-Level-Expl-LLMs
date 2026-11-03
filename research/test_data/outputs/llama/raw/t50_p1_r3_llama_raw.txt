@@ -1,0 +1,58 @@
+**find_all_anagrams Function**
+==========================
+
+### Purpose
+Find all start indices in string `s` where an anagram of string `p` begins.
+
+### Parameters
+
+*   `s`: The string to search for anagrams.
+*   `p`: The string to find anagrams of.
+
+### Return Value
+A sorted list of starting indices where an anagram of `p` is found in `s`.
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    """
+    Find all start indices in string s where an anagram of string p begins.
+    
+    Args:
+        s (str): The string to search for anagrams.
+        p (str): The string to find anagrams of.
+
+    Returns:
+        list: A sorted list of starting indices where an anagram of p is found in s.
+    """
+    # Initialize the result list and a counter for the string p
+    result = []
+    p_counter = Counter(p)
+    
+    # Initialize the left pointer of the sliding window
+    left = 0
+    
+    # Iterate over the string s with a right pointer (window size)
+    for right in range(len(s)):
+        # Shrink the window from the left if necessary
+        while len(s[left:right+1]) < len(p) or Counter(s[left:right+1]) != p_counter:
+            left += 1
+        
+        # If the window is large enough, add the start index to the result list
+        if right - left + 1 == len(p):
+            result.append(left)
+        
+    return sorted(result)
+```
+
+### Example Usage
+
+```python
+s = "abxaba"
+p = "ab"
+
+print(find_all_anagrams(s, p))  # Output: [0, 3, 4]
+```
+
+This function uses a sliding window approach with two pointers (`left` and `right`) to efficiently find anagrams in the string `s`. The time complexity is O(n), where n is the length of the string `s`, since each character is visited at most twice (once by the left pointer and once by the right pointer).

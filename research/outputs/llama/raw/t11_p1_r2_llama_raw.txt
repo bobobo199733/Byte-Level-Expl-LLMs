@@ -1,0 +1,43 @@
+**Coin Change Problem**
+=======================
+
+The following Python function solves the classic "Coin Change" problem using dynamic programming.
+
+```python
+def coin_change(coins, amount):
+    """
+    Returns the minimum number of coins needed to make up the given amount.
+
+    Args:
+        coins (list): A list of coin denominations.
+        amount (int): The target amount.
+
+    Returns:
+        int: The minimum number of coins needed. Returns -1 if it's not possible.
+    """
+
+    # Initialize a table to store the minimum number of coins for each amount
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0  # Base case: 0 coins are needed to make up an amount of 0
+
+    for coin in coins:
+        for i in range(coin, amount + 1):
+            # Update the minimum number of coins for the current amount
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+**Example Usage**
+----------------
+
+```python
+coins = [1, 2, 5]
+amount = 11
+
+print(coin_change(coins, amount))  # Output: 3 (11 = 5 + 5 + 1)
+```
+
+This function uses a dynamic programming approach to solve the problem. It initializes a table `dp` where each entry `dp[i]` represents the minimum number of coins needed to make up an amount of `i`. The base case is when the amount is 0, in which case no coins are needed.
+
+The function then iterates over each coin denomination and for each coin, it updates the minimum number of coins needed for amounts from the coin's value to the target amount. Finally, it returns the minimum number of coins needed to make up the target amount, or -1 if it's not possible.

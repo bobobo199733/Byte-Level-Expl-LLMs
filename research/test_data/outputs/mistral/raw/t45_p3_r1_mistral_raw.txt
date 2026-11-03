@@ -1,0 +1,20 @@
+Here's a Python function called `search_insert_position` that finds the correct index or insertion position for a given target value in a sorted array:
+
+```python
+def search_insert_position(nums, target):
+    left = 0
+    right = len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return left  # returns the index where target should be inserted in the sorted array
+```
+
+This function uses binary search to find the correct position for the `target` value in the `nums` list. If the `target` is not found, it will return the index where the `target` should be inserted to maintain a sorted order. The time complexity of this solution is O(log n), making it an efficient algorithm for large arrays.

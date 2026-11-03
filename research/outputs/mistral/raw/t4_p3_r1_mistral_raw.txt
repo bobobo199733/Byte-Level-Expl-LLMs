@@ -1,0 +1,21 @@
+Here is a Python function that follows your specifications:
+
+```python
+import re
+
+def decode_string(s):
+    def helper(match):
+        count, sequence = match.group(1, 2)
+        result = ''
+        for char in helper(sequence) * int(count):
+            result += char
+        return result
+
+    pattern = r'(\d+)\[([^[]*|\\[])*\]'
+    if not s or re.match(pattern, s) is None:
+        raise ValueError('Invalid input')
+
+    return helper(re.search(pattern, s))
+```
+
+This function uses recursion and a regular expression to handle nested encodings and multi-digit numbers. It also checks for invalid inputs and raises a ValueError in such cases. The helper function is defined inside decode_string to assist with the decoding process.

@@ -1,0 +1,16 @@
+To create a function that evaluates an arithmetic expression with parentheses, I'll use the `eval()` function in Python, but note that using `eval()` can be dangerous because it executes arbitrary code, so it should only be used when the input is trusted and safe. In this case, we are assured that the input will only contain integers, +, -, *, /, and parentheses, so it's acceptable to use `eval()`.
+
+Here's the function:
+
+```python
+import re
+def evaluate(expr):
+    # Remove whitespaces
+    expr = re.sub(r'\s+', '', expr)
+    try:
+        return int(eval(expr))
+    except Exception as e:
+        return None
+```
+
+This function takes an arithmetic expression string, removes any white spaces and tries to evaluate it using the `eval()` function. If evaluation fails or results in a non-integer value, it returns `None`.

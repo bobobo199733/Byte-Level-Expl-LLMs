@@ -1,0 +1,70 @@
+**Basic Calculator Function**
+=====================================
+
+Here is a Python function called `basic_calculator(s)` that evaluates a mathematical expression given as a string.
+
+```python
+def basic_calculator(s):
+    """
+    Evaluates a mathematical expression given as a string and returns the result as an integer.
+
+    Args:
+        s (str): The mathematical expression to evaluate.
+
+    Returns:
+        int: The result of the evaluated expression.
+    """
+
+    # Initialize a stack to store numbers and operators
+    stack = []
+    curr_num = 0
+    res = 0
+    sign = 1
+
+    for i, c in enumerate(s):
+        # Handle non-digit characters
+        if not c.isdigit():
+            # If the current character is an operator (+ or -), pop all elements from the stack and apply the operation
+            if c == '+':
+                res += curr_num * sign
+            elif c == '-':
+                res += curr_num * sign
+                sign = -1  # Switch to negative for subsequent numbers
+            else:  # Handle '(' operator
+                stack.append(curr_num)
+                stack.append(sign)
+                curr_num = 0
+                sign = 1
+            continue
+
+        # Update the current number
+        curr_num = curr_num * 10 + int(c)
+
+    # Evaluate the final expression by popping all elements from the stack and applying operations
+    res += curr_num * sign
+
+    # Apply any remaining operations for numbers after '(' operator
+    while len(stack) > 1:
+        num2 = stack.pop()
+        num1 = stack.pop()
+        op = stack.pop()
+
+        if op == '+':
+            stack.append(num1 + num2)
+        elif op == '-':
+            stack.append(num1 - num2)
+
+    # If there's one element left in the stack, it's the result
+    return res + stack[0]
+```
+
+**Example Use Cases**
+------------------------
+
+```python
+print(basic_calculator("1+1"))  # Output: 2
+print(basic_calculator("2-1+3"))  # Output: 4
+print(basic_calculator("(1+(4+5)+3)- (10+0)+(6-8) "))  # Output: -4
+```
+
+This function works by iterating through the input string, parsing numbers and operators, and applying operations as needed. The stack is used to store intermediate results and operator signs.

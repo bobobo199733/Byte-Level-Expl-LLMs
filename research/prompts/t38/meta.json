@@ -1,0 +1,9 @@
+{
+  "function_name": "expression_to_postfix",
+  "description": "Convert an infix mathematical expression into postfix notation.",
+  "category": "parsing",
+  "subtype": "expression_conversion",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

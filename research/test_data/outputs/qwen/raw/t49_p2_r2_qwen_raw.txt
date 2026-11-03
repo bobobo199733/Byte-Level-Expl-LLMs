@@ -1,0 +1,43 @@
+Certainly! Below is the implementation of the `word_break` function using dynamic programming. The function takes a string `s` and a list of words `word_dict`, and returns a boolean indicating whether the string can be segmented into a space-separated sequence of one or more dictionary words.
+
+```python
+def word_break(s, word_dict):
+    # Convert word_dict to a set for O(1) lookup
+    word_set = set(word_dict)
+    
+    # Create a DP array where dp[i] is True if s[:i] can be segmented using the given words
+    n = len(s)
+    dp = [False] * (n + 1)
+    dp[0] = True  # Base case: empty string can always be broken down
+    
+    # Fill in the DP array
+    for i in range(1, n + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+
+    return dp[n]
+
+# Example usage:
+s = "leetcode"
+word_dict = ["leet", "code"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsandog"
+word_dict = ["cats", "dog", "sand", "and", "cat"]
+print(word_break(s, word_dict))  # Output: False
+```
+
+### Explanation:
+1. **Convert `word_dict` to a Set**: This allows for constant-time lookups during the dynamic programming process.
+2. **Initialize DP Array**: We initialize a boolean array `dp` of length `n + 1`, where `n` is the length of `s`. The value `dp[i]` will be `True` if the substring `s[:i]` can be segmented into words from `word_dict`.
+3. **Base Case**: `dp[0] = True` because an empty string can always be broken down.
+4. **Filling DP Array**: For each position `i`, we check all possible substrings `s[j:i]` where `dp[j]` is `True`. If any such substring `s[j:i]` is found in the word set, then `dp[i]` is set to `True`.
+5. **Return Result**: Finally, we return `dp[n]`, which indicates whether the entire string `s` can be segmented into words from `word_dict`.
+
+This approach ensures that each position `i` is checked at most once for all possible substrings, making it efficient in terms of both time and space complexity.

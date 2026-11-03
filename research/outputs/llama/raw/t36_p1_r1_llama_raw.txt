@@ -1,0 +1,60 @@
+**Dijkstra's Shortest Path Function**
+=====================================
+
+Here is the Python function that computes shortest path distances from a starting node using Dijkstra's algorithm:
+
+```python
+def dijkstra_shortest_path(graph, start):
+    """
+    Compute shortest path distances from a starting node in a weighted graph.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+            Each key is a node and its corresponding value is another dictionary.
+            The inner dictionary's keys are neighboring nodes and its values
+            are the edge weights.
+        start (str): Node to start the search from.
+
+    Returns:
+        dict: Shortest distance from the start node to all reachable nodes.
+    """
+
+    # Initialize distances with infinity for all nodes, except the start node which is 0
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    # Create a set of unvisited nodes
+    unvisited_nodes = set(graph.keys())
+
+    while unvisited_nodes:
+        current_node = min(unvisited_nodes, key=lambda node: distances[node])
+        unvisited_nodes.remove(current_node)
+
+        # For each neighbor of the current node
+        for neighbor, weight in graph[current_node].items():
+            new_distance = distances[current_node] + weight
+
+            # If a shorter path is found, update the distance and mark the neighbor as visited
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+
+    return distances
+```
+
+**Example Usage**
+---------------
+
+```python
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+start_node = 'A'
+shortest_distances = dijkstra_shortest_path(graph, start_node)
+print(shortest_distances)  # Output: {'A': 0, 'B': 1, 'C': 3, 'D': 4}
+```
+
+This function takes a graph represented as an adjacency list and a starting node as input. It returns a dictionary with the shortest distance from the start node to all reachable nodes. The algorithm iteratively selects the unvisited node with the smallest known distance, updates its neighbors' distances if shorter paths are found, and repeats this process until all nodes have been visited.

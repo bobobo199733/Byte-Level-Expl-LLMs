@@ -1,0 +1,20 @@
+```python
+def kth_largest(nums, k):
+    """
+    Returns the kth largest value from a list of numbers.
+
+    Args:
+        nums (list): A list of numbers.
+        k (int): The position of the number to be found (1-indexed).
+
+    Returns:
+        int: The kth largest value in the list.
+
+    Raises:
+        ValueError: If k is less than 1 or greater than the length of the list.
+    """
+    if k < 1 or k > len(nums):
+        raise ValueError("Invalid value for k")
+
+    return sorted(nums, reverse=True)[k - 1]
+```

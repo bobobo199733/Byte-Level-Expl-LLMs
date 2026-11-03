@@ -1,0 +1,81 @@
+To create a Sudoku solver using backtracking, I will provide you with a Python function `sudoku_solver`. This function assumes that the input is a 9x9 2D list representing a Sudoku board, where empty cells are represented by `0` and all other numbers from 1 to 9 are valid.
+
+```python
+def sudoku_solver(board):
+    def find_empty(board):
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if board[i][j] == 0:
+                    return (i, j)
+        return None
+
+    def is_valid(row, col, num, board):
+        for i in range(len(board)):
+            if board[i][col] == num and i != row:
+                return False
+
+        for j in range(len(board)):
+            if board[row][j] == num and j != col:
+                return False
+
+        box_x = row - (row % 3)
+        box_y = col - (col % 3)
+
+        for i in range(box_x, box_x + 3):
+            for j in range(box_y, box_y + 3):
+                if board[i][j] == num and (i != row or j != col):
+                    return False
+
+        return True
+
+    def sudoku_helper(board, row=0, col=0):
+        if row == len(board):
+            return True
+
+        if col == len(board[row]):
+            return sudoku_helper(board, row + 1, 0)
+
+        if board[row][col] != 0:
+            return sudoku_helper(board, row, col + 1)
+
+        for num in range(1, len(board[row]) + 1):
+            if is_valid(row, col, num, board):
+                board[row][col] = num
+
+                if sudoku_helper(board, row, col + 1):
+                    return True
+
+        board[row][col] = 0
+        return False
+
+    if not sudoku_helper(board):
+        print("No solution found.")
+        return None
+
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == 0:
+                print("Unsolved cell: ", (i, j))
+
+    return board
+```
+
+You can use the `sudoku_solver` function as follows:
+
+```python
+board = [
+    [3, 0, 6, 5, 0, 8, 4, 0, 0],
+    [5, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 8, 7, 0, 0, 0, 0, 3, 1],
+    [0, 0, 3, 0, 1, 0, 0, 8, 0],
+    [9, 0, 0, 8, 6, 3, 0, 0, 5],
+    [0, 5, 0, 0, 9, 0, 7, 0, 0],
+    [0, 0, 0, 7, 2, 0, 0, 6, 0],
+    [1, 3, 0, 0, 0, 0, 2, 5, 0],
+    [0, 0, 4, 0, 0, 5, 0, 1, 9]
+]
+
+sudoku_solver(board)
+```
+
+This function finds a solution to the given Sudoku board and returns it. If no solution is found, it will print "No solution found." and return None. Additionally, unsolved cells are marked with the coordinates of the cell as well.

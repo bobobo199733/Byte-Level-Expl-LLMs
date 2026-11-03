@@ -1,0 +1,29 @@
+Certainly! Below is a Python function named `autocomplete_system` that takes two parameters: `words`, which is a list of strings representing the words to be searched against, and `prefix`, which is the prefix used for autocompletion. The function returns a sorted list of matching words.
+
+```python
+def autocomplete_system(words, prefix):
+    # Filter out words that do not start with the given prefix
+    matches = [word for word in words if word.startswith(prefix)]
+    
+    # Sort the filtered results
+    return sorted(matches)
+
+# Example usage:
+words_list = ["apple", "appetite", "application", "apricot", "banana", "ape"]
+prefix = "ap"
+print(autocomplete_system(words_list, prefix))
+```
+
+### Explanation:
+- **`startswith(prefix)`**: This method checks if a string starts with the given `prefix`.
+- **List comprehension** is used to filter out words that do not start with the specified prefix.
+- The resulting list of matches is then sorted in alphabetical order using Python's built-in `sorted()` function.
+
+### Example Output:
+If you run the example code with the provided `words_list` and `prefix`, the output will be:
+
+```python
+['apple', 'appetite', 'application', 'apricot']
+```
+
+This output is a sorted list of words that start with "ap".

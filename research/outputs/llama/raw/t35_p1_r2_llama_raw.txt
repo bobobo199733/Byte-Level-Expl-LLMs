@@ -1,0 +1,32 @@
+Here's the Python code to solve this problem:
+
+```python
+def json_validator(text):
+    """
+    Checks if a given string contains valid JSON data.
+    
+    Args:
+        text (str): The input string to check for valid JSON.
+    
+    Returns:
+        bool: True if the string contains valid JSON, False otherwise.
+    """
+
+    # Try to parse the input string as JSON
+    try:
+        json.loads(text)
+        
+        # If no exception was raised, return True indicating valid JSON
+        return True
+    
+    # If an exception is raised (which indicates invalid JSON), catch it and return False
+    except ValueError:
+        return False
+
+# Test the function with some examples
+print(json_validator('{"key": "value"}'))  # Should print: True
+print(json_validator('[1, 2, 3]'))           # Should print: True
+print(json_validator('{a: b}'))               # Should print: False (invalid syntax)
+```
+
+This function works by trying to parse the input string as JSON. If parsing is successful (i.e., no exception is raised), it returns `True` indicating valid JSON. Otherwise, it catches the raised `ValueError`, which indicates that the string does not contain valid JSON, and returns `False`.

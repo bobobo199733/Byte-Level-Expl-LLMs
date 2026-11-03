@@ -1,0 +1,59 @@
+**Validate Password Function**
+=====================================
+
+The following Python function checks if a given password meets certain strength criteria.
+
+```python
+import re
+
+def validate_password(password: str) -> bool:
+    """
+    Validate the strength of a password.
+    
+    A strong password is considered to be at least 8 characters long, containing 
+    at least one uppercase letter, one lowercase letter, one digit and one special character.
+    
+    Parameters:
+    password (str): The password to validate
+    
+    Returns:
+    bool: True if the password is strong, False otherwise
+    """
+
+    # Define regular expression patterns for validation
+    uppercase_pattern = r"[A-Z]"
+    lowercase_pattern = r"[a-z]"
+    digit_pattern = r"\d"
+    special_character_pattern = r"[!@#$%^&*()_+=-{};:'<>,./?]"
+    
+    # Check if password length is at least 8 characters
+    if len(password) < 8:
+        return False
+    
+    # Check for each pattern in the password
+    if not (re.search(uppercase_pattern, password)
+            and re.search(lowercase_pattern, password)
+            and re.search(digit_pattern, password)
+            and re.search(special_character_pattern, password)):
+        return False
+    
+    # If all checks pass, the password is considered strong
+    return True
+```
+
+**Example Usage**
+---------------
+
+```python
+print(validate_password("Password123!"))  # Returns: True
+print(validate_password("password123"))   # Returns: False (missing special character)
+print(validate_password("P@ssw0rd"))       # Returns: True
+```
+
+This function checks for the following criteria:
+
+*   The password must be at least 8 characters long.
+*   It should contain at least one uppercase letter (`[A-Z]`).
+*   It should contain at least one lowercase letter (`[a-z]`).
+*   It should contain at least one digit (`\d`).
+*   It should contain at least one special character (`[!@#$%^&*()_+=-{};:'<>,./?]`).

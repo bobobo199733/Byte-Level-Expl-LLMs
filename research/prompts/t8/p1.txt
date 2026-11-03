@@ -1,0 +1,1 @@
+Write a Python function validate_password(password) that checks whether a password is valid.

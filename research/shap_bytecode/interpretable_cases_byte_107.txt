@@ -1,0 +1,1138 @@
+Top interpretable task+prompt cases for byte_107
+Runs are treated as repeated stochastic samples.
+For each task+prompt, one representative run per model is selected.
+==========================================================================================
+
+==========================================================================================
+CASE: t5_p2
+score: 455.0
+selected runs: llama=r3, mistral=r1, qwen=r1
+byte values: llama=148.0, mistral=0.0, qwen=0.0
+opnames: llama=COMPARE_OP, mistral=CALL, qwen=LOAD_ATTR
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t5_p2_r3_llama.py
+run: r3
+status: ok
+byte_value: 148.0
+bytecode_length: 344.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(>)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def remove_k_digits(num: str, k: int) -> str:
+   002:     """
+   003:     Removes k digits from the number string so the result is as small as possible.
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        """
+        Removes k digits from the number string so the result is as small as possible.
+    
+        Args:
+        num (str): The input number string.
+        k (int): The number of digits to be removed.
+    
+        Returns:
+        str: The resulting number string with k digits removed.
+        """
+        stack = []
+        for digit in num:
+            while k > 0 and stack and (stack[-1] > digit):
+                k -= 1
+                stack.pop()
+            stack.append(digit)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        return ''.join(stack).lstrip('0') or '0'
+
+--- MODEL: mistral ---
+file: t5_p2_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 338.0
+position_type: argument_or_cache_byte
+instruction: CALL 
+instruction_offset: 106.0 - 114.0
+starts_line: False
+
+Source context:
+   001: from typing import List
+   002: 
+   003: def remove_k_digits(num: str, k: int) -> str:
+
+Full code:
+    from typing import List
+
+    def remove_k_digits(num: str, k: int) -> str:
+        stack = []
+        for digit in num:
+            while stack and len(stack) > k - 1 and (stack[-1] > digit):
+                stack.pop()
+            stack.append(digit)
+        stack = [num[0]] + list(filter(lambda x: x != '0', stack))
+        if not stack:
+            return '0'
+        return ''.join(stack)
+
+--- MODEL: qwen ---
+file: t5_p2_r1_qwen.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 380.0
+position_type: argument_or_cache_byte
+instruction: LOAD_ATTR pop + NULL|self
+instruction_offset: 94.0 - 114.0
+starts_line: False
+
+Source context:
+   001: def remove_k_digits(num: str, k: int) -> str:
+   002:     if len(num) <= k:
+   003:         return '0'
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        if len(num) <= k:
+            return '0'
+        stack = []
+        for digit in num:
+            while k > 0 and stack and (stack[-1] > digit):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        result = ''.join(stack).lstrip('0')
+        return result if result else '0'
+
+==========================================================================================
+CASE: t5_p1
+score: 425.0
+selected runs: llama=r1, mistral=r1, qwen=r1
+byte values: llama=0.0, mistral=0.0, qwen=148.0
+opnames: llama=POP_JUMP_IF_FALSE, mistral=COMPARE_OP, qwen=COMPARE_OP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t5_p1_r1_llama.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 354.0
+position_type: argument_or_cache_byte
+instruction: POP_JUMP_IF_FALSE to L5
+instruction_offset: 104.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def remove_k_digits(num: str, k: int) -> str:
+   002:     """
+   003:     Removes exactly k digits from the non-negative integer string num so that 
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        """
+        Removes exactly k digits from the non-negative integer string num so that 
+        the resulting number is as small as possible.
+
+        Args:
+            num (str): The input integer string.
+            k (int): The number of digits to remove.
+
+        Returns:
+            str: The resulting number as a string, with leading zeros removed. If the result is empty, returns "0".
+        """
+        if k == 0 or k >= len(num):
+            return num
+        stack = []
+        for n in num:
+            while stack and stack[-1] > n and k:
+                stack.pop()
+                k -= 1
+            stack.append(n)
+        if k:
+            stack = stack[:-k]
+        res = ''.join(stack).lstrip('0') or '0'
+        return res
+
+--- MODEL: mistral ---
+file: t5_p1_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 396.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(>)
+instruction_offset: 104.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def remove_k_digits(num: str, k: int) -> str:
+   002:     if len(num) <= k:
+   003:         return '0' if not num else num
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        if len(num) <= k:
+            return '0' if not num else num
+        stack = []
+        for digit in num:
+            while stack and stack[-1] > digit and (k > 0):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        result = stack[:len(num) - k]
+        return ''.join(result).zfill(len(result) or 1) if result else '0'
+
+--- MODEL: qwen ---
+file: t5_p1_r1_qwen.py
+run: r1
+status: ok
+byte_value: 148.0
+bytecode_length: 348.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(>)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def remove_k_digits(num: str, k: int) -> str:
+   002:     stack = []
+   003:     for digit in num:
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        stack = []
+        for digit in num:
+            while k > 0 and stack and (stack[-1] > digit):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        result = ''.join(stack).lstrip('0')
+        return result if result else '0'
+
+==========================================================================================
+CASE: t4_p3
+score: 335.0
+selected runs: llama=r2, mistral=r1, qwen=r2
+byte values: llama=0.0, mistral=0.0, qwen=88.0
+opnames: llama=LOAD_ATTR, mistral=LOAD_GLOBAL, qwen=COMPARE_OP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t4_p3_r2_llama.py
+run: r2
+status: ok
+byte_value: 0.0
+bytecode_length: 338.0
+position_type: argument_or_cache_byte
+instruction: LOAD_ATTR append + NULL|self
+instruction_offset: 92.0 - 112.0
+starts_line: False
+
+Source context:
+   001: def decode_string(s: str) -> str:
+   002:     stack = []
+   003:     cur_num = ''
+
+Full code:
+    def decode_string(s: str) -> str:
+        stack = []
+        cur_num = ''
+        cur_str = ''
+        for c in s:
+            if c.isdigit():
+                cur_num += c
+            elif c == '[':
+                stack.append(cur_str)
+                stack.append(int(cur_num))
+                cur_str = ''
+                cur_num = ''
+            elif c == ']':
+                num = stack.pop()
+                prev_str = stack.pop()
+                cur_str = prev_str + num * cur_str
+            else:
+                cur_str += c
+        if stack:
+            raise ValueError('Invalid input')
+        return cur_str
+
+--- MODEL: mistral ---
+file: t4_p3_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 158.0
+position_type: argument_or_cache_byte
+instruction: LOAD_GLOBAL re
+instruction_offset: 106.0 - 116.0
+starts_line: False
+
+Source context:
+   001: import re
+   002: 
+   003: def decode_string(s):
+
+Full code:
+    import re
+
+    def decode_string(s):
+
+        def helper(match):
+            count, sequence = match.group(1, 2)
+            result = ''
+            for char in helper(sequence) * int(count):
+                result += char
+            return result
+        pattern = '(\\d+)\\[([^[]*|\\\\[])*\\]'
+        if not s or re.match(pattern, s) is None:
+            raise ValueError('Invalid input')
+        return helper(re.search(pattern, s))
+
+--- MODEL: qwen ---
+file: t4_p3_r2_qwen.py
+run: r2
+status: ok
+byte_value: 88.0
+bytecode_length: 324.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(==)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def decode_string(s: str) -> str:
+   002:     stack, num, res = ([], 0, '')
+   003:     for char in s:
+
+Full code:
+    def decode_string(s: str) -> str:
+        stack, num, res = ([], 0, '')
+        for char in s:
+            if char.isdigit():
+                num = num * 10 + int(char)
+            elif char == '[':
+                stack.append((res, num))
+                res, num = ('', 0)
+            elif char.isalpha() or char == ']':
+                res += char
+                if char == ']':
+                    prev_res, count = stack.pop()
+                    res = prev_res + count * res
+        return res if not stack else ''
+
+==========================================================================================
+CASE: t1_p3
+score: 323.0
+selected runs: llama=r1, mistral=r2, qwen=r2
+byte values: llama=0.0, mistral=1.0, qwen=82.0
+opnames: llama=LOAD_GLOBAL, mistral=RAISE_VARARGS, qwen=LOAD_FAST_LOAD_FAST
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t1_p3_r1_llama.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 550.0
+position_type: argument_or_cache_byte
+instruction: LOAD_GLOBAL len + NULL
+instruction_offset: 102.0 - 112.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s: str) -> int:
+   002:     if not s:
+   003:         raise ValueError('Invalid input')
+
+Full code:
+    def roman_to_int(s: str) -> int:
+        if not s:
+            raise ValueError('Invalid input')
+        mapping = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        subtractive_pairs = ['IV', 'IX', 'XL', 'XC', 'CD', 'CM']
+        valid_numerals = {'I': [True, False], 'X': [False, True, False], 'C': [False, False, True], 'M': [False, False, False]}
+        i = 0
+        while i < len(s):
+            if s[i:i + 2] in subtractive_pairs:
+                if s[i:i + 2] not in mapping or s[i + 1:i + 3] not in mapping:
+                    raise ValueError('Invalid numeral')
+                result += mapping[s[i + 2]]
+                i += 2
+            elif s[i] in mapping:
+                repetition_valid = valid_numerals.get(s[i], [False])[i % 4]
+                if s[i] == 'V' or s[i] == 'L' or s[i] == 'D':
+                    repetition_valid = True
+                if not repetition_valid and i > 0 and (s[i] <= s[i - 1]):
+                    raise ValueError('Invalid numeral')
+                result += mapping[s[i]]
+                i += 1
+            else:
+                raise ValueError('Invalid numeral')
+        return result
+
+--- MODEL: mistral ---
+file: t1_p3_r2_mistral.py
+run: r2
+status: ok
+byte_value: 1.0
+bytecode_length: 544.0
+position_type: argument_or_cache_byte
+instruction: RAISE_VARARGS 
+instruction_offset: 106.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s):
+   002:     valid = {'I', 'V', 'X', 'L', 'C', 'D', 'M'}
+   003:     subtractive = {('IV', 4), ('IX', 9), ('XL', 40), ('XC', 90), ('CD', 400), ('CM', 900)}
+
+Full code:
+    def roman_to_int(s):
+        valid = {'I', 'V', 'X', 'L', 'C', 'D', 'M'}
+        subtractive = {('IV', 4), ('IX', 9), ('XL', 40), ('XC', 90), ('CD', 400), ('CM', 900)}
+        if not s:
+            raise ValueError('Empty string')
+        for char in s:
+            if char not in valid:
+                raise ValueError(f"Invalid character '{char}'")
+        result = 0
+        i = len(s) - 1
+        while i >= 0:
+            char, num = (None, 0)
+            for c, n in subtractive:
+                if s[i:i + len(c)] == c:
+                    char, num = (c[0], num)
+                    break
+            if not char:
+                char = s[i]
+                if char in ('I', 'X', 'C'):
+                    if s[i - 3:i + 1].count(char) > 3:
+                        raise ValueError(f"Repetition error for '{char}'")
+                elif char in ('V', 'L', 'D'):
+                    if s[i - 1] == char:
+                        raise ValueError(f"Repeat error for '{char}'")
+            num = int(num)
+            result += num * valid.index(char)
+            i -= len(char)
+        return result
+
+--- MODEL: qwen ---
+file: t1_p3_r2_qwen.py
+run: r2
+status: ok
+byte_value: 82.0
+bytecode_length: 286.0
+position_type: argument_or_cache_byte
+instruction: LOAD_FAST_LOAD_FAST value, prev_value
+instruction_offset: 106.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s: str) -> int:
+   002:     if s == '':
+   003:         raise ValueError
+
+Full code:
+    def roman_to_int(s: str) -> int:
+        if s == '':
+            raise ValueError
+        numeral_map = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        prev_value = 0
+        total = 0
+        for char in s:
+            if char not in numeral_map:
+                raise ValueError
+            value = numeral_map[char]
+            if prev_value == 0 or value <= prev_value:
+                if prev_value * 10 < value:
+                    raise ValueError
+                total += value
+            elif prev_value * 5 < value < prev_value * 10:
+                if (char, prev_value) not in [('IV', 1), ('IX', 1), ('XL', 10), ('XC', 10), ('CD', 100), ('CM', 100)]:
+                    raise ValueError
+                total += value - 2 * prev_value
+            else:
+                raise ValueError
+            prev_value = value
+        return total
+
+==========================================================================================
+CASE: t1_p1
+score: 297.0
+selected runs: llama=r2, mistral=r1, qwen=r1
+byte values: llama=69.0, mistral=0.0, qwen=0.0
+opnames: llama=FOR_ITER, mistral=BINARY_OP, qwen=CALL
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t1_p1_r2_llama.py
+run: r2
+status: ok
+byte_value: 69.0
+bytecode_length: 256.0
+position_type: argument_or_cache_byte
+instruction: FOR_ITER to L5
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s):
+   002:     """
+   003:     Converts a Roman numeral to an integer.
+
+Full code:
+    def roman_to_int(s):
+        """
+        Converts a Roman numeral to an integer.
+
+        Args:
+            s (str): The Roman numeral to be converted.
+
+        Returns:
+            int: The integer value of the Roman numeral.
+
+        Raises:
+            ValueError: If the input is not a valid Roman numeral.
+        """
+        if not s:
+            raise ValueError('Input cannot be an empty string.')
+        roman_values = {'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 10, 'V': 5, 'I': 1}
+        total = 0
+        prev_value = 0
+        for i in range(len(s)):
+            if s[i] not in roman_values:
+                raise ValueError('Invalid Roman numeral.')
+            curr_value = roman_values[s[i]]
+            if prev_value < curr_value and i != len(s) - 1:
+                raise ValueError('Invalid Roman numeral: Subtractitive notation not allowed.')
+            total += curr_value
+            prev_value = curr_value
+        return total
+
+--- MODEL: mistral ---
+file: t1_p1_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 218.0
+position_type: argument_or_cache_byte
+instruction: BINARY_OP -
+instruction_offset: 104.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s):
+   002:     if not s:
+   003:         raise ValueError('The input cannot be an empty string.')
+
+Full code:
+    def roman_to_int(s):
+        if not s:
+            raise ValueError('The input cannot be an empty string.')
+        dictionary = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        total = dictionary[s[-1]]
+        for i in range(len(s) - 2, -1, -1):
+            if dictionary[s[i]] < dictionary[s[i + 1]]:
+                total -= dictionary[s[i]]
+            else:
+                total += dictionary[s[i]]
+        return total
+
+--- MODEL: qwen ---
+file: t1_p1_r1_qwen.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 178.0
+position_type: argument_or_cache_byte
+instruction: CALL 
+instruction_offset: 104.0 - 112.0
+starts_line: False
+
+Source context:
+   001: def roman_to_int(s):
+   002:     roman_values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+   003:     if not s:
+
+Full code:
+    def roman_to_int(s):
+        roman_values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        if not s:
+            raise ValueError('Input cannot be an empty string.')
+        prev_value = -1
+        total = 0
+        for char in s:
+            if char not in roman_values:
+                raise ValueError(f'Invalid Roman numeral: {char}')
+            current_value = roman_values[char]
+            if prev_value < current_value:
+                total += current_value - 2 * prev_value
+            else:
+                total += current_value
+            prev_value = current_value
+        return total
+
+==========================================================================================
+CASE: t9_p2
+score: 285.0
+selected runs: llama=r1, mistral=r1, qwen=r1
+byte values: llama=63.0, mistral=0.0, qwen=58.0
+opnames: llama=FOR_ITER, mistral=LOAD_GLOBAL, qwen=COMPARE_OP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t9_p2_r1_llama.py
+run: r1
+status: ok
+byte_value: 63.0
+bytecode_length: 244.0
+position_type: argument_or_cache_byte
+instruction: FOR_ITER to L4
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     """
+   003:     Merge all overlapping intervals in a given list of intervals.
+
+Full code:
+    def merge_intervals(intervals):
+        """
+        Merge all overlapping intervals in a given list of intervals.
+
+        Args:
+            intervals (list): A list of intervals, where each interval is [start, end]
+
+        Returns:
+            list: The merged intervals as a list of lists
+        """
+        intervals_copy = intervals.copy()
+        if not intervals_copy:
+            return []
+        intervals_copy.sort(key=lambda x: x[0])
+        merged_intervals = [intervals_copy[0]]
+        for current_interval in intervals_copy[1:]:
+            last_merged_interval = merged_intervals[-1]
+            if current_interval[0] <= last_merged_interval[1]:
+                merged_intervals[-1][1] = max(last_merged_interval[1], current_interval[1])
+            else:
+                merged_intervals.append(current_interval)
+        return merged_intervals
+
+--- MODEL: mistral ---
+file: t9_p2_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 196.0
+position_type: argument_or_cache_byte
+instruction: LOAD_GLOBAL max + NULL
+instruction_offset: 104.0 - 114.0
+starts_line: True
+
+Source context:
+>> 001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+   004:     sorted_intervals = sorted(intervals, key=lambda x: x[0])
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        sorted_intervals = sorted(intervals, key=lambda x: x[0])
+        merged_intervals = [sorted_intervals[0]]
+        for interval in sorted_intervals[1:]:
+            last_merged = merged_intervals[-1]
+            if interval[0] <= last_merged[1]:
+                last_merged[1] = max(last_merged[1], interval[1])
+            else:
+                merged_intervals.append(interval)
+        return merged_intervals
+
+--- MODEL: qwen ---
+file: t9_p2_r1_qwen.py
+run: r1
+status: ok
+byte_value: 58.0
+bytecode_length: 204.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(<=)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        intervals.sort(key=lambda x: x[0])
+        merged = [intervals[0]]
+        for current in intervals[1:]:
+            last_merged_end = merged[-1][1]
+            if current[0] <= last_merged_end:
+                merged[-1][1] = max(last_merged_end, current[1])
+            else:
+                merged.append(current)
+        return merged
+
+==========================================================================================
+CASE: t9_p1
+score: 275.0
+selected runs: llama=r2, mistral=r1, qwen=r3
+byte values: llama=0.0, mistral=0.0, qwen=58.0
+opnames: llama=LOAD_ATTR, mistral=POP_JUMP_IF_FALSE, qwen=COMPARE_OP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t9_p1_r2_llama.py
+run: r2
+status: ok
+byte_value: 0.0
+bytecode_length: 196.0
+position_type: argument_or_cache_byte
+instruction: LOAD_ATTR append + NULL|self
+instruction_offset: 94.0 - 114.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     intervals.sort(key=lambda x: x[0])
+   003:     merged = []
+
+Full code:
+    def merge_intervals(intervals):
+        intervals.sort(key=lambda x: x[0])
+        merged = []
+        for interval in intervals:
+            if not merged or merged[-1][1] < interval[0]:
+                merged.append(interval)
+            else:
+                merged[-1][1] = max(merged[-1][1], interval[1])
+        return merged
+
+--- MODEL: mistral ---
+file: t9_p1_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 200.0
+position_type: argument_or_cache_byte
+instruction: POP_JUMP_IF_FALSE to L3
+instruction_offset: 104.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        intervals.sort(key=lambda x: x[0])
+        merged = [intervals[0]]
+        for current in intervals:
+            last_merged = merged[-1]
+            if last_merged[1] >= current[0]:
+                last_merged[1] = max(last_merged[1], current[1])
+            else:
+                merged.append(current)
+        return merged
+
+--- MODEL: qwen ---
+file: t9_p1_r3_qwen.py
+run: r3
+status: ok
+byte_value: 58.0
+bytecode_length: 216.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(<=)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        intervals.sort(key=lambda x: x[0])
+        merged = [intervals[0]]
+        for current in intervals[1:]:
+            last_merged = merged[-1]
+            if current[0] <= last_merged[1]:
+                merged[-1] = [last_merged[0], max(last_merged[1], current[1])]
+            else:
+                merged.append(current)
+        return merged
+
+==========================================================================================
+CASE: t9_p3
+score: 275.0
+selected runs: llama=r1, mistral=r2, qwen=r1
+byte values: llama=0.0, mistral=0.0, qwen=58.0
+opnames: llama=LOAD_ATTR, mistral=POP_JUMP_IF_FALSE, qwen=COMPARE_OP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t9_p3_r1_llama.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 206.0
+position_type: argument_or_cache_byte
+instruction: LOAD_ATTR append + NULL|self
+instruction_offset: 94.0 - 114.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     """
+   003:     Merge overlapping intervals.
+
+Full code:
+    def merge_intervals(intervals):
+        """
+        Merge overlapping intervals.
+
+        Args:
+            intervals (list[tuple[int, int]]): List of intervals in the form [(start, end), ...]
+
+        Returns:
+            list[tuple[int, int]]: Merged intervals
+        """
+        intervals.sort(key=lambda x: x[0])
+        merged = []
+        for interval in intervals:
+            if not merged or merged[-1][1] < interval[0]:
+                merged.append(interval)
+            else:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], interval[1]))
+        return merged
+
+--- MODEL: mistral ---
+file: t9_p3_r2_mistral.py
+run: r2
+status: ok
+byte_value: 0.0
+bytecode_length: 200.0
+position_type: argument_or_cache_byte
+instruction: POP_JUMP_IF_FALSE to L3
+instruction_offset: 104.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        intervals.sort(key=lambda x: x[0])
+        merged = [intervals[0]]
+        for current in intervals:
+            last = merged[-1]
+            if last[1] >= current[0]:
+                last[1] = max(last[1], current[1])
+            else:
+                merged.append(current)
+        return merged
+
+--- MODEL: qwen ---
+file: t9_p3_r1_qwen.py
+run: r1
+status: ok
+byte_value: 58.0
+bytecode_length: 216.0
+position_type: argument_or_cache_byte
+instruction: COMPARE_OP bool(<=)
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def merge_intervals(intervals):
+   002:     if not intervals:
+   003:         return []
+
+Full code:
+    def merge_intervals(intervals):
+        if not intervals:
+            return []
+        intervals.sort(key=lambda x: x[0])
+        merged = [intervals[0]]
+        for current_interval in intervals[1:]:
+            last_merged_interval = merged[-1]
+            if current_interval[0] <= last_merged_interval[1]:
+                merged[-1] = [last_merged_interval[0], max(last_merged_interval[1], current_interval[1])]
+            else:
+                merged.append(current_interval)
+        return merged
+
+==========================================================================================
+CASE: t7_p2
+score: 263.0
+selected runs: llama=r1, mistral=r1, qwen=r3
+byte values: llama=52.0, mistral=0.0, qwen=3.0
+opnames: llama=LOAD_FAST_LOAD_FAST, mistral=CALL, qwen=SWAP
+position types: llama=argument_or_cache_byte, mistral=argument_or_cache_byte, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=ok, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t7_p2_r1_llama.py
+run: r1
+status: ok
+byte_value: 52.0
+bytecode_length: 154.0
+position_type: argument_or_cache_byte
+instruction: LOAD_FAST_LOAD_FAST frequency_dict, word
+instruction_offset: 106.0 - 108.0
+starts_line: True
+
+Source context:
+>> 001: import re
+   002: 
+   003: def word_frequency(text):
+   004:     """
+
+Full code:
+    import re
+
+    def word_frequency(text):
+        """
+        Calculate the frequency of each word in a given text.
+
+        Args:
+            text (str): The input text.
+
+        Returns:
+            dict: A dictionary where keys are unique words and values are their frequencies.
+        """
+        cleaned_text = re.sub('\\s+', ' ', text)
+        words = cleaned_text.split()
+        frequency_dict = {}
+        for word in words:
+            if word in frequency_dict:
+                frequency_dict[word] += 1
+            else:
+                frequency_dict[word] = 1
+        return frequency_dict
+
+--- MODEL: mistral ---
+file: t7_p2_r1_mistral.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 200.0
+position_type: argument_or_cache_byte
+instruction: CALL 
+instruction_offset: 106.0 - 114.0
+starts_line: False
+
+Source context:
+   001: def word_frequency(text):
+   002:     words = text.lower().split()
+   003:     freq_dict = {}
+
+Full code:
+    def word_frequency(text):
+        words = text.lower().split()
+        freq_dict = {}
+        for word in words:
+            word = ''.join((c for c in word if c.isalnum()))
+            if word:
+                freq_dict[word] = freq_dict.get(word, 0) + 1
+        return freq_dict
+
+--- MODEL: qwen ---
+file: t7_p2_r3_qwen.py
+run: r3
+status: ok
+byte_value: 3.0
+bytecode_length: 138.0
+position_type: argument_or_cache_byte
+instruction: SWAP 
+instruction_offset: 106.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def word_frequency(text):
+   002:     words = text.split()
+   003:     frequency_dict = {}
+
+Full code:
+    def word_frequency(text):
+        words = text.split()
+        frequency_dict = {}
+        for word in words:
+            lower_word = word.lower()
+            if lower_word in frequency_dict:
+                frequency_dict[lower_word] += 1
+            else:
+                frequency_dict[lower_word] = 1
+        return frequency_dict
+
+==========================================================================================
+CASE: t6_p2
+score: 230.0
+selected runs: llama=r1, mistral=r1, qwen=r3
+byte values: llama=0.0, mistral=nan, qwen=14.0
+opnames: llama=POP_TOP, mistral=nan, qwen=JUMP_BACKWARD
+position types: llama=argument_or_cache_byte, mistral=padding_or_missing, qwen=argument_or_cache_byte
+statuses: llama=ok, mistral=out_of_range, qwen=ok
+==========================================================================================
+
+--- MODEL: llama ---
+file: t6_p2_r1_llama.py
+run: r1
+status: ok
+byte_value: 0.0
+bytecode_length: 660.0
+position_type: argument_or_cache_byte
+instruction: POP_TOP 
+instruction_offset: 106.0 - 108.0
+starts_line: False
+
+Source context:
+   001: def wildcard_match(s: str, p: str) -> bool:
+   002:     """
+   003:     Check whether a string matches a wildcard pattern.
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        """
+        Check whether a string matches a wildcard pattern.
+
+        Args:
+            s (str): The input string.
+            p (str): The wildcard pattern.
+
+        Returns:
+            bool: True if the string matches the pattern, False otherwise.
+        """
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for i in range(1, len(p) + 1):
+            if p[i - 1] == '*':
+                dp[0][i] = dp[0][i - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(p) + 1):
+                if p[j - 1] == '?':
+                    dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+                elif s[i - 1] == p[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+        return dp[len(s)][len(p)]
+
+--- MODEL: mistral ---
+file: t6_p2_r1_mistral.py
+run: r1
+status: out_of_range
+byte_value: nan
+bytecode_length: 42.0
+position_type: padding_or_missing
+instruction: nan nan
+instruction_offset: nan - nan
+starts_line: None
+
+Source context: not available
+
+Full code:
+    def wildcard_match(s, p):
+
+        def match(s_index, p_index):
+            if p_index == len(p):
+                return s_index == len(s)
+            current_char = p[p_index]
+            next_char = None
+            if current_char == '*':
+                if match(s_index, p_index + 1):
+                    return True
+                while s_index < len(s):
+                    if match(s_index + 1, p_index):
+                        return True
+                    s_index += 1
+                return False
+            elif current_char == '?' or (current_char == s[s_index] and next_char is None):
+                if p_index + 1 < len(p) and p[p_index + 1] == '*':
+                    return match(s_index + 1, p_index + 2)
+                if p_index + 1 < len(p) and p[p_index + 1] != s[s_index + 1]:
+                    return False
+                if s_index < len(s) - 1 and match(s_index + 1, p_index + 1):
+                    return True
+            else:
+                return False
+        return match(0, 0)
+
+--- MODEL: qwen ---
+file: t6_p2_r3_qwen.py
+run: r3
+status: ok
+byte_value: 14.0
+bytecode_length: 534.0
+position_type: argument_or_cache_byte
+instruction: JUMP_BACKWARD to L1
+instruction_offset: 106.0 - 110.0
+starts_line: False
+
+Source context:
+   001: def wildcard_match(s: str, p: str) -> bool:
+   002:     m, n = (len(s), len(p))
+   003:     dp = [[False] * (n + 1) for _ in range(m + 1)]
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        m, n = (len(s), len(p))
+        dp = [[False] * (n + 1) for _ in range(m + 1)]
+        dp[0][0] = True
+        for j in range(1, n + 1):
+            if p[j - 1] == '*':
+                dp[0][j] = dp[0][j - 1]
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if p[j - 1] == '?' or s[i - 1] == p[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+        return dp[m][n]

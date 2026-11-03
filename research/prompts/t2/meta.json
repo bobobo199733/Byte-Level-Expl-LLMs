@@ -1,0 +1,22 @@
+{
+  "task_id": "t2",
+  "function_name": "is_balanced",
+  "valid_cases": [
+    ["", true],
+    ["()", true],
+    ["()[]{}", true],
+    ["{[]}", true],
+    ["abc(def)[x]{y}", true],
+    ["(((())))", true]
+  ],
+  "invalid_cases": [],
+  "explicit_cases": [
+    ["(]", false],
+    ["([)]", false],
+    ["(", false],
+    ["]", false],
+    ["(()", false],
+    ["}{", false]
+  ],
+  "expected_exception": "ValueError"
+}

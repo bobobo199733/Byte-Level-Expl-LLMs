@@ -1,0 +1,61 @@
+**Search Insert Position Function**
+=====================================
+
+The following is a Python function named `search_insert_position` that takes a sorted list of numbers (`nums`) and a target number (`target`) as input. It returns the correct index where the `target` should be inserted to maintain the sorted order.
+
+```python
+def search_insert_position(nums, target):
+    """
+    Returns the correct index or insertion position in a sorted array.
+    
+    Args:
+        nums (list): A sorted list of numbers.
+        target (int): The number to be searched for.
+        
+    Returns:
+        int: The correct index where the target should be inserted.
+    """
+    
+    # Initialize two pointers, one at the start and one at the end of the array
+    left, right = 0, len(nums) - 1
+    
+    # Continue searching while the pointers haven't crossed each other
+    while left <= right:
+        # Calculate the middle index
+        mid = (left + right) // 2
+        
+        # If the target is found at the middle index, return it
+        if nums[mid] == target:
+            return mid
+        # If the target is less than the middle element, move the right pointer to the left
+        elif nums[mid] > target:
+            right = mid - 1
+        # If the target is greater than the middle element, move the left pointer to the right
+        else:
+            left = mid + 1
+    
+    # If the target isn't found, return the correct insertion position (which is the left pointer)
+    return left
+```
+
+**Example Use Cases**
+-----------------------
+
+```python
+# Example 1: Searching for a number in an array
+nums = [1, 3, 5, 6]
+target = 5
+print(search_insert_position(nums, target))  # Output: 2
+
+# Example 2: Searching for a number not present in the array
+nums = [1, 3, 5, 6]
+target = 7
+print(search_insert_position(nums, target))  # Output: 4
+
+# Example 3: Searching for the smallest possible insertion position (i.e., when the input array is empty)
+nums = []
+target = 10
+print(search_insert_position(nums, target))  # Output: 0
+```
+
+Note that this function uses a binary search approach to find the correct index or insertion position in O(log n) time complexity.

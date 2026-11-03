@@ -1,0 +1,6 @@
+```python
+def parse_csv_line(line):
+    return line.split(',')
+```
+
+This function takes a single string `line` representing a CSV line and returns a list of fields by splitting the line at each comma.

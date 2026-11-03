@@ -1,0 +1,10 @@
+task,prompt,llama_run,llama_op,llama_raw,llama_argval,llama_source,llama_shap,llama_correct,mistral_run,mistral_op,mistral_raw,mistral_argval,mistral_source,mistral_shap,mistral_correct,qwen_run,qwen_op,qwen_raw,qwen_argval,qwen_source,qwen_shap,qwen_correct
+t44,p1,r1,LOAD_FAST_LOAD_FAST,88,"('nums', 'k')",return nums[-k:] + nums[:-k],0.0890328139066696,True,r2,STORE_FAST,110,k,k %= n,-0.3046348690986633,False,r1,STORE_FAST,110,k,k = k % n,-0.0966311171650886,False
+t44,p3,r1,LOAD_FAST,85,k,if len(nums) == 0 or k == 0:,-0.058056816458702,True,r1,STORE_FAST,110,k,k %= n,-0.3129121661186218,False,r1,STORE_FAST,110,k,k %= n,-0.0973992198705673,False
+t46,p1,r1,LOAD_FAST,85,words,for word in words:,-0.1305250823497772,True,r2,STORE_FAST,110,line,line = [],-0.1168391555547714,True,r1,STORE_FAST,110,result,result = [],-0.0983883142471313,False
+t46,p1,r1,LOAD_FAST,85,words,for word in words:,-0.1305250823497772,True,r3,STORE_FAST,110,line,line = [],-0.0980729386210441,True,r1,STORE_FAST,110,result,result = [],-0.0983883142471313,False
+t46,p2,r2,LOAD_FAST,85,words,for word in words:,-0.1228182464838028,False,r2,STORE_FAST,110,lines,lines = [],-0.0966536551713943,True,r1,BUILD_LIST,47,0,line = [],-0.0251982007175683,False
+t46,p2,r2,LOAD_FAST,85,words,for word in words:,-0.1228182464838028,False,r3,STORE_FAST,110,lines,lines = [],-0.0780324563384056,True,r1,BUILD_LIST,47,0,line = [],-0.0251982007175683,False
+t47,p1,r1,LOAD_CONST,83,1,"precedence = {'+': 1, '-': 1}",-0.1839140951633453,True,r1,STORE_FAST,110,operator_stack,operator_stack = [],-0.0882275626063346,False,r1,LOAD_CONST,83,0,result = 0,0.104366511106491,False
+t47,p2,r1,LOAD_GLOBAL,91,range,for i in range(len(s)):,0.3202008605003357,True,r2,STORE_FAST,110,operators,"operators = {'+': lambda x, y: x + y, '-': lambda x, y: x - y}",-0.1461825966835022,True,r1,LOAD_CONST,83,,"s = s.replace(' ', '')",0.1646905243396759,False
+t50,p3,r1,COMPARE_OP,58,>,if len(p) > len(s):,-0.2250294536352157,True,r2,STORE_FAST,110,window,window = Collections.defaultdict(int),-0.1494673043489456,False,r1,COMPARE_OP,58,>,if len(p) > len(s):,-0.0281635243445634,False

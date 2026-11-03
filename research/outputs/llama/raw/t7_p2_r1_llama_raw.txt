@@ -1,0 +1,53 @@
+Here's the code for the `word_frequency` function:
+
+```python
+import re
+
+def word_frequency(text):
+    """
+    Calculate the frequency of each word in a given text.
+
+    Args:
+        text (str): The input text.
+
+    Returns:
+        dict: A dictionary where keys are unique words and values are their frequencies.
+    """
+    # Remove extra spaces
+    cleaned_text = re.sub(r'\s+', ' ', text)
+
+    # Split the text into words
+    words = cleaned_text.split()
+
+    # Count occurrences of each word
+    frequency_dict = {}
+    for word in words:
+        if word in frequency_dict:
+            frequency_dict[word] += 1
+        else:
+            frequency_dict[word] = 1
+
+    return frequency_dict
+```
+
+Here's an example use case:
+
+```python
+text = "This is a test. This test is only a test."
+print(word_frequency(text))
+# Output: {'This': 2, 'is': 2, 'a': 2, 'test.': 2, 'only': 1}
+```
+
+Note that this function considers punctuation as part of the word. If you want to remove punctuation, you can use a more complex regular expression or the `re` module's `split()` function with a separator, which automatically ignores punctuation. Here's how to do it:
+
+```python
+import re
+
+def word_frequency(text):
+    # Remove extra spaces and punctuation
+    cleaned_text = re.sub(r'\s+', ' ', re.sub(r'[^\w\s]', '', text))
+
+    # ... (rest of the function remains the same)
+```
+
+This version will treat "test." as just "test".

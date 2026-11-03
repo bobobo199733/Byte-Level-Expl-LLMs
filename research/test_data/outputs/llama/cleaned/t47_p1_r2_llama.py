@@ -1,0 +1,40 @@
+def basic_calculator(s):
+    return calculate_expression(s.split())
+
+def calculate_expression(tokens):
+    token = tokens.pop(0)
+    if token == '(':
+        token = calculate_expression(tokens)
+        if token != ')':
+            raise ValueError('Unbalanced parentheses')
+    elif token == ')':
+        raise ValueError('Unbalanced parentheses')
+    elif token in ['+', '-']:
+        left_value = int(calculate_term(tokens))
+        return apply_operator(left_value, tokens.pop(0), calculate_expression(tokens))
+    else:
+        return calculate_term(tokens)
+
+def calculate_term(tokens):
+    term_value = int(tokens.pop(0))
+    while tokens and tokens[0] == '*':
+        tokens.pop(0)
+        term_value *= int(calculate_factor(tokens))
+    return term_value
+
+def calculate_factor(tokens):
+    if len(tokens) > 0:
+        token = tokens.pop(0)
+        if token == '(':
+            return int(calculate_expression(tokens))
+        else:
+            return token
+    raise ValueError('Invalid expression')
+
+def apply_operator(left, operator, right):
+    if operator == '+':
+        return left + right
+    elif operator == '-':
+        return left - right
+    else:
+        raise ValueError('Invalid operator')

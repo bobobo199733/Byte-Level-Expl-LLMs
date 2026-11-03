@@ -1,0 +1,58 @@
+**Course Schedule Validation Function**
+======================================
+
+The following Python function determines whether it's possible to complete all courses given the number of courses and their prerequisites.
+
+```python
+from collections import defaultdict, deque
+
+def course_schedule(num_courses, prerequisites):
+    """
+    Checks if all courses can be completed based on given prerequisites.
+
+    Args:
+        num_courses (int): Total number of courses.
+        prerequisites (list): List of pairs where each pair represents a prerequisite for a course.
+
+    Returns:
+        bool: True if all courses can be completed; False otherwise.
+    """
+
+    # Create adjacency list representation of the graph
+    graph = defaultdict(list)
+    indegree = {i: 0 for i in range(num_courses)}
+
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+        indegree[course] += 1
+
+    # Initialize queue with courses having no prerequisites
+    queue = deque([course for course in indegree if indegree[course] == 0])
+
+    while queue:
+        course = queue.popleft()
+        for neighbor in graph[course]:
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # Check if all courses can be completed
+    return all(indegree[course] == 0 for course in range(num_courses))
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Valid schedule: Course A -> B, then C
+num_courses = 3
+prerequisites = [(1, 0), (2, 0)]  # Course B and C have no prerequisites
+print(course_schedule(num_courses, prerequisites))  # Output: True
+
+# Invalid schedule due to cyclic dependency: Course A -> B, then B -> A
+num_courses = 2
+prerequisites = [(0, 1)]
+print(course_schedule(num_courses, prerequisites))  # Output: False
+```
+
+This implementation uses a graph representation with an adjacency list and the indegree of each node. The function iterates through the queue, updating the indegree of neighboring nodes until all courses can be completed (i.e., their indegrees are zero). If any course still has a non-zero indegree at the end, it indicates a cyclic dependency and prevents completion of that course.

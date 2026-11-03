@@ -1,0 +1,60 @@
+Creating a full-fledged parser for arithmetic expressions is quite complex and beyond the scope of this platform. However, I can provide you with a simple Python function that handles basic arithmetic expressions with parentheses. This solution is not perfect and doesn't cover all edge cases, but it should work well for most common scenarios.
+
+Here's a basic implementation using a simple approach called Shunting Yard algorithm:
+
+```python
+def operaters_precedence(op):
+    if op == '+' or op == '-':
+        return 1
+    elif op == '*' or op == '/':
+        return 2
+
+def basic_calculator(s):
+    def apply_operation(operand1, operand2, op):
+        if op == '+':
+            return operand1 + operand2
+        else:
+            return operand1 - operand2
+
+    stack = []
+    operator_stack = []
+    numbers = re.findall(r'-\d+|\d+' , s)
+
+    for token in numbers + list(s):
+        if token.isdigit():
+            stack.append(int(token))
+        elif token == '(':
+            operator_stack.append(token)
+        elif token == ')':
+            while operator_stack[-1] != '(':
+                pop_operator = operator_stack.pop()
+                second_operand = stack.pop()
+                first_operand = stack.pop()
+                result = apply_operation(first_operand, second_operand, pop_operator)
+                stack.append(result)
+            operator_stack.pop()
+        elif token in ['+', '-', '*', '/']:
+            while len(operator_stack) > 0 and operaters_precedence(token) <= operaters_precedence(operator_stack[-1]):
+                pop_operator = operator_stack.pop()
+                second_operand = stack.pop()
+                first_operand = stack.pop()
+                result = apply_operation(first_operand, second_operand, pop_operator)
+                stack.append(result)
+            operator_stack.append(token)
+
+    while len(operator_stack) > 0:
+        pop_operator = operator_stack.pop()
+        second_operand = stack.pop()
+        first_operand = stack.pop()
+        result = apply_operation(first_operand, second_operand, pop_operator)
+        stack.append(result)
+
+    return stack[0]
+```
+
+You can use this function as follows:
+
+```python
+result = basic_calculator("((2+3)*4)-5")  # should return 19
+print(result)
+```

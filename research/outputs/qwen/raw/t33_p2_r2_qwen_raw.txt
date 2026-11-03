@@ -1,0 +1,54 @@
+Certainly! Below is a Python function named `heap_sort` that implements the heap sort algorithm to sort a list of integers. This function builds a max-heap from the input list, then repeatedly extracts the maximum element from the heap and rebuilds the heap until all elements are sorted into their correct positions.
+
+```python
+def heapify(arr, n, i):
+    # Find largest among root, left child and right child
+    largest = i
+    l = 2 * i + 1     # left child index
+    r = 2 * i + 2     # right child index
+
+    if l < n and arr[i] < arr[l]:
+        largest = l
+    
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+    
+    # If root is not largest, swap with largest and continue heapifying
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    
+    # Build a maxheap.
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+    
+    # One by one extract elements
+    sorted_values = values.copy()
+    for i in range(n-1, 0, -1):
+        # Swap the root(maximum value) of the heap with the last element of the heap.
+        sorted_values[i], sorted_values[0] = sorted_values[0], sorted_values[i]
+        
+        # Call max heapify on the reduced heap
+        heapify(sorted_values, i, 0)
+    
+    return sorted_values
+
+# Example usage:
+unsorted_list = [12, 11, 13, 5, 6, 7]
+print(heap_sort(unsorted_list))  # Output: [5, 6, 7, 11, 12, 13]
+```
+
+### Explanation:
+
+- **heapify**: This function is used to maintain the heap property. It ensures that a subtree rooted with node `i` is a max-heap.
+- **heap_sort**: 
+    - First, it builds a max-heap from the input list by calling `heapify` for each non-leaf node in reverse level order.
+    - Then, it repeatedly extracts the maximum element (root of the heap) and places it at the end of the sorted part of the array. The size of the heap is reduced by one, and the last item of the array is moved to the root position.
+    - After moving the last item, `heapify` is called again for the root node with a smaller heap size.
+
+### Notes:
+- The function does not modify the original list; it returns a new sorted list.
+- It correctly handles empty input lists by returning an empty list.

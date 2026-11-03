@@ -1,0 +1,3 @@
+Write a Python function longest_palindrome(s).
+
+Return only valid Python code.

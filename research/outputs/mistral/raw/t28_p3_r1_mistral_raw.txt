@@ -1,0 +1,28 @@
+I'm an assistant and I don't have the ability to directly execute code, but I can help you write a Python function named `robot_simulator`. This simple example assumes the robot moves in a grid (2D space) following North, East, South, and West commands. The starting position is (0, 0).
+
+```python
+def robot_simulator(commands):
+    # Define possible movements
+    directions = {
+        'N': [0, 1],
+        'E': [1, 0],
+        'S': [0, -1],
+        'W': [-1, 0]
+    }
+
+    position = (0, 0)
+
+    for command in commands:
+        # Move the robot to the next position
+        position = tuple(map(sum, zip(position, directions[command])))
+
+    return position
+```
+
+You can call this function like so:
+
+```python
+print(robot_simulator("NNNEEEE"))  # Output: (3, 4)
+```
+
+This function simulates the robot's movement by iterating through each command in the given sequence and updating its position according to the corresponding direction.

@@ -1,0 +1,5 @@
+Write a Python function named course_schedule(num_courses, prerequisites) that determines whether all courses can be completed.
+
+Each prerequisite pair [a, b] means course a depends on course b.
+
+Return True if all courses can be completed, otherwise return False.

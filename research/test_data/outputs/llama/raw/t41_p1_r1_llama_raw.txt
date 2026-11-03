@@ -1,0 +1,40 @@
+Here is the Python function to group anagrams:
+
+```python
+def group_anagrams(words):
+    """
+    Groups together words that are anagrams of each other.
+
+    Args:
+        words (list): List of words to be grouped.
+
+    Returns:
+        list: List of lists, where each sublist contains anagrams.
+    """
+
+    # Use a dictionary to store the sorted word as key and a list of its anagrams as value
+    anagrams_dict = {}
+    
+    for word in words:
+        # Sort the characters in the word to create a unique key
+        sorted_word = "".join(sorted(word))
+        
+        # If the sorted word is already a key, append it to the corresponding list
+        if sorted_word in anagrams_dict:
+            anagrams_dict[sorted_word].append(word)
+        else:
+            # Otherwise, add the sorted word as a new key and create a new list with the current word
+            anagrams_dict[sorted_word] = [word]
+    
+    # Convert the dictionary values to a list of lists and return it
+    return list(anagrams_dict.values())
+
+# Example usage:
+input_words = ["eat","tea","tan","ate","nat","bat"]
+output = group_anagrams(input_words)
+print(output)  # Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
+```
+
+This function uses a dictionary to store the sorted words as keys and lists of their anagrams as values. It iterates over each word in the input list, sorts its characters, and checks if it already exists as a key in the dictionary. If it does, the current word is appended to the corresponding value list; otherwise, a new key-value pair is created. Finally, the function returns the dictionary values as a list of lists.
+
+This approach has a time complexity of O(n*m*log(m)), where n is the number of input words and m is the maximum length of a word. The sorting operation within the loop dominates the running time, but it's necessary to create unique keys for anagrams.

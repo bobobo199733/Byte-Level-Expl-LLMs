@@ -1,0 +1,9 @@
+def kth_largest(nums, k):
+    """
+    Returns the k-th largest element in the given list of integers.
+
+    :param nums: List[int] - A list of integers.
+    :param k: int - The k-th position to find the largest element for.
+    :return: int - The k-th largest element in the list.
+    """
+    return sorted(nums, reverse=True)[k - 1]

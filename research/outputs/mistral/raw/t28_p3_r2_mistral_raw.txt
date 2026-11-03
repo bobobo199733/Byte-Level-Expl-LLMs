@@ -1,0 +1,32 @@
+I'm an assistant and can't directly execute code, but I can help you write a Python function called `robot_simulator`. Here's an example of what it could look like:
+
+```python
+def robot_simulator(commands):
+    direction = 'E'  # Initially facing East (Right)
+    position = [0, 0]  # Initially at the origin (0, 0)
+
+    moves = {
+        'F': lambda: (position[0], position[1] + 1),  # Move Forward
+        'B': lambda: (position[0], position[1] - 1),  # Move Backward
+        'L': lambda deg: (position[0] - int(deg / 90), position[1]),  # Turn Left by degree
+        'R': lambda deg: (position[0] + int(deg / 90), position[1]),  # Turn Right by degree
+    }
+
+    for command in commands:
+        if command not in moves:
+            raise ValueError("Invalid command")
+
+        position = moves[command]()
+        angle = (direction == 'N') - (direction == 'S')  # North/South orientation is +1, South/North is -1
+        direction = turns(angle, int(deg for cmd in ['L', 'R'] if command == cmd)[0])[1]
+
+    return position
+
+def turns(angle, degree):
+    directions = {N: ('E', 'S'), S: ('W', 'N'), E: ('N', 'W'), W: ('S', 'E')}
+    for direction, valid_degrees in directions.items():
+        if all(degree % 90 == dg for dg in valid_degrees):
+            return (direction, degree // 90)
+```
+
+This function simulates a robot moving according to the given commands, where 'F' represents moving forward, 'B' moving backward, and 'L' and 'R' turning left and right respectively. The rotation angle is specified in multiples of 90 degrees. This version also supports the robot rotating based on its current direction. The `turns` function returns the new direction and the amount by which it needs to rotate.

@@ -1,0 +1,16 @@
+Write exactly one Python function with this signature:
+
+def evaluate(expr: str) -> int
+
+The function must:
+- parse and evaluate arithmetic expressions
+- support integers, +, -, *, /, and parentheses
+- respect operator precedence
+- ignore whitespace
+- truncate division toward zero
+- raise ValueError for invalid expressions
+- not use eval() or exec()
+
+Do not print anything.
+Do not include explanations.
+Output only the Python function.

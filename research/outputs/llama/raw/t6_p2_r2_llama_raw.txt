@@ -1,0 +1,57 @@
+**Wildcard Match Function**
+==========================
+
+The following is a Python solution for the wildcard match problem. It uses dynamic programming to efficiently compare the input string `s` with the pattern `p`.
+
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    """
+    Checks whether a string matches a wildcard pattern.
+
+    Args:
+        s (str): The input string.
+        p (str): The wildcard pattern where '?' matches one character and '*' matches any sequence of characters.
+
+    Returns:
+        bool: True if the string matches the pattern, False otherwise.
+    """
+
+    # Initialize a 2D array to store the dynamic programming table
+    dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+
+    # An empty string matches an empty pattern
+    dp[0][0] = True
+
+    # If the pattern is not empty and its first character is '*', 
+    # then an empty string can match it if the rest of the pattern can be matched with any sequence of characters in the input string
+    for j in range(1, len(p) + 1):
+        if p[j - 1] == '*':
+            dp[0][j] = dp[0][j - 1]
+
+    # Fill up the dynamic programming table
+    for i in range(1, len(s) + 1):
+        for j in range(1, len(p) + 1):
+            # If the current characters in the string and pattern match or if the pattern character is '?', 
+            # then the match state of this cell depends on whether the cells above-left and left are both matched
+            if s[i - 1] == p[j - 1] or p[j - 1] == '?':
+                dp[i][j] = dp[i - 1][j - 1]
+            # If the current pattern character is '*', then the match state of this cell depends on whether 
+            # the cells above-left and left are both matched, as well as the cells above and left
+            elif p[j - 1] == '*':
+                dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+
+    # Return whether the entire string matches the entire pattern
+    return dp[len(s)][len(p)]
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+print(wildcard_match("aa", "a"))  # False
+print(wildcard_match("aa", "*"))   # True
+print(wildcard_match("cb", "?a")) # False
+print(wildcard_match("adceb", "*a*b")) # True
+```
+
+This function uses dynamic programming to efficiently compare the input string `s` with the pattern `p`. It initializes a 2D array `dp` where each cell `[i][j]` represents whether the first `i` characters in the string match the first `j` characters in the pattern. The function then fills up the `dp` table based on the rules of wildcard matching and returns the value of the bottom-right cell, which indicates whether the entire string matches the entire pattern.

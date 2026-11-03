@@ -1,0 +1,42 @@
+Here's a Python function named `course_schedule` that takes in the number of courses and their prerequisites as input, and returns whether it's possible to complete all courses or not:
+
+```python
+from collections import defaultdict
+
+def course_schedule(num_courses, prerequisites):
+    # Create an adjacency list representation of the graph.
+    graph = defaultdict(list)
+    indegree = [0]*num_courses
+    for a, b in prerequisites:
+        graph[b].append(a)
+        indegree[a] += 1
+
+    # Find topological sort using Depth-First Search (DFS).
+    stack = []
+    visited = set()
+    for course in range(num_courses):
+        if indegree[course] == 0 and course not in visited:
+            dfs(course, graph, visited, stack)
+
+    # If the number of courses in the stack is equal to num_courses,
+    # then all courses can be completed. Otherwise, some courses have
+    # unmet prerequisites and cannot be completed.
+    return len(stack) == num_courses
+
+def dfs(node, graph, visited, stack):
+    visited.add(node)
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs(neighbor, graph, visited, stack)
+    stack.append(node)
+```
+
+You can use this function as follows:
+
+```python
+num_courses = 5
+prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+print(course_schedule(num_courses, prerequisites))  # Returns True
+```
+
+This code defines the `course_schedule` function that takes in the number of courses and their prerequisites as input. It first creates an adjacency list to represent the graph, calculates the indegree of each course, and performs a topological sort using Depth-First Search (DFS). If the number of courses in the stack after DFS is equal to `num_courses`, then all courses can be completed. Otherwise, some courses have unmet prerequisites and cannot be completed.

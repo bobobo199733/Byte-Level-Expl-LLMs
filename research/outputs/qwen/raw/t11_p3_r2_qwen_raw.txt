@@ -1,0 +1,43 @@
+Certainly! To solve this problem, we can use dynamic programming. The idea is to build up solutions for smaller amounts and use those results to construct solutions for larger amounts.
+
+Here's a Python implementation of the `coin_change` function:
+
+```python
+def coin_change(coins, amount):
+    # Initialize a list to store the minimum number of coins needed for each value from 0 to amount.
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 coins are needed to make the amount 0.
+    dp[0] = 0
+    
+    # Iterate through all the possible amounts from 1 to the given amount
+    for i in range(1, amount + 1):
+        # For each coin in the list of available coins
+        for coin in coins:
+            if i - coin >= 0:
+                # Update dp[i] with the minimum number of coins needed
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # If dp[amount] is still infinity, it means it's not possible to make the amount.
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (5 + 5 + 1)
+
+coins = [2]
+amount = 3
+print(coin_change(coins, amount))  # Output: -1
+
+coins = [10, 1, 5, 50]
+amount = 87
+print(coin_change(coins, amount))  # Output: 4 (50 + 10 + 10 + 5 + 2)
+```
+
+### Explanation:
+- **Initialization**: We initialize a list `dp` of size `amount + 1` with all values set to infinity (`float('inf')`). This represents the minimum number of coins needed for each amount from 0 to the given `amount`. We set `dp[0] = 0` because zero coins are needed to make an amount of zero.
+- **Dynamic Programming Table Filling**: For each value `i` from 1 to `amount`, we check all available coins. If using a coin `coin` for the current amount `i - coin` results in fewer total coins, we update `dp[i]`.
+- **Result**: Finally, if `dp[amount]` is still infinity, it means we couldn't find a way to make that exact amount with the given coins, so we return `-1`. Otherwise, we return the minimum number of coins needed.
+
+This approach ensures that we consider all possible ways to make each amount using the available coins and efficiently compute the result.

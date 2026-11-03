@@ -1,0 +1,37 @@
+Here's the Python function you requested:
+
+```python
+def linked_list_cycle(head):
+    """
+    Checks if a linked list contains a cycle.
+
+    Args:
+        head (Node): The head of the linked list.
+
+    Returns:
+        bool: True if a cycle is detected, False otherwise.
+    """
+
+    # Initialize two pointers, both pointing at the head of the list
+    tortoise = head
+
+    # The hare moves twice as fast as the tortoise
+    hare = head
+
+    while tortoise and hare and hare.next:
+
+        # Move the tortoise one step at a time
+        tortoise = tortoise.next
+
+        # Move the hare two steps at a time
+        hare = hare.next.next
+
+        # If the tortoise and hare meet, there's a cycle in the list
+        if tortoise == hare:
+            return True
+
+    # If we've reached this point, there's no cycle in the list
+    return False
+```
+
+This function uses Floyd's Cycle Detection Algorithm to detect cycles. It starts with two pointers (tortoise and hare) both pointing at the head of the linked list. The tortoise moves one step at a time while the hare moves two steps at a time. If there is a cycle in the list, these two pointers will eventually meet.

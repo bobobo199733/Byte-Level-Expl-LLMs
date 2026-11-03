@@ -1,0 +1,52 @@
+Certainly! To solve this problem, we can use Depth-First Search (DFS) to traverse through each cell of the grid and identify distinct "islands." An island is defined as a group of connected land cells surrounded by water. Here's how you can implement it:
+
+```python
+def count_islands(grid):
+    if not grid or not grid[0]:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    visited = [[False] * cols for _ in range(rows)]
+
+    def dfs(r, c):
+        # Check boundaries and conditions to ensure we only visit valid land cells
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == "0" or visited[r][c]:
+            return
+        
+        visited[r][c] = True
+        # Explore all four directions: up, down, left, right
+        dfs(r - 1, c)
+        dfs(r + 1, c)
+        dfs(r, c - 1)
+        dfs(r, c + 1)
+
+    island_count = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1" and not visited[r][c]:
+                # Found a new island
+                island_count += 1
+                # Mark all cells of the island as visited by performing DFS from this cell
+                dfs(r, c)
+
+    return island_count
+
+# Example usage:
+grid = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"]
+]
+
+print(count_islands(grid))  # Output should be 3
+```
+
+### Explanation:
+1. **Initialization**: We first check if the grid is empty, returning 0 immediately if it is.
+2. **Helper Function (DFS)**: The `dfs` function will recursively visit all cells of an island and mark them as visited. It checks boundaries to ensure we don't go out of bounds and only visits land (`"1"`).
+3. **Counting Islands**: We iterate over each cell in the grid. If a cell contains `"1"` and has not been visited, it indicates the start of a new island. We then call `dfs` from this cell to mark all cells of the island as visited.
+4. **Return Result**: After visiting all islands, we return the count.
+
+This approach ensures that each cell is processed at most once due to the marking mechanism used by DFS, making it efficient for typical grid-based problems like these.

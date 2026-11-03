@@ -1,0 +1,55 @@
+Here's a Python function `expression_to_postfix` that meets all your requirements:
+
+```python
+def expression_to_postfix(expression):
+    """
+    Converts an infix mathematical expression into postfix notation.
+
+    Args:
+        expression (str): A string representing the infix mathematical expression.
+
+    Returns:
+        str: The equivalent postfix notation of the input expression.
+
+    Example:
+        >>> expression_to_postfix("A+B*C")
+        'ABC*+'
+        >>> expression_to_postfix("(A+B)*C")
+        'AB+C*'
+    """
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+    output = []
+    stack = []
+
+    # Remove whitespace from the input expression
+    expression = expression.replace(" ", "")
+
+    for char in expression:
+        if char.isalpha():
+            output.append(char)
+        elif char == '(':
+            stack.append(char)
+        elif char == ')':
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+            stack.pop()  # Remove the '(' from the stack
+        else:  # char is an operator
+            while (stack and stack[-1] in precedence and
+                   precedence[stack[-1]] >= precedence[char]):
+                output.append(stack.pop())
+            stack.append(char)
+
+    # Append any remaining operators to the output
+    while stack:
+        if stack[-1] == '(':
+            raise ValueError("Unbalanced parentheses")
+        output.append(stack.pop())
+
+    return ''.join(output)
+```
+
+You can use this function as shown in the example usage above. It correctly handles operator precedence and parentheses, ignores whitespace, produces valid postfix output, and does not rely on external libraries.
+
+Note that this implementation uses a stack to manage operators and their precedence levels. It iterates through each character of the input expression, adding operands (letters) directly to the output list and operators to the stack based on their precedence levels. When an operator is encountered with higher or equal precedence than the top element on the stack, all elements above it are popped from the stack and added to the output list until a lower-precedence element is reached or the stack becomes empty. Finally, any remaining operators in the stack (i.e., those without corresponding operands) indicate unbalanced parentheses, which raises an exception.
+
+This solution aims for readability, robustness, and adherence to your specified requirements. It's also concise while maintaining clarity through clear variable names, docstrings, and comments explaining the logic behind the implementation.

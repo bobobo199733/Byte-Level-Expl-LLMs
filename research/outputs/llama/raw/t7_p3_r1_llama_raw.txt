@@ -1,0 +1,46 @@
+**Word Frequency Counter**
+=========================
+
+Here is a simple Python function to count the frequency of each word in a given text:
+
+```python
+import re
+
+def word_frequency(text):
+    """
+    Returns a dictionary where keys are unique words and values are their frequencies.
+    
+    :param text: The input string to be processed
+    :return: A dictionary with word frequencies
+    """
+    # Convert the text to lower case and split it into words
+    words = re.findall(r'\b\w+\b', text.lower())
+    
+    # Create a dictionary to store word frequencies
+    frequency = {}
+    
+    for word in words:
+        if word in frequency:
+            frequency[word] += 1
+        else:
+            frequency[word] = 1
+    
+    return frequency
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```
+
+**How it works:**
+
+1. The `re.findall` function splits the input text into words using regular expressions, which match word boundaries (`\b`) and word characters (`\w+`). We convert the text to lower case with `text.lower()` so that the same word in different cases is not counted multiple times.
+2. The function then iterates over each word and updates its frequency count in the `frequency` dictionary.
+
+**Output:**
+
+```python
+{'this': 2, 'is': 3, 'an': 3, 'example': 2, 'sentence': 2, 'just': 1}
+```
+
+This dictionary shows that the most frequent words are "is", "an" (which appear three times), and "this", "example", and "sentence" (each appearing twice). The less frequent word "just" appears only once.

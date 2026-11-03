@@ -1,0 +1,42 @@
+Certainly! To implement the `word_break` function, we can use dynamic programming to keep track of whether certain substrings of the input string `s` can be segmented into valid sequences using the words from `word_dict`. Here's how you can do it:
+
+```python
+def word_break(s, word_dict):
+    # Create a list to store whether each substring up to s[i] is breakable
+    dp = [False] * (len(s) + 1)
+    dp[0] = True  # Base case: empty string is always breakable
+    
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_dict:
+                dp[i] = True
+                break
+                
+    return dp[len(s)]
+
+# Example usage:
+s = "leetcode"
+word_dict = ["leet", "code"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsandog"
+word_dict = ["cats", "dog", "sand", "and", "cat"]
+print(word_break(s, word_dict))  # Output: False
+```
+
+### Explanation:
+1. **Initialization**: We initialize a list `dp` of length `len(s) + 1`, where `dp[i]` will be `True` if the substring `s[0:i]` can be segmented into words from `word_dict`. We set `dp[0]` to `True` because an empty string is always breakable.
+
+2. **Dynamic Programming Loop**: For each position `i` in the string, we check all possible starting positions `j` (from 0 to i-1) and see if:
+   - The substring `s[j:i]` exists in `word_dict`.
+   - The substring `s[0:j]` is breakable (`dp[j]` is `True`).
+
+3. If both conditions are met, we set `dp[i]` to `True` and move on to the next position.
+
+4. Finally, `dp[len(s)]` will be `True` if the entire string can be segmented into valid words from `word_dict`.
+
+This approach ensures that each substring is checked only once, making it efficient with a time complexity of O(n^2), where n is the length of the string.

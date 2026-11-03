@@ -1,0 +1,45 @@
+Here is the Python function `serialize_tree` that converts a binary tree to a string:
+```python
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def serialize_tree(root):
+    """
+    Converts a binary tree into a string.
+
+    The string is in the format of a pre-order traversal, with each node's value followed by a '#' character to indicate that it has children,
+    and a 'X' character to indicate an empty child node.
+    """
+    def _serialize(node, current_string):
+        if not node:
+            return current_string + "X#"
+        return _serialize(node.left, current_string + str(node.val) + "#") + \
+               _serialize(node.right, current_string + str(node.val) + "#")
+
+    return _serialize(root, "")
+```
+Here's an explanation of how the function works:
+
+* The `_serialize` helper function is a recursive function that takes in a node and a string `current_string`. It appends the value of each node to the string and returns the resulting string.
+* If the current node is `None`, it appends "X#" to the string, indicating an empty child node.
+* In the main `serialize_tree` function, we call `_serialize` with the root node and an empty string. The result is then returned.
+
+Here are some example use cases:
+```python
+# Create a sample binary tree:
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+
+print(serialize_tree(root))  # Output: "1#2#X#3#4#X#"
+
+# Create an empty tree
+empty_root = None
+
+print(serialize_tree(empty_root))  # Output: "X#"
+```
+Note that this function assumes a pre-order traversal of the binary tree, with each node's value followed by a '#' character to indicate that it has children. This is because a single '#' character can be used to represent both left and right child nodes in a binary tree.

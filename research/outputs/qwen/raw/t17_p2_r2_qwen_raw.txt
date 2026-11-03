@@ -1,0 +1,68 @@
+Certainly! We can implement an LRU (Least Recently Used) cache using Python's built-in data structures. The `OrderedDict` class from the `collections` module will be particularly useful for maintaining the order of items based on their usage.
+
+Here’s a step-by-step implementation:
+
+1. **Import necessary modules**: Import `OrderedDict` from `collections`.
+2. **Define the function**: Implement the `lru_cache` function which takes two parameters: `operations`, and `capacity`.
+3. **Implement cache operations**:
+   - For "put" operations, add or update items in the cache.
+   - For "get" operations, retrieve items from the cache and move them to the end of the `OrderedDict` to mark them as recently used.
+
+Let's write the code:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    # Initialize an ordered dictionary with a maximum size limit
+    cache = OrderedDict()
+    
+    results = []
+    for op in operations:
+        if op[0] == "put":
+            key = op[1]
+            value = op[2]
+            
+            # If the key already exists, move it to end (mark as recently used)
+            if key in cache:
+                cache.move_to_end(key)
+            
+            # Put the new item at the end
+            cache[key] = value
+            
+            # If the cache is full, remove the least recently used item
+            if len(cache) > capacity:
+                oldest_key = next(iter(cache))
+                del cache[oldest_key]
+                
+        elif op[0] == "get":
+            key = op[1]
+            
+            # Get the value and move to end (mark as recently used)
+            if key in cache:
+                results.append(cache[key])
+                cache.move_to_end(key)
+            else:
+                results.append(-1)  # Key not found, append -1
+    
+    return results
+
+# Example usage
+operations = [
+    ("put", "a", 1),
+    ("put", "b", 2),
+    ("get", "a"),
+    ("put", "c", 3),
+    ("get", "b"),
+    ("get", "a")
+]
+capacity = 2
+print(lru_cache(operations, capacity))
+```
+
+### Explanation:
+- **OrderedDict**: This is used to maintain the order of items based on their usage. When a key is accessed (via `get`) or updated (via `put`), it moves the item to the end.
+- **Capacity Handling**: If the cache exceeds its capacity after an insertion, the oldest item in the dictionary (`next(iter(cache))` returns the first key) is removed.
+- **Get Operation**: For a "get" operation, if the key exists, we append its value and move it to the end. Otherwise, we append `-1`.
+
+This implementation ensures that the cache follows the LRU policy correctly and handles both `put` and `get` operations as required.

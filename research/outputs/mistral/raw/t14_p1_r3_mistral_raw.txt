@@ -1,0 +1,26 @@
+To generate all valid combinations of `n` pairs of parentheses, we can use a recursive approach with backtracking. Here's the implementation in Python:
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(left, right, output):
+        if left == n and right == n:
+            result.append(output)
+
+        if left > 0 and right < left:
+            backtrack(left - 1, right + 1, output + '(')
+            backtrack(left, right, output + ')')
+
+        if left > right:
+            return
+
+        backtrack(left, right, output)
+
+    backtrack(n, 0, '')
+    return result
+```
+
+In this code, we define a helper function `backtrack` to recurse through the possible combinations of parentheses. The main function `generate_parentheses` initializes an empty list `result` and calls `backtrack` with an initial left count equal to the given number `n`, a right count of 0, and an empty output string.
+
+The `backtrack` function takes three arguments: `left`, `right`, and `output`. It checks if both counts are equal to `n`, in which case it adds the current output to the `result` list. If the left count is greater than 0 and the right count is less than the left count, it recursively calls itself with updated left and right counts and appends an opening parenthesis to the output string. It also checks if the left count is greater than the right count; if so, it continues recursion without making any changes to the output. Finally, when both left and right counts are less than `n`, it simply calls itself with updated values for left, right, and output.

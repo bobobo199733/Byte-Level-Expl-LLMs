@@ -1,0 +1,50 @@
+Sure! Below is the implementation of the `heap_sort` function in Python, which uses the heap sort algorithm to sort a list. This function will create a max-heap from the input list and then repeatedly extract the maximum element and rebuild the heap until the entire list is sorted.
+
+```python
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    left = 2 * i + 1     # left = 2*i + 1
+    right = 2 * i + 2     # right = 2*i + 2
+
+    # See if left child of root exists and is greater than root
+    if left < n and arr[i] < arr[left]:
+        largest = left
+
+    # See if right child of root exists and is greater than the largest so far
+    if right < n and arr[largest] < arr[right]:
+        largest = right
+
+    # Change root, if needed
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # Swap
+
+        # Heapify the root.
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    
+    # Build a maxheap.
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+    
+    # One by one extract elements
+    for i in range(n-1, 0, -1):
+        values[i], values[0] = values[0], values[i]  # Swap
+        heapify(values, i, 0)
+
+# Example usage:
+if __name__ == "__main__":
+    arr = [12, 11, 13, 5, 6, 7]
+    print("Unsorted array:", arr)
+    heap_sort(arr)
+    print("Sorted array:", arr)
+```
+
+This function works as follows:
+
+1. **Heapify Function**: This helper function ensures that the subtree rooted at index `i` is a max-heap.
+2. **Build Max-Heap**: Convert the input list into a max-heap by calling `heapify` for each node, starting from the last non-leaf node down to the root.
+3. **Extract Maximum Element**: Swap the root (maximum element) with the last element of the heap and reduce the size of the heap by 1. Call `heapify` on the reduced heap.
+
+This ensures that the largest elements are moved to the end of the list, and the remaining elements are sorted in a similar fashion until the entire list is sorted.

@@ -1,0 +1,75 @@
+**Heap Sort Function**
+======================
+
+Here is the Python function `heap_sort` that implements the Heap Sort algorithm:
+
+```python
+def heap_sort(values):
+    """
+    Sorts a list using the Heap Sort algorithm.
+
+    Args:
+        values (list): The list to sort.
+
+    Returns:
+        list: A new sorted list.
+    """
+
+    # Build a max heap from the input list
+    def build_max_heap(arr):
+        n = len(arr)
+        for i in range(n // 2 - 1, -1, -1):
+            heapify(arr, n, i)
+
+    # Heapify an array to maintain the heap property
+    def heapify(arr, n, i):
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        if left < n and arr[left] > arr[largest]:
+            largest = left
+
+        if right < n and arr[right] > arr[largest]:
+            largest = right
+
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            heapify(arr, n, largest)
+
+    # Extract elements from the max heap to form a sorted list
+    def extract_max_heap(arr):
+        n = len(arr)
+        sorted_list = []
+        while n > 0:
+            sorted_list.append(arr[0])
+            arr[0] = arr[n - 1]
+            n -= 1
+            heapify(arr, n, 0)
+
+        return sorted_list
+
+    # Create a copy of the input list to avoid modifying it in place
+    values_copy = values[:]
+
+    # Build a max heap from the copied list
+    build_max_heap(values_copy)
+
+    # Extract elements from the max heap to form a sorted list
+    sorted_list = extract_max_heap(values_copy)
+
+    return sorted_list
+```
+
+**Example Use Case**
+--------------------
+
+Here is an example usage of the `heap_sort` function:
+
+```python
+values = [4, 2, 9, 6, 5, 1]
+sorted_values = heap_sort(values)
+print(sorted_values)  # Output: [1, 2, 4, 5, 6, 9]
+```
+
+Note that the `heap_sort` function creates a copy of the input list to avoid modifying it in place. This ensures that the original list remains unchanged and allows for multiple sorting operations without worrying about side effects.

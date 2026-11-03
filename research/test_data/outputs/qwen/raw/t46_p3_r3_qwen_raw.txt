@@ -1,0 +1,68 @@
+Certainly! Below is the implementation of the `text_justification` function in Python:
+
+```python
+def text_justification(words, max_width):
+    def justify_line(line_words, line_length, is_last_line=False):
+        if len(line_words) == 1 or is_last_line:
+            # Left-justify by adding spaces to the end of the line
+            return ' '.join(line_words).ljust(max_width)
+        
+        num_gaps = len(line_words) - 1
+        total_spaces = max_width - line_length
+        
+        if is_last_line:
+            # Last line: left-align with trailing spaces
+            return (' ').join(line_words) + (' ' * (max_width - line_length))
+        
+        even_spaces, extra_spaces = divmod(total_spaces, num_gaps)
+        
+        justified_line = []
+        for i in range(num_gaps):
+            justified_line.append(line_words[i])
+            # Add the spaces
+            justified_line.append(' ' * (even_spaces + 1) if i < extra_spaces else ' ' * even_spaces)
+        
+        justified_line.append(line_words[-1])
+        return ''.join(justified_line)
+
+    result = []
+    current_line = []
+    current_length = 0
+
+    for word in words:
+        # Check if adding the next word exceeds max width
+        if current_length + len(word) + len(current_line) > max_width:
+            result.append(justify_line(current_line, current_length))
+            current_line = [word]
+            current_length = len(word)
+        else:
+            current_line.append(word)
+            current_length += len(word)
+
+    # Add the last line
+    result.append(justify_line(current_line, current_length, is_last_line=True))
+
+    return result
+
+# Example usage:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width = 16
+print(text_justification(words, max_width))
+```
+
+### Explanation:
+
+1. **justify_line function**:
+   - This function takes a list of words in the current line (`line_words`), the total length of these words (`line_length`), and a flag indicating if it's the last line.
+   - If there's only one word or it is the last line, we left-justify by adding spaces at the end.
+   - For other lines, we calculate the number of gaps between words and distribute spaces evenly. Extra spaces are added to the first few gaps.
+
+2. **Main Function**:
+   - We iterate over each word in `words`.
+   - If adding the current word would exceed the max width (including existing words), we justify the current line and start a new one.
+   - For the last line, it is left-justified with trailing spaces.
+
+3. **Example Usage**:
+   - The example demonstrates how to call the function and print the result.
+
+This implementation ensures that each line has exactly `max_width` characters, with spaces distributed as required for justification.

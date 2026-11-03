@@ -1,0 +1,20 @@
+Here's a Python function named `search_insert_position` that performs the desired operation:
+
+```python
+def search_insert_position(nums, target):
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return left
+```
+
+This function uses a binary search algorithm to find the target in the sorted array `nums`. If the target is not found, it returns the index where the target should be inserted. The time complexity of this function is O(log n).

@@ -1,0 +1,1 @@
+Write a single Python function called median_of_two_sorted_arrays(nums1, nums2). Find the median of two sorted arrays efficiently using binary search. Return a float. Do not just merge and sort them.

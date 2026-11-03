@@ -1,0 +1,79 @@
+project_root/
+│
+├── prompts/
+│   ├── t1/
+│   │   ├── p1.txt
+│   │   ├── p2.txt
+│   │   └── meta.json
+│   ├── t2/
+│   │   ├── p1.txt
+│   │   ├── p2.txt
+│   │   └── meta.json
+│   └── ...
+│
+├── outputs/
+│   ├── llama/
+│   │   ├── raw/
+│   │   │   ├── t1_p1_r1.txt
+│   │   │   ├── t1_p1_r2.txt
+│   │   │   └── ...
+│   │   ├── cleaned/
+│   │   │   ├── t1_p1_r1.py
+│   │   │   ├── t1_p1_r2.py
+│   │   │   └── ...
+│   │   └── logs.json
+│   │
+│   ├── mistral/
+│   │   ├── raw/
+│   │   ├── cleaned/
+│   │   └── logs.json
+│   │
+│   ├── qwen/
+│   │   ├── raw/
+│   │   ├── cleaned/
+│   │   └── logs.json
+│   │
+│   └── ...
+│
+├── evaluation/
+│   ├── tests/
+│   │   ├── t1_tests.py
+│   │   ├── t2_tests.py
+│   │   └── ...
+│   │
+│   ├── scores/
+│   │   ├── scores.csv
+│   │   └── scores.json
+│   │
+│   └── logs/
+│       └── evaluation_logs.json
+│
+├── features/
+│   ├── raw_features.csv
+│   └── processed_features.csv
+│
+├── models/
+│   ├── trained_model.pkl
+│   └── model_config.json
+│
+├── shap/
+│   ├── shap_values.npy
+│   ├── plots/
+│   │   ├── beeswarm.png
+│   │   ├── waterfall.png
+│   │   └── ...
+│   └── analysis.ipynb
+│
+├── scripts/
+│   ├── generate.py
+│   ├── extract_code.py
+│   ├── evaluate.py
+│   ├── feature_extract.py
+│   └── run_pipeline.py
+│
+├── config/
+│   ├── tasks.json
+│   ├── models.json
+│   └── settings.json
+│
+└── README.md

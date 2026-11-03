@@ -1,0 +1,25 @@
+Here is a Python function named `merge_intervals` that takes a list of lists (where each sub-list contains two elements representing an interval - start and end) and merges overlapping intervals:
+
+```python
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+
+    # Sort the intervals by their start time
+    intervals.sort(key=lambda x: x[0])
+
+    merged = [intervals[0]]
+    for current in intervals:
+        last_merged = merged[-1]
+
+        if last_merged[1] >= current[0]:
+            last_merged[1] = max(last_merged[1], current[1])
+        else:
+            merged.append(current)
+
+    return merged
+```
+
+This function works by first sorting the intervals based on their start times. It then iterates through the sorted list and checks if the end time of the last merged interval is greater than or equal to the start time of the current interval. If it is, the end time of the last merged interval is updated to be the maximum of its current value and the end time of the current interval; otherwise, a new merged interval is added to the list.
+
+After all intervals have been processed, the function returns the resulting merged intervals as a list of lists.

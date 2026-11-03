@@ -1,0 +1,39 @@
+To implement the `merge_k_sorted_lists` function, we can leverage Python's built-in capabilities to handle multiple sorted lists efficiently. We'll iterate through all elements of each list and sort them in a single pass while maintaining their order. Here’s how you can do it:
+
+```python
+def merge_k_sorted_lists(lists):
+    # Filter out any empty lists to save time
+    non_empty_lists = [lst for lst in lists if lst]
+    
+    # Initialize an empty result list
+    merged_list = []
+    
+    # Iterate through each list and extend the merged_list with its elements
+    for lst in non_empty_lists:
+        merged_list.extend(lst)
+    
+    # Sort the combined list to ensure all elements are in sorted order
+    return sorted(merged_list)
+
+# Example usage:
+lists = [
+    [1, 4, 5],
+    [1, 3, 4],
+    [2, 6]
+]
+
+print(merge_k_sorted_lists(lists))  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
+```
+
+### Explanation:
+1. **Filtering Empty Lists**: We first create a list of non-empty lists using a list comprehension.
+2. **Extending the Result List**: We then extend the `merged_list` with elements from each non-empty list. This ensures that all elements are included in the result.
+3. **Sorting**: Finally, we sort the combined list to ensure it is in the correct order.
+
+### Example:
+Given the input lists `[ [1, 4, 5], [1, 3, 4], [2, 6] ]`, the output will be `[1, 1, 2, 3, 4, 4, 5, 6]`.
+
+This approach ensures that duplicates are preserved and that empty lists do not affect the merging process. The implementation is straightforward and leverages Python's built-in capabilities for handling sorted lists efficiently.
+
+### Optimization:
+If performance with large numbers of small lists is a concern, you might consider using a heap-based approach to merge multiple sorted lists more efficiently. However, this solution should suffice for most typical use cases.

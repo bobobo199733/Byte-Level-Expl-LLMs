@@ -1,0 +1,33 @@
+Here's a Python function called `find_all_anagrams` using a sliding window approach:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    if not p or len(p) > len(s):
+        return []
+
+    result = []
+    counter_p = Counter(p)
+    counter_window = Counter()
+    left = right = 0
+
+    while right < len(s):
+        counter_window[s[right]] += 1
+        if right - left + 1 >= len(p):
+            if counter_window == counter_p:
+                result.append(left)
+            counter_window[s[left]] -= 1
+            if counter_window[s[left]] == 0:
+                del counter_window[s[left]]
+            left += 1
+        right += 1
+
+    return sorted(result)
+```
+
+This function first checks the edge case where `p` is empty or longer than `s`. Then, it initializes a result list, frequency counters for both `p` and the current window, a starting and ending index for the window.
+
+At each step, it adds the new character to the counter_window and removes the character that left the window if it was the last occurrence in the window (i.e., its count becomes zero). If the sliding window's length equals `len(p)`, it checks whether both counters match. If they do, it adds the current starting index to the result list.
+
+Once the right pointer reaches the end of the string, it continues moving the left pointer and updating the counter accordingly. The function finally returns a sorted list of all starting indices found as anagrams.

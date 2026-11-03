@@ -1,0 +1,12 @@
+Here's a Python function called `autocomplete_system` that fulfills the requirements:
+
+```python
+def autocomplete_system(words, prefix):
+    if not words or not prefix:
+        return []
+
+    results = [word for word in words if word.startswith(prefix)]
+    return sorted(results)
+```
+
+This function takes two parameters: `words`, a list of strings, and `prefix`, also a string. It checks if both the input lists are empty and returns an empty list if either is empty. The results are found by iterating over the `words` list and checking each word against the given `prefix`. Duplicate words are preserved because they match the same prefix and will be included in the results. Finally, the function sorts the results in alphabetical order before returning them.

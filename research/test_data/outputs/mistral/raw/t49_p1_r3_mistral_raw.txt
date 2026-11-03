@@ -1,0 +1,22 @@
+Here's a Python function called `word_break` that achieves the desired functionality:
+
+```python
+from typing import List
+
+def word_break(s: str, word_dict: List[str]):
+    words = set(word_dict)
+    n = len(s)
+
+    dp = [False] * (n + 1)
+    dp[0] = True
+
+    for i in range(1, n + 1):
+        for j in range(i, min(i + 30, n + 1)):
+            if dp[j - i] and s[j - i:j] in words:
+                dp[i] = True
+                break
+
+    return dp[-1]
+```
+
+This function uses dynamic programming to check if the given string `s` can be segmented into dictionary words. The idea is to check, for each position `i`, if there exists a preceding position `j` such that the substring from `j` to `i` is a word in the dictionary and we have already found a way to break down the initial part of the string (from the beginning to `j - 1`) into one or more words in the dictionary. The time complexity of this solution is O(n * m), where n is the length of the input string, and m is the average length of the words in the dictionary.

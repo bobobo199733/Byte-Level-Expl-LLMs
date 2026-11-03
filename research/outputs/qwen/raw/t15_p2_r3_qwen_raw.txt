@@ -1,0 +1,74 @@
+To perform a topological sort on a directed acyclic graph (DAG), we can use Depth First Search (DFS). The algorithm works by visiting each node, exploring its neighbors recursively, and keeping track of visited nodes to detect cycles. If a cycle is detected, a `ValueError` will be raised.
+
+Here's the implementation:
+
+```python
+def topological_sort(graph):
+    def dfs(node, graph, path, visited, order):
+        # Mark the current node as visited.
+        visited[node] = True
+        
+        # Visit all the neighbors of the current node.
+        for neighbor in graph.get(node, []):
+            if not visited[neighbor]:
+                dfs(neighbor, graph, path, visited, order)
+        
+        # Add the current node to the order after visiting all its neighbors.
+        order.appendleft(node)
+
+    # Initialize necessary variables
+    visited = {node: False for node in graph}
+    order = []
+
+    # Perform DFS starting from each unvisited node (to ensure all nodes are included).
+    for node in graph:
+        if not visited[node]:
+            dfs(node, graph, path=order, visited=visited, order=order)
+
+    return list(order)  # Convert the deque to a list before returning
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D', 'E'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+try:
+    result = topological_sort(graph)
+    print("Topological order:", result)
+except ValueError as e:
+    print(e)
+
+# Test with a graph that has a cycle
+graph_with_cycle = {
+    'A': ['B'],
+    'B': ['C', 'D'],
+    'C': ['E'],
+    'D': ['F'],
+    'E': ['A'],  # Cycle detected here
+    'F': []
+}
+
+try:
+    result = topological_sort(graph_with_cycle)
+except ValueError as e:
+    print("Cycle detected:", e)
+```
+
+### Explanation:
+
+1. **Graph Representation**: The graph is represented using a dictionary where keys are nodes and values are lists of adjacent nodes.
+2. **DFS Function**:
+   - `dfs(node, graph, path, visited, order)`: A helper function to perform DFS. It marks the node as visited, visits all its neighbors recursively, and then adds the current node to the `order` list (using `appendleft` to maintain a stack-like behavior).
+3. **Initialization**:
+   - `visited`: A dictionary to keep track of which nodes have been visited.
+   - `order`: A deque to store the topological order in reverse order, allowing us to use `appendleft()` to add elements at the beginning efficiently.
+4. **Topological Sort Function**:
+   - We iterate over all nodes and call `dfs` for each unvisited node.
+5. **Cycle Detection**: If a cycle is detected (a node that has already been visited but we are still visiting its neighbors), a `ValueError` is raised.
+
+This implementation ensures that all nodes are included in the result, and cycles are detected and handled appropriately.

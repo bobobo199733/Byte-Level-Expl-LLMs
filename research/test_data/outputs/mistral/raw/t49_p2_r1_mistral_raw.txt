@@ -1,0 +1,19 @@
+Here's a Python function called `word_break` using dynamic programming:
+
+```python
+from typing import List
+
+def word_break(s: str, word_dict: List[str]):
+    word_set = set(word_dict)
+    dp = [True] + [False]*len(s)  # Initialize dp array
+
+    for i in range(1, len(s)+1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+
+    return dp[-1]  # Return whether the entire string can be segmented
+```
+
+In this function, we first convert the input words to a set for O(1) lookup. Then, we initialize a dynamic programming array `dp` of length `len(s)+1`. The base case is that an empty string can always be segmented (`dp[0] = True`). For each position `i`, we check all substrings `s[j:i]` where `dp[j]` is True and convert them to lowercase for case-insensitive lookup. If such a substring exists in the word set, we set `dp[i]` to `True` and break out of the loop since we've found that the current position can be segmented using words from `word_dict`. Finally, we return whether the entire string can be segmented by checking `dp[len(s)]`.

@@ -1,0 +1,57 @@
+**Validate Password Strength**
+=====================================
+
+The following Python function checks if a password is strong based on the following criteria:
+
+* Minimum length of 8 characters
+* At least one uppercase letter
+* At least one lowercase letter
+* At least one digit
+* At least one special character (e.g., !, @, #, etc.)
+
+```python
+import re
+
+def validate_password(password):
+    """
+    Check if a password is strong.
+
+    A strong password must have:
+        * Minimum length of 8 characters
+        * At least one uppercase letter
+        * At least one lowercase letter
+        * At least one digit
+        * At least one special character
+
+    Args:
+        password (str): The password to validate.
+
+    Returns:
+        bool: True if the password is strong, False otherwise.
+    """
+    # Regular expression patterns for checking password strength
+    pattern = re.compile(
+        r"(?=.*[a-z])"
+        r"(?=.*[A-Z])"
+        r"(?=.*\d)"
+        r"(?=.*[@#$%^&+=])"
+        r".{8,}"
+    )
+
+    return bool(pattern.match(password))
+```
+
+**Example Usage**
+-----------------
+
+```python
+# Test a strong password
+password = "P@ssw0rd!"
+print(validate_password(password))  # Output: True
+
+# Test a weak password
+password = "weak"
+print(validate_password(password))  # Output: False
+```
+
+Note that this function uses regular expressions to check for the required patterns. The `re` module is part of Python's standard library, so you don't need to install any additional dependencies.

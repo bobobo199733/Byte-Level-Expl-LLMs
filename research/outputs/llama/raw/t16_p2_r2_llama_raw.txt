@@ -1,0 +1,113 @@
+**Sudoku Solver Function**
+=========================
+
+The following Python function solves a standard 9x9 Sudoku puzzle using backtracking.
+
+```python
+def sudoku_solver(board):
+    """
+    Solves a standard 9x9 Sudoku puzzle in-place using backtracking.
+
+    Args:
+        board (list of lists): The 2D list representing the Sudoku board.
+            Empty cells are represented by 0. Rows and columns are indexed from 1 to 9.
+            Boxes are identified by their top-left corner cell's index.
+
+    Raises:
+        ValueError: If the puzzle is invalid or unsolvable.
+
+    Returns:
+        None
+    """
+
+    def is_valid(board, row, col, num):
+        """
+        Checks if a number can be placed in a given cell according to Sudoku rules.
+
+        Args:
+            board (list of lists): The 2D list representing the Sudoku board.
+            row: The row index of the cell (1-9).
+            col: The column index of the cell (1-9).
+            num: The number to be placed in the cell (1-9).
+
+        Returns:
+            bool: True if the number can be placed, False otherwise.
+        """
+        # Check the row and column for duplicates
+        if num in board[row] or num in [row[i] for i in range(9)]:
+            return False
+
+        # Calculate the box index from the cell's top-left corner
+        box_row = (row // 3) * 3
+        box_col = (col // 3) * 3
+
+        # Check the box for duplicates
+        for r in range(box_row, box_row + 3):
+            for c in range(box_col, box_col + 3):
+                if board[r][c] == num:
+                    return False
+
+        # The number can be placed
+        return True
+
+    def solve(board):
+        """
+        Recursively attempts to fill the Sudoku board with numbers.
+
+        Args:
+            board (list of lists): The 2D list representing the Sudoku board.
+
+        Raises:
+            ValueError: If the puzzle is invalid or unsolvable.
+        """
+        for row in range(9):
+            for col in range(9):
+                if board[row][col] == 0:
+                    # Try numbers from 1 to 9
+                    for num in range(1, 10):
+                        if is_valid(board, row, col, num):
+                            board[row][col] = num
+
+                            # Recursively attempt to fill the rest of the board
+                            if solve(board):
+                                return True
+
+                            # Backtrack and reset the cell
+                            board[row][col] = 0
+
+                    # If no number can be placed in this cell, raise an error
+                    raise ValueError("Invalid or unsolvable puzzle")
+
+        # The board is filled successfully
+        return True
+
+    try:
+        solve(board)
+    except ValueError as e:
+        print(e)
+
+# Example usage
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+sudoku_solver(board)
+
+print("Solved Sudoku board:")
+for row in board:
+    print(row)
+```
+
+This code defines the `is_valid` function to check if a number can be placed in a given cell according to Sudoku rules. The `solve` function recursively attempts to fill the Sudoku board with numbers, using backtracking when necessary. Finally, the `sudoku_solver` function calls `solve` and raises an error if the puzzle is invalid or unsolvable.
+
+You can use this code as-is to solve any standard 9x9 Sudoku puzzle. Simply replace the `board` variable in the example usage section with your own puzzle data.
+
+Note: This implementation has a time complexity of O(9^(n*n)), where n is the size of the board (9 for standard Sudoku). For larger puzzles, you may need to consider more efficient algorithms or optimizations.

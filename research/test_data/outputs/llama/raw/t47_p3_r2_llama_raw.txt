@@ -1,0 +1,78 @@
+**Basic Calculator Function**
+====================================
+
+Here is a Python function that evaluates a math string using Shunting Yard Algorithm:
+```python
+def basic_calculator(s):
+    """
+    Evaluates a math string with +, -, parentheses, and spaces.
+
+    Args:
+        s (str): Math string to evaluate.
+
+    Returns:
+        int: Result of the evaluation.
+    """
+
+    # Define operator precedence
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+    # Tokenize input string
+    tokens = s.replace(' ', '').split('(')
+    tokens = [token.replace(')', '') for token in tokens]
+
+    # Shunting Yard Algorithm
+    output_queue = []
+    operator_stack = []
+
+    for token in tokens:
+        if token == '':
+            continue
+
+        # Check if token is a number
+        try:
+            num = int(token)
+            output_queue.append(num)
+        except ValueError:
+            # Token is an operator or parenthesis
+            while (operator_stack and 
+                   precedence.get(operator_stack[-1], 0) >= precedence.get(token, 0)):
+                output_queue.append(operator_stack.pop())
+
+            if token == '(':
+                operator_stack.append(token)
+            elif token == ')':
+                while operator_stack[-1] != '(':
+                    output_queue.append(operator_stack.pop())
+                operator_stack.pop()  # Remove the '('
+            else:
+                operator_stack.append(token)
+
+    # Pop any remaining operators from the stack
+    while operator_stack:
+        output_queue.append(operator_stack.pop())
+
+    # Evaluate postfix expression
+    stack = []
+    for token in output_queue:
+        if isinstance(token, int):
+            stack.append(token)
+        elif token == '+':
+            num2 = stack.pop()
+            num1 = stack.pop()
+            stack.append(num1 + num2)
+        elif token == '-':
+            num2 = stack.pop()
+            num1 = stack.pop()
+            stack.append(num1 - num2)
+
+    return stack[0]
+```
+**Example Use Cases**
+-----------------------
+
+```python
+print(basic_calculator(" 3+5 "))  # Output: 8
+print(basic_calculator("( 2 + 3 ) * ( 4 - 1 ) "))  # Output: 13
+```
+This function uses a stack to keep track of operators and a queue to store the output. It iterates through each token in the input string, applying Shunting Yard Algorithm rules to produce a postfix expression. Finally, it evaluates this expression by popping numbers from the stack and performing operations when an operator is encountered.

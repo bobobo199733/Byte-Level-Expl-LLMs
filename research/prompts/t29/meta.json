@@ -1,0 +1,15 @@
+{
+  "task_id": "t29",
+  "function_name": "parse_csv_line",
+  "valid_cases": [
+    [["a,b,c"], ["a","b","c"]],
+    [["one,\"two, too\",three"], ["one","two, too","three"]],
+    [["\"a,b\",c"], ["a,b","c"]],
+    [[","], ["",""]],
+    [[""], [""]],
+    [["\"hello\""], ["hello"]],
+    [["a,,b"], ["a","","b"]]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError"
+}

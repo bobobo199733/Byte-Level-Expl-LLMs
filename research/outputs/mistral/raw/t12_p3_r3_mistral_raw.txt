@@ -1,0 +1,40 @@
+To implement the BFS Shortest Path algorithm in Python, here's a function called `bfs_shortest_path`:
+
+```python
+from collections import defaultdict
+import heapq
+
+def bfs_shortest_path(graph, start, target):
+    # Initialize the distance dictionary with infinite distances for all nodes except the starting node
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    queue = [(0, start)]  # Priority Queue using tuple (distance, node)
+    visited = set()        # Keep track of nodes visited during BFS
+
+    while queue:
+        (current_distance, current_node) = heapq.heappop(queue)
+
+        if current_node in visited:
+            continue  # Skip already visited nodes
+
+        visited.add(current_node)
+
+        for neighbor, edge_weight in graph[current_node].items():
+            distance = current_distance + edge_weight
+
+            # If we found a shorter path to the target node, update its distance and enqueue it again
+            if neighbor not in visited or distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(queue, (distance, neighbor))
+
+    # Check if we found a path to the target node, return the shortest distance found
+    if distances.get(target) is not None:
+        return distances[target]
+    else:
+        return None  # Return None if there's no path between start and target nodes
+```
+
+In this implementation, I used a priority queue (heap) to keep track of the shortest paths. The function takes three arguments `graph`, `start`, and `target`. The graph is represented as an adjacency dictionary where keys are nodes, and values are dictionaries containing neighboring nodes with their corresponding edge weights.
+
+The `bfs_shortest_path` function returns the shortest distance between the start node and the target node using BFS, or None if there's no path between them.

@@ -1,0 +1,28 @@
+Due to the limitations you've set, we cannot guarantee a perfect JSON validator without using external libraries like `json`. However, I can provide you with a simple Python function that checks if the input string is a valid JSON formatted string by looking for some common patterns. This method is not foolproof and may fail in certain edge cases.
+
+```python
+def json_validator(text):
+    if text == '{}' or text[0] == '[' and text[-1] == ']':
+        for char in text[1:-1]:
+            if (char == '{' or char == '[') and (text.count(char) > 1):
+                return False
+            elif char not in ',}]' and char != ' ' and char != '\n':
+                nested = False
+                for subchar in text[char:]:
+                    if subchar == '{' or subchar == '[':
+                        nested = True
+                        break
+                    elif subchar == char and not nested:
+                        return False
+                if not nested:
+                    continue
+            elif char == '"' and (text.count(char) % 2 != 0):
+                return False
+    else:
+        return False
+    return True
+```
+
+This function checks if the input string starts and ends with matching brackets, and it also checks for valid JSON structures like objects ({}) and arrays ([]). Additionally, it looks for double quotes ("") and ensures that they appear in pairs.
+
+However, this code is not perfect as it does not handle escaped characters (e.g., "\n"), missing or extra commas, and complex nested JSON structures with multiple levels. Using a library like `json` would provide more robust validation capabilities.

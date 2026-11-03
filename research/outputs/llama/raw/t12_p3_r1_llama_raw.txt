@@ -1,0 +1,59 @@
+Here is a Python solution for the problem:
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    This function uses Breadth-First Search (BFS) to find the shortest path between 
+    two nodes in an undirected graph.
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+        start: The node from which to start the search.
+        target: The node we are trying to reach.
+
+    Returns:
+        int: The length of the shortest path between start and target, or -1 if there is no such path.
+    """
+
+    # Create a queue for BFS and enqueue the starting node
+    queue = deque([(start, 0)])  # (node, distance)
+
+    # Create a set to store visited nodes
+    visited = set()
+
+    while queue:
+        # Dequeue the next node
+        current_node, distance = queue.popleft()
+
+        # If we've reached the target, return the distance
+        if current_node == target:
+            return distance
+
+        # Mark the current node as visited
+        visited.add(current_node)
+
+        # Add neighbors of the current node to the queue
+        for neighbor in graph.get(current_node, []):
+            if neighbor not in visited:
+                queue.append((neighbor, distance + 1))
+
+    # If there is no path between start and target, return -1
+    return -1
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 2
+```
+
+This solution works by maintaining a queue of nodes to visit next and keeping track of the distance from the start node. It continues until it reaches the target or exhausts all reachable nodes without finding the target. The time complexity is O(|E| + |V|), where E is the number of edges and V is the number of vertices in the graph, because each edge and vertex are visited once at most.

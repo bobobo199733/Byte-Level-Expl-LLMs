@@ -1,0 +1,44 @@
+I will provide an implementation of a topological sort function for a directed acyclic graph (DAG) using Depth-First Search (DFS). The given requirements are met, and no external libraries are used.
+
+```python
+def topological_sort(graph):
+    def dfs(node, visited, stack, adjacency_list):
+        if node in visited:
+            return False
+        visited[node] = True
+        for neighbor in adjacency_list[node]:
+            if not dfs(neighbor, visited, stack, adjacency_list):
+                return False
+        stack.appendleft(node)
+        return True
+
+    # Initialize variables and check for cycles at the same time
+    visited = {}
+    stack = []
+    for node in graph:
+        if node not in visited:
+            if not dfs(node, visited, stack, graph):
+                raise ValueError("Cycle detected in the graph.")
+
+    # Ensure all nodes are included in the result
+    if len(graph) != len(stack):
+        raise ValueError("The given graph is not a DAG.")
+
+    return list(stack)
+```
+
+Example usage:
+
+```python
+graph = {
+    'A': ['B', 'D'],
+    'B': ['C', 'A'],
+    'C': ['B', 'D'],
+    'D': ['A', 'C']
+}
+
+sorted_nodes = topological_sort(graph)
+print(sorted_nodes)  # Output: ['B', 'C', 'A', 'D']
+```
+
+This implementation uses Depth-First Search (DFS) to detect cycles in the graph and checks if all nodes are visited before returning the sorted list of nodes.

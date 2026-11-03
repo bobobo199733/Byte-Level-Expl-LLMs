@@ -1,0 +1,41 @@
+To implement Breadth-First Search (BFS) for finding the shortest path in an unweighted graph, we can create a function `bfs_shortest_path` as follows:
+
+```python
+def bfs_shortest_path(graph, start, target):
+    visited = set()  # To keep track of visited nodes
+    queue = [(start, [], 0)]  # (node, path, distance) tuple
+
+    while queue:
+        node, path, distance = queue.pop(0)
+
+        if node in visited:
+            continue
+
+        visited.add(node)
+
+        if node == target:
+            return distance
+
+        for neighbor in graph[node]:
+            queue.append((neighbor, path + [node], distance + 1))
+
+    # If no path is found between start and target nodes
+    return -1
+```
+
+In the function above, we create a `visited` set to keep track of visited nodes, an empty queue containing tuples with the current node, its path so far, and the distance from the starting point. Then, in each iteration, we pop the next node from the queue, check if it's already been visited, update its distance, and explore its neighboring nodes by appending them to the queue. If the target node is found, return its distance; otherwise, continue with the next nodes until all paths are explored. If no path is found between the start and target nodes, return -1.
+
+Example usage:
+
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['D', 'F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 3
+```

@@ -1,0 +1,39 @@
+task,prompt,run,true,predicted,correct,shap_toward_true,byte_vote_class,byte_vote_correct,source,file
+t41,p3,r2,llama,mistral,False,0.0961033850908279,llama,True,return dict(anagram_dict),t41_p3_r2_llama.py
+t41,p2,r1,mistral,llama,False,-0.0289954915642738,llama,False,raise ValueError('All elements in the list must be strings'),t41_p2_r1_mistral.py
+t41,p3,r3,mistral,mistral,True,-0.0410034023225307,llama,False,return list(anagram_groups.values()),t41_p3_r3_mistral.py
+t41,p1,r1,qwen,qwen,True,-0.12748983502388,llama,False,anagram_groups[sorted_word].append(word),t41_p1_r1_qwen.py
+t41,p2,r3,qwen,llama,False,-0.1451929360628128,llama,False,raise ValueError('All elements in the list must be strings'),t41_p2_r3_qwen.py
+t41,p3,r1,qwen,qwen,True,-0.12748983502388,llama,False,anagram_groups[sorted_word].append(word),t41_p3_r1_qwen.py
+t41,p3,r2,qwen,qwen,True,-0.12748983502388,llama,False,anagram_groups[sorted_word].append(word),t41_p3_r2_qwen.py
+t42,p3,r1,llama,llama,True,0.065049335360527,llama,True,"for i in range(1, num_courses + 1):",t42_p3_r1_llama.py
+t42,p2,r2,mistral,qwen,False,-0.0152579629793763,llama,False,raise ValueError('Prerequisites must be a list or tuple'),t42_p2_r2_mistral.py
+t42,p2,r1,qwen,mistral,False,-0.1052732765674591,llama,False,graph = [[] for _ in range(num_courses)],t42_p2_r1_qwen.py
+t43,p3,r1,llama,mistral,False,0.0842186287045478,llama,True,"_inorder_helper(node.left, result)",t43_p3_r1_llama.py
+t45,p2,r2,llama,llama,True,0.0538348071277141,llama,True,if len(nums) == 0 and target == 0:,t45_p2_r2_llama.py
+t46,p2,r1,llama,llama,True,0.0892592966556549,llama,True,"lines.append(_justify_line(current_line, max_width))",t46_p2_r1_llama.py
+t46,p2,r3,llama,llama,True,0.089062213897705,llama,True,"result.append(justify_line(current_line, max_width))",t46_p2_r3_llama.py
+t46,p3,r1,llama,llama,True,0.0904824286699295,llama,True,"result.append(_justify_line(current_line, max_width))",t46_p3_r1_llama.py
+t46,p3,r2,llama,llama,True,0.0914324671030044,llama,True,"result.append(justify_line(current_line, max_width))",t46_p3_r2_llama.py
+t46,p3,r3,llama,llama,True,0.0900785773992538,llama,True,"lines.append(justify_line(current_line, max_width))",t46_p3_r3_llama.py
+t46,p1,r2,mistral,mistral,True,-0.0135126300156116,llama,False,if not line or (len(line) > 0 and len(line[-1]) + len(word) + 1 <= max_width):,t46_p1_r2_mistral.py
+t46,p2,r2,mistral,mistral,True,-0.0081414338201284,llama,False,"spaces_to_add = min(spaces_remaining, len(current_line) - 1) * ' '",t46_p2_r2_mistral.py
+t46,p3,r2,mistral,mistral,True,-0.0212253388017416,llama,False,"lines = [' '.join(words[:i]) for i in range(1, len(words))]",t46_p3_r2_mistral.py
+t46,p1,r3,qwen,mistral,False,-0.1113478913903236,llama,False,if total_length + len(word) + len(current_line) > max_width:,t46_p1_r3_qwen.py
+t46,p2,r1,qwen,mistral,False,-0.1174727901816368,llama,False,if current_length + len(word) + len(line) <= max_width:,t46_p2_r1_qwen.py
+t46,p2,r2,qwen,llama,False,-0.1022152155637741,llama,False,"result.append(justify_line(current_line, max_width))",t46_p2_r2_qwen.py
+t46,p3,r2,qwen,mistral,False,-0.0992530658841133,llama,False,if current_length + len(word) + len(current_line) > max_width:,t46_p3_r2_qwen.py
+t46,p3,r3,qwen,mistral,False,-0.105831854045391,llama,False,if current_length + len(word) + len(current_line) > max_width:,t46_p3_r3_qwen.py
+t47,p2,r2,llama,llama,True,0.054503958672285,llama,True,"value, operator = pop_and_get_operator(stack)",t47_p2_r2_llama.py
+t47,p2,r3,llama,llama,True,0.0852152928709983,llama,True,num = num * 10 + int(c),t47_p2_r3_llama.py
+t47,p3,r3,llama,llama,True,0.0609286949038505,llama,True,if token.strip() == '':,t47_p3_r3_llama.py
+t49,p1,r1,llama,llama,True,0.0746533721685409,llama,True,for j in range(i):,t49_p1_r1_llama.py
+t49,p1,r2,llama,llama,True,0.0796969309449195,llama,True,for j in range(i):,t49_p1_r2_llama.py
+t49,p1,r3,llama,qwen,False,0.0745139494538307,llama,True,for j in range(i):,t49_p1_r3_llama.py
+t49,p3,r1,llama,llama,True,0.0746533721685409,llama,True,for j in range(i):,t49_p3_r1_llama.py
+t49,p3,r2,llama,llama,True,0.0746533721685409,llama,True,for j in range(i):,t49_p3_r2_llama.py
+t49,p1,r1,qwen,llama,False,-0.1327332258224487,llama,False,for j in range(i):,t49_p1_r1_qwen.py
+t49,p3,r1,qwen,llama,False,-0.1162457466125488,llama,False,for j in range(i):,t49_p3_r1_qwen.py
+t50,p2,r3,llama,llama,True,0.0656170696020126,llama,True,for i in range(len(s)):,t50_p2_r3_llama.py
+t50,p3,r2,llama,mistral,False,0.0555458255112171,llama,True,"start_idx, max_len = (0, len(p))",t50_p3_r2_llama.py
+t50,p3,r3,qwen,llama,False,-0.1276617497205734,llama,False,window_count = Counter(),t50_p3_r3_qwen.py

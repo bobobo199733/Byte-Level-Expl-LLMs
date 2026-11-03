@@ -1,0 +1,9 @@
+Write exactly one Python function called trapping_rain_water(heights) that computes the total trapped rain water.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- heights is a list of non-negative integers.
+- Handle empty lists correctly.
+- The function should be efficient.

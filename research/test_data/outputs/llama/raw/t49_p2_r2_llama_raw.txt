@@ -1,0 +1,48 @@
+Here's the Python function `word_break` using dynamic programming:
+
+```python
+def word_break(s, word_dict):
+    """
+    Returns whether s can be segmented into words from word_dict.
+
+    Args:
+        s (str): The input string to segment.
+        word_dict (list[str]): List of words that can be used for segmentation.
+
+    Returns:
+        bool: Whether s can be segmented using words from word_dict.
+    """
+
+    word_set = set(word_dict)  # O(1) lookup
+    dp = [False] * (len(s) + 1)
+    dp[0] = True
+
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+
+    return dp[len(s)]
+```
+
+Here's an explanation of how the function works:
+
+- We create a DP array `dp` of length `len(s)+1` to keep track of whether each substring can be segmented.
+- Initialize `dp[0]` as `True`, since an empty string is always valid.
+- For each position `i`, we iterate through all substrings `s[j:i]` where `dp[j]` is `True`.
+- We check if the current substring `s[j:i]` is in the word set. If it's a valid word, we update `dp[i]` as `True`. The loop breaks when a match is found.
+- Finally, return `dp[len(s)]`, which indicates whether the entire string can be segmented.
+
+Example usage:
+
+```python
+word_dict = ["apple", "pen"]
+s = "applepenapple"
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsanddog"
+print(word_break(s, word_dict))  # Output: False
+```
+
+This function has a time complexity of O(n^2), where n is the length of string `s`, due to the nested loops. The space complexity is O(n) for storing the DP array.

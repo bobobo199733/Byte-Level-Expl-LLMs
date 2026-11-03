@@ -1,0 +1,70 @@
+Certainly! The N-queens problem is a classic backtracking algorithm challenge where the goal is to place `n` queens on an `n x n` chessboard such that no two queens threaten each other. This means that no two queens can be in the same row, column, or diagonal.
+
+Here's how you can implement this using only one function called `n_queens(n)`:
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        # Check this row on left side
+        for i in range(col):
+            if board[row][i] == 1:
+                return False
+        
+        # Check upper diagonal on left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        
+        # Check lower diagonal on left side
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        
+        return True
+
+    def solve_n_queens_util(board, col):
+        # base case: If all queens are placed then print the solution
+        if col >= n:
+            result = []
+            for i in range(n):
+                temp_row = []
+                for j in range(n):
+                    temp_row.append('.' if board[i][j] == 0 else 'Q')
+                result.append(''.join(temp_row))
+            solutions.append(result)
+            return True
+        
+        # Consider this column and try placing this queen in all rows one by one
+        res = False
+        for i in range(n):
+            if is_safe(board, i, col):
+                board[i][col] = 1
+                res = solve_n_queens_util(board, col + 1) or res
+                board[i][col] = 0  # backtrack
+        return res
+
+    solutions = []
+    initial_board = [[0 for _ in range(n)] for _ in range(n)]
+    solve_n_queens_util(initial_board, 0)
+    return solutions
+
+# Example usage:
+solutions = n_queens(4)
+for solution in solutions:
+    print('\n'.join(solution))
+    print()
+```
+
+### Explanation:
+
+1. **is_safe(board, row, col)**: This function checks if it's safe to place a queen at `board[row][col]`. It checks the same column and the two diagonals.
+
+2. **solve_n_queens_util(board, col)**: This is the main backtracking utility function.
+   - If all queens are placed (`col >= n`), the current board configuration is added as a solution.
+   - For each row in the current column, it tries to place a queen and recursively checks for further columns. It uses backtracking to undo placements that do not lead to valid solutions.
+
+3. **n_queens(n)**: This function initializes the chessboard and starts solving from the first column using `solve_n_queens_util`.
+
+4. The result is returned as a list of board configurations, where each board configuration is represented by strings with 'Q' for queens and '.' for empty spaces.
+
+This implementation ensures that only one function named `n_queens(n)` is used to solve the problem.

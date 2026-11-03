@@ -1,0 +1,1 @@
+Write a single Python function called basic_calculator(s) that evaluates a mathematical expression given as a string. The expression may contain non-negative integers, the operators + and -, empty spaces, and parentheses. Return the result as an integer. Do not use the eval() function.

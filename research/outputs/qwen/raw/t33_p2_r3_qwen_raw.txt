@@ -1,0 +1,58 @@
+Certainly! Below is a Python function named `heap_sort` that sorts a list of integers using the heap sort algorithm. This implementation includes building a max heap, then repeatedly extracting the maximum element from the heap and placing it at the end of the list.
+
+```python
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    left_child = 2 * i + 1     # left child index
+    right_child = 2 * i + 2    # right child index
+
+    # If left child exists and is greater than root
+    if left_child < n and arr[i] < arr[left_child]:
+        largest = left_child
+
+    # If right child exists and is greater than the current largest
+    if right_child < n and arr[largest] < arr[right_child]:
+        largest = right_child
+
+    # Change root, if needed
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # Swap
+
+        # Heapify the affected sub-tree again
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    
+    # Build a maxheap.
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+    
+    # One by one extract elements from the heap
+    sorted_list = []
+    for i in range(n-1, 0, -1):
+        values[0], values[i] = values[i], values[0]
+        sorted_list.append(values.pop())
+        
+        # Call max heapify on the reduced heap
+        heapify(values, i, 0)
+
+    return sorted_list[::-1]  # Reverse to get the original order
+
+# Example usage:
+input_list = [12, 11, 13, 5, 6, 7]
+sorted_list = heap_sort(input_list)
+print(sorted_list)  # Output: [5, 6, 7, 11, 12, 13]
+```
+
+### Explanation:
+- **heapify**: This function ensures that the subtree rooted at index `i` is a max heap. It compares the root with its children and swaps if necessary to maintain the heap property.
+- **heap_sort**: 
+  - First, it builds a max heap from the input list.
+  - Then, it repeatedly extracts the maximum element (which is always at the root of the heap) and places it at the end of the list (`sorted_list`).
+  - After each extraction, the size of the heap decreases by one, and the heap property is maintained.
+
+### Notes:
+- The function returns a new sorted list that preserves the order of duplicate values.
+- It handles empty input lists gracefully by not performing any operations.
+- The original input list remains unchanged.

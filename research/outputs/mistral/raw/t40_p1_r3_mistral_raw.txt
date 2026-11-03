@@ -1,0 +1,16 @@
+Here is a simple implementation of the `autocomplete_system` function using Python's built-in data structures:
+
+```python
+def autocomplete_system(words, prefix):
+    if not words or not prefix:
+        return []
+
+    def get_matches(word):
+        return word.startswith(prefix)
+
+    matches = [word for word in words if any(c1 == c2 for c1, c2 in zip(word[len(prefix):], prefix))]
+    sorted_matches = sorted(matches, key=lambda word: sum([abs(ord(w) - ord(p)) for w, p in zip(word, prefix)]))
+    return sorted_matches
+```
+
+This function takes a list of words and a prefix as input. It returns the matching words sorted by Levenshtein distance (a measure of similarity between two strings), where smaller distances correspond to closer matches. The function first filters the words using the given prefix, then sorts the matches based on the number of character differences with the prefix. If the list of words or the prefix is empty, it returns an empty list.

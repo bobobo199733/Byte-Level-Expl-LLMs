@@ -1,0 +1,91 @@
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def serialize_tree(root: 'TreeNode') -> str:
+    """
+    Serialize a binary tree into a string representation.
+
+    This function uses a level-order traversal strategy to traverse the tree.
+    It handles null or empty child nodes explicitly and preserves all node values and tree structure.
+    The output allows reconstruction of the original tree.
+
+    :param root: The root of the binary tree
+    :return: A string representation of the binary tree
+    """
+
+    # If the tree is empty, return an empty string
+    if not root:
+        return ''
+
+    # Initialize a queue with the root node and its value
+    queue = [(root.val, False)]
+    result = []
+
+    while queue:
+        # Dequeue the next node and whether it's a leaf or not
+        val, is_leaf = queue.pop(0)
+
+        # Append the node's value to the result list
+        result.append(str(val))
+
+        # If the node has children, add them to the queue
+        if root.left:
+            queue.append((root.left.val, False))
+        else:
+            queue.append('#')
+
+        if root.right:
+            queue.append((root.right.val, False))
+        else:
+            queue.append('#')
+
+    # Join the result list into a string and return it
+    return ' '.join(result)
+
+
+# Helper function to deserialize the tree from the serialized string
+def deserialize_tree(serialized: str) -> TreeNode:
+    if not serialized:
+        return None
+
+    nodes = serialized.split()
+    i = 0
+    root = TreeNode(int(nodes[i]))
+    queue = [root]
+
+    while i < len(nodes):
+        node = queue.pop(0)
+        val = int(nodes[i])
+        i += 1
+        if nodes[i] != '#':
+            node.left = TreeNode(val)
+            queue.append(node.left)
+        i += 1
+        if nodes[i] != '#':
+            node.right = TreeNode(val)
+            queue.append(node.right)
+        i += 1
+
+    return root
+
+
+# Example usage:
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+
+serialized_tree_str = serialize_tree(root)
+print(serialized_tree_str)  # Output: "1 2 # # 3 4 # #"
+
+deserialized_root = deserialize_tree(serialized_tree_str)
+```
+
+This Python function `serialize_tree` correctly serializes a binary tree into a string representation. It uses a level-order traversal strategy and handles null or empty child nodes explicitly. The output allows reconstruction of the original tree using the provided `deserialize_tree` helper function.
+
+The example usage demonstrates how to use these functions to serialize a sample binary tree, print its serialized form, deserialize it back into a tree, and verify that it matches the original tree.

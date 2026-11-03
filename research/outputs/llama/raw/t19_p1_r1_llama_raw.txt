@@ -1,0 +1,64 @@
+**Island Counter Function**
+==========================
+
+The following is a Python function that counts the number of islands in a given 2D grid. The function uses a depth-first search (DFS) approach to traverse each island.
+
+```python
+def count_islands(grid):
+    """
+    Counts the number of islands in a 2D grid.
+
+    Args:
+        grid (list[list[int]]): A 2D list representing the grid, where 1 indicates land and 0 indicates water.
+
+    Returns:
+        int: The total number of islands.
+    """
+
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+
+    def dfs(r, c):
+        """
+        Performs a depth-first search from the given cell (r, c).
+
+        Args:
+            r (int): The row index.
+            c (int): The column index.
+        """
+
+        if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
+            grid[r][c] = 0
+            dfs(r - 1, c)
+            dfs(r + 1, c)
+            dfs(r, c - 1)
+            dfs(r, c + 1)
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                count += 1
+                dfs(r, c)
+
+    return count
+
+# Example usage:
+grid = [
+    [0, 0, 1, 0],
+    [0, 0, 1, 0],
+    [1, 1, 1, 0]
+]
+
+print(count_islands(grid))  # Output: 1
+```
+
+In this code:
+
+*   We define a function `count_islands` that takes a 2D grid as input and returns the total number of islands.
+*   We use DFS to traverse each island by marking visited cells (i.e., setting them to 0).
+*   The `dfs` helper function is used to recursively mark all connected land cells as visited.
+
+You can use this function with your own grids to count the number of islands.

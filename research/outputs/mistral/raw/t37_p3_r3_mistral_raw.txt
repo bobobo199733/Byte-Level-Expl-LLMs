@@ -1,0 +1,26 @@
+Here is a Python function called `linked_list_cycle` that uses the Floyd's tortoise and hare algorithm to check if a linked list has a cycle. This function returns `True` if there is a cycle in the linked list, otherwise it returns `False`.
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head or not head.next:
+        return False
+
+    slow_pointer, fast_pointer = head, head.next
+
+    while fast_pointer and fast_pointer.next:
+        if slow_pointer == fast_pointer:
+            return True
+        slow_pointer = slow_pointer.next
+        fast_pointer = fast_pointer.next.next
+
+    return False
+```
+
+In this implementation, we first check if the given linked list is empty or has only one node, in which case there cannot be a cycle. We then initialize two pointers `slow_pointer` and `fast_pointer`, moving at a slow pace (one step at a time) and a fast pace (two steps at a time).
+
+If there's a cycle in the linked list, the fast pointer will meet the slow pointer somewhere along the way. When that happens, we return `True`. If they never meet (i.e., the linked list does not have a cycle), we eventually return `False`.

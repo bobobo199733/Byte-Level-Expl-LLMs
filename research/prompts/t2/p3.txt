@@ -1,0 +1,16 @@
+Write exactly one Python function with this signature:
+
+def is_balanced(s: str) -> bool
+
+The function must check whether brackets are balanced and properly nested.
+
+Rules:
+- Support only these bracket types: (), [], {}
+- Ignore all non-bracket characters
+- Use correct nesting logic
+- Return True only if every opening bracket is matched in the correct order
+- Return False otherwise
+- Empty string must return True
+- Do not print anything
+- Do not include explanations
+- Output only the Python function

@@ -1,0 +1,271 @@
+file,true_model,prompt,run,byte_pos,byte_role,raw_value,opname,arg,argval,code_name
+t48_p1_r1_llama.py,llama,p1,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,54,opcode,112,STORE_FAST_STORE_FAST,84.0,"('right', 'left')",median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,81,arg,2,LOAD_CONST,2.0,0,median_of_two_sorted_arrays
+t48_p1_r1_llama.py,llama,p1,r1,92,opcode,79,JUMP_FORWARD,6.0,212,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,14,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,15,arg,1,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,16,opcode,110,STORE_FAST,1.0,nums2,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,19,arg,3,LOAD_GLOBAL,3.0,merge_sorted_arrays,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,25,arg,2,STORE_FAST,2.0,merged_array,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,28,opcode,85,LOAD_FAST,2.0,merged_array,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,54,opcode,45,BINARY_OP,10.0,10,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,81,arg,2,BINARY_OP,2.0,2,median_of_two_sorted_arrays
+t48_p1_r2_llama.py,llama,p1,r2,92,opcode,110,STORE_FAST,2.0,result,merge_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,54,opcode,83,LOAD_CONST,3.0,1,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,81,arg,7,STORE_FAST,7.0,j,median_of_two_sorted_arrays
+t48_p1_r3_llama.py,llama,p1,r3,92,opcode,83,LOAD_CONST,4.0,-inf,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,5,arg,0,RESUME,0.0,0,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,14,opcode,26,MAKE_FUNCTION,,None,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,15,arg,0,MAKE_FUNCTION,,None,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,16,opcode,106,SET_FUNCTION_ATTRIBUTE,8.0,8,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,19,arg,3,LOAD_GLOBAL,3.0,range,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,25,arg,1,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,28,opcode,45,BINARY_OP,10.0,10,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,54,opcode,52,BUILD_TUPLE,1.0,1,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,81,arg,1,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p2_r1_llama.py,llama,p2,r1,92,opcode,101,RAISE_VARARGS,1.0,1,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,28,opcode,83,LOAD_CONST,1.0,0,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,54,opcode,85,LOAD_FAST,1.0,nums2,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,81,arg,0,BINARY_SUBSCR,,None,median_of_two_sorted_arrays
+t48_p2_r2_llama.py,llama,p2,r2,92,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,16,opcode,97,POP_JUMP_IF_FALSE,11.0,72,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,19,arg,3,LOAD_GLOBAL,3.0,median_of_two_sorted_arrays,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,25,arg,0,RETURN_VALUE,,None,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,28,opcode,85,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,54,opcode,85,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,81,arg,1,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p2_r3_llama.py,llama,p2,r3,92,opcode,97,POP_JUMP_IF_FALSE,4.0,208,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,54,opcode,83,LOAD_CONST,3.0,1,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,81,arg,7,STORE_FAST,7.0,j,median_of_two_sorted_arrays
+t48_p3_r1_llama.py,llama,p3,r1,92,opcode,97,POP_JUMP_IF_FALSE,7.0,214,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,54,opcode,83,LOAD_CONST,2.0,2,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,81,arg,1,LOAD_CONST,1.0,0,median_of_two_sorted_arrays
+t48_p3_r2_llama.py,llama,p3,r2,92,opcode,79,JUMP_FORWARD,6.0,200,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,54,opcode,45,BINARY_OP,2.0,2,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,81,arg,88,COMPARE_OP,88.0,==,median_of_two_sorted_arrays
+t48_p3_r3_llama.py,llama,p3,r3,92,opcode,88,LOAD_FAST_LOAD_FAST,6.0,"('nums1', 'i')",median_of_two_sorted_arrays
+t48_p1_r1_mistral.py,mistral,p1,r1,5,arg,1,LOAD_FAST_LOAD_FAST,1.0,"('nums1', 'nums2')",median_of_two_sorted_arrays
+t48_p1_r1_mistral.py,mistral,p1,r1,14,opcode,88,LOAD_FAST_LOAD_FAST,1.0,"('nums1', 'nums2')",merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,15,arg,1,LOAD_FAST_LOAD_FAST,1.0,"('nums1', 'nums2')",merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,16,opcode,45,BINARY_OP,0.0,0,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,19,arg,1,CALL,1.0,1,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,25,arg,2,LOAD_FAST,2.0,merged,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,28,opcode,83,LOAD_CONST,1.0,2,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,54,opcode,85,LOAD_FAST,2.0,merged,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,81,arg,1,LOAD_CONST,1.0,2,merge_sorted
+t48_p1_r1_mistral.py,mistral,p1,r1,92,opcode,36,RETURN_VALUE,,None,merge_sorted
+t48_p1_r2_mistral.py,mistral,p1,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,16,opcode,88,LOAD_FAST_LOAD_FAST,35.0,"('m', 'n')",median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,19,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,25,arg,16,STORE_FAST_STORE_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,28,opcode,112,STORE_FAST_STORE_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,54,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,81,arg,58,COMPARE_OP,58.0,<=,median_of_two_sorted_arrays
+t48_p1_r2_mistral.py,mistral,p1,r2,92,opcode,85,LOAD_FAST,8.0,low_pointer_nums2,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,16,opcode,110,STORE_FAST,2.0,total,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,19,arg,3,LOAD_GLOBAL,3.0,merge_sort,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,25,arg,1,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,28,opcode,85,LOAD_FAST,2.0,total,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,54,opcode,85,LOAD_FAST,3.0,merged,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,81,arg,3,LOAD_FAST,3.0,merged,median_of_two_sorted_arrays
+t48_p1_r3_mistral.py,mistral,p1,r3,92,opcode,5,BINARY_SUBSCR,,None,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,16,opcode,83,LOAD_CONST,1.0,"<code object merge_and_sort at 0x117203b40, file ""/Users/valentyngnativ/Dev/uva/thesis/research/test_data/outputs/mistral/cleaned/t48_p2_r1_mistral.py"", line 4>",median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,19,arg,0,MAKE_FUNCTION,,None,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,25,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,28,opcode,85,LOAD_FAST,5.0,total_len,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,54,opcode,85,LOAD_FAST,5.0,total_len,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,81,arg,0,LOAD_CONST,0.0,None,median_of_two_sorted_arrays
+t48_p2_r1_mistral.py,mistral,p2,r1,92,opcode,117,UNPACK_SEQUENCE,2.0,2,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,5,arg,0,RESUME,0.0,0,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,14,opcode,84,LOAD_DEREF,1.0,nums2,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,15,arg,1,LOAD_DEREF,1.0,nums2,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,16,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,19,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,25,arg,1,LOAD_CONST,1.0,0,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,28,opcode,97,POP_JUMP_IF_FALSE,1.0,66,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,54,opcode,84,LOAD_DEREF,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,81,arg,101,STORE_FAST_STORE_FAST,101.0,"('smaller_arr', 'larger_arr')",median_of_two_sorted_arrays
+t48_p2_r2_mistral.py,mistral,p2,r2,92,opcode,97,POP_JUMP_IF_FALSE,178.0,522,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,14,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,15,arg,1,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,16,opcode,110,STORE_FAST,3.0,n,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,19,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('m', 'n')",median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,25,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,28,opcode,88,LOAD_FAST_LOAD_FAST,50.0,"('n', 'm')",median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,54,opcode,110,STORE_FAST,6.0,i,median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,81,arg,114,LOAD_FAST_LOAD_FAST,114.0,"('partition', 'm')",median_of_two_sorted_arrays
+t48_p2_r3_mistral.py,mistral,p2,r3,92,opcode,83,LOAD_CONST,1.0,0,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,16,opcode,110,STORE_FAST,2.0,total_len,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,19,arg,2,LOAD_FAST,2.0,total_len,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,28,opcode,97,POP_JUMP_IF_FALSE,23.0,112,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,54,opcode,36,RETURN_VALUE,,None,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,81,arg,6,STORE_FAST,6.0,median1,median_of_two_sorted_arrays
+t48_p3_r1_mistral.py,mistral,p3,r1,92,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,5,arg,1,LOAD_FAST_LOAD_FAST,1.0,"('nums1', 'nums2')",median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,14,opcode,85,LOAD_FAST,2.0,merged,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,15,arg,2,LOAD_FAST,2.0,merged,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,16,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,19,arg,3,STORE_FAST,3.0,total_length,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,25,arg,88,COMPARE_OP,88.0,==,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,28,opcode,91,LOAD_GLOBAL,5.0,float,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,54,opcode,97,POP_JUMP_IF_FALSE,4.0,120,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,81,arg,0,RETURN_VALUE,,None,median_of_two_sorted_arrays
+t48_p3_r2_mistral.py,mistral,p3,r2,92,?,-1,OUT_OF_RANGE,-1.0,?,?
+t48_p3_r3_mistral.py,mistral,p3,r3,5,arg,1,LOAD_FAST_LOAD_FAST,1.0,"('nums1', 'nums2')",median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,14,opcode,85,LOAD_FAST,2.0,merged,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,15,arg,2,LOAD_FAST,2.0,merged,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,16,opcode,53,CALL,1.0,1,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,19,arg,3,STORE_FAST,3.0,n,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,25,arg,88,COMPARE_OP,88.0,==,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,28,opcode,91,LOAD_GLOBAL,5.0,float,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,54,opcode,83,LOAD_CONST,3.0,2,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,81,arg,3,LOAD_CONST,3.0,2,median_of_two_sorted_arrays
+t48_p3_r3_mistral.py,mistral,p3,r3,92,opcode,110,STORE_FAST,4.0,median_index,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,28,opcode,97,POP_JUMP_IF_FALSE,18.0,102,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,54,opcode,83,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,81,arg,11,BINARY_OP,11.0,11,median_of_two_sorted_arrays
+t48_p1_r1_qwen.py,qwen,p1,r1,92,opcode,91,LOAD_GLOBAL,1.0,len,find_kth
+t48_p1_r2_qwen.py,qwen,p1,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,28,opcode,97,POP_JUMP_IF_FALSE,18.0,102,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,54,opcode,83,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,81,arg,11,BINARY_OP,11.0,11,median_of_two_sorted_arrays
+t48_p1_r2_qwen.py,qwen,p1,r2,92,opcode,91,LOAD_GLOBAL,1.0,len,find_kth_element
+t48_p1_r3_qwen.py,qwen,p1,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,28,opcode,97,POP_JUMP_IF_FALSE,18.0,102,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,54,opcode,83,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,81,arg,11,BINARY_OP,11.0,11,median_of_two_sorted_arrays
+t48_p1_r3_qwen.py,qwen,p1,r3,92,opcode,91,LOAD_GLOBAL,1.0,len,find_kth_smallest
+t48_p2_r1_qwen.py,qwen,p2,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,16,opcode,97,POP_JUMP_IF_FALSE,11.0,72,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,19,arg,3,LOAD_GLOBAL,3.0,median_of_two_sorted_arrays,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,25,arg,0,RETURN_VALUE,,None,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,28,opcode,85,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,54,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,81,arg,98,LOAD_FAST_LOAD_FAST,98.0,"('i', 'm')",median_of_two_sorted_arrays
+t48_p2_r1_qwen.py,qwen,p2,r1,92,opcode,5,BINARY_SUBSCR,,None,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,54,opcode,110,STORE_FAST,4.0,imin,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,81,arg,18,COMPARE_OP,18.0,<,median_of_two_sorted_arrays
+t48_p2_r2_qwen.py,qwen,p2,r2,92,opcode,88,LOAD_FAST_LOAD_FAST,7.0,"('nums1', 'i')",median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,14,opcode,58,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,15,arg,148,COMPARE_OP,148.0,>,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,16,opcode,97,POP_JUMP_IF_FALSE,2.0,54,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,19,arg,16,LOAD_FAST_LOAD_FAST,16.0,"('nums2', 'nums1')",median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,25,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,28,opcode,91,LOAD_GLOBAL,1.0,len,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,54,opcode,110,STORE_FAST,6.0,half_len,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,81,arg,18,COMPARE_OP,18.0,<,median_of_two_sorted_arrays
+t48_p2_r3_qwen.py,qwen,p2,r3,92,opcode,88,LOAD_FAST_LOAD_FAST,7.0,"('nums1', 'i')",median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,28,opcode,97,POP_JUMP_IF_FALSE,15.0,96,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,54,opcode,83,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p3_r1_qwen.py,qwen,p3,r1,81,arg,0,RESUME,0.0,0,find_kth_element
+t48_p3_r1_qwen.py,qwen,p3,r1,92,opcode,53,CALL,1.0,1,find_kth_element
+t48_p3_r2_qwen.py,qwen,p3,r2,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,28,opcode,97,POP_JUMP_IF_FALSE,18.0,102,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,54,opcode,83,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,81,arg,11,BINARY_OP,11.0,11,median_of_two_sorted_arrays
+t48_p3_r2_qwen.py,qwen,p3,r2,92,opcode,91,LOAD_GLOBAL,1.0,len,find_kth_element
+t48_p3_r3_qwen.py,qwen,p3,r3,5,arg,0,LOAD_FAST,0.0,nums1,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,14,opcode,45,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,15,arg,0,BINARY_OP,0.0,0,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,16,opcode,110,STORE_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,19,arg,2,LOAD_FAST,2.0,total_length,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,25,arg,2,LOAD_CONST,2.0,1,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,28,opcode,97,POP_JUMP_IF_FALSE,18.0,102,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,54,opcode,83,LOAD_CONST,1.0,2,median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,81,arg,52,LOAD_FAST_LOAD_FAST,52.0,"('mid1', 'mid2')",median_of_two_sorted_arrays
+t48_p3_r3_qwen.py,qwen,p3,r3,92,opcode,91,LOAD_GLOBAL,1.0,len,find_kth_element

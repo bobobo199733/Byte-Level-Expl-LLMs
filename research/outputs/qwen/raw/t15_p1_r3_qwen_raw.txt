@@ -1,0 +1,68 @@
+To perform a topological sort on a Directed Acyclic Graph (DAG), we can use Kahn's algorithm, which involves the following steps:
+
+1. Compute the in-degree for each node.
+2. Insert nodes with an in-degree of zero into a queue.
+3. Process each node by removing it from the queue and reducing the in-degree of its neighbors. If any neighbor has an in-degree reduced to zero, add it to the queue.
+4. Keep track of the order of nodes as they are processed.
+
+Here's how you can implement this in Python:
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    # Step 1: Initialize in-degrees for each node and a list to store the result
+    in_degrees = {node: 0 for node in graph}
+    sorted_order = []
+    
+    # Step 2: Compute in-degrees for all nodes
+    for node in graph:
+        for neighbor in graph[node]:
+            in_degrees[neighbor] += 1
+    
+    # Step 3: Get all nodes with zero in-degree and add them to the queue
+    sources = deque([node for node, degree in in_degrees.items() if degree == 0])
+    
+    # Step 4: Process nodes while there are nodes in the queue
+    while sources:
+        current_node = sources.popleft()
+        sorted_order.append(current_node)
+        
+        # Decrease in-degree of each neighbor by 1
+        for neighbor in graph[current_node]:
+            in_degrees[neighbor] -= 1
+            
+            # If any neighbor has an in-degree of zero, add it to the queue
+            if in_degrees[neighbor] == 0:
+                sources.append(neighbor)
+    
+    # Step 5: Check if there are nodes left that have not been processed (cycle detection)
+    if len(sorted_order) != len(graph):
+        raise ValueError("There is a cycle in the graph")
+    
+    return sorted_order
+
+# Example usage
+if __name__ == "__main__":
+    # Define a sample directed acyclic graph as an adjacency list
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['D'],
+        'C': ['D', 'E'],
+        'D': [],
+        'E': []
+    }
+    
+    print("Topological Order:", topological_sort(graph))
+```
+
+### Explanation:
+- **in_degrees**: A dictionary to store the in-degrees of each node.
+- **sorted_order**: A list that will hold the result after processing all nodes.
+- **sources**: A queue initialized with all nodes having an in-degree of 0.
+- **Processing Nodes**: For each node, reduce the in-degree of its neighbors. If a neighbor's in-degree is reduced to zero, add it to the sources queue.
+
+### Example:
+For the sample graph provided (`A -> B, C; B -> D; C -> D, E`), the topological sort would be `['A', 'C', 'B', 'E', 'D']`.
+
+This function assumes that the input graph is a DAG. If it's not, the function will raise an error indicating there's a cycle in the graph.

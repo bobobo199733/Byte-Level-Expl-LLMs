@@ -1,0 +1,32 @@
+Here's a Python function called `merge_k_sorted_lists` that merges k sorted lists into a single sorted list. This function uses a heapq data structure which is an efficient solution for this problem:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    if not lists:
+        return []
+    elif len(lists) == 1:
+        return lists[0]
+
+    min_heap = []
+    for lst in lists:
+        if lst:
+            heapq.heappush(min_heap, (lst[0], lst[1], lst))
+
+    result = []
+    while min_heap:
+        _, value, list_ref = heapq.heappop(min_heap)
+        result.append(value)
+        if list_ref[1]:
+            heapq.heappush(min_heap, (list_ref[0], list_ref[1].pop(0), list_ref))
+
+    return result
+```
+
+In this function:
+
+- If there are no lists or only one list, it returns an empty list or the single sorted list.
+- The min-heap is initialized with tuples containing the first element of each sorted list along with its reference and the remaining elements in the list.
+- It repeatedly pops the smallest value from the heap, appends it to the result, and adds any remaining non-empty elements from the corresponding list back into the heap if they have not been processed yet.
+- This process continues until the min-heap is empty, at which point all the sorted lists are merged into a single sorted list.

@@ -1,0 +1,30 @@
+In Python, here's a simple implementation of a function `spiral_order` to traverse a matrix in spiral order:
+
+```python
+def spiral_order(matrix):
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    visited = set()
+    result = []
+
+    row, col = len(matrix), len(matrix[0])
+    r, c, d = 0, 0, 0
+
+    while r < row and c < col:
+        visited.add((r, c))
+        x, d = r + directions[d][0], (d + 1) % len(directions)
+        if 0 <= x < row and (x, c) not in visited:
+            r, c = x, c
+        else:
+            r, c = r, c + 1
+
+    return list(result) + list(matrix[i][j] for i, row in enumerate(matrix) for j, _ in enumerate(row) if (i, j) not in visited)
+```
+
+This function works by first initializing a direction and a visited set to keep track of the visited cells. It then iterates over the matrix starting from its top-left cell. At each step, it moves in the current direction until it reaches an unvisited cell or hits the boundary. Once it finds such a cell, it updates its position and direction before moving on to the next cell. The function continues this process until it has visited all cells in the matrix. Finally, it returns the result as a list of elements in spiral order.
+
+You can use the function like so:
+
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(spiral_order(matrix)) # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```

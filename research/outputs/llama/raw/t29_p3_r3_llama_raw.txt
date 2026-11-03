@@ -1,0 +1,21 @@
+```python
+def parse_csv_line(line):
+    """
+    Splits a single line from a CSV file into its constituent fields.
+
+    Args:
+        line (str): A string representing one line from a CSV file.
+
+    Returns:
+        list: A list of strings, each representing a field in the CSV line.
+    """
+
+    # We'll use the csv module's reader object to split the line
+    import csv
+
+    # Create a reader object that will treat the input as a single line
+    reader = csv.reader([line])
+
+    # Now we can get the first (and only) row from the reader, which will be our list of fields
+    return next(reader)
+```

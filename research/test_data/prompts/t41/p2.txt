@@ -1,0 +1,11 @@
+Write exactly one Python function named group_anagrams(words).
+
+The function receives a list of strings and should group all words that are anagrams of each other.
+
+Requirements:
+- Return a list of lists
+- Words that contain the same letters in different orders belong in the same group
+- Preserve all original words
+- Raise ValueError for invalid input types
+- Do not write explanations or example usage
+- Only output valid Python code

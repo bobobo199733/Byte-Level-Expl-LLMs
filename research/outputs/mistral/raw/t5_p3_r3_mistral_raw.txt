@@ -1,0 +1,17 @@
+Here is a Python function that meets the requirements:
+
+```python
+def remove_k_digits(num, k):
+    stack = []
+    for char in num:
+        while stack and stack[-1] > char and k > 0:
+            stack.pop()
+            k -= 1
+        stack.append(char)
+
+    result = stack[:-k]
+    result = "".join(result).lstrip("0")
+    return "0" if not result else result
+```
+
+This function uses a stack to maintain the current number and removes digits that are smaller than the ones already on the stack while keeping track of the k limit. After processing the entire input, it strips leading zeros from the final result and returns '0' if no remaining digits are left after removing k digits.

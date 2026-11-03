@@ -1,0 +1,1 @@
+Write a Python function called lru_cache(operations, capacity) that simulates an LRU cache and returns the outputs of all get operations.

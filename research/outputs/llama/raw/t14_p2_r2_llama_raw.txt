@@ -1,0 +1,53 @@
+**Generate Parentheses Combinations**
+====================================
+
+Here's the Python function to generate all valid combinations of `n` pairs of parentheses using backtracking:
+
+```python
+def generate_parentheses(n):
+    """
+    Generate all valid combinations of n pairs of parentheses.
+
+    Args:
+        n (int): Number of pairs of parentheses.
+
+    Returns:
+        list: A list of strings, each representing a valid combination.
+    """
+
+    def backtrack(open_count, close_count, path):
+        # Base case: if the number of open and close counts is equal to n,
+        # we've reached a valid combination
+        if len(path) == 2 * n:
+            result.append("".join(path))
+            return
+
+        # Try adding an opening parenthesis
+        if open_count < n:
+            path.append("(")
+            backtrack(open_count + 1, close_count, path)
+            path.pop()  # Backtrack: remove the added opening parenthesis
+
+        # Try adding a closing parenthesis
+        if close_count < open_count:
+            path.append(")")
+            backtrack(open_count, close_count + 1, path)
+            path.pop()  # Backtrack: remove the added closing parenthesis
+
+    result = []
+    backtrack(0, 0, [])
+    return result
+```
+
+**Example Usage**
+-----------------
+
+```python
+print(generate_parentheses(3))
+# Output:
+# ['((()))', '(()())', '(())()', '()(())', '()()()']
+```
+
+This function uses a recursive helper `backtrack` that takes the current counts of opening and closing parentheses, as well as the path of added characters. It tries to add both an opening and closing parenthesis at each step, using backtracking to remove them when necessary. When the desired length (`2 * n`) is reached, it adds the combination to the result list.
+
+Note that this function handles `n = 0` correctly by not generating any combinations (i.e., an empty list).

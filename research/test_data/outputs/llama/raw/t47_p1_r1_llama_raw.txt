@@ -1,0 +1,85 @@
+**Basic Calculator Function**
+================================
+
+Here is a Python function named `basic_calculator` that evaluates mathematical expressions given as strings:
+
+```python
+def basic_calculator(s):
+    """
+    Evaluates a mathematical expression given as a string.
+
+    Args:
+        s (str): The mathematical expression to evaluate.
+
+    Returns:
+        int: The result of the evaluation as an integer.
+    """
+
+    # Remove empty spaces from the input string
+    s = s.replace(" ", "")
+
+    # Define operator precedence
+    precedence = {"+": 1, "-": 1}
+
+    # Initialize a stack to store operators and operands
+    stack = []
+
+    # Initialize the current operand
+    curr_operand = ""
+
+    # Iterate through the expression character by character
+    for char in s:
+        # If the character is an operand (digit or opening parenthesis), append it to the current operand
+        if char.isdigit() or char == "(":
+            curr_operand += char
+
+        # If the character is a closing parenthesis, evaluate the expression inside and push the result onto the stack
+        elif char == ")":
+            # Evaluate the subexpression from the top of the stack to the matching opening parenthesis
+            while stack[-1] != "(":
+                stack.append(stack.pop())
+            # Remove the opening parenthesis from the stack
+            stack.pop()
+            # Push the evaluated subexpression result onto the stack
+            stack.append(int(curr_operand))
+            curr_operand = ""
+
+        # If the character is an operator, evaluate all operators of higher or equal precedence on the stack and push them onto the stack along with their operands, then append the current operator to the stack
+        elif char in precedence:
+            while stack and stack[-1] != "" and precedence[stack[-1]] >= precedence[char]:
+                operand = int(stack.pop())
+                op = stack.pop()
+                if op == "+":
+                    stack.append(operand + curr_operand)
+                elif op == "-":
+                    stack.append(-operand + curr_operand)
+                else:
+                    raise ValueError("Invalid operator")
+            # Append the current operator to the stack
+            stack.append(char)
+            curr_operand = ""
+
+    # Evaluate any remaining operators on the stack and push their results onto the stack along with their operands
+    while stack and stack[-1] != "":
+        operand = int(stack.pop())
+        op = stack.pop()
+        if op == "+":
+            stack.append(operand + int(curr_operand))
+        elif op == "-":
+            stack.append(-operand + int(curr_operand))
+        else:
+            raise ValueError("Invalid operator")
+
+    # The final result is the only element left on the stack
+    return stack[0]
+```
+
+**Example Usage**
+---------------
+
+```python
+print(basic_calculator("1+2-3"))  # Output: -4
+print(basic_calculator("(1+2) * (3-1)"))  # Output: 6
+```
+
+This function works by iterating through the input string character by character and applying the basic arithmetic operators in a left-to-right order of operation. It uses two stacks, one for operands and one for operators, to keep track of intermediate results and operator precedence. Note that this implementation assumes that the input expression is well-formed and does not contain invalid syntax or operators.

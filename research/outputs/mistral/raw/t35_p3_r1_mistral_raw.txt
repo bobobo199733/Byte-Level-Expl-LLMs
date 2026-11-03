@@ -1,0 +1,26 @@
+Creating a complete JSON validator without using built-in JSON libraries in Python can be quite complex due to the intricacies of the JSON standard. However, I will provide you with a simple function that checks if a string is properly formatted JSON (syntactically correct), but it may not cover all edge cases or validate the data types and values inside the JSON object.
+
+```python
+def json_validator(text):
+    def valid_char(c):
+        return c in '{},[]()\n:\f\r\t\\\"' or (c.startswith('u') and len(c) == 6 and c[2:] in hex(ord(c[4]))[2:])
+
+    if not text:
+        return False
+
+    stack = []
+    for char in text:
+        if char == '{' or char == '[':
+            stack.append(char)
+        elif char == '}' or char == ']':
+            if not stack or stack.pop() != char:
+                return False
+        elif char == '"' and (not stack or stack[-1] != '\\'):
+            if not text[text.index(char)-1] == '\\':
+                return False
+        elif not valid_char(char):
+            return False
+    return not stack
+```
+
+This function checks the structure of the JSON, but it does not validate data types or values inside the object. For production use, you should consider using built-in JSON libraries to ensure comprehensive validation.

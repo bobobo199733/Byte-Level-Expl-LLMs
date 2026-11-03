@@ -1,0 +1,28 @@
+Here's the Python function definition for trapping_rain_water():
+
+```python
+def trapping_rain_water(heights):
+    if len(heights) < 3:
+        return 0
+
+    left = [0]*len(heights)
+    right = [0]*len(heights)
+
+    max_left = heights[0]
+    for i in range(1, len(heights)):
+        max_left = max(max_left, heights[i])
+        left[i] = max_left
+
+    max_right = heights[-1]
+    for i in reversed(range(len(heights)-1)):
+        max_right = max(max_right, heights[i+1])
+        right[i] = max_right
+
+    trapped_water = 0
+    for i in range(len(heights)):
+        trapped_water += min(left[i], right[i]) - heights[i] if min(left[i], right[i]) > heights[i] else 0
+
+    return trapped_water
+```
+
+This function calculates the amount of rainwater that can be trapped between bars in an array of height values. It uses two passes to calculate maximum height to the left and right of each bar, then calculates the water level at each position as the minimum between left and right heights and subtracts the actual height at that position if the water level is greater than the actual height. If the water level is not greater, it adds 0 to the trapped_water variable. Finally, it returns the total amount of trapped rainwater.

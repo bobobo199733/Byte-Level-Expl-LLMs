@@ -1,0 +1,66 @@
+**Detecting Linked List Cycles in Python**
+==========================================
+
+Here's the `linked_list_cycle` function that detects whether a linked list contains a cycle:
+```python
+def linked_list_cycle(head):
+    """
+    Detects whether a linked list contains a cycle.
+
+    Args:
+        head: The head node of the linked list.
+
+    Returns:
+        True if a cycle exists, False otherwise.
+    """
+    tortoise = head
+    hare = head
+
+    while tortoise and hare and hare.next:
+        # Move tortoise one step at a time
+        tortoise = tortoise.next
+        # Move hare two steps at a time
+        hare = hare.next.next
+
+        if tortoise == hare:
+            return True  # Cycle detected!
+
+    return False  # No cycle found
+```
+**Explanation**
+
+We use the "tortoise and hare" algorithm, also known as Floyd's cycle-finding algorithm. The basic idea is to move two pointers through the linked list at different speeds:
+
+1. `tortoise` moves one step at a time.
+2. `hare` moves two steps at a time.
+
+If there's a cycle in the linked list, these two pointers will eventually meet somewhere within the cycle. If they never meet, it means there's no cycle.
+
+**Example Use Case**
+
+Suppose we have a linked list with nodes `A -> B -> C -> D -> E`. We create a cycle by linking node `E` back to node `B`: `A -> B -> C -> D -> E -> B`.
+
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+# Create nodes
+a = Node(1)
+b = Node(2)
+c = Node(3)
+d = Node(4)
+e = Node(5)
+
+# Link nodes together
+a.next = b
+b.next = c
+c.next = d
+d.next = e
+e.next = b  # Create cycle!
+
+# Check for cycle
+print(linked_list_cycle(a))  # Output: True
+```
+This code creates a linked list with a cycle and checks whether the `linked_list_cycle` function correctly detects it.

@@ -1,0 +1,43 @@
+Certainly! Here's a Python function named `serialize_tree` that serializes a binary tree into a string representation using a pre-order traversal. This approach ensures that all nodes are preserved, including null or empty child nodes, and the structure of the tree is maintained.
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def serialize_tree(root):
+    if root is None:
+        return "None,"
+    
+    serialized = str(root.val) + ","
+    serialized += serialize_tree(root.left)
+    serialized += serialize_tree(root.right)
+    return serialized
+
+# Example usage:
+# Constructing a simple binary tree:
+#       1
+#      / \
+#     2   3
+#        /
+#       4
+#
+# The tree structure can be represented as:
+# [1, 2, None, None, 3, 4, None, None]
+#
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.right.left = TreeNode(4)
+
+print(serialize_tree(root))  # Output: "1,2,None,None,3,4,None,None,"
+```
+
+This function works as follows:
+1. If the root is `None`, it returns `"None,"` to explicitly represent an empty tree or a null node.
+2. For each node, it appends the node's value followed by commas to separate nodes and their children.
+3. It recursively serializes the left child and then the right child of the current node.
+
+This serialization allows the original tree to be reconstructed by parsing the string and using the comma-separated values to create new `TreeNode` objects.

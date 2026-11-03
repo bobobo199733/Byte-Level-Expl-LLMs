@@ -1,0 +1,60 @@
+Certainly! Below is a Python function `expression_to_postfix(expression)` that converts an infix expression to its corresponding postfix notation. The function uses the Shunting Yard algorithm, which handles operator precedence and parentheses.
+
+```python
+def expression_to_postfix(expression):
+    # Operator precedence dictionary
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    
+    # Helper functions to check if a character is an operand or an operator
+    def is_operator(char):
+        return char in '+-*/^()'
+    
+    def higher_precedence(op1, op2):
+        return precedence[op1] >= precedence[op2]
+    
+    # The output list for postfix notation and stack for operators
+    output = []
+    operators = []
+
+    for char in expression:
+        if char.isalpha():  # Assuming the input contains only alphabets as operands
+            output.append(char)
+        elif char == '(':
+            operators.append(char)
+        elif char == ')':
+            top = operators.pop()
+            while top != '(':
+                output.append(top)
+                top = operators.pop()
+        else:  # It's an operator
+            while (operators and operators[-1] != '(' and 
+                   higher_precedence(operators[-1], char)):
+                output.append(operators.pop())
+            operators.append(char)
+
+    # Add remaining operators to the output
+    while operators:
+        output.append(operators.pop())
+
+    return ''.join(output)
+```
+
+This function works as follows:
+
+1. It defines a dictionary `precedence` to store operator precedence.
+2. Two helper functions, `is_operator` and `higher_precedence`, are defined for easy checking of characters and comparing operator precedence, respectively.
+3. The main logic iterates through each character in the input expression:
+   - If it's an operand (assumed here to be a single alphabet), it is directly added to the output.
+   - If it's an opening parenthesis '(', it is pushed onto the operators stack.
+   - If it's a closing parenthesis ')', the function pops from the operators stack until an opening parenthesis is encountered, and all popped operators are added to the output.
+   - If it's an operator, it checks if there is any operator on the stack with higher or equal precedence. If so, those operators are popped and added to the output before pushing the current operator onto the stack.
+4. After processing all characters, any remaining operators in the stack are popped and added to the output.
+
+Here’s a simple example of how you can use this function:
+
+```python
+print(expression_to_postfix("A+B*C"))  # Output: ABC*+
+print(expression_to_postfix("(A+B)*C"))  # Output: AB+C*
+```
+
+This function should handle basic infix expressions and respect operator precedence.

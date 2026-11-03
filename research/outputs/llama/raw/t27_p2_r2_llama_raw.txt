@@ -1,0 +1,37 @@
+```python
+def trapping_rain_water(heights):
+    """
+    Compute the total trapped rain water.
+
+    Args:
+        heights (list): A list of non-negative integers representing building heights.
+
+    Returns:
+        int: The total trapped rain water.
+    """
+    if not heights:
+        return 0
+    
+    n = len(heights)
+    
+    # left_max and right_max are lists to store the maximum height from both ends
+    left_max = [0] * n
+    right_max = [0] * n
+
+    # Compute max_height from the left end for each position
+    left_max[0] = heights[0]
+    for i in range(1, n):
+        left_max[i] = max(left_max[i-1], heights[i])
+
+    # Compute max_height from the right end for each position
+    right_max[n-1] = heights[n-1]
+    for i in range(n-2, -1, -1):
+        right_max[i] = max(right_max[i+1], heights[i])
+
+    total_water = 0
+    # For each position, add the trapped water to the total
+    for i in range(n):
+        total_water += min(left_max[i], right_max[i]) - heights[i]
+
+    return total_water
+```

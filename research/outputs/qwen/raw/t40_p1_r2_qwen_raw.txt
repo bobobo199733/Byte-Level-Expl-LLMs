@@ -1,0 +1,62 @@
+Certainly! Below is the implementation of the `autocomplete_system` function as per your requirements:
+
+```python
+def autocomplete_system(words, prefix):
+    if not words or not prefix:
+        return []
+    
+    # Create a dictionary to store words by their starting prefix
+    prefix_map = {}
+    
+    for word in words:
+        current_node = prefix_map
+        for char in word:
+            if char not in current_node:
+                current_node[char] = {}
+            current_node = current_node[char]
+        
+        # Mark the end of a word
+        current_node['#'] = '#'
+    
+    # Function to find all matching words from the prefix map
+    def dfs(node, path):
+        result = []
+        if '#' in node:
+            result.append(path)
+        for char in node:
+            if char != '#':
+                result.extend(dfs(node[char], path + char))
+        return result
+    
+    current_node = prefix_map
+    for char in prefix:
+        if char not in current_node:
+            return []
+        else:
+            current_node = current_node[char]
+    
+    # Get all matching words from the current node
+    suggestions = dfs(current_node, prefix)
+    
+    # Return sorted results
+    return sorted(suggestions)
+
+# Example usage:
+words = ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
+prefix = "mo"
+print(autocomplete_system(words, prefix))  # Output: ['mobile', 'moneypot', 'monitor']
+```
+
+### Explanation:
+
+1. **Initialization and Edge Case Handling**: The function first checks if the input lists are empty. If so, it returns an empty list.
+
+2. **Building Prefix Map**: It constructs a dictionary (`prefix_map`) where each key is a character from a word, and the value is another dictionary representing the next set of characters in that word. This structure helps in efficiently finding words with a common prefix.
+
+3. **Depth-First Search (DFS)**: A helper function `dfs` is defined to perform a depth-first search starting from the current node (`current_node`). It collects all complete words formed by traversing through the map and ending at nodes marked with `'#'`.
+
+4. **Finding Matching Words**: After constructing the prefix map, it performs a DFS on the node corresponding to the last character of the given `prefix`. This retrieves all matching word suffixes.
+
+5. **Sorting Results**: Finally, the function returns these suggestions in sorted order as required by the problem statement.
+
+This approach ensures efficient retrieval and sorting of autocomplete suggestions based on the given prefix.

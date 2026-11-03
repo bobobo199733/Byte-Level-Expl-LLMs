@@ -1,0 +1,62 @@
+Certainly! To convert an infix expression to a postfix (also known as Reverse Polish Notation or RPN), we can use the Shunting Yard algorithm. Below is the Python implementation of the `expression_to_postfix` function:
+
+```python
+def precedence(op):
+    if op in ('+', '-'):
+        return 1
+    elif op in ('*', '/'):
+        return 2
+    elif op == '^':
+        return 3
+    return 0
+
+def expression_to_postfix(expression):
+    output = []
+    operators = []
+    
+    tokens = expression.replace(' ', '')
+    
+    for token in tokens:
+        if token.isalnum():  # It's an operand
+            output.append(token)
+        elif token == '(':
+            operators.append(token)
+        elif token == ')':
+            top_token = operators.pop()
+            while top_token != '(':
+                output.append(top_token)
+                top_token = operators.pop()
+        else:  # It's an operator
+            while (operators and precedence(operators[-1]) >= precedence(token)):
+                output.append(operators.pop())
+            operators.append(token)
+
+    while operators:
+        output.append(operators.pop())
+
+    return ''.join(output)
+
+# Example usage:
+infix_expression = "3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3"
+postfix_expression = expression_to_postfix(infix_expression)
+print(postfix_expression)  # Output: 342*15-/23^^+
+```
+
+### Explanation:
+
+- **precedence(op):** This function returns the precedence of an operator. The higher the value, the higher the precedence.
+  
+- **expression_to_postfix(expression):**
+  - We first replace spaces with nothing to handle them as part of operands.
+  - We iterate through each token (either an operand or an operator) in the input expression.
+    - If it's an operand, we add it directly to the output list.
+    - If it's a left parenthesis '(', we push it onto the operators stack.
+    - If it's a right parenthesis ')', we pop from the operators stack and append to the output until we encounter a matching '(' (which is then discarded).
+    - For any operator, if there are existing operators on the stack with equal or higher precedence, they should be popped off and added to the output before pushing the new operator onto the stack.
+  - After processing all tokens, any remaining operators in the stack are appended to the output.
+
+### Example:
+
+For the input `3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3`, the function will convert it into postfix notation: `342*15-/23^^+`.
+
+This implementation handles parentheses correctly and ensures that operators are placed in the correct order according to their precedence.

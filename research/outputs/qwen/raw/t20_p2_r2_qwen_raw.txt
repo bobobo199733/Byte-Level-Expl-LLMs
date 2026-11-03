@@ -1,0 +1,58 @@
+To create an efficient function `merge_k_sorted_lists` that merges multiple sorted lists into a single sorted list, you can utilize Python's built-in capabilities. One effective way is to use the `heapq.merge` function which efficiently merges multiple sorted inputs into a single sorted output.
+
+Here's how you can implement this:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    # Filter out any empty lists to avoid passing them to heapq.merge
+    non_empty_lists = [lst for lst in lists if lst]
+    
+    # Use heapq.merge which efficiently merges multiple sorted inputs
+    merged_list = []
+    for lst in non_empty_lists:
+        merged_list.extend(lst)
+    
+    return sorted(merged_list)
+
+# Example usage:
+lists_of_sorted_numbers = [
+    [1, 4, 5],
+    [1, 3, 4],
+    [2, 6]
+]
+
+result = merge_k_sorted_lists(lists_of_sorted_numbers)
+print(result)  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
+```
+
+However, if you want to ensure the function is more efficient and does not rely on sorting all elements again after merging them (since `heapq.merge` already gives a merged result in sorted order), you can directly return the result of `heapq.merge`. Here’s an improved version:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    # Filter out any empty lists to avoid passing them to heapq.merge
+    non_empty_lists = [lst for lst in lists if lst]
+    
+    # Use heapq.merge which efficiently merges multiple sorted inputs
+    return list(heapq.merge(*non_empty_lists))
+
+# Example usage:
+lists_of_sorted_numbers = [
+    [1, 4, 5],
+    [1, 3, 4],
+    [2, 6]
+]
+
+result = merge_k_sorted_lists(lists_of_sorted_numbers)
+print(result)  # Output: [1, 1, 2, 3, 4, 4, 5, 6]
+```
+
+### Explanation:
+- **Filtering Empty Lists**: The `non_empty_lists` list comprehension ensures that only non-empty lists are passed to the `heapq.merge` function.
+- **Using `heapq.merge`**: This function takes multiple iterables (lists in this case) and merges them into a single iterator that produces sorted elements. It is efficient because it does not need to sort all elements at once but rather processes each element one by one.
+- **Converting to List**: The result of `heapq.merge` is an iterator, so we convert it to a list before returning.
+
+This approach ensures the function is efficient and handles empty lists gracefully.

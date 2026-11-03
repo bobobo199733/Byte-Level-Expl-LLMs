@@ -1,0 +1,17 @@
+{
+  "task_id": "t10",
+  "function_name": "longest_palindrome",
+  "valid_cases": [
+    [["babad"], ["bab", "aba"]],
+    [["cbbd"], "bb"],
+    [["a"], "a"],
+    [[""], ""],
+    [["racecar"], "racecar"],
+    [["abcda"], "a"],
+    [["bananas"], "anana"],
+    [["forgeeksskeegfor"], "geeksskeeg"]
+  ],
+  "invalid_cases": [],
+  "expected_exception": "ValueError",
+  "allow_multiple_expected": true
+}

@@ -1,0 +1,32 @@
+To implement a Breadth-First Search (BFS) algorithm for finding the shortest path between two nodes in an unweighted graph, we can use a queue to keep track of nodes to be explored and their distances from the starting node. Here's a Python function called `bfs_shortest_path` that accomplishes this:
+
+```python
+from collections import defaultdict
+
+def bfs_shortest_path(graph, start, target):
+    visited = set()
+    queue = [(start, 0)]
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    while queue:
+        current_node, distance = queue.pop(0)
+        visited.add(current_node)
+
+        if current_node == target:
+            return distance
+
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                distances[neighbor] = min(distances[neighbor], distance + 1)
+                queue.append((neighbor, distances[neighbor]))
+
+    # If no path is found between start and target, return None.
+    return None
+```
+
+In this implementation, we use a default dictionary `graph` to represent the graph as an adjacency list. The function `bfs_shortest_path` initializes a set `visited` to keep track of nodes already explored, a queue to hold nodes to be explored with their current distances from the starting node, and a dictionary `distances` to store the shortest path distances for each node.
+
+The while loop continues until all reachable nodes are visited or no path is found between start and target. In each iteration, we dequeue a node and its distance, mark it as visited, and update the distances of its neighbors if they haven't been visited yet. If the current node matches the target, we return the distance from the starting node to the current node (the shortest path length).
+
+Finally, the function returns `None` if no path is found between start and target.

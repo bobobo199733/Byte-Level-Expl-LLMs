@@ -1,0 +1,8 @@
+Here is the Python function you requested:
+
+```python
+def parse_csv_line(line):
+    return list(map(str.strip, line.split(',')))
+```
+
+This function uses the `map()` function to apply the `str.strip()` method (which removes leading and trailing whitespace) to each field in the CSV line after it has been split by commas using the `split()` method. The resulting list of fields is then returned.

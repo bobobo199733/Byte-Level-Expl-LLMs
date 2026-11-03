@@ -1,0 +1,77 @@
+**Counting Islands in a 2D Grid**
+=====================================
+
+Here is a Python function to count the number of islands in a given 2D grid:
+```python
+def count_islands(grid):
+    """
+    Counts the number of islands in a 2D grid.
+
+    Args:
+        grid (list[list[int]]): A 2D grid where 1 represents land and 0 represents water.
+
+    Returns:
+        int: The number of islands in the grid.
+    """
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    island_count = 0
+
+    def dfs(row, col):
+        """
+        Performs a depth-first search from the given cell.
+
+        Args:
+            row (int): The row index of the cell.
+            col (int): The column index of the cell.
+        """
+        if row < 0 or row >= rows or col < 0 or col >= cols or grid[row][col] == 0:
+            return
+        grid[row][col] = 0  # Mark as visited
+        dfs(row - 1, col)   # Explore up
+        dfs(row + 1, col)   # Explore down
+        dfs(row, col - 1)   # Explore left
+        dfs(row, col + 1)   # Explore right
+
+    for row in range(rows):
+        for col in range(cols):
+            if grid[row][col] == 1:
+                island_count += 1
+                dfs(row, col)
+
+    return island_count
+```
+**Example Use Cases**
+--------------------
+
+```python
+grid = [
+    [1, 1, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1]
+]
+
+print(count_islands(grid))  # Output: 4
+
+grid = [
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1]
+]
+
+print(count_islands(grid))  # Output: 1
+
+grid = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+]
+
+print(count_islands(grid))  # Output: 0
+```
+This function uses a depth-first search (DFS) to mark all cells in an island as visited. The `dfs` function is called recursively from each cell that represents land (1). The main function iterates over the grid, calling `dfs` for each unvisited land cell it encounters. Finally, it returns the total count of islands found.

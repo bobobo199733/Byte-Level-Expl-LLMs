@@ -1,0 +1,78 @@
+Certainly! The N-queens problem involves placing `n` queens on an `n×n` chessboard so that no two queens threaten each other. Here's a Python implementation of the `n_queens` function:
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        # Check this row on left side
+        for i in range(col):
+            if board[row][i] == 'Q':
+                return False
+        
+        # Check upper diagonal on left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 'Q':
+                return False
+        
+        # Check lower diagonal on left side
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 'Q':
+                return False
+        
+        return True
+
+    def solve_n_queens(board, col):
+        # If all queens are placed then print the solution
+        if col >= n:
+            solutions.append(["".join(row) for row in board])
+            return True
+        
+        res = False
+        for i in range(n):
+            if is_safe(board, i, col):
+                # Place this queen in board[i][col]
+                board[i][col] = 'Q'
+                
+                # Move on to place rest of the queens
+                res = solve_n_queens(board, col + 1) or res
+                
+                # Backtrack and unplace the queen from the current cell
+                board[i][col] = '.'
+        
+        return res
+
+    solutions = []
+    # Initialize the chessboard with '.' (empty)
+    board = [['.' for _ in range(n)] for _ in range(n)]
+    
+    solve_n_queens(board, 0)
+    
+    return solutions
+
+# Example usage:
+print(n_queens(4))
+```
+
+### Explanation:
+
+1. **`is_safe(board, row, col)`**: This helper function checks if placing a queen at `board[row][col]` is safe from attacks by other queens.
+   - It checks the current column and the upper left diagonal to ensure no two queens are in the same column or diagonals.
+
+2. **`solve_n_queens(board, col)`**: This recursive function tries to place a queen in every row of the given column `col`.
+   - If all columns (i.e., all queens) have been successfully placed (`col >= n`), it adds the current configuration to the list of solutions.
+   - It uses backtracking by trying each cell in the current column and recursively solving for the next column.
+
+3. **`n_queens(n)`**: This is the main function that initializes the board, calls `solve_n_queens`, and returns all valid solutions.
+
+### Example Output:
+For `n = 4`, the output would be:
+
+```python
+[
+    ['Q', '.', '.', '.'],
+    ['.', '.', 'Q', '.'],
+    ['.', '.', '.', 'Q'],
+    ['.', 'Q', '.', '.']
+]
+```
+
+This represents one of the possible configurations where each 'Q' is a queen placed on the board such that no two queens threaten each other.

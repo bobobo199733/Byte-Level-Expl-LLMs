@@ -1,0 +1,8 @@
+Write a Python function word_frequency(text).
+
+Requirements:
+- Split words by whitespace
+- Count occurrences of each word
+- Return a dictionary
+- Ignore extra spaces
+- Use only standard Python

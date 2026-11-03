@@ -1,0 +1,15 @@
+Here is a Python function called `fast_power` that meets the requirements:
+
+```python
+def fast_power(base, exponent):
+    result = 1
+    while exponent:
+        if exponent % 2:
+            result *= base
+            exponent -= 1
+        base *= base
+        exponent //= 2
+    return result
+```
+
+This function uses squaring to speed up the calculation when the exponent is even, and multiplies by the base when the exponent is odd. The loop continues until the exponent becomes zero or negative, in which case it returns `1` (the identity for multiplication).

@@ -1,0 +1,32 @@
+Here's a simple implementation of the `autocomplete_system` function in Python using a Trie (Prefix Tree) data structure. This approach allows for efficient searching and insertion of words.
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+def autocomplete_system(words, prefix):
+    root = TrieNode()
+
+    for word in words:
+        node = root
+        for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.is_word = True
+
+    suggestions = []
+    def dfs(node, prefix):
+        if node.is_word:
+            suggestions.append(prefix + node.key)
+        for char, child in node.children.items():
+            dfs(child, prefix + char)
+
+    dfs(root, prefix)
+
+    return sorted(suggestions)
+```
+
+In this implementation, the `TrieNode` class represents a single node in the Trie data structure, and the `autocomplete_system` function takes care of building the Trie from a list of words and finding suggestions for a given prefix. The `dfs` function is used as a helper function to traverse the Trie and collect autocomplete suggestions.

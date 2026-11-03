@@ -1,0 +1,21 @@
+Here is the requested Python function:
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    if not isinstance(words, list):
+        raise ValueError("Input must be a list")
+
+    groups = defaultdict(list)
+    for word in words:
+        if not isinstance(word, str):
+            raise ValueError("All elements in the list must be strings")
+
+        sorted_word = ''.join(sorted(word))
+        groups[sorted_word].append(word)
+
+    return list(groups.values())
+```
+
+This function uses a defaultdict to group anagrams by sorting their characters and adding the original words to the appropriate group. It validates both the input and each word in the list to ensure they are of the expected type.

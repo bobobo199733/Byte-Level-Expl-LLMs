@@ -1,0 +1,11 @@
+def count_set_bits(n):
+    """
+    Counts the number of set bits (i.e., 1's) in a given integer n.
+
+    Args:
+        n (int): The input integer.
+
+    Returns:
+        int: The number of set bits in n.
+    """
+    return bin(n).count('1')

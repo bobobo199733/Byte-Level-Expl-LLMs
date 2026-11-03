@@ -1,0 +1,40 @@
+To create a binary tree, let's first define a class `Node` for each node in the binary tree and a class `BinaryTree` to represent the tree itself. Here's how you can do it:
+
+```python
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+class BinaryTree:
+    def __init__(self, root=None):
+        self.root = root
+
+def binary_tree_inorder(tree):
+    result = []
+
+    def inorder_traversal(node):
+        if node is not None:
+            inorder_traversal(node.left)
+            result.append(node.val)
+            inorder_traversal(node.right)
+
+    if tree.root is not None:
+        inorder_traversal(tree.root)
+
+    return result
+```
+
+Now you can use the `binary_tree_inorder()` function to get the inorder traversal of a binary tree like this:
+
+```python
+# Create example binary tree
+bt = BinaryTree(Node(1))
+bt.root.left = Node(2)
+bt.root.right = Node(3)
+bt.root.left.left = Node(4)
+bt.root.left.right = Node(5)
+
+print(binary_tree_inorder(bt))  # Output: [4, 2, 5, 1, 3]
+```

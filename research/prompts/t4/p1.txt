@@ -1,0 +1,18 @@
+Write a Python function:
+
+def decode_string(s: str) -> str
+
+The function must decode encoded strings where:
+
+- A number followed by brackets means repetition
+- Example: "3[a]" -> "aaa"
+- Nested patterns are allowed
+  - "3[a2[c]]" -> "accaccacc"
+
+Requirements:
+- Support multi-digit numbers
+- Support nested brackets
+- Return the decoded string
+- Raise ValueError for invalid input
+- Do not print anything
+- Output only Python code

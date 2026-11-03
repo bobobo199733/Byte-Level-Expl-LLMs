@@ -1,0 +1,41 @@
+Here is a Python function using dynamic programming to solve this problem:
+```python
+def word_break(s, word_dict):
+    """
+    Returns True if string s can be segmented into space-separated sequence of 
+    one or more words from word_dict, False otherwise.
+
+    :param s: input string to be segmented
+    :type s: str
+    :param word_dict: list of valid words
+    :type word_dict: list[str]
+    :return: whether string can be segmented
+    :rtype: bool
+    """
+    n = len(s)
+    dp = [False] * (n + 1)  # dp[i] means s[:i+1] can be segmented
+
+    # base case, an empty string can always be segmented
+    dp[0] = True
+
+    for i in range(1, n + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_dict:
+                dp[i] = True
+                break
+
+    return dp[n]
+```
+Here's an explanation of how the function works:
+
+* We initialize a dynamic programming array `dp` of size `n + 1`, where `n` is the length of string `s`. The value at index `i` represents whether the substring `s[:i]` can be segmented into space-separated words from `word_dict`.
+* We start by setting `dp[0] = True`, since an empty string can always be segmented.
+* Then, for each position `i` in the string (from 1 to `n`), we check all substrings `s[:j]` that end at a word boundary (`j <= i`). If `dp[j]` is `True` (meaning `s[:j]` can be segmented) and `s[j:i]` is a valid word in the dictionary, then we set `dp[i] = True`.
+* Finally, we return the value of `dp[n]`, which indicates whether the entire string `s` can be segmented.
+
+Example use case:
+```python
+print(word_break("applepenapple", ["apple","pen"]))  # returns True
+print(word_break("catsandog", ["cats","dog","sand","and","cat"]))  # returns False
+```
+This function runs in O(n^2) time, where n is the length of string `s`, since we have two nested loops over the substring indices. However, this is optimal for dynamic programming solutions to this problem.

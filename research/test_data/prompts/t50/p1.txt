@@ -1,0 +1,1 @@
+Write a single Python function called find_all_anagrams(s, p) that finds all start indices in string s where an anagram of string p begins. Return a sorted list of starting indices. An anagram uses the same characters in any order.

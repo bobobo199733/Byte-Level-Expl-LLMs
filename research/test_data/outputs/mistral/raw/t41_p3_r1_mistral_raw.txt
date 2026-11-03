@@ -1,0 +1,33 @@
+To create a Python function `group_anagrams(words)` that groups anagrams together, you can use the following approach:
+
+1. Sort each word in the list (since anagrams have the same characters but possibly different order).
+2. Use a dictionary to store the sorted words as keys and their original words as values in groups.
+3. Iterate through the input list of words, sort each word, check if the sorted word is already in the dictionary, if yes, append the original word to the existing group, otherwise create a new group and add the original word.
+4. Finally, return the dictionary containing the groups of anagrams.
+
+Here's the implementation:
+
+```python
+def group_anagrams(words):
+    anagram_groups = {}
+
+    for word in words:
+        sorted_word = ''.join(sorted(word))
+        if sorted_word in anagram_groups:
+            anagram_groups[sorted_word].append(word)
+        else:
+            anagram_groups[sorted_word] = [word]
+
+    return anagram_groups
+```
+
+You can test the function with an example:
+
+```python
+words = ['listen', 'silent', 'enlist', 'central', 'decent', 'acting', 'focus', 'licent', 'clip', 'close']
+print(group_anagrams(words))
+# Output: {'listen': ['listen'], 'silent': ['silent'], 'enlist': ['enlist'], 'central': ['central'],
+#          'decent': ['decent'], 'acting': ['acting'], {'focus': ['focus', 'licent'], 'clip': ['clip'], 'close': ['close']}
+```
+
+This function groups anagrams together and stores the results in a dictionary, where each key is the sorted version of an anagram's characters and values are lists of original words that belong to the same group.

@@ -1,0 +1,4 @@
+Write one Python function called linked_list_cycle(head) that checks whether a linked list has a cycle.
+
+Use only one function with that exact name.
+Return True or False.

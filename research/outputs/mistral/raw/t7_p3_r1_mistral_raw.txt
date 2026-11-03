@@ -1,0 +1,33 @@
+Sure! Here's an example of how you can write a `word_frequency` function in Python that counts the frequency of each word in a given text:
+
+```python
+import re
+
+def word_frequency(text):
+    words = re.findall(r'\w+', text)  # find all words in the text
+    freq_dict = {}  # dictionary to store the frequencies
+
+    for word in words:
+        if word in freq_dict:
+            freq_dict[word] += 1
+        else:
+            freq_dict[word] = 1
+
+    return freq_dict
+```
+
+This function uses regular expressions to find all the words (separated by whitespace or punctuation) in the input text. It then builds a dictionary where each key is a word and its corresponding value is the frequency count. The function can handle multiple occurrences of the same word, as well as punctuation and cases where words are separated by more than one space.
+
+You can use it like this:
+
+```python
+text = "The quick brown fox jumps over the lazy dog."
+freq_dict = word_frequency(text)
+print(freq_dict)
+```
+
+This will output something like this:
+
+```
+{'the': 1, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog.': 1}
+```

@@ -1,0 +1,24 @@
+Here's a Python function for matrix multiplication. This function assumes that the number of columns in matrix A is equal to the number of rows in matrix B, which is a requirement for matrix multiplication.
+
+```python
+def matrix_multiply(A, B):
+    result = []
+    for i in range(len(A)):
+        row = []
+        for j in range(len(B[0])):
+            sum = 0
+            for k in range(len(B)):
+                sum += A[i][k] * B[k][j]
+            row.append(sum)
+        result.append(row)
+    return result
+```
+
+You can use this function like so:
+
+```python
+matrix_A = [[1, 2], [3, 4]]
+matrix_B = [[5, 6], [7, 8]]
+result = matrix_multiply(matrix_A, matrix_B)
+print(result)  # Output: [[22, 26], [49, 58]]
+```

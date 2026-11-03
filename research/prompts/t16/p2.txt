@@ -1,0 +1,9 @@
+Write a Python function called sudoku_solver(board) that solves a standard 9x9 Sudoku puzzle.
+
+Requirements:
+- Empty cells are represented by 0.
+- Modify the board in-place.
+- Use backtracking.
+- Follow Sudoku rules for rows, columns, and 3x3 boxes.
+- Do not use external libraries.
+- Raise a ValueError if the puzzle is invalid or unsolvable.

@@ -1,0 +1,53 @@
+```python
+def robot_simulator(commands):
+    """
+    Simulates robot movement based on given commands.
+
+    Args:
+        commands (str): Sequence of F, L, R moves.
+
+    Returns:
+        list: Final position and direction [x, y, direction] where direction is "N", "E", "S", or "W".
+    """
+
+    # Initial state
+    x, y = 0, 0
+    direction = 'N'  # Default facing North
+
+    for command in commands:
+        # Move forward one step if F is encountered
+        if command == 'F':
+            if direction == 'N':  # Facing North
+                y += 1
+            elif direction == 'S':  # Facing South
+                y -= 1
+            elif direction == 'E':  # Facing East
+                x += 1
+            elif direction == 'W':  # Facing West
+                x -= 1
+
+        # Turn left if L is encountered
+        elif command == 'L':
+            if direction == 'N':
+                direction = 'W'
+            elif direction == 'S':
+                direction = 'E'
+            elif direction == 'E':
+                direction = 'N'
+            elif direction == 'W':
+                direction = 'S'
+
+        # Turn right if R is encountered
+        elif command == 'R':
+            if direction == 'N':
+                direction = 'E'
+            elif direction == 'S':
+                direction = 'W'
+            elif direction == 'E':
+                direction = 'S'
+            elif direction == 'W':
+                direction = 'N'
+
+    # Return final position and direction
+    return [x, y, direction]
+```

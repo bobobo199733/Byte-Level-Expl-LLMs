@@ -1,0 +1,59 @@
+Here's a Python implementation of an LRU (Least Recently Used) cache using an OrderedDict from the collections module:
+
+```python
+from collections import OrderedDict
+import time
+
+def lru_cache(operations, capacity):
+    """
+    Simulates an LRU cache and returns the outputs of all get operations.
+    
+    Parameters:
+    operations (list): A list of tuples where each tuple contains a key-value pair to be inserted or updated in the cache, 
+                       followed by a key for which the most recent value is to be retrieved from the cache. If the key 
+                       exists in the cache, its value will be returned; otherwise None will be returned.
+    capacity (int): The maximum number of items that can be stored in the cache.
+
+    Returns:
+    list: A list of the outputs of all get operations.
+    """
+    
+    # Initialize an OrderedDict to store the cache
+    cache = OrderedDict()
+    
+    # Perform each operation and keep track of the outputs
+    outputs = []
+    
+    for op in operations:
+        if len(op) == 3:  # Insert or update a key-value pair
+            key, value = op[0], op[1]
+            cache[key] = value
+            if len(cache) > capacity:
+                cache.popitem(last=False)
+        else:  # Get the most recent value for a key
+            key = op[0]
+            if key in cache:
+                outputs.append(cache[key])  # Store the output of get operation
+                cache.move_to_end(key)       # Move the accessed item to the end (most recently used position)
+    
+    return outputs
+
+# Example usage
+operations = [
+    ("key1", "value1"), ("key2", "value2"),
+    ("key3", "value3"), ("key4", "value4"),
+    ("key5", "value5"),  # cache is full, key5 will replace the oldest item
+    ("get", "key1"), ("get", "key2"), 
+    ("key6", "value6"), ("get", "key3")  # key3 will be evicted by this point because it has been accessed more recently
+]
+
+capacity = 4
+
+print(lru_cache(operations, capacity))
+```
+
+This function takes two parameters: `operations` and `capacity`. The `operations` parameter is a list of tuples representing the operations to be performed on the cache. Each tuple contains either two elements (key-value pair) or one element (key for which the most recent value is to be retrieved).
+
+The `lru_cache` function iterates over each operation, updates the cache accordingly, and keeps track of the outputs of all get operations.
+
+Note that the example usage demonstrates a scenario where the capacity of the cache is 4. When the cache reaches its capacity, the oldest item (the first one added) will be evicted to make room for new items.

@@ -1,0 +1,416 @@
+Ja. Je hebt ondertussen eigenlijk al een behoorlijk serieuze onderzoeks-pipeline gebouwd. Je zit niet meer in de “idee-fase”. Je zit nu in de fase waar je je verhaal scherp moet maken en je resultaten goed moet interpreteren.
+
+Waar je onderzoek nu eigenlijk over gaat
+
+Je thesis is geëvolueerd van:
+
+“Kan SHAP/LIME code uitleggen?”
+
+naar iets veel sterkers:
+
+“Kunnen post-hoc explainability methodes model-specifieke codegeneratiepatronen blootleggen via low-level bytecode representaties?”
+
+Dat is een veel beter onderzoek.
+
+Want nu onderzoek je niet alleen “explainability”, maar ook:
+
+* model fingerprints
+* implementation styles
+* code generation behavior
+* stylometry / authorship attribution achtige patronen
+* bytecode-level representaties
+
+Dat maakt het origineel.
+
+⸻
+
+Wat je pipeline momenteel doet
+
+Je hebt nu:
+
+Prompt
+→ LLM genereert code
+→ code cleaning
+→ automated testing
+→ bytecode extraction
+→ preprocessing
+→ classifier trainen
+→ SHAP analyse
+→ interpretatie van belangrijke byte-posities
+
+⸻
+
+Wat je concreet gebouwd hebt
+
+1. Dataset generation
+
+Je hebt:
+
+* meerdere taken (t1 ... t10)
+* meerdere promptvarianten:
+    * regular
+    * extra specified
+    * extra simple
+* meerdere runs per prompt
+* meerdere modellen:
+    * llama
+    * mistral
+    * qwen
+
+Dit is goed. Houden zo.
+
+Waarom?
+Omdat het:
+
+* variatie introduceert
+* overfitting vermindert
+* je classifier dwingt om echte modelpatronen te leren
+
+⸻
+
+2. Bytecode extraction
+
+Je bent afgestapt van .pyc raw bytes.
+
+Heel goed.
+
+Je gebruikt nu:
+
+fn.__code__.co_code
+
+Dus:
+
+* pure function bytecode
+* geen file headers
+* minder noise
+* consistenter
+
+Dit was een belangrijke verbetering.
+
+⸻
+
+3. Feature representation
+
+Je:
+
+* pad/truncate bytecode
+* maakt byte_0 ... byte_n
+* gebruikt die als input features
+
+Je hebt recent ontdekt dat:
+
+* 95th percentile ≈ 2538 bytes
+
+Dus je wilde waarschijnlijk:
+
+MAX_LEN = 2560
+
+Dat is logisch.
+3072 was waarschijnlijk te hoog.
+
+⸻
+
+4. Model training
+
+Je classifier:
+
+X = byte features
+y = originating LLM
+
+Dus:
+
+* predict welk model de code schreef
+* niet meer correctness voorspellen als hoofddoel
+
+Dat is een veel betere richting.
+
+Je behaalde ongeveer:
+
+Accuracy ≈ 0.60
+
+voor 3 klassen.
+
+Dat is eigenlijk prima voor:
+
+* slechts ~200 samples
+* low-level bytes
+* geen deep learning
+
+⸻
+
+5. SHAP analysis
+
+Je hebt:
+
+* SHAP beeswarms
+* SHAP bar plots
+* ternary probabilities
+* class-specific explanations
+
+En toen begon het interessante deel.
+
+⸻
+
+6. Grote ontdekking
+
+Je ontdekte dat belangrijke bytes:
+
+* NIET letterlijk “betekenisvolle bytes” zijn
+* maar vaak wijzen naar:
+    * implementation styles
+    * control flow
+    * API usage
+    * library preferences
+    * coding idioms
+
+Dat was een belangrijk moment.
+
+Bijvoorbeeld:
+
+word_frequency
+
+Llama:
+
+* regex
+* dict comprehension
+
+Mistral:
+
+* handmatige dict counting
+
+Qwen:
+
+* Counter + translate
+
+Dus SHAP leert eigenlijk:
+
+* implementatiegedrag
+* niet puur random byte-noise
+
+Dat is een sterk inzicht.
+
+⸻
+
+7. Byte tracing scripts
+
+Je bouwde scripts die:
+
+* byte 106/107 terugmappen
+* naar:
+    * opcode
+    * instruction
+    * line context
+    * generated source code
+
+Dat was extreem belangrijk.
+
+Want nu kan je:
+
+SHAP importance
+→ byte offset
+→ opcode
+→ source code region
+→ implementation strategy
+
+Dat maakt je explainability geloofwaardig.
+
+⸻
+
+8. Wat je ook ontdekte
+
+Een bytepositie is niet stabiel semantisch.
+
+Bijvoorbeeld:
+
+* byte 107 kan bij één model:
+    * COMPARE_OP
+* bij andere:
+    * LOAD_ATTR
+    * CALL
+
+Dus:
+
+dezelfde bytepositie ≠ dezelfde semantische betekenis
+
+Dat wordt waarschijnlijk een belangrijke limitation/discussion sectie.
+
+⸻
+
+Wat je NU nog moet doen
+
+Dit is het belangrijkste stuk.
+
+Je hoeft niet nog 40 scripts te bouwen.
+
+Je moet nu:
+
+* analyseren
+* structureren
+* schrijven
+
+Niet eindeloos verder engineeren.
+
+⸻
+
+Wat je thesis nu nodig heeft
+
+1. Definitieve research question
+
+Iets in de richting van:
+
+To what extent can post-hoc explainability methods reveal model-specific implementation patterns in LLM-generated code using bytecode-level representations?
+
+Dat is veel scherper dan je originele versie.
+
+⸻
+
+2. Sterke thesis narrative
+
+Je thesis moet nu vertellen:
+
+Niet:
+
+“SHAP op bytes”
+
+Maar:
+
+“Bytecode-level SHAP explanations can expose implementation tendencies and coding-style fingerprints of code-generating LLMs.”
+
+Dat is je echte verhaal.
+
+⸻
+
+3. Goede qualitative case studies
+
+Dit is nu je goudmijn.
+
+Bijvoorbeeld:
+
+* word_frequency
+* remove_k_digits
+* merge_intervals
+* longest_palindrome
+
+Daar zag je:
+
+* library preference verschillen
+* recursion vs iterative verschillen
+* Counter vs manual counting
+* regex vs translate
+* stack implementations
+
+Dat moet je analyseren.
+
+Niet alleen grafieken tonen.
+
+⸻
+
+4. Methodology uitschrijven
+
+Je moet nu helder uitleggen:
+
+Data generation
+
+* tasks
+* prompts
+* runs
+* models
+
+Representation
+
+* Python bytecode
+* fixed-length vector
+* padding/truncation
+
+Classification
+
+* RandomForest
+* multiclass
+
+Explainability
+
+* SHAP TreeExplainer
+
+Interpretation pipeline
+
+* trace byte → opcode → source context
+
+⸻
+
+5. Discussion / limitations
+
+Heel belangrijk.
+
+Je hebt al goede limitations ontdekt:
+
+Bijvoorbeeld:
+
+* byte positions zijn niet semantically aligned
+* dezelfde offset kan andere instructions bevatten
+* SHAP op bytes is indirect interpreteerbaar
+* explanation stability hangt af van compiler layout
+
+Maar:
+
+* tóch ontstaan consistente modelpatronen
+
+Dat is belangrijk.
+
+⸻
+
+Wat ik zou doen als volgende stap
+
+Prioriteit 1
+
+Schrijf:
+
+* Introduction
+* Methodology
+
+NU.
+
+Niet wachten.
+
+⸻
+
+Prioriteit 2
+
+Selecteer:
+
+* 3–5 sterke qualitative cases
+
+En analyseer die echt diep.
+
+⸻
+
+Prioriteit 3
+
+Maak je pipeline visualisatie netjes.
+
+Die wordt belangrijk.
+
+⸻
+
+Prioriteit 4
+
+Maak resultaten-sectie:
+
+* classifier performance
+* SHAP plots
+* case analyses
+
+⸻
+
+Wat je NIET meer moet doen
+
+Niet:
+
+* nog 100 extra tasks toevoegen
+* nog 8 nieuwe modellen toevoegen
+* nog een compleet nieuwe representatie bouwen
+* transformer classifier toevoegen
+* embeddings erbij gooien
+
+Dat is classic thesis scope creep.
+
+Je hebt al genoeg voor een bachelor thesis. Misschien zelfs meer dan genoeg.

@@ -1,0 +1,76 @@
+Certainly! To create a function `basic_calculator(s)` that evaluates arithmetic expressions containing non-negative integers, operators `+` and `-`, and parentheses using a stack-based approach, we can follow these steps:
+
+1. Remove spaces from the string.
+2. Use a stack to handle operations and operands.
+3. Iterate through each character in the string:
+   - If it's an integer, parse the number.
+   - If it's an operator or a closing parenthesis, evaluate the current expression until the next opening parenthesis is found (if any).
+4. Handle precedence of operators appropriately.
+
+Here's how you can implement this:
+
+```python
+def basic_calculator(s):
+    def pop_and_apply_operator(stack, operator):
+        right = stack.pop()
+        left = stack.pop()
+        if operator == '+':
+            stack.append(left + right)
+        elif operator == '-':
+            stack.append(left - right)
+
+    # Remove spaces and initialize the stack with a dummy 0 to handle cases where there's no leading number
+    s = s.replace(' ', '')
+    stack = [0]
+    
+    current_number = 0
+    current_sign = 1
+    result = 0
+    
+    for char in s:
+        if char.isdigit():
+            # Forming the integer
+            current_number = (current_number * 10) + int(char)
+        elif char == '+':
+            # Add previous number to result and reset with current sign
+            result += current_sign * current_number
+            current_sign = 1
+            current_number = 0
+        elif char == '-':
+            # Subtract the previous number from result and reset with current sign
+            result += current_sign * current_number
+            current_sign = -1
+            current_number = 0
+        elif char == '(':
+            # Push result and sign onto stack, update result and sign for new sub-expression
+            stack.append(result)
+            stack.append(current_sign)
+            result = 0
+            current_sign = 1
+        elif char == ')':
+            # Evaluate the expression inside parentheses
+            result += current_sign * current_number
+            current_number = 0
+            
+            prev_result = stack.pop()
+            prev_sign = stack.pop()
+            
+            result *= prev_sign
+            result += prev_result
+    
+    # Add last number and apply its sign
+    result += current_sign * current_number
+
+    return result
+
+# Example usage:
+print(basic_calculator("1 + 2 - (3 + (4 - 5))"))  # Output: 1
+```
+
+### Explanation:
+
+- **Stack Usage**: We use a stack to handle the evaluation of expressions inside parentheses. When we encounter an opening parenthesis, we push the current result and sign onto the stack before starting a new sub-expression.
+- **Current Number & Sign Handling**: `current_number` is used to form numbers from digits in the string. `current_sign` keeps track of the sign for adding or subtracting numbers based on whether they are positive or negative.
+- **Parentheses Handling**: When we encounter an opening parenthesis, we save the current result and sign onto the stack. When encountering a closing parenthesis, we evaluate the sub-expression by popping from the stack until the next operation is encountered.
+
+This approach ensures that parentheses are handled correctly while evaluating arithmetic expressions without using `eval()`.

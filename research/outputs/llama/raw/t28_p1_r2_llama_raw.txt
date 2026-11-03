@@ -1,0 +1,38 @@
+```python
+def robot_simulator(commands):
+    """
+    Simulates a robot moving on a grid.
+
+    Args:
+        commands (str): A string of space-separated commands ('LEFT', 'RIGHT', 'UP', 'DOWN', 'FORWARD').
+
+    Returns:
+        tuple: The final position and direction of the robot as a tuple (x, y, direction).
+    """
+
+    # Initialize the initial position at (0, 0) and facing north
+    x, y = 0, 0
+
+    # Define the possible directions and their corresponding movement offsets
+    directions = ['north', 'east', 'south', 'west']
+    offsets = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+    # Initialize the current direction as north
+    direction_index = 0
+
+    # Split the commands string into individual commands and process them one by one
+    for command in commands.split():
+        # Handle movement commands
+        if command == 'FORWARD':
+            x += offsets[direction_index][0]
+            y += offsets[direction_index][1]
+
+        # Handle direction change commands
+        elif command == 'LEFT':
+            direction_index = (direction_index - 1) % 4
+
+        elif command == 'RIGHT':
+            direction_index = (direction_index + 1) % 4
+
+    return x, y, directions[direction_index]
+```

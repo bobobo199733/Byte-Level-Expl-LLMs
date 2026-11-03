@@ -1,0 +1,16 @@
+{
+  "task_id": "t50",
+  "function_name": "find_all_anagrams",
+  "valid_cases": [
+    [["cbaebabacd", "abc"], [0, 6]],
+    [["abab", "ab"], [0, 1, 2]],
+    [["af", "be"], []],
+    [["aaaaaaaaaa", "aaaaaaa"], [0, 1, 2, 3]],
+    [["baa", "aa"], [1]]
+  ],
+  "invalid_cases": [
+    [[null, "abc"]],
+    [["abc", null]]
+  ],
+  "expected_exception": "ValueError"
+}

@@ -1,0 +1,63 @@
+Certainly! To check if all courses can be completed given the number of courses and their prerequisites, we can use a graph-based approach to model this problem as a Directed Acyclic Graph (DAG). If there's a cycle in the graph, it means that some courses have circular dependencies, which would prevent us from completing them. We can implement this using Depth-First Search (DFS) to detect cycles.
+
+Here is a Python function called `course_schedule`:
+
+```python
+from collections import defaultdict
+
+def course_schedule(num_courses, prerequisites):
+    # Build the graph and in-degree dictionary
+    graph = defaultdict(list)
+    in_degree = [0] * num_courses
+    
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+        in_degree[course] += 1
+    
+    # Find all courses with no prerequisites (in-degree of 0)
+    zero_indegree_queue = [i for i in range(num_courses) if in_degree[i] == 0]
+    
+    from collections import deque
+    queue = deque(zero_indegree_queue)
+    
+    completed_courses = 0
+    
+    while queue:
+        current_course = queue.popleft()
+        completed_courses += 1
+        
+        for course in graph[current_course]:
+            in_degree[course] -= 1
+            if in_degree[course] == 0:
+                queue.append(course)
+                
+    return completed_courses == num_courses
+
+# Example usage:
+num_courses = 4
+prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]
+print(course_schedule(num_courses, prerequisites))  # Output: True
+```
+
+### Explanation:
+
+1. **Graph Construction**: 
+   - We use an adjacency list to represent the graph.
+   - `in_degree` is a list that keeps track of how many prerequisites each course has.
+
+2. **Initialization**:
+   - Courses with no prerequisites (in-degree 0) are added to the queue.
+
+3. **Topological Sorting via BFS**:
+   - We process courses in a breadth-first manner, removing their outgoing edges and reducing the in-degrees of the dependent courses.
+   - If any course's in-degree drops to zero, it means all its prerequisites have been completed, so we add it to the queue.
+
+4. **Cycle Detection**:
+   - If at the end, we've processed exactly `num_courses` courses, then there are no cycles and all courses can be completed.
+   - Otherwise, a cycle exists, indicating that not all courses can be completed due to circular dependencies.
+
+### Example Usage:
+
+- The example given (`num_courses = 4`, `prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]]`) means course 1 and 2 have no prerequisites, but courses 3 has prerequisites from both 1 and 2. This forms a valid topological order.
+
+If you need to test this with different inputs or add more functionality, feel free to modify the function as needed!

@@ -1,0 +1,45 @@
+I'll provide you with a simple implementation of the HeapSort algorithm in Python. This version uses a list and the built-in `heapify` function to create a heap, but it doesn't use the built-in `sort` function.
+
+```python
+def heap_sort(values):
+    n = len(values)
+
+    # Heapify the input array as a max heap
+    def heapify(arr, n, i):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
+
+        if l < n and arr[l] > arr[largest]:
+            largest = l
+
+        if r < n and arr[r] > arr[largest]:
+            largest = r
+
+        if largest != i:
+            values[i], values[largest] = values[largest], values[i]
+            heapify(arr, n, largest)
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+
+    # Build the sorted array
+    for i in range(n - 1, 0, -1):
+        values[i], values[0] = values[0], values[i]
+        heapify(values, i, 0)
+
+    return values
+```
+
+You can use the function like this:
+
+```python
+values = [5, 3, 8, 6, 1, 9, 4, 7, 2]
+sorted_values = heap_sort(values)
+print(sorted_values)
+```
+
+Output:
+
+```
+[1, 2, 3, 4, 5, 6, 7, 8, 9]

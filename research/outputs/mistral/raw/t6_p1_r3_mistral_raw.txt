@@ -1,0 +1,23 @@
+Here is a Python function that implements the wildcard matching logic as described:
+
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    def match(i, j):
+        if j == len(p):
+            return i == len(s)
+
+        if j + 1 < len(p) and p[j+1] == '*':
+            # '*' can match any character or no character at all.
+            return (match(i, j+1) or (i < len(s) and s[i] == p[i] or match(i+1, j)))
+
+        if i < len(s) and (p[j] == s[i] or p[j] == '?'):
+            return match(i+1, j+1)
+        else:
+            return False
+
+    return match(0, 0)
+```
+
+This function uses a helper function `match(i, j)` to check if the substring from index `i` in `s` matches the substring from index `j` in `p`. The main function `wildcard_match(s, p)` checks if the entire string `s` can match the entire pattern `p` by calling `match(0, 0)`.
+
+The helper function `match(i, j)` recursively compares characters from `s` and `p` at indices `i` and `j`, while taking into account wildcard characters '?' and '*'. If a wildcard character is encountered, it checks possible matches according to the rules defined for '?' and '*'.

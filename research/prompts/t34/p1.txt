@@ -1,0 +1,7 @@
+Write exactly ONE Python function called binary_search_rotated(values, target) that searches for a target in a rotated sorted array.
+
+Requirements:
+- Use only one function named binary_search_rotated.
+- Return the index of the target if found.
+- Return -1 if not found.
+- Use efficient search logic.

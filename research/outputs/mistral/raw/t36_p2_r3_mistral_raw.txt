@@ -1,0 +1,49 @@
+Here is a Python function implementing Dijkstra's algorithm for shortest path calculation in a weighted graph. This implementation uses a priority queue to optimize the time complexity. It also handles disconnected graphs correctly.
+
+```python
+from heapq import heappush, heappop, heapify
+
+def dijkstra_shortest_path(graph, start):
+    inf = float('inf')
+    n = len(graph)
+    dist = [inf] * n
+    dist[start] = 0
+    visited = set()
+    queue = [(0, start)]
+    while queue:
+        d, current = heappop(queue)
+        if current in visited:
+            continue
+        visited.add(current)
+        for neighbor, weight in graph[current].items():
+            if neighbor not in visited and dist[neighbor] > dist[current] + weight:
+                dist[neighbor] = dist[current] + weight
+                heappush(queue, (dist[neighbor], neighbor))
+    return dist
+```
+
+In this implementation, `graph` is a dictionary containing adjacency lists for each node. The keys of the graph represent nodes and values are dictionaries where keys are neighbors and values are their corresponding weights. For example:
+
+```python
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'D': 2, 'E': 5},
+    'C': {'D': 3, 'F': 6},
+    'D': {},
+    'E': {'F': 1},
+    'F': {}
+}
+```
+
+The function `dijkstra_shortest_path(graph, 'A')` will return:
+
+```python
+{
+    'A': 0,
+    'B': 1,
+    'C': 4,
+    'D': 3,
+    'E': 6,
+    'F': inf
+}
+```

@@ -1,0 +1,29 @@
+Here's a Python function named `group_anagrams` that sorts words by their sorted characters and then groups anagrams together:
+
+```python
+def group_anagrams(words):
+    groups = {}
+
+    for word in words:
+        sort_word = ''.join(sorted(word))
+
+        if sort_word not in groups:
+            groups[sort_word] = []
+
+        groups[sort_word].append(word)
+
+    return list(groups.values())
+```
+
+You can test the function with the following code:
+
+```python
+words = ['cinema', 'iceman', 'ismene', 'scream', 'cream', 'dreams']
+grouped_anagrams = group_anagrams(words)
+print(grouped_anagrams)
+```
+
+Output:
+
+```python
+[['cinema', 'iceman'], ['ismene'], ['cream', 'dreams']]

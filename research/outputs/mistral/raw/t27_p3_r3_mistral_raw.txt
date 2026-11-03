@@ -1,0 +1,30 @@
+Here's a Python function called `trapping_rain_water` that calculates the amount of trapped rainwater in an array of heights representing buildings with gaps between them:
+
+```python
+def trapping_rain_water(heights):
+    n = len(heights)
+    if n < 3:
+        return 0
+
+    left, right = [0]*n, [0]*n
+    max_left = [0] * n
+    max_right = [0] * n
+
+    # Initialize maximum heights to the left and right of each element
+    for i in range(1, n):
+        max_left[i] = max(max_left[i-1], heights[i-1])
+
+    for i in reversed(range(n - 1)):
+        max_right[i] = max(max_right[i+1], heights[i+1])
+
+    # Calculate the trapped rain water amount for each element
+    total = 0
+    for i in range(n):
+        min_height = min(max_left[i], max_right[i])
+        if min_height > heights[i]:
+            total += min_height - heights[i]
+
+    return total
+```
+
+This function calculates the amount of rainwater trapped by iterating through the array twice to find the maximum heights to the left and right of each element. Then, it goes through the array again to calculate the trapped water for each element. The trapped water is the minimum height between the current element's left and right neighbors subtracted from the height of the current element.

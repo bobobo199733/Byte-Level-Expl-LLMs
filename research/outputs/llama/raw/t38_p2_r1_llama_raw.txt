@@ -1,0 +1,71 @@
+Here is a Python function to convert infix expressions into postfix notation:
+```python
+def expression_to_postfix(expression):
+    """
+    Convert a mathematical infix expression into postfix notation.
+
+    Args:
+        expression (str): Infix expression as string, ignoring whitespace.
+
+    Returns:
+        str: Postfix expression as string.
+    """
+
+    # Define operator precedence (higher numbers mean higher precedence)
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+    # Initialize output and stack
+    postfix = ''
+    operator_stack = []
+
+    # Split input into tokens (operators, operands, parentheses)
+    tokens = []
+    token = ''
+    for char in expression:
+        if char.isspace():
+            continue
+        elif char == '(' or char == ')':
+            tokens.append(token + char)
+            token = ''
+        else:
+            token += char
+            if char == '+' or char == '-' or char == '*' or char == '/':
+                tokens.append(token)
+                token = ''
+
+    # Append any remaining operand to the list of tokens
+    tokens.append(token)
+
+    # Iterate through each token in the input
+    for token in tokens:
+        # If it's an operator, pop operators from the stack and append them to output
+        if token in precedence:
+            while (operator_stack and 
+                   precedence[operator_stack[-1]] >= precedence[token]):
+                postfix += operator_stack.pop() + ' '
+            operator_stack.append(token)
+        # If it's a left parenthesis, push it onto the stack
+        elif token == '(':
+            operator_stack.append(token)
+        # If it's a right parenthesis, pop operators until we reach the matching left paren
+        elif token == ')':
+            while operator_stack and operator_stack[-1] != '(':
+                postfix += operator_stack.pop() + ' '
+            # Remove the left paren from the stack (it was pushed earlier)
+            if len(operator_stack) > 0:
+                operator_stack.pop()
+        # If it's an operand, just append it to the output
+        else:
+            postfix += token + ' '
+
+    # Pop any remaining operators from the stack and append them to the output
+    while operator_stack:
+        postfix += operator_stack.pop() + ' '
+
+    return postfix.strip()
+
+# Example usage
+print(expression_to_postfix("A+B*C"))  # Output: "ABC*+"
+print(expression_to_postfix("(A+B)*C"))  # Output: "ABC+*C"
+```
+This function works by iterating through each token in the input expression, using a stack to store operators and applying operator precedence rules.

@@ -1,0 +1,18 @@
+Write a Python function:
+
+def is_balanced(s: str) -> bool
+
+Return True if the brackets in the string are balanced and properly nested, and False otherwise.
+
+Requirements:
+- Support these bracket types: (), [], {}
+- Ignore all non-bracket characters
+- Empty string should return True
+- Examples:
+  - "()" -> True
+  - "()[]{}" -> True
+  - "(]" -> False
+  - "([)]" -> False
+  - "{[]}" -> True
+- Do not print anything
+- Output only Python code

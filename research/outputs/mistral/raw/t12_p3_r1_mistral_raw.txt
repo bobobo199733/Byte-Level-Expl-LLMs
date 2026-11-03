@@ -1,0 +1,32 @@
+Here is a Python implementation of the BFS Shortest Path algorithm. This function assumes that the graph is represented as an adjacency list and all edges are undirected. It also assumes that `None` or `-1` in the graph represent no edge (null) and infinite distance respectively.
+
+```python
+from collections import defaultdict, deque
+
+def bfs_shortest_path(graph, start, target):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    visited = set()
+    queue = deque([(start, [])])
+
+    while queue:
+        current, path = queue.popleft()
+        for neighbor in graph[current]:
+            new_path = list(path) + [current]
+            if neighbor not in visited:
+                visited.add(neighbor)
+                if neighbor == target:
+                    return distances[target] = len(new_path) - 1
+                if distances[neighbor] == None or len(new_path) < distances[neighbor]:
+                    distances[neighbor] = len(new_path) - 1
+                    queue.append((neighbor, new_path))
+
+    return -1 if target in distances else None
+```
+
+In the above code:
+- `graph` is a dictionary representing the adjacency list of the graph, where each key represents a node and its value is another dictionary containing the neighbor nodes as keys.
+- `start` and `target` are the starting and target nodes respectively.
+- `distances` is a dictionary storing the shortest distances from the start to all other nodes.
+- `visited` is a set of visited nodes during the BFS traversal.
+- `queue` is a deque (double ended queue) holding nodes to be explored with their paths from the starting node.

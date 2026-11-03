@@ -1,0 +1,50 @@
+Certainly! Below is a Python function that traverses a matrix in spiral order and returns the visited elements as a list:
+
+```python
+def spiral_matrix(matrix):
+    if not matrix or not matrix[0]:
+        return []
+    
+    rows, cols = len(matrix), len(matrix[0])
+    result = []
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Right, Down, Left, Up
+    visited = set()
+    row, col, direction_idx = 0, 0, 0
+    
+    while len(visited) < rows * cols:
+        if (row, col) not in visited:
+            result.append(matrix[row][col])
+            visited.add((row, col))
+        
+        next_row, next_col = row + directions[direction_idx][0], col + directions[direction_idx][1]
+        
+        # Check bounds and whether the cell is already visited
+        if 0 <= next_row < rows and 0 <= next_col < cols and (next_row, next_col) not in visited:
+            row, col = next_row, next_col
+        else:
+            direction_idx = (direction_idx + 1) % 4  # Change direction
+            row += directions[direction_idx][0]
+            col += directions[direction_idx][1]
+    
+    return result
+
+# Example usage:
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+```
+
+### Explanation:
+- **Initialization**: We start by checking if the matrix is empty. If it is, we return an empty list.
+- **Direction Handling**: The `directions` list contains the possible movements in a spiral order: right, down, left, and up.
+- **Traversal Logic**:
+  - We use a set to keep track of visited cells.
+  - We initialize our starting position at `(0, 0)` (top-left corner) and start moving according to the current direction.
+  - If the next cell is within bounds and hasn't been visited, we move there. Otherwise, we change direction by rotating clockwise.
+- **Boundary Checks**: The while loop continues until all cells have been visited.
+
+This function correctly handles both square and rectangular matrices and avoids revisiting elements.

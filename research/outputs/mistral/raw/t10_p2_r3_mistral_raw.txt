@@ -1,0 +1,33 @@
+Here's a Python function called `longest_palindrome` that meets your requirements:
+
+```python
+def longest_palindrome(s):
+    if len(s) == 0:
+        return ""
+
+    max_length = 1
+    start = 0
+
+    for i in range(len(s)):
+        # Odd length palindromes centered at current index 'i'
+        low, high = i, i
+        while low >= 0 and high < len(s) and s[low] == s[high]:
+            if high - low + 1 > max_length:
+                start = low
+                max_length = high - low + 1
+            low -= 1
+            high += 1
+
+        # Even length palindromes between 'i-1' and 'i+1'
+        low, high = i - 1, i + 1
+        while low >= 0 and high < len(s) and s[low] == s[high]:
+            if high - low + 1 > max_length:
+                start = low - 1
+                max_length = high - low + 2
+            low -= 1
+            high += 1
+
+    return s[start:start+max_length]
+```
+
+This function iterates through the input string `s`, checking for both odd and even length palindromes. For each iteration, it expands the palindrome from the current index in both directions until it encounters characters that don't match or reaches the beginning/end of the string. It keeps track of the longest palindrome found and returns it at the end.

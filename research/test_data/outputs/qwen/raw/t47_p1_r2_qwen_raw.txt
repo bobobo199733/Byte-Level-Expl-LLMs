@@ -1,0 +1,76 @@
+To create a `basic_calculator` function in Python that can evaluate arithmetic expressions with basic operations (`+`, `-`) and support for parentheses, we can use a stack-based approach to handle the operators and parentheses correctly. Here's how you can implement it:
+
+```python
+def basic_calculator(s: str) -> int:
+    def apply_operator(operators, values):
+        right = values.pop()
+        left = values.pop()
+        operator = operators.pop()
+        if operator == '+':
+            values.append(left + right)
+        elif operator == '-':
+            values.append(left - right)
+
+    def greater_precedence(op1, op2):
+        precedence = {'+': 1, '-': 1}
+        return precedence[op1] >= precedence[op2]
+
+    operators = []
+    values = []
+    i = 0
+    while i < len(s):
+        if s[i].isspace():
+            i += 1
+            continue
+        if s[i].isdigit():
+            value = 0
+            while i < len(s) and s[i].isdigit():
+                value = value * 10 + int(s[i])
+                i += 1
+            values.append(value)
+        elif s[i] in "+-":
+            while operators and (operators[-1] != '('):
+                apply_operator(operators, values)
+            operators.append(s[i])
+        elif s[i] == '(':
+            operators.append(s[i])
+        elif s[i] == ')':
+            while operators[-1] != '(':
+                apply_operator(operators, values)
+            operators.pop()  # Remove the '(' from stack
+            i += 1
+        else:
+            raise ValueError(f"Invalid character: {s[i]}")
+        i += 1
+
+    while operators:
+        apply_operator(operators, values)
+
+    return values[0]
+
+# Example usage:
+print(basic_calculator("1 + 2 - 3 + 4"))  # Output: 4
+print(basic_calculator("(1 + 2) - (3 - 4)"))  # Output: 2
+```
+
+### Explanation:
+
+1. **Stacks for Operators and Values**:
+   - `operators` stack is used to keep track of operators.
+   - `values` stack is used to store the intermediate results.
+
+2. **Apply Operator Function**:
+   - This function applies an operator (`+`, `-`) on the top two values from the `values` stack, updates the `values` stack with the result, and then pops the operator from the `operators` stack.
+
+3. **Precedence Check**:
+   - The `greater_precedence` function checks if the current operator has greater or equal precedence than the last one in the stack.
+
+4. **Handling Characters**:
+   - If the character is a digit, it constructs and appends an integer value to the `values` stack.
+   - If the character is an operator (`+`, `-`), it applies any pending operators with higher precedence first and then pushes the current operator onto the stack.
+   - For parentheses, it handles opening parentheses by pushing them onto the `operators` stack and closing parentheses by applying any operators inside until an opening parenthesis is found.
+
+5. **Final Result**:
+   - After processing all characters, any remaining operators in the stack are applied to get the final result.
+
+This implementation ensures that the arithmetic expression is evaluated correctly according to the standard rules of operator precedence and associativity.

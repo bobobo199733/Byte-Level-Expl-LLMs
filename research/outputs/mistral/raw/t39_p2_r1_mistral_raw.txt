@@ -1,0 +1,26 @@
+Here is a Python function named `knapsack_01` that solves the 0/1 knapsack problem as per your requirements:
+
+```python
+def knapsack_01(weights, values, capacity):
+    if not weights or not values:
+        return 0
+
+    n = len(weights)
+
+    # Initialize a table to store the maximum value for subproblems
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    # Fill up the table using bottom-up dynamic programming approach
+    for i in range(n + 1):
+        for w in range(capacity + 1):
+            if i == 0 or w == 0:
+                dp[i][w] = 0
+            elif weights[i - 1] <= w:
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    return dp[n][capacity]
+```
+
+This function uses a bottom-up dynamic programming approach to compute the optimal value for the given weight and value lists with a given capacity. The `dp` table stores the maximum value that can be obtained when only considering items up to the current index (i) and remaining capacity (w). The function then returns the maximum total value that can be obtained without exceeding the given capacity.

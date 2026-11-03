@@ -1,0 +1,8 @@
+Here is a Python function called `count_set_bits` which counts the number of 1 bits in the binary representation of an integer `n`.
+
+```python
+def count_set_bits(n):
+    return bin(n).count('1')
+```
+
+This function uses Python's built-in `bin()` function to convert the input number into a binary string, and then counts the number of '1' characters in that binary representation using the `count()` method.

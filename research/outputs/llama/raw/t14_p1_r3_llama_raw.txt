@@ -1,0 +1,50 @@
+Here's the code for `generate_parentheses` function in Python. This function uses a recursive approach to generate all possible combinations.
+
+```python
+def generate_parentheses(n):
+    """
+    Generate all valid combinations of n pairs of parentheses.
+
+    :param n: The number of pairs of parentheses.
+    :return: A list of strings, each representing a valid combination of n pairs of parentheses.
+    """
+
+    def backtrack(open_count, close_count, current_combination):
+        # Base case: If the total count is equal to 2 * n, we have formed a valid combination.
+        if len(current_combination) == 2 * n:
+            result.append("".join(current_combination))
+            return
+
+        # Add an opening parenthesis and recursively call backtrack with updated counts.
+        if open_count < n:
+            current_combination.append("(")
+            backtrack(open_count + 1, close_count, current_combination)
+            current_combination.pop()  # Backtrack by removing the last added opening parenthesis.
+
+        # Add a closing parenthesis and recursively call backtrack with updated counts.
+        if close_count < open_count:
+            current_combination.append(")")
+            backtrack(open_count, close_count + 1, current_combination)
+            current_combination.pop()  # Backtrack by removing the last added closing parenthesis.
+
+    result = []
+    backtrack(0, 0, [])
+    return result
+```
+
+**Example Usage**
+
+```python
+n = 3
+combinations = generate_parentheses(n)
+for combination in combinations:
+    print(combination)
+
+# Output:
+# ((()))
+# ()(())
+# (())()
+# ()()()
+```
+
+This function generates all possible combinations of `n` pairs of parentheses, where each pair is represented by a string consisting of two characters: an opening parenthesis and a closing parenthesis. The output will be a list of strings, each representing a valid combination of `n` pairs of parentheses.

@@ -1,0 +1,51 @@
+Certainly! The Breadth-First Search (BFS) algorithm is well-suited for finding the shortest path in an unweighted graph. Below is a Python function `bfs_shortest_path` that takes three parameters: a dictionary representing the graph, a starting node (`start`), and a target node (`target`). It returns the length of the shortest path from the start node to the target node.
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    if start not in graph or target not in graph:
+        return -1  # Return -1 if either node is not present in the graph
+    
+    queue = deque([(start, 0)])  # (node, distance_from_start)
+    visited = set([start])      # To keep track of visited nodes
+
+    while queue:
+        current_node, distance = queue.popleft()
+        
+        # Check if we have reached the target node
+        if current_node == target:
+            return distance
+        
+        # Explore all adjacent nodes
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, distance + 1))
+    
+    return -1  # Return -1 if no path is found
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+start_node = 'A'
+target_node = 'F'
+
+print(bfs_shortest_path(graph, start_node, target_node))  # Output: 2
+```
+
+### Explanation:
+1. **Graph Representation**: The graph is represented as a dictionary where each key (node) maps to a list of its neighbors.
+2. **Initialization**: We initialize the `queue` with a tuple containing the starting node and its distance from itself, which is 0. A set called `visited` keeps track of nodes that have already been explored to avoid revisiting them.
+3. **BFS Loop**: We use a while loop to process each node in the queue until we find the target node or exhaust all possibilities.
+4. **Checking Target Node**: If the current node is the target, we return the distance from the start node to the current node.
+5. **Exploring Neighbors**: For each neighbor of the current node that hasn't been visited yet, we add it to the queue with an incremented distance and mark it as visited.
+
+This function will return the length of the shortest path if a path exists; otherwise, it returns -1.

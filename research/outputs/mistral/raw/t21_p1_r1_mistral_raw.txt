@@ -1,0 +1,13 @@
+Here is the Python function for matrix multiplication:
+
+```python
+def matrix_multiply(A, B):
+    result = [[0]*len(B[0]) for _ in range(len(A))]
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+    return result
+```
+
+This function takes two matrices `A` and `B` as input, where both matrices should have the same number of columns (for the corresponding rows to match when multiplying) and returns their product as a new matrix.

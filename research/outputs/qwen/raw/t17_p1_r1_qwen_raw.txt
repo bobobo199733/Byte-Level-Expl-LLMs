@@ -1,0 +1,59 @@
+Certainly! To simulate an LRU (Least Recently Used) cache in Python, we can use a combination of a dictionary for quick lookups and a doubly linked list to maintain the order of usage. However, since Python does not have a built-in doubly linked list type, we can implement it ourselves or use collections.OrderedDict which maintains insertion order.
+
+Here's how you can create an LRU cache function using `collections.OrderedDict` for simplicity:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    cache = OrderedDict()
+    outputs = []
+    
+    def get(key):
+        if key not in cache:
+            return -1  # Return -1 if the key is not found in the cache
+        value = cache.pop(key)  # Remove the item from its current position and reinsert it at the end
+        cache[key] = value      # This ensures the most recently used items are at the end
+        outputs.append(value)
+        return value
+    
+    def put(key, value):
+        if key in cache:
+            cache.pop(key)         # Evict the item first if it exists to maintain order
+        elif len(cache) == capacity:
+            cache.popitem(last=False)  # Remove the least recently used item if the cache is full
+        cache[key] = value          # Insert the new key-value pair at the end
+        outputs.append(value)
+    
+    for operation in operations:
+        if isinstance(operation, tuple):
+            op, key = operation
+            if op == "get":
+                result = get(key)
+                outputs.append(result)  # Append the output of the get operation to the results
+            elif op == "put":
+                put(*operation[1:])
+    
+    return outputs
+
+# Example usage:
+operations = [
+    ("put", (1, 1)),
+    ("put", (2, 2)),
+    ("get", (1,)),
+    ("put", (3, 3)),
+    ("get", (2,)),
+    ("get", (3,))
+]
+capacity = 2
+
+print(lru_cache(operations, capacity))
+```
+
+In this implementation:
+- The `OrderedDict` is used to maintain the order of usage.
+- The `get` method retrieves a value and moves the accessed item to the end of the cache.
+- The `put` method inserts or updates an item. If the cache is full, it evicts the least recently used item before inserting the new one.
+- The `outputs` list stores the results of each operation.
+
+The example usage demonstrates how you can use this function with a series of "get" and "put" operations, and it prints out the outputs of all get operations.

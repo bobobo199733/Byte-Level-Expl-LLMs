@@ -1,0 +1,41 @@
+To create an LRU (Least Recently Used) cache in Python, we can use a combination of OrderedDict and a counter to keep track of the frequency of access for each item. Here's a simple implementation of the `lru_cache` function:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    cache = OrderedDict()
+    accessed = set()
+    for op in operations:
+        if op[0] == 'get':
+            if not cache or op[1] not in cache:
+                print(f'Miss: {op[1]}')
+            else:
+                cache.move_to_end(op[1])  # Move accessed item to the end of the cache
+                print(f'Hit: {op[1]}')
+            result = cache.get(op[1], None)
+        elif op[0] == 'put':
+            if op[1] in cache:
+                cache.move_to_end(op[1])  # Move put item to the end of the cache
+                accessed.discard(op[1])   # Remove from accessed set since we're updating its value
+            else:
+                if len(cache) >= capacity:
+                    least_recently_used = cache.popitem(last=False)  # Remove the least recently used item
+                    print(f'Eviction: {least_recently_used[0]}')
+            cache[op[1]] = op[2]
+            accessed.add(op[1])   # Add put item to the accessed set
+            print(f'Put: {op[1]}')
+        yield result
+
+# Example usage
+operations = [('get', 'one'), ('put', 'one', 1),
+              ('get', 'two'), ('put', 'two', 2),
+              ('get', 'three'), ('put', 'three', 3),
+              ('get', 'four'), ('get', 'one'),
+              ('get', 'two'), ('get', 'three')]
+
+for result in lru_cache(operations, capacity=3):
+    print(result)
+```
+
+This implementation simulates an LRU cache with the given operations and returns the outputs of all get operations. The output will be the values returned by each get operation, along with status messages for misses, hits, evictions, and puts.

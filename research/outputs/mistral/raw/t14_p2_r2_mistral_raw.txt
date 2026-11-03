@@ -1,0 +1,29 @@
+Here's a Python function called `generate_parentheses` that meets the requirements you've outlined:
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(left, right, string=''):
+        if left == right and left == n:
+            result.append(string)
+
+        if left > n or right > left:
+            return
+
+        backtrack(left + 1, right, string + '(')
+        backtrack(left, right + 1, string + ')')
+
+    backtrack(0, 0)
+    return result
+```
+
+This function uses recursion with backtracking to generate all valid parentheses combinations for the given `n`. It maintains a `result` list to store the generated strings and has an auxiliary helper function called `backtrack`. The `backtrack` function takes three arguments:
+
+1. `left`: the number of remaining left parentheses to be added in the current path.
+2. `right`: the number of remaining right parentheses to be added in the current path.
+3. `string`: the string that will accumulate the current combination.
+
+The base case is when both `left` and `right` equal `n`, which means we have found a valid combination and should append it to the result list. If either `left` exceeds `n` or `right` exceeds `left`, it means we are in an invalid state and can return without generating any further combinations on this path.
+
+For each valid state, the function generates two new states by adding a left parenthesis or a right parenthesis to the current string, and recursively calls itself with the updated values for `left`, `right`, and `string`. This process continues until all possible combinations are generated.

@@ -1,0 +1,44 @@
+To achieve an O(log(m+n)) time complexity, we can use the Binary Search algorithm to merge the two sorted arrays and find the median. Here's how you can implement the `median_of_two_sorted_arrays` function:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    m, n = len(nums1), len(nums2)
+
+    # If one of the arrays is empty, return the median of the other array
+    if m > n:
+        nums1, nums2 = nums2, nums1
+        m, n = n, m
+
+    # Prepare pointers for both arrays
+    low_pointer = 0
+    high_pointer_nums1 = m - 1
+    high_pointer_nums2 = n - 1
+
+    while True:
+        low_pointer_nums1 = (high_pointer_nums1 + low_pointer) // 2
+        low_pointer_nums2 = (high_pointer_nums2 + low_pointer) // 2
+
+        # Update pointers based on the comparison of the middle elements in both arrays
+        if nums1[low_pointer_nums1] <= nums2[low_pointer_nums2]:
+            low_pointer = low_pointer_nums1 + 1
+            high_pointer_nums2 = low_pointer_nums2 - 1
+        else:
+            high_pointer_nums1 = low_pointer_nums1 - 1
+            high_pointer_nums2 = low_pointer_nums2 + 1
+
+        # If pointers meet, we have the median if length is odd. Else average of two middle elements
+        if high_pointer_nums1 == low_pointer_nums2:
+            if m+n % 2 != 0:
+                return nums1[low_pointer_nums1]
+            else:
+                return (nums1[low_pointer_nums1] + nums2[low_pointer_nums2]) / 2.0
+
+        # If one of the pointers reaches the end, we can still find the median
+        if high_pointer_nums1 < low_pointer_nums1 or high_pointer_nums2 < low_pointer_nums2:
+            if m+n % 2 != 0:
+                return nums1[low_pointer_nums1] if high_pointer_nums1 >= low_pointer_nums1 else nums2[low_pointer_nums2]
+            else:
+                return (nums1[high_pointer_nums1] + nums2[high_pointer_nums2]) / 2.0
+```
+
+This function first checks if one of the arrays is empty and returns the median of the other array accordingly. Then, it uses binary search to find the median by merging the two sorted arrays. If the length of the merged arrays is odd, it returns the middle element; otherwise, it computes the average of the two middle elements. The time complexity is O(log(m+n)).

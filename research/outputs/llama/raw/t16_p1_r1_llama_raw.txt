@@ -1,0 +1,86 @@
+**Sudoku Solver Function**
+==========================
+
+The following is a Python function to solve a Sudoku puzzle in-place.
+
+```python
+def sudoku_solver(board):
+    """
+    Solves a Sudoku puzzle in-place.
+
+    Args:
+        board (list): A 2D list representing the Sudoku board.
+            Each inner list represents a row, and each element
+            in the inner list is an integer between 1 and 9,
+            or 0 if the cell is empty.
+
+    Returns:
+        bool: True if the puzzle was solved successfully, False otherwise.
+    """
+    def is_valid(num, row, col):
+        """Check if a number can be placed at a given position."""
+        # Check the row
+        for x in range(9):
+            if board[row][x] == num:
+                return False
+
+        # Check the column
+        for x in range(9):
+            if board[x][col] == num:
+                return False
+
+        # Check the box
+        start_row, start_col = row - row % 3, col - col % 3
+        for i in range(3):
+            for j in range(3):
+                if board[i + start_row][j + start_col] == num:
+                    return False
+        return True
+
+    def solve():
+        """Solve the Sudoku puzzle recursively."""
+        for row in range(9):
+            for col in range(9):
+                if board[row][col] == 0:
+                    for num in range(1, 10):
+                        if is_valid(num, row, col):
+                            board[row][col] = num
+                            if solve():
+                                return True
+                            board[row][col] = 0
+                    return False
+        return True
+
+    # Start the solving process
+    return solve()
+```
+
+**Example Usage**
+-----------------
+
+Here's how you can use this function to solve a Sudoku puzzle:
+
+```python
+# Define an example Sudoku board
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+# Solve the Sudoku puzzle
+if sudoku_solver(board):
+    # Print the solved board
+    for row in board:
+        print(row)
+else:
+    print("No solution exists")
+```
+
+This code defines a recursive function `solve` that tries to place numbers from 1 to 9 in each empty cell (represented by zeros). If it finds a valid number, it moves on to the next empty cell. If it can't find a valid number for any cell, it backtracks and resets the current cell to zero.

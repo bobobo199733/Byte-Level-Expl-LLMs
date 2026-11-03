@@ -1,0 +1,12 @@
+Here's a Python function that counts the number of set bits (1's) in a binary representation of an integer `n` using bitwise operators:
+
+```python
+def count_set_bits(n):
+    count = 0
+    while n:
+        count += n & 1
+        n >>= 1
+    return count
+```
+
+This function works by performing a bitwise AND operation (`&`) with `1`, which checks if the least significant bit is set. If it is, the result is `1` and incremented in the variable `count`. Then the number is right-shifted by 1 (`n >>= 1`) to move on to the next bit. The process continues until there are no more bits left. Finally, the function returns the total count of set bits.

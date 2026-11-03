@@ -1,0 +1,1 @@
+Write a Python function called count_islands(grid) that counts the number of islands in a 2D grid.

@@ -1,0 +1,57 @@
+Certainly! Below is a Python function named `serialize_tree` that serializes a binary tree into a string representation. This function uses a breadth-first traversal (level-order) to ensure all nodes are visited in the correct order, and it handles null or empty child nodes explicitly.
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def serialize_tree(root):
+    if root is None:
+        return "None,"
+    
+    queue = [root]
+    result = ""
+    
+    while queue:
+        node = queue.pop(0)
+        
+        if node is not None:
+            result += str(node.val) + ","
+            queue.append(node.left if node.left else None)
+            queue.append(node.right if node.right else None)
+        else:
+            result += "None,"
+    
+    return result
+```
+
+### Explanation
+
+1. **TreeNode Class**: A simple `TreeNode` class is defined to represent nodes in the binary tree.
+2. **serialize_tree Function**:
+   - If the root is `None`, it returns `"None,"` indicating an empty tree.
+   - A queue is initialized with the root node.
+   - The function uses a while loop to process each node in the queue.
+     - For each node, its value (if not `None`) and its left and right children are appended to the result string.
+     - If a child node is `None`, it's represented as `"None,"` in the output.
+
+### Example Usage
+
+```python
+# Constructing a simple binary tree:
+#       1
+#      / \
+#     2   3
+#    /   / \
+#   4   5   6
+
+root = TreeNode(1)
+root.left = TreeNode(2, TreeNode(4))
+root.right = TreeNode(3, TreeNode(None), TreeNode(6, TreeNode(5)))
+
+print(serialize_tree(root))  # Output: "1,2,3,None,4,None,None,5,None,6,None,"
+```
+
+This output string can be used to reconstruct the original binary tree using an appropriate deserialization function.

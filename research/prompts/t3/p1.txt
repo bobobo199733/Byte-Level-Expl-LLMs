@@ -1,0 +1,17 @@
+Write a Python function:
+
+def evaluate(expr: str) -> int
+
+The function must evaluate an arithmetic expression and return the integer result.
+
+Requirements:
+- Support integers
+- Support the operators +, -, *, /
+- Respect normal operator precedence
+- Support parentheses
+- Ignore whitespace
+- Division should truncate toward zero
+- Raise ValueError for invalid expressions
+- Do not use eval() or exec()
+- Do not print anything
+- Output only Python code

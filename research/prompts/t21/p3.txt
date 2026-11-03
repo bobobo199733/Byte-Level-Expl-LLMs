@@ -1,0 +1,1 @@
+Write one function called matrix_multiply(A, B) that multiplies two matrices. Return only the function.

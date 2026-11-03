@@ -1,0 +1,44 @@
+Here's the Python function `word_break` using dynamic programming:
+
+```python
+def word_break(s, word_dict):
+    """
+    Determine if a given string can be segmented into words from a dictionary.
+
+    Args:
+        s (str): The input string to segment.
+        word_dict (list[str]): A list of valid words.
+
+    Returns:
+        bool: Whether the string can be segmented into words from the dictionary.
+    """
+
+    # Convert word dictionary to set for O(1) lookup
+    word_set = set(word_dict)
+
+    # Initialize DP array with len(s)+1 elements, all initially False
+    dp = [False] * (len(s) + 1)
+    dp[0] = True  # Empty string is always valid
+
+    # Iterate over the string from start to end
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                # If a substring of length i-j can be segmented and matches a dictionary word,
+                # then s[:i] can also be segmented
+                dp[i] = True
+
+    return dp[-1]
+```
+
+Here's an example usage:
+
+```python
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+```
+
+This code initializes a dynamic programming (DP) array `dp` with length `len(s)+1`, where `dp[i]` is `True` if the substring `s[:i]` can be segmented into words from the dictionary. The base case is that an empty string is always valid (`dp[0] = True`). Then, for each position `i`, it checks all substrings `s[j:i]` where `dp[j]` is `True`. If a substring of length `i-j` can be segmented and matches a dictionary word, then `s[:i]` can also be segmented. The function returns the value at index `len(s)` in the DP array as a boolean.
+
+Note: This solution has a time complexity of O(n^2), where n is the length of the string s, because we need to iterate over all substrings and check if they match dictionary words.

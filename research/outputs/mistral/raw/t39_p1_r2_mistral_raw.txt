@@ -1,0 +1,22 @@
+I will provide a recursive solution for the 0/1 Knapsack Problem in Python. The `knapsack_01` function takes three arguments: `weights`, `values`, and `capacity`. Here it is:
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(weights)
+
+    # Create a table to store the maximum achievable value for subproblems
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    # Fill the DP table using bottom-up approach
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] > w:
+                dp[i][w] = dp[i - 1][w]
+            else:
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+
+    # The maximum achievable value is stored in the last row and last column of the DP table.
+    return dp[-1][-1]
+```
+
+This implementation uses dynamic programming with a bottom-up approach to solve the problem efficiently. The `dp` array stores the maximum achievable value for subproblems, and the base cases are defined in terms of an empty knapsack (when i = 0) and when there is no remaining capacity (when w = 0). The recursive formula calculates the optimal solution for each item weight and knapsack capacity considering both inclusion and exclusion of the current item.

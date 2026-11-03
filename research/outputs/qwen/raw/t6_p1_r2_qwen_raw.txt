@@ -1,0 +1,15 @@
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    def match(s_idx, p_idx):
+        if s_idx == len(s) and p_idx == len(p):
+            return True
+        if p_idx + 1 < len(p) and p[p_idx + 1] == '*':
+            return (match(s_idx, p_idx + 2) or
+                    ((s_idx < len(s)) and (p_idx < len(p)) and match(s_idx + 1, p_idx)))
+        if (s_idx < len(s)) and (p_idx < len(p)) and (s[s_idx] == p[p_idx] or p[p_idx] == '?'):
+            return match(s_idx + 1, p_idx + 1)
+        return False
+    
+    return match(0, 0)
+```
+This function uses recursion to check if the string `s` matches the pattern `p`. It handles the wildcard rules for `?` and `*` as specified.

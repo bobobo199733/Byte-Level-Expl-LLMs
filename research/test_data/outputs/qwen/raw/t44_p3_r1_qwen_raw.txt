@@ -1,0 +1,40 @@
+Certainly! Rotating an array to the right means moving each element of the array to its next position and wrapping around the end with the first element.
+
+Here's a Python function `rotate_array` that accomplishes this:
+
+```python
+def rotate_array(nums, k):
+    """
+    Rotate the given list 'nums' to the right by 'k' steps.
+    
+    Parameters:
+        nums (list): The input list of integers.
+        k (int): Number of positions to rotate the array to the right.
+        
+    Returns:
+        list: The rotated list.
+    """
+    n = len(nums)
+    # Ensure k is within the bounds of the length of the list
+    k %= n
+    
+    # Rotate the array in-place using slicing
+    nums[:] = nums[-k:] + nums[:-k]
+    
+    return nums
+
+# Example usage:
+nums = [1, 2, 3, 4, 5, 6, 7]
+k = 3
+print(rotate_array(nums, k))  # Output: [5, 6, 7, 1, 2, 3, 4]
+
+```
+
+### Explanation:
+- The `k %= n` ensures that if `k` is larger than the length of the list, it wraps around appropriately.
+- Slicing in Python allows us to manipulate lists easily. Here's what happens inside the function:
+  - `nums[-k:]` extracts the last `k` elements from the array (the part that will be moved to the beginning).
+  - `nums[:-k]` extracts all elements except the last `k` elements.
+  - Combining these slices with `+` concatenates them back into a single list, effectively rotating it.
+
+This approach is efficient and works well for typical use cases.

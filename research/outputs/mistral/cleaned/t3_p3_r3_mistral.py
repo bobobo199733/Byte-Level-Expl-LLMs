@@ -1,0 +1,28 @@
+from functools import reduce, wraps
+import operator as op
+
+def create_operator(priority):
+
+    def func(a, b):
+        return a if priority > b else op.binop[b](a, b)
+    return func
+
+def evaluator(tokens, operators, priorities):
+    operators_map = dict(((key, create_operator(value)) for key, value in operators.items()))
+
+    def eval_expr(operands, index=0):
+        while index < len(tokens) and tokens[index] not in operators:
+            operands.append(int(tokens[index]))
+            index += 1
+        if not operands:
+            return operands[0]
+        operator = operators_map[next(filter(lambda x: tokens[index], operators), None)]
+        left, right = eval_expr(operands, index)
+        return operator(left, right)
+    return eval_expr([], 0)
+
+def evaluate(expr):
+    tokens = filter(str.isdigit, expr)
+    operators = {'+': 'ADD', '-': 'SUB', '*': 'MUL', '/': 'DIV'}
+    priorities = {'ADD': 1, 'SUB': 1, 'MUL': 2, 'DIV': 3}
+    return int(evaluator(list(tokens), operators, priorities))

@@ -1,0 +1,43 @@
+Here's the Python function `median_of_two_sorted_arrays` that meets all your requirements:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    # Ensure nums1 is the smaller array to simplify code
+    if len(nums1) > len(nums2):
+        return median_of_two_sorted_arrays(nums2, nums1)
+    
+    # Combine the arrays and use binary search
+    total_length = len(nums1) + len(nums2)
+    half_length = total_length // 2
+    
+    left, right = 0, len(nums1) - 1
+    while True:
+        i = (left + right) // 2
+        j = half_length - i - 2
+        
+        nums1_left = nums1[i] if i >= 0 else float('-infinity')
+        nums1_right = nums1[i + 1] if (i + 1) < len(nums1) else float('infinity')
+        nums2_left = nums2[j] if j >= 0 else float('-infinity')
+        nums2_right = nums2[j + 1] if (j + 1) < len(nums2) else float('infinity')
+        
+        # Check partition correctness
+        if nums1_left <= nums2_right and nums2_left <= nums1_right:
+            if total_length % 2 == 0:
+                return (max(nums1_left, nums2_left) + min(nums1_right, nums2_right)) / 2.0
+            else:
+                return min(nums1_right, nums2_right)
+        
+        # Adjust partition for next iteration
+        elif nums1_left > nums2_right:
+            right = i - 1
+        else:
+            left = i + 1
+```
+Here's an explanation of how this code works:
+
+- We first ensure that `nums1` is the smaller array to simplify our code. If not, we swap them.
+- Then we calculate the total length and half length (rounded down) of the combined arrays.
+- We use binary search on the smaller array (`nums1`) to find a partition where all elements in `nums1` less than or equal to `i` are also less than or equal to all elements in `nums2` greater than or equal to `j`, and vice versa. We do this by maintaining pointers `left` and `right` on the smaller array.
+- If we find a correct partition, we calculate the median based on whether the total length is odd or even.
+
+The binary search has time complexity of O(log(min(m,n))) as required, where m and n are the lengths of the two input arrays.

@@ -1,0 +1,70 @@
+Here's a Python function to convert an infix expression to postfix notation:
+
+```python
+def expression_to_postfix(expression):
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+    
+    # Handle the case where the input is empty or contains only whitespace
+    if not expression.strip():
+        return ''
+    
+    # Split the expression into tokens (operators and operands)
+    tokens = []
+    current_token = ''
+    for char in expression:
+        if char.isspace():
+            continue
+        elif char == '(':
+            if current_token and current_token != '-':
+                tokens.append(current_token)
+                current_token = ''
+            tokens.append(char)
+        elif char == ')':
+            if current_token and current_token != '-':
+                tokens.append(current_token)
+                current_token = ''
+            tokens.append(char)
+        else:
+            current_token += char
+            if (char in precedence or 
+                    char == '+' or char == '-' or char == '*' or char == '/'):
+                if current_token and current_token != '-':
+                    tokens.append(current_token)
+                    current_token = ''
+                tokens.append(char)
+    
+    # Append any remaining operand
+    if current_token:
+        tokens.append(current_token)
+    
+    output = []
+    stack = []
+    
+    for token in tokens:
+        if token == '(':
+            stack.append(token)
+        elif token == ')':
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+            stack.pop()
+        else:
+            while (stack and 
+                   stack[-1] != '(' and
+                   precedence.get(token, 0) <= precedence.get(stack[-1], 0)):
+                output.append(stack.pop())
+            stack.append(token)
+    
+    # Output the rest of the operator operands from the stack
+    while stack:
+        if stack[-1] == '(':
+            raise ValueError("Unbalanced parentheses")
+        output.append(stack.pop())
+    
+    return ' '.join(output)
+
+# Example usage
+print(expression_to_postfix('A + B * C'))  # Output: A B C * +
+print(expression_to_postfix('(A + B) * (C + D)'))  # Output: A B + C D + * *
+```
+
+This function splits the infix expression into tokens, builds a stack to keep track of operators in the correct order for postfix notation, and finally appends any remaining operands from the stack.

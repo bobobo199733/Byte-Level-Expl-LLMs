@@ -1,0 +1,64 @@
+Here is the Python function `count_islands(grid)` that counts connected groups of land cells in a grid using Depth-First Search (DFS):
+
+```python
+def count_islands(grid):
+    """
+    Counts connected groups of land cells in a grid.
+
+    Args:
+        grid (list[list[str]]): A 2D list representing the grid.
+            "1" represents land and "0" represents water.
+
+    Returns:
+        int: The number of connected islands.
+    """
+
+    if not grid or not all(grid):
+        # Handle empty grids correctly
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    island_count = 0
+
+    def dfs(r, c):
+        """
+        Performs a Depth-First Search from the given cell.
+
+        Args:
+            r (int): The row index of the cell.
+            c (int): The column index of the cell.
+        """
+
+        if 0 <= r < rows and 0 <= c < cols and grid[r][c] == "1":
+            # Mark the current cell as visited
+            grid[r][c] = "0"
+
+            # Recursively search adjacent cells
+            dfs(r - 1, c)  # Top
+            dfs(r + 1, c)  # Bottom
+            dfs(r, c - 1)  # Left
+            dfs(r, c + 1)  # Right
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "1":
+                island_count += 1
+                dfs(r, c)
+
+    return island_count
+```
+
+Here's an example usage:
+
+```python
+grid = [
+    ["1", "1", "0", "0", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "1", "0", "0"],
+    ["0", "0", "0", "1", "1"]
+]
+
+print(count_islands(grid))  # Output: 3
+```
+
+This function works by iterating through each cell in the grid. If it encounters a land cell ("1"), it increments the island count and performs a DFS from that cell to mark all adjacent land cells as visited. The DFS function is defined within the `count_islands` function for clarity and encapsulation.

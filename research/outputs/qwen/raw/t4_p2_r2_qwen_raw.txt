@@ -1,0 +1,42 @@
+To decode the string pattern where numbers are used to indicate how many times a substring should be repeated, we need to handle both single-level and nested cases. Here's a Python function that can handle such decoding:
+
+```python
+def decode_string(s: str) -> str:
+    stack = []
+    current_num = 0
+    current_string = ""
+    
+    for char in s:
+        if char.isdigit():
+            current_num = current_num * 10 + int(char)
+        elif char == '[':
+            # When we encounter '[', push the current string and number onto the stack.
+            stack.append((current_string, current_num))
+            current_string = ""  # Reset current string
+            current_num = 0      # Reset current number
+        elif char == ']':
+            # When we encounter ']', pop from the stack to get the previous state and update the current string accordingly.
+            prev_string, num = stack.pop()
+            current_string = prev_string + num * current_string
+        else:
+            # For any other character, just append it to the current string.
+            current_string += char
+    
+    return current_string
+
+# Example usage:
+print(decode_string("3[a]"))  # Output: "aaa"
+print(decode_string("2[a2[b]]"))  # Output: "abbabb"
+```
+
+### Explanation:
+
+1. **Stack Usage**: We use a stack to handle nested structures. Each time we encounter an opening bracket `[`, we push the current string and number onto the stack, reset them for the new level of nesting.
+
+2. **Number Accumulation**: When encountering digits, we accumulate the number into `current_num`.
+
+3. **Decoding on ']'**: When a closing bracket is encountered, we pop from the stack to retrieve the previous state (string and number) and use it to decode the current string by repeating the inner part of the nested pattern.
+
+4. **Character Accumulation**: For any other characters, they are directly appended to `current_string`.
+
+This approach ensures that both single-level and multi-level nested patterns can be correctly decoded.

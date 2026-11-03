@@ -1,0 +1,74 @@
+Certainly! The problem you're describing is related to detecting cycles in a directed graph. In the context of course scheduling, each course can be represented as a node, and the prerequisites form directed edges between nodes.
+
+To check if all courses can be completed, we need to ensure there are no cycles in the graph, because a cycle would indicate that you're dependent on a course that hasn't been taken yet. A common approach is to use Depth-First Search (DFS) with recursion and keep track of visited nodes and nodes currently being processed.
+
+Here's how you can implement this:
+
+```python
+def course_schedule(num_courses, prerequisites):
+    from collections import defaultdict
+
+    # Create an adjacency list to represent the graph
+    adj_list = defaultdict(list)
+    
+    # Populate the adjacency list based on the prerequisites
+    for pre in prerequisites:
+        adj_list[pre[0]].append(pre[1])
+
+    visited = [False] * num_courses  # Track if a course has been visited
+    processing = set()              # Track courses currently being processed (to detect cycles)
+
+    def is_cyclic(course):
+        """
+        Helper function to perform DFS and check for cycles.
+        """
+        if course in processing:
+            return True
+        
+        if visited[course]:
+            return False
+
+        # Mark the current course as part of current path
+        processing.add(course)
+        
+        # Visit all the nodes adjacent to this node
+        for next_course in adj_list[course]:
+            if is_cyclic(next_course):
+                return True
+
+        # Remove from processing after done visiting neighbors
+        processing.remove(course)
+
+        # Mark as visited
+        visited[course] = True
+        
+        return False
+
+    # Check all courses
+    for course in range(num_courses):
+        if not visited[course]:
+            if is_cyclic(course):
+                return False
+    
+    return True
+
+# Example usage:
+num_courses = 2
+prerequisites = [[1,0]]  # Course 1 has a prerequisite of course 0
+
+print(course_schedule(num_courses, prerequisites))  # Output: True
+```
+
+### Explanation:
+
+- **Adjacency List (`adj_list`)**: This dictionary maps each course to its list of dependent courses.
+  
+- **Visited Array**: A boolean array that keeps track of which nodes have been visited during the DFS.
+
+- **Processing Set**: Used to detect cycles. If a node is being processed, it gets added to this set; if we encounter it again during the same traversal, there's a cycle.
+
+- **`is_cyclic(course)` Function**: This recursive function performs DFS and checks for cycles. It returns `True` if a cycle is detected, otherwise `False`.
+
+- The main loop at the end ensures that all courses are checked to see if they can be completed without encountering any cycles.
+
+This approach has a time complexity of O(V + E), where V is the number of vertices (courses) and E is the number of edges (prerequisites).

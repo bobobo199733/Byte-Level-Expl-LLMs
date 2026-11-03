@@ -1,0 +1,50 @@
+Certainly! Below is a Python function `heap_sort` that implements the heap sort algorithm without using any built-in sorting functions:
+
+```python
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    left = 2 * i + 1     # left = 2*i + 1
+    right = 2 * i + 2     # right = 2*i + 2
+
+    # See if left child of root exists and is greater than root
+    if left < n and arr[i] < arr[left]:
+        largest = left
+
+    # See if right child of root exists and is greater than the largest so far
+    if right < n and arr[largest] < arr[right]:
+        largest = right
+
+    # Change root, if needed
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]  # swap
+
+        # Heapify the root.
+        heapify(arr, n, largest)
+
+def heap_sort(values):
+    n = len(values)
+    
+    # Build a maxheap.
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(values, n, i)
+
+    # One by one extract elements
+    for i in range(n-1, 0, -1):
+        values[i], values[0] = values[0], values[i]  # swap
+        heapify(values, i, 0)
+
+# Example usage:
+arr = [12, 11, 13, 5, 6, 7]
+heap_sort(arr)
+print("Sorted array is:", arr)
+```
+
+### Explanation:
+
+- **`heapify` Function**: This function is used to maintain the heap property. It recursively ensures that the subtree rooted at index `i` satisfies the max-heap property.
+  
+- **`heap_sort` Function**:
+  - First, it builds a max heap from the input list by calling `heapify` for each node starting from the last non-leaf node down to the root.
+  - Then, it repeatedly swaps the root (maximum element) with the last element of the heap and reduces the size of the heap by one. After each swap, it calls `heapify` on the reduced heap to maintain the max-heap property.
+
+This implementation ensures that the list is sorted in ascending order using the heap sort algorithm.

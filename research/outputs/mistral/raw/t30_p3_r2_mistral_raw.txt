@@ -1,0 +1,18 @@
+Here's a Python function called `max_subarray_sum` that finds the maximum sum of a contiguous subarray within an input list (`nums`):
+
+```python
+def max_subarray_sum(nums):
+    if not nums:
+        return None
+
+    max_so_far = nums[0]
+    current_max = nums[0]
+
+    for num in nums[1:]:
+        current_max = max(num, current_max + num)
+        max_so_far = max(max_so_far, current_max)
+
+    return max_so_far
+```
+
+This function uses the Kadane's algorithm, which is an efficient approach to find the maximum sum of a subarray in a given array. It initializes `max_so_far` and `current_max` with the first element of the input list. Then it iterates over the rest of the elements in the list and updates `current_max` as the maximum between itself and the sum of the current element and the previous `current_max`. Finally, it keeps track of the maximum subarray sum seen so far by comparing `current_max` and `max_so_far`. The returned value is the maximum sum of a contiguous subarray within the input list.

@@ -1,0 +1,31 @@
+Certainly! To create the `group_anagrams` function, we can use a dictionary to group words with the same character counts (sorted or otherwise transformed). Here's how you can implement this:
+
+```python
+def group_anagrams(words):
+    # Dictionary to hold grouped anagrams
+    from collections import defaultdict
+    
+    anagram_groups = defaultdict(list)
+    
+    for word in words:
+        # Sort the characters of the word and use it as a key
+        sorted_word = ''.join(sorted(word))
+        anagram_groups[sorted_word].append(word)
+    
+    return list(anagram_groups.values())
+
+# Example usage:
+words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(words))  # Output: [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+```
+
+### Explanation:
+
+1. **Import `defaultdict` from the `collections` module**: This will help us create a dictionary that automatically initializes missing keys with an empty list.
+2. **Initialize `anagram_groups` as a defaultdict of lists**: This will store groups of anagrams.
+3. **Iterate through each word in the input list**:
+   - Sort the characters of the word to get a canonical form for grouping (e.g., "eat" and "tea" both become "aet").
+   - Use this sorted string as a key and append the original word to the corresponding group.
+4. **Return the grouped anagrams**: The `values()` method returns all the lists in the dictionary, which represent groups of anagrams.
+
+This approach ensures that words with the same set of characters (anagrams) are grouped together efficiently.

@@ -1,0 +1,21 @@
+Here is a Python function that checks if the input string `s` has balanced and correctly nested parentheses, ignoring all other characters. The function uses a stack data structure to keep track of open brackets.
+
+```python
+def is_balanced(s: str) -> bool:
+    opening_brackets = "([{"
+    closing_brackets = ")]}"
+    bracket_map = dict(zip(opening_brackets, closing_brackets))
+
+    stack = []
+
+    for bracket in s:
+        if bracket in opening_brackets:
+            stack.append(bracket)
+        elif bracket in closing_brackets:
+            if not stack or bracket_map[stack.pop()] != bracket:
+                return False
+
+    return len(stack) == 0
+```
+
+This function iterates through the input string, pushing opening brackets onto a stack and popping closing brackets if they match the topmost bracket in the stack. If there's an unmatched or mismatched bracket, it returns `False`. If the entire input string is processed without encountering any unbalanced brackets, it returns `True`.

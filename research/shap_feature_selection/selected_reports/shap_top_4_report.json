@@ -1,0 +1,74 @@
+{
+  "feature_selection": "global_shap_importance",
+  "top_n": 4,
+  "classes": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "features": [
+    "byte_69",
+    "byte_142",
+    "byte_186",
+    "byte_14"
+  ],
+  "num_features": 4,
+  "train_samples": 1053,
+  "test_samples": 129,
+  "accuracy": 0.31007751937984496,
+  "classification_report": {
+    "llama": {
+      "precision": 0.28,
+      "recall": 0.3111111111111111,
+      "f1-score": 0.29473684210526313,
+      "support": 45.0
+    },
+    "mistral": {
+      "precision": 0.36585365853658536,
+      "recall": 0.35714285714285715,
+      "f1-score": 0.3614457831325301,
+      "support": 42.0
+    },
+    "qwen": {
+      "precision": 0.2894736842105263,
+      "recall": 0.2619047619047619,
+      "f1-score": 0.275,
+      "support": 42.0
+    },
+    "accuracy": 0.31007751937984496,
+    "macro avg": {
+      "precision": 0.3117757809157039,
+      "recall": 0.3100529100529101,
+      "f1-score": 0.31039420841259774,
+      "support": 129.0
+    },
+    "weighted avg": {
+      "precision": 0.3110368092665015,
+      "recall": 0.31007751937984496,
+      "f1-score": 0.31003008361475276,
+      "support": 129.0
+    }
+  },
+  "confusion_matrix_labels": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "confusion_matrix": [
+    [
+      14,
+      15,
+      16
+    ],
+    [
+      16,
+      15,
+      11
+    ],
+    [
+      20,
+      11,
+      11
+    ]
+  ]
+}

@@ -1,0 +1,58 @@
+Here is a Python function to find all anagrams of `p` within `s` using a sliding window approach with frequency counters:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    """
+    Find all starting indices of anagrams of `p` within `s`.
+
+    Args:
+        s (str): String to search for anagrams.
+        p (str): Anagram pattern.
+
+    Returns:
+        list: Starting indices of anagrams in sorted order.
+    """
+
+    # Edge case: if string is shorter than pattern, no anagrams are possible
+    if len(p) > len(s):
+        return []
+
+    # Create frequency counters for the pattern and window
+    p_counter = Counter(p)
+    window_counter = Counter()
+
+    # Initialize result list and current start index
+    anagram_indices = []
+    start_idx = 0
+
+    # Iterate over string, expanding the window to the right
+    for end_idx in range(len(s)):
+        # Add new character to the frequency counter of the current window
+        window_counter[s[end_idx]] += 1
+
+        # If the window has reached the length of the pattern, start removing characters from the left
+        if end_idx >= len(p) - 1:
+            # If this is not the first iteration and the counters are equal, record the start index
+            if end_idx > len(p) - 2 and window_counter == p_counter:
+                anagram_indices.append(start_idx)
+
+            # Remove character that left the window from frequency counter of current window
+            window_counter[s[start_idx]] -= 1
+            if window_counter[s[start_idx]] == 0:
+                del window_counter[s[start_idx]]
+
+            # Move sliding window to the right
+            start_idx += 1
+
+    return sorted(anagram_indices)
+```
+
+Example use case:
+
+```python
+s = "abxaba"
+p = "ab"
+print(find_all_anagrams(s, p))  # Output: [0]
+```

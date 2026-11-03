@@ -1,0 +1,1 @@
+Write one function called trapping_rain_water(heights) that calculates trapped rain water. Return only the function.

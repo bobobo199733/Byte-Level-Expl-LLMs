@@ -1,0 +1,6 @@
+Write a single Python function called median_of_two_sorted_arrays(nums1, nums2) that computes the median of two sorted integer arrays. Requirements:
+- Time complexity must be O(log(min(m, n)))
+- Use binary search on the smaller array to find the correct partition
+- Handle edge cases: empty arrays, arrays of different lengths, even and odd total lengths
+- Return a float (e.g. 2.5 for median of [1,2] and [3,4])
+Do not merge the arrays.

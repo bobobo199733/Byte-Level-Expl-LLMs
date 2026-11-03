@@ -1,0 +1,14 @@
+In Python, checking for a valid JSON format without external libraries can be quite complex due to the varying structures that JSON can take. However, I will provide you with a simple function that checks if a string is a valid JSON object or array. This function will not handle all possible cases but it's a good start.
+
+```python
+def json_validator(text):
+    try:
+        json.loads(text)
+        return True
+    except ValueError:
+        return False
+```
+
+This function uses the built-in `json.loads()` method to parse the input string as JSON, and it returns `True` if parsing is successful (i.e., the string is a valid JSON), or `False` otherwise (i.e., an exception is raised during parsing).
+
+Please note that this function will only work for valid objects and arrays, and it does not handle other structures like dictionaries with nested objects or lists, or JSON pointers, comments, numbers in scientific notation, etc. For a full-fledged JSON validator, you should use libraries like `jsonschema` or `pydantic`.

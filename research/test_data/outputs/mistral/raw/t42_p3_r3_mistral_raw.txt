@@ -1,0 +1,41 @@
+Here is a Python function called `course_schedule` that checks if all courses can be completed given the number of courses and their prerequisite relationships. The function uses Depth-First Search (DFS) algorithm to ensure that we don't have circular dependencies between courses.
+
+```python
+from collections import defaultdict, deque
+
+def canFinish(num_courses, prerequisites):
+    graph = defaultdict(list)  # store the courses as keys and their prerequisites as values
+
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+
+    visited = set()
+    stack = deque()
+
+    def dfs(course):
+        if course in visited:
+            return False  # cycle detected
+
+        if course in graph and any(dfs(prereq) for prereq in graph[course]):
+            return False  # dependency violation or cycle
+
+        visited.add(course)
+        stack.append(course)
+
+        for prereq in graph[course]:
+            dfs(prereq)
+
+        if not stack:
+            return True  # all courses have been processed
+
+        current = stack.pop()
+        visited.remove(current)
+        return True
+
+    if not dfs(0):
+        return False
+
+    return len(visited) == num_courses
+```
+
+This function constructs a graph where each course is a node, and its prerequisites are connected to it as edges. It performs DFS from the first course (course 0) and checks for cycles or dependency violations in the process. If no such issues arise, it means all courses can be completed.

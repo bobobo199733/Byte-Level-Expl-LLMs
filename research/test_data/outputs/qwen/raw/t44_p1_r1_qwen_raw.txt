@@ -1,0 +1,25 @@
+Certainly! To rotate an array to the right by `k` steps in Python, you can use slicing and concatenation of arrays. Here's how you can implement this:
+
+```python
+def rotate_array(nums, k):
+    n = len(nums)
+    # Handle cases where k is larger than the length of the list
+    k = k % n  # This will ensure that we only perform necessary rotations
+
+    # Rotate the array by slicing and concatenation
+    return nums[-k:] + nums[:-k]
+
+# Example usage:
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3]
+```
+
+### Explanation:
+- `n = len(nums)` gets the length of the array.
+- `k = k % n` ensures that if `k` is larger than the length of the list, it effectively reduces to a smaller number within the bounds of the list's length. This avoids unnecessary full rotations.
+- `nums[-k:]` slices the last `k` elements from the end of the array.
+- `nums[:-k]` slices all elements except the last `k` elements.
+- Concatenating these two slices gives you the rotated array.
+
+This approach is efficient and works well for most cases.

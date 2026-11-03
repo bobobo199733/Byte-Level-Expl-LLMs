@@ -1,0 +1,31 @@
+I'll provide you with a Python function called `binary_search_rotated` that performs a binary search on a rotated sorted array. The function assumes that the input list `values` is sorted, but may be rotated (i.e., elements are out of order at the start or end).
+
+```python
+def binary_search_rotated(values, target):
+    low, high = 0, len(values) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # Check if the middle element is the target or between the correct sorted sequence.
+        if values[mid] == target:
+            return mid
+
+        # If the left half of the array is sorted, then the target should be on the left side.
+        if values[low] <= values[mid]:
+            if target < values[mid] and target >= values[low]:
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        # If the right half of the array is sorted, then the target should be on the right side.
+        else:
+            if target > values[mid] and target <= values[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    return -1
+```
+
+This function works by maintaining two pointers at the beginning and end of the array. It then uses binary search logic to repeatedly narrow down the possible position of the target, while also checking if the left or right half is sorted. If the left half is sorted, it will search on the left side, and otherwise, it will search on the right side. The function returns the index of the target when found and -1 when not found.

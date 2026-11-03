@@ -1,0 +1,8 @@
+Write a Python function called spiral_matrix(matrix) that traverses a matrix in spiral order and returns the visited elements as a list.
+
+Requirements:
+- Handle empty matrices correctly.
+- Support rectangular matrices.
+- Do not use external libraries.
+- Traverse clockwise starting from the top-left corner.
+- Avoid revisiting elements.

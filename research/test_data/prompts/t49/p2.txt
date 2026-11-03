@@ -1,0 +1,6 @@
+Write a single Python function called word_break(s, word_dict) using dynamic programming. The function should:
+- Create a boolean DP array of length len(s)+1 where dp[i] means s[:i] can be segmented using words from word_dict
+- Initialize dp[0] = True (empty string is always valid)
+- For each position i, check all substrings s[j:i] where dp[j] is True
+- Convert word_dict to a set for O(1) lookup
+- Return dp[len(s)] as a boolean

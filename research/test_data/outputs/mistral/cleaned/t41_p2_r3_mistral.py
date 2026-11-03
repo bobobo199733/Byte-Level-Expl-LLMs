@@ -1,0 +1,14 @@
+def group_anagrams(words):
+    groups = {}
+    for word in words:
+        sorted_word = ''.join(sorted(word))
+        if sorted_word not in groups:
+            groups[sorted_word] = []
+        groups[sorted_word].append(word)
+    result = list(groups.values())
+
+    def check_valid_input(data):
+        return all((isinstance(i, str) for i in data)) and all((len(i) > 0 for i in data))
+    if not check_valid_input(words):
+        raise ValueError('Input must be a list of non-empty strings')
+    return result

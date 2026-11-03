@@ -1,0 +1,21 @@
+Here is a Python function that checks if the brackets in a string `s` are balanced and correctly nested. It supports `()`, `[]`, and `{}`.
+
+```python
+def is_balanced(s):
+    bracket_map = {'(': ')', '[': ']', '{': '}'}
+    stack = []
+
+    for char in s:
+        if char in bracket_map:
+            stack.append(char)
+        elif char == bracket_map[stack[-1]] and stack:
+            stack.pop()
+        else:
+            return False
+
+    return not stack
+```
+
+This function works by iterating through the characters in `s`. If a character is an opening bracket, it gets pushed onto a stack. When it encounters a closing bracket, it checks if the top element of the stack matches the opened bracket or not. If they match, the top element of the stack is popped out.
+
+If there are any unmatched closing brackets remaining in the stack after iterating through all characters, the function returns `False`. If the stack is empty at the end of the iteration, it means all brackets are balanced and correctly nested, so the function returns `True`.

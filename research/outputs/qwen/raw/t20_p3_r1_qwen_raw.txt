@@ -1,0 +1,65 @@
+Certainly! To combine multiple sorted linked lists into a single sorted linked list, we can use a priority queue (or min-heap) to efficiently merge the lists. Here’s how you can implement this in Python:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def merge_k_sorted_lists(lists):
+    if not lists or len(lists) == 0:
+        return None
+    
+    import heapq
+    
+    # Initialize a min heap to store the heads of all linked lists and their indices
+    min_heap = []
+    
+    # Populate the initial state for each list in the input
+    for i, lst in enumerate(lists):
+        if lst:  # Only add non-empty lists
+            heapq.heappush(min_heap, (lst.val, i))
+    
+    dummy_head = ListNode(0)  # Dummy head to simplify the merging process
+    current = dummy_head
+    
+    while min_heap:
+        val, index = heapq.heappop(min_heap)
+        current.next = lists[index]
+        current = current.next
+        
+        if lists[index].next:
+            lists[index] = lists[index].next
+            heapq.heappush(min_heap, (lists[index].val, index))
+    
+    return dummy_head.next
+
+# Example usage:
+list1 = ListNode(1, ListNode(4, ListNode(5)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+list3 = ListNode(2, ListNode(6))
+
+merged_list = merge_k_sorted_lists([list1, list2, list3])
+
+def print_linked_list(node):
+    while node:
+        print(node.val, end=" -> ")
+        node = node.next
+    print("None")
+
+print_linked_list(merged_list)
+```
+
+### Explanation:
+1. **ListNode Class**: This class defines the structure of a single node in a linked list.
+2. **merge_k_sorted_lists Function**:
+   - It first checks if there are any lists provided and returns `None` if not.
+   - A min-heap is used to store tuples `(value, index)`, where `value` is the current value from the linked list at that position, and `index` is the index of the list in `lists`.
+   - We push the head of each non-empty list into the heap.
+   - Using a dummy head (`dummy_head`) simplifies linking operations. The actual merging happens with the variable `current`, which follows the current node being added to the merged list.
+   - For every element popped from the min-heap, we attach it to our result and push its next node (if any) back into the heap.
+3. **Example Usage**:
+   - Three sample linked lists are created and passed to `merge_k_sorted_lists`.
+   - The resulting merged sorted linked list is printed.
+
+This approach ensures that each element from all input lists is added in order, providing an efficient O(N log k) solution where N is the total number of nodes and k is the number of linked lists.

@@ -1,0 +1,60 @@
+Here's a Python function `lru_cache` that implements an LRU cache based on your requirements:
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key in self.cache:
+            value = self.cache.pop(key)
+            self.cache[key] = value  # Move to end to mark as recently used
+            return value
+        else:
+            return -1
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.pop(key)  # Remove existing entry
+        elif len(self.cache) >= self.capacity:
+            self.cache.popitem(last=False)  # Evict least recently used item
+        self.cache[key] = value
+
+def lru_cache(operations, capacity):
+    cache = LRUCache(capacity)
+    
+    results = []
+    for operation in operations:
+        op_type, key, *value = operation
+        
+        if op_type == "get":
+            result = cache.get(key)
+            results.append(result)
+        elif op_type == "put":
+            value = value[0]
+            cache.put(key, value)
+    
+    return results
+```
+
+Here's an explanation of the code:
+
+- We create a class `LRUCache` to encapsulate our LRU cache implementation.
+- The constructor initializes the capacity and creates an `OrderedDict`, which we use as our cache. `OrderedDict` automatically moves the most recently accessed item to its end, making it perfect for implementing an LRU cache.
+- In the `get` method, we return the value associated with a key if it exists in the cache. If the key is present, we remove and then immediately reinsert it at the end of the ordered dictionary to mark it as recently used.
+- The `put` method updates or inserts a key-value pair into the cache. If the key already exists, we remove the old entry before adding a new one. We also check if the capacity is exceeded; if so, we evict the least recently used item by removing the first element from the ordered dictionary (which is implemented using a linked list).
+- The `lru_cache` function takes in a list of operations and returns a list containing results for all "get" operations. It creates an instance of our `LRUCache` class with the given capacity and iterates over each operation, executing it on the cache.
+
+You can use this function like so:
+
+```python
+operations = [("put", "key1", "value1"), ("put", "key2", "value2"),
+              ("get", "key1"), ("put", "key3", "value3"),
+              ("get", "key2"), ("get", "key1")]
+capacity = 2
+
+print(lru_cache(operations, capacity))  # Output: [value1, value2, -1]
+```

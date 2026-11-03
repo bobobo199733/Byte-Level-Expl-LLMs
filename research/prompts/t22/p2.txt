@@ -1,0 +1,9 @@
+Write exactly one Python function called sieve_primes(n) that finds all prime numbers up to and including n.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Use a sieve-style approach.
+- Return an empty list if n is less than 2.
+- The output must be sorted in ascending order.

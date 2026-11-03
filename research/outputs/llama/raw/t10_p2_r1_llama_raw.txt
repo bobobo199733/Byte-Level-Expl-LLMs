@@ -1,0 +1,47 @@
+```python
+def longest_palindrome(s):
+    """
+    Returns the longest substring of s that is a palindrome.
+    
+    Args:
+        s (str): The input string.
+    
+    Returns:
+        str: The longest substring of s that is a palindrome. If no such substring exists, an empty string is returned.
+    """
+
+    def expand_around_center(s, left, right):
+        """
+        Expands around the center of a potential palindrome to find its actual length.
+        
+        Args:
+            s (str): The input string.
+            left (int): The left index of the center.
+            right (int): The right index of the center.
+        
+        Returns:
+            tuple: A pair containing the start and end indices of the longest palindrome centered at (left, right).
+        """
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
+
+    if not s:
+        # If the input string is empty, return an empty string.
+        return ""
+
+    start = end = 0
+    for i in range(len(s)):
+        # Check for odd-length palindromes by expanding around each character.
+        left, right = expand_around_center(s, i, i)
+        if right - left > end - start:
+            # Update the start and end indices of the longest palindrome found so far.
+            start, end = left, right
+        left, right = expand_around_center(s, i, i + 1)
+        if right - left > end - start:
+            # Update the start and end indices of the longest palindrome found so far.
+            start, end = left, right
+
+    return s[start:end+1]
+```

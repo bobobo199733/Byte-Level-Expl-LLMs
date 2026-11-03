@@ -1,0 +1,3 @@
+Write a Python function named binary_tree_inorder(tree) that returns the inorder traversal of a binary tree.
+
+The tree is represented as a list.

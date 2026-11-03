@@ -1,0 +1,51 @@
+Certainly! To implement the `word_break` function, we can use dynamic programming to keep track of which parts of the string `s` can be formed by concatenating words from the list `word_dict`. Here's a Python implementation:
+
+```python
+def word_break(s, word_dict):
+    # Create a set for faster lookup of words in the dictionary
+    word_set = set(word_dict)
+    
+    # Initialize a DP table where dp[i] is True if s[:i+1] can be segmented
+    dp = [False] * (len(s) + 1)
+    dp[0] = True  # An empty string can always be segmented
+    
+    # Fill the DP table
+    for i in range(1, len(s) + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+                
+    return dp[len(s)]
+
+# Example usage:
+s = "leetcode"
+word_dict = ["leet", "code"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+
+s = "catsandog"
+word_dict = ["cats", "dog", "sand", "and", "cat"]
+print(word_break(s, word_dict))  # Output: False
+```
+
+### Explanation:
+1. **Initialization**:
+   - We create a set `word_set` from the list of words in `word_dict` for faster lookup.
+   - We initialize a boolean array `dp` where `dp[i]` is `True` if the substring `s[:i+1]` can be segmented into dictionary words.
+
+2. **Base Case**:
+   - `dp[0] = True` because an empty string can always be segmented (though it's not meaningful in this context).
+
+3. **Filling the DP Table**:
+   - We iterate over each position `i` in the string `s`.
+   - For each position `i`, we check all possible substrings ending at `i-1` to see if they are valid words from the dictionary.
+   - If a valid word is found, we set `dp[i] = True`.
+
+4. **Result**:
+   - The result of `word_break(s, word_dict)` will be stored in `dp[len(s)]`, which indicates whether the entire string can be segmented.
+
+This approach ensures that each substring is checked only once for each possible position, making it efficient with a time complexity of O(n^2) and space complexity of O(n), where n is the length of the string `s`.

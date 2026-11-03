@@ -1,0 +1,43 @@
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    """
+    Returns True if the entire string s matches the wildcard pattern p, otherwise returns False.
+
+    Rules:
+    - '?' matches exactly one character
+    - '*' matches any sequence of characters, including the empty sequence
+    - Matching must cover the entire string
+
+    :param s: The input string to match.
+    :param p: The wildcard pattern to match against.
+    :return: True if the string matches the pattern, False otherwise.
+    """
+
+    # If both strings are empty, they match
+    if not s and not p:
+        return True
+    
+    # If the first character of the pattern is '*', it can be ignored for now
+    if p and p[0] == '*':
+        # We have two possibilities: either the '*' matches the entire string, or it doesn't
+        # In both cases we recursively call this function on the rest of the strings and patterns
+        return wildcard_match(s, p[1:]) or (s and wildcard_match(s[1:], p))
+
+    # If the first character of the pattern is not '*' but the first characters of the string and pattern don't match
+    if p and len(p) > 0 and len(s) > 0 and (p[0] != s[0] and p[0] != '?'):
+        return False
+
+    # If the first character of the pattern is '?' or it matches the first character of the string, we ignore these characters
+    if p and len(p) > 0 and (p[0] == s[0] or p[0] == '?') :
+        # We call this function recursively on the rest of the strings and patterns
+        return wildcard_match(s[1:], p[1:])
+
+    # If we reach this point, it means that the first character of the pattern is '*' and we have to match the entire string
+    return False
+
+# Test cases
+print(wildcard_match("aa", "a"))  # False
+print(wildcard_match("aa", "*"))  # True
+print(wildcard_match("cb", "?a"))  # False
+print(wildcard_match("adceb", "*a*b"))  # True
+```

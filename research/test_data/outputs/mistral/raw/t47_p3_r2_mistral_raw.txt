@@ -1,0 +1,42 @@
+Creating a full-fledged calculator in Python without using `eval()` can be quite complex, especially when dealing with parentheses and operator precedence. However, I'll provide you with a simple function that supports addition and subtraction without parentheses for educational purposes.
+
+Please note that this is not meant to be a production-ready calculator, as it doesn't handle edge cases such as division, multiple operations in one expression, or any complex scenarios.
+
+```python
+def basic_calculator(expression):
+    def process_number(numbers):
+        result = 0
+        for number in numbers:
+            result += int(number)
+        return result
+
+    current_numbers = []
+    operators = {'+': 1, '-': 1}
+    for char in expression:
+        if char.isdigit():
+            current_numbers.append(char)
+        elif char in operators:
+            if current_numbers:
+                result = process_number(current_numbers)
+                current_numbers = []
+                if char == '-':
+                    result *= -1
+                current_numbers.append(result)
+                current_numbers.append(char)
+        elif char == ' ':
+            continue
+        else:
+            raise ValueError("Invalid character found in the expression.")
+
+    # Process the last group of numbers
+    result = process_number(current_numbers)
+
+    return result
+```
+
+You can test this function with the following example:
+
+```python
+print(basic_calculator("1 2 +"))  # Outputs: 3
+print(basic_calculator("1 2 -"))  # Outputs: -1
+```

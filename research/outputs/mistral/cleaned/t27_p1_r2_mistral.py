@@ -1,0 +1,12 @@
+def trapping_rain_water(heights):
+    left, right = ([0] * len(heights), [0] * len(heights))
+    left[1] = max(heights[0], 0)
+    for i in range(2, len(heights)):
+        left[i] = max(left[i - 1], heights[i - 1])
+    right[-1] = max(heights[-1], 0)
+    for i in reversed(range(len(heights) - 2)):
+        right[len(heights) - 1 - i] = max(right[len(heights) - 2 - i], heights[len(heights) - 1 - i])
+    result = 0
+    for i in range(len(heights)):
+        result += min(left[i], right[i]) - heights[i] if min(left[i], right[i]) > heights[i] else 0
+    return result

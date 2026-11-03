@@ -1,0 +1,27 @@
+```python
+def matrix_multiply(A, B):
+    # Check if input is list of lists
+    if not all(isinstance(row, list) for row in A) or not all(isinstance(row, list) for row in B):
+        raise TypeError("Inputs must be lists of lists")
+
+    # Get dimensions of matrices A and B
+    num_rows_A = len(A)
+    num_cols_A = len(A[0])
+    num_rows_B = len(B)
+    num_cols_B = len(B[0])
+
+    # Check if matrix multiplication is possible
+    if num_cols_A != num_rows_B:
+        raise ValueError("Matrix dimensions are incompatible for multiplication")
+
+    # Initialize result with zeros
+    C = [[0] * num_cols_B for _ in range(num_rows_A)]
+
+    # Perform matrix multiplication
+    for i in range(num_rows_A):
+        for j in range(num_cols_B):
+            for k in range(num_rows_B):  # or 'num_cols_A' since they're equal
+                C[i][j] += A[i][k] * B[k][j]
+
+    return C
+```

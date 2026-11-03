@@ -1,0 +1,61 @@
+**LRU Cache Implementation**
+=====================================
+
+Here is a Python implementation of the Least Recently Used (LRU) cache:
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulates an LRU cache.
+
+    Args:
+        operations (list): A list of operations to perform on the cache.
+            Each operation is a tuple of (key, value).
+        capacity (int): The maximum size of the cache.
+
+    Returns:
+        dict: The contents of the cache after all operations have been performed.
+    """
+    cache = OrderedDict()
+
+    for key, value in operations:
+        if key in cache:
+            # If the key is already in the cache, remove it and add it back
+            # to update its position as the most recently used item.
+            del cache[key]
+            cache[key] = value
+        elif len(cache) >= capacity:
+            # If the cache is full, remove the least recently used item (the first
+            # item in the ordered dictionary).
+            cache.popitem(last=False)
+        cache[key] = value
+
+    return dict(cache)
+```
+**Example Use Cases**
+----------------------
+
+Here are some example use cases for the `lru_cache` function:
+```python
+operations = [
+    ("a", 1),
+    ("b", 2),
+    ("c", 3),
+    ("d", 4),
+    ("e", 5),
+]
+
+capacity = 3
+
+cache = lru_cache(operations, capacity)
+print(cache)  # Output: {"a": 1, "b": 2, "c": 3}
+
+# Add more operations
+operations.append(("f", 6))
+operations.append(("g", 7))
+
+cache = lru_cache(operations, capacity)
+print(cache)  # Output: {"e": 5, "f": 6, "g": 7}
+```
+Note that the order of items in the cache is determined by their most recent use. The `OrderedDict` class from the `collections` module maintains a dictionary with an ordered list of keys, which allows us to efficiently implement LRU behavior.

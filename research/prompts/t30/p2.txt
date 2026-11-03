@@ -1,0 +1,9 @@
+Write exactly one Python function called max_subarray_sum(nums) that computes the largest possible sum of a contiguous subarray.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Handle lists containing only negative numbers.
+- Raise ValueError if the input list is empty.
+- The function should run efficiently.

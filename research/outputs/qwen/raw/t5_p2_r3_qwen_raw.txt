@@ -1,0 +1,51 @@
+To solve this problem, we can use a greedy approach with a stack to ensure that we always try to make the resulting number as small as possible by removing the necessary digits. Here's how you can implement the function:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    # Edge case: if k is equal to or greater than the length of num, return "0"
+    if k >= len(num):
+        return "0"
+
+    stack = []
+    
+    # Iterate through each digit in the number string
+    for digit in num:
+        # While we still need to remove digits and the last digit in the stack is larger than the current digit
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()  # Remove the last digit from the stack
+            k -= 1  # Decrease the count of digits to be removed by one
+        
+        stack.append(digit)  # Add the current digit to the stack
+    
+    # If there are still digits to remove, remove them from the end of the number
+    while k > 0:
+        stack.pop()
+        k -= 1
+
+    # Convert the stack back to a string and remove leading zeros
+    result = ''.join(stack).lstrip('0')
+
+    # If the result is empty (all digits were removed), return "0"
+    return result if result else "0"
+
+# Example usage:
+print(remove_k_digits("1432219", 3))  # Output: "1219"
+print(remove_k_digits("10200", 1))    # Output: "200"
+print(remove_k_digits("10", 2))       # Output: "0"
+```
+
+### Explanation:
+1. **Edge Case Handling**: If `k` is greater than or equal to the length of the number, we can simply return `"0"` because removing all digits will result in a zero.
+
+2. **Using Stack for Greedy Removal**:
+   - We iterate through each digit in the input string.
+   - For each digit, if there are still digits to remove (`k > 0`) and the last digit in the stack is larger than the current digit, we pop from the stack (removing a larger digit) because it allows us to make the resulting number smaller.
+   - We then append the current digit to the stack.
+
+3. **Final Removals**: After processing all digits, if there are still digits left to remove (`k > 0`), we continue popping from the end of the stack until `k` is zero.
+
+4. **Trimming Leading Zeros**: Convert the stack back into a string and strip any leading zeros.
+
+5. **Edge Case for Empty Result**: If the result string is empty after removing all digits, return `"0"`.
+
+This approach ensures that we always try to make the smallest possible number by removing the necessary digits in an optimal manner.

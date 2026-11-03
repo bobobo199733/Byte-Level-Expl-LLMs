@@ -1,0 +1,48 @@
+Certainly! To create a `word_frequency` function in Python, you can follow these steps:
+
+1. **Normalize the text**: Convert it to lowercase and remove punctuation.
+2. **Split the text into words**: Use whitespace as the delimiter.
+3. **Count the frequency of each word**: Utilize a dictionary to keep track of the counts.
+
+Here's how you could implement this:
+
+```python
+import string
+
+def word_frequency(text):
+    # Normalize the text: convert it to lowercase and remove punctuation
+    translator = str.maketrans('', '', string.punctuation)
+    normalized_text = text.lower().translate(translator)
+    
+    # Split the text into words
+    words = normalized_text.split()
+    
+    # Count the frequency of each word using a dictionary
+    word_counts = {}
+    for word in words:
+        if word in word_counts:
+            word_counts[word] += 1
+        else:
+            word_counts[word] = 1
+    
+    return word_counts
+
+# Example usage
+text = "Hello, world! This is a test. Hello again!"
+print(word_frequency(text))
+```
+
+### Explanation:
+
+- **Normalization**: `str.maketrans('', '', string.punctuation)` creates a translation table that removes punctuation from the text.
+- **Lowercasing and splitting**: The `translate` method is used to remove punctuation, followed by converting the entire string to lowercase using `.lower()`. Then, we split the string into words with `split()`.
+- **Counting frequencies**: A dictionary `word_counts` keeps track of how often each word appears. For each word in the list of words, it either increments its count or adds it to the dictionary if it's not already present.
+
+### Example Output:
+
+For the example text `"Hello, world! This is a test. Hello again!"`, the output will be:
+```python
+{'hello': 2, 'world': 1, 'this': 1, 'is': 1, 'a': 1, 'test': 1, 'again': 1}
+```
+
+This function can now be used to count the frequency of each word in any given text.

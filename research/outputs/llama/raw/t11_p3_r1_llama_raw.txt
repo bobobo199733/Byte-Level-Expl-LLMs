@@ -1,0 +1,47 @@
+**Coin Change Function**
+=========================
+
+Here is a Python solution for the coin change problem using dynamic programming.
+
+```python
+def coin_change(coins, amount):
+    """
+    Finds the smallest number of coins needed to make the given amount.
+
+    Args:
+        coins (list): A list of available coin denominations.
+        amount (int): The target amount.
+
+    Returns:
+        int: The minimum number of coins required. Returns -1 if impossible.
+    """
+
+    # Initialize a list to store the minimum number of coins for each amount from 0 to target
+    dp = [float('inf')] * (amount + 1)
+
+    # Base case: 0 coins are needed to make an amount of 0
+    dp[0] = 0
+
+    # Iterate over each coin denomination
+    for coin in coins:
+        # Iterate from the coin's value to the target amount
+        for i in range(coin, amount + 1):
+            # Update the minimum number of coins for the current amount
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    # Return the minimum number of coins required or -1 if impossible
+    return dp[amount] if dp[amount] != float('inf') else -1
+```
+
+**Example Use Cases**
+--------------------
+
+```python
+# Example 1: Find the minimum number of coins for an amount of 10 with denominations [1, 2, 5]
+print(coin_change([1, 2, 5], 10))  # Output: 2 (5 + 5)
+
+# Example 2: Find the minimum number of coins for an amount of 3 with denomination 2
+print(coin_change([2], 3))  # Output: -1 (Impossible to make 3 with a coin value of 2)
+```
+
+This solution uses dynamic programming to efficiently calculate the minimum number of coins required. The `dp` list stores the minimum number of coins for each amount from 0 to the target, and the function iterates over each coin denomination to update these values. If no combination is found, it returns -1.

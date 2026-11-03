@@ -1,0 +1,49 @@
+**Binary Tree Serialization Function**
+=====================================
+
+The following Python function serializes a binary tree into a string. This function assumes the input `root` is a node in the binary tree.
+
+```python
+def serialize_tree(root):
+    """
+    Serialize a binary tree into a string.
+
+    :param root: The root of the binary tree.
+    :return: A string representation of the binary tree.
+    """
+
+    def dfs(node, res):
+        if not node:
+            # Append null value to represent empty nodes
+            res.append("X")
+            return
+
+        # Preorder traversal: visit the current node before its children
+        res.append(str(node.val))
+        dfs(node.left, res)
+        dfs(node.right, res)
+
+    # Initialize result list with root's value if it exists
+    res = []
+    dfs(root, res)
+
+    # Join the result list into a string separated by commas
+    return ",".join(res)
+```
+
+**Example Usage**
+---------------
+
+```python
+# Create a sample binary tree:
+#       1
+#      / \
+#     2   3
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+
+print(serialize_tree(root))  # Output: "1,2,X,X,3,X,X"
+```
+
+This function works by performing a depth-first traversal (preorder) of the binary tree and appending each node's value to the result list. Empty nodes are represented as "X" in the serialized string. The result is then joined into a single string separated by commas. This ensures that the structure of the original binary tree is preserved correctly.

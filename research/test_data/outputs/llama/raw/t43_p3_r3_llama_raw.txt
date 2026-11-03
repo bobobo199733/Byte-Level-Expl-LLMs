@@ -1,0 +1,58 @@
+**Binary Tree In-Order Traversal Function**
+=====================================
+
+Here is a Python function that performs an in-order traversal on a binary tree and returns the result as a list:
+
+```python
+class TreeNode:
+    """Represents a node in a binary tree."""
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def binary_tree_inorder(tree):
+    """
+    Performs an in-order traversal on the given binary tree and returns the result as a list.
+
+    :param tree: The root node of the binary tree.
+    :return: A list containing the values of the nodes in in-order traversal order.
+    """
+    result = []
+    _inorder_helper(tree, result)
+    return result
+
+def _inorder_helper(node, result):
+    """
+    Helper function for performing an in-order traversal.
+
+    :param node: The current node being visited.
+    :param result: A list to store the values of the nodes in in-order traversal order.
+    """
+    if node:
+        _inorder_helper(node.left, result)
+        result.append(node.value)
+        _inorder_helper(node.right, result)
+
+# Example usage
+if __name__ == "__main__":
+    # Create a sample binary tree:
+    #       4
+    #      / \
+    #     2   6
+    #    / \   \
+    #   1   3   5
+
+    root = TreeNode(4)
+    root.left = TreeNode(2)
+    root.right = TreeNode(6)
+    root.left.left = TreeNode(1)
+    root.left.right = TreeNode(3)
+    root.right.right = TreeNode(5)
+
+    print(binary_tree_inorder(root))  # Output: [1, 2, 3, 4, 5, 6]
+```
+
+This implementation uses a recursive helper function `_inorder_helper` to traverse the tree. The `binary_tree_inorder` function initializes an empty list to store the results and calls the helper function on the root node of the tree. Finally, it returns the list containing the values of the nodes in in-order traversal order.
+
+Note that this implementation assumes that the binary tree is represented using a class with `TreeNode` instances as nodes, where each node has a `value`, `left`, and `right` attribute.

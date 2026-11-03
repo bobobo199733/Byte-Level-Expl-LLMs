@@ -1,0 +1,68 @@
+**BFS Shortest Path Function**
+==========================
+
+Here is a high-quality, readable, and well-documented implementation of a Breadth-First Search (BFS) function to find the shortest path between two nodes in an unweighted graph:
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Returns the length of the shortest path between 'start' and 'target' in the graph.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+        start (str): Node to start searching from.
+        target (str): Target node.
+
+    Returns:
+        int: Length of the shortest path, or -1 if no path exists.
+    """
+    # Check if start and target are in the graph
+    if start not in graph or target not in graph:
+        raise ValueError("Start or target node is not in the graph")
+
+    # Create a queue for BFS, with the starting node as the first element
+    queue = deque([(start, 0)])  # (node, distance)
+
+    # Create a set to keep track of visited nodes
+    visited = {start}
+
+    while queue:
+        node, dist = queue.popleft()
+
+        if node == target:
+            return dist
+
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                queue.append((neighbor, dist + 1))
+                visited.add(neighbor)
+
+    # If we reach this point, there is no path between the start and target nodes
+    return -1
+```
+
+**Example Use Case**
+-------------------
+
+Suppose we have an unweighted graph represented as an adjacency list:
+
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+```
+
+We can find the shortest path from node `'A'` to node `'F'` like this:
+
+```python
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 2 (e.g., A -> C -> F)
+```
+
+This implementation has a time complexity of O(|E| + |V|), where |E| is the number of edges and |V| is the number of vertices in the graph. It uses a queue to keep track of nodes to visit next, which ensures that we explore the graph level by level.

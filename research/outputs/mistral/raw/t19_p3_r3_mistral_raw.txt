@@ -1,0 +1,32 @@
+To count the number of islands in a 2D grid, we can use Depth-First Search (DFS). Here is an implementation in Python:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+
+    rows = len(grid)
+    cols = len(grid[0])
+    count = 0
+
+    def dfs(i, j):
+        if i < 0 or j < 0 or i >= rows or j >= cols or grid[i][j] != '1':
+            return
+        grid[i][j] = '#'
+        dfs(i + 1, j)
+        dfs(i - 1, j)
+        dfs(i, j + 1)
+        dfs(i, j - 1)
+
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == '1':
+                count += 1
+                dfs(i, j)
+
+    return count
+```
+
+In this function, we first check if the grid is empty. If it is, we return 0 because there are no islands. Then we initialize some variables and define a helper function `dfs()`. The main idea of the DFS algorithm is to mark each visited cell with a '#' so that we can avoid visiting it again and explore its neighboring cells recursively.
+
+Finally, we iterate through the grid and count the number of '1's in the grid as potential starting points for our DFS search. For each '1', we call the `dfs()` function, which will mark all connected '1's within the same island and increment the total count by 1. The resulting marked cells will be ignored in subsequent iterations.

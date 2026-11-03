@@ -1,0 +1,58 @@
+Certainly! Below is a Python function named `serialize_tree` that converts a binary tree into a serialized string representation. The function uses the preorder traversal method, where we serialize the root node first, followed by its left and right children.
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def serialize_tree(root: TreeNode) -> str:
+    if not root:
+        return "None,"  # Representing an empty node in the serialized string
+    
+    # Serialize the current node first
+    result = str(root.val) + ","
+    
+    # Recursively serialize the left and right subtrees
+    result += serialize_tree(root.left)
+    result += serialize_tree(root.right)
+    
+    return result
+
+# Example usage:
+if __name__ == "__main__":
+    # Construct a simple binary tree
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.right.left = TreeNode(4)
+    root.right.right = TreeNode(5)
+
+    serialized_tree = serialize_tree(root)
+    print(serialized_tree)  # Expected output: "1,2,{},3,4,{},5,{},{},"
+
+```
+
+### Explanation:
+- **TreeNode Class**: This class defines the structure of each node in the binary tree. Each node has a value (`val`), and pointers to its left (`left`) and right (`right`) children.
+  
+- **serialize_tree Function**:
+  - If `root` is `None`, it returns `"None,"`. This represents an empty subtree or leaf nodes.
+  - For each non-empty node, the function appends the node's value followed by a comma to the result string.
+  - It then recursively processes the left and right children of the current node.
+
+### Output:
+The output will be a serialized string representation of the binary tree. For example, for a tree with nodes `1`, `2`, `3`, `4`, and `5` structured as:
+
+```
+    1
+   / \
+  2   3
+     / \
+    4   5
+```
+
+The serialized output would be `"1,2,{},3,4,{},5,{},{},"`.
+
+This approach ensures that the function handles empty trees and nodes correctly.

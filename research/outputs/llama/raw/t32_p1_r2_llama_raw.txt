@@ -1,0 +1,52 @@
+**N-Queens Problem Solution**
+=====================================
+
+The following Python function uses backtracking to find all valid solutions for the N-Queens problem.
+
+```python
+def n_queens(n):
+    """
+    Returns all valid board configurations for the N-Queens problem.
+
+    Args:
+        n (int): The number of queens on the board.
+
+    Returns:
+        list: A list of lists, where each sublist represents a solution.
+              Each element in the sublist is an index of a queen's position.
+    """
+    def backtrack(queens, empty_cols):
+        # If there are no more columns to fill
+        if len(empty_cols) == 0:
+            solutions.append(queens[:])
+            return
+
+        for col in empty_cols:
+            # Place the current queen in this column
+            queens.append(col)
+            # Make a copy of the remaining empty columns
+            new_empty_cols = empty_cols[:]  # Slice to avoid aliasing
+            new_empty_cols.remove(col)
+
+            # Recursively try placing queens in the remaining columns
+            backtrack(queens, new_empty_cols)
+
+            # Backtrack: remove the current queen from this column
+            queens.pop()
+
+    solutions = []
+    backtrack([], list(range(n)))
+    return [["." * i + "Q" + "." * (n - 1 - i) for i in sol] for sol in solutions]
+```
+
+**Example Use Cases**
+----------------------
+
+```python
+print(n_queens(4))  # Returns all valid configurations for a 4x4 board
+print(n_queens(8))  # Returns all valid configurations for an 8x8 board
+```
+
+This function works by using a helper function `backtrack` to recursively try placing queens in the remaining columns. The `n_queens` function initializes the recursion with an empty board and calls `backtrack`. The result is a list of lists, where each sublist represents a valid solution. Each element in the sublist is an index of a queen's position.
+
+The time complexity of this solution is O(N!), where N is the number of queens on the board. This is because we are trying all possible placements of the queens. The space complexity is also O(N!), as we need to store all valid solutions in memory.

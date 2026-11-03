@@ -1,0 +1,9 @@
+Write exactly one Python function called fast_power(base, exponent) that returns base ** exponent using efficient exponentiation.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- Handle positive, zero, and negative integer exponents.
+- Use exponentiation by squaring or another efficient approach.
+- Do not simply call pow().

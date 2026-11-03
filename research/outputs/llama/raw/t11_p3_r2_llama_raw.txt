@@ -1,0 +1,38 @@
+Here is a Python solution for this problem using dynamic programming:
+```python
+def coin_change(coins, amount):
+    """
+    Returns the minimum number of coins needed to make up the given amount.
+
+    Args:
+        coins (list): A list of coin denominations available.
+        amount (int): The target amount we want to reach.
+
+    Returns:
+        int: The minimum number of coins needed. Returns -1 if impossible.
+    """
+
+    # Create a list to store the minimum number of coins for each amount from 0 to the target
+    min_coins = [float('inf')] * (amount + 1)
+    
+    # Base case: we need zero coins to make an amount of 0
+    min_coins[0] = 0
+    
+    # Iterate over each coin denomination
+    for coin in coins:
+        # Iterate from the current coin denomination up to the target amount
+        for i in range(coin, amount + 1):
+            # Update the minimum number of coins for the current amount if using this coin results in a smaller count
+            min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
+    
+    # If we can't make the target amount with any combination of coins, return -1
+    return min_coins[amount] if min_coins[amount] != float('inf') else -1
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (e.g., 5 + 5 + 1)
+```
+In this solution, we use a dynamic programming approach by maintaining an array `min_coins` where each element represents the minimum number of coins needed to make up the corresponding amount. We start with the base case that we need zero coins to make an amount of 0. Then, for each coin denomination and each amount from that denomination up to the target, we update the minimum number of coins if using this coin results in a smaller count.
+
+This function returns -1 if it's impossible to make the target amount with any combination of coins, indicating that there is no solution. Otherwise, it returns the smallest number of coins needed.

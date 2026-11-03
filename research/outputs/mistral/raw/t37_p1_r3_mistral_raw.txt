@@ -1,0 +1,31 @@
+To create a Python function `linked_list_cycle` that detects whether a linked list contains a cycle, I'll utilize the Floyd's Tortoise and Hare algorithm. This approach leverages two pointers moving at different speeds to help us find the start of a cycle in a linked list:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head or not head.next:
+        return False
+
+    slow_ptr, fast_ptr = head, head.next
+
+    while fast_ptr and fast_ptr.next:
+        if slow_ptr == fast_ptr:
+            return True
+
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+
+    return False
+```
+
+In this code, we first define a `ListNode` class for the linked list. Then, we create the `linked_list_cycle` function that takes in the head node of the linked list as an argument. Inside the function, we use Floyd's Tortoise and Hare algorithm to check if there is a cycle in the linked list:
+
+- If the input list has no nodes or only one node, we return False since there are no cycles possible.
+- Otherwise, we initialize two pointers `slow_ptr` and `fast_ptr` at the head and its next node respectively.
+- We then enter a loop that continues until either one of the pointers is None (i.e., the end of the list) or the `next` pointer for `fast_ptr` is also None (this can happen if the linked list has an odd number of nodes).
+- Within the loop, we first compare the positions of both pointers: if they are equal, a cycle exists and we return True.
+- After checking for a cycle, we move both pointers forward by one node in each iteration: `slow_ptr = slow_ptr.next` and `fast_ptr = fast_ptr.next.next`.

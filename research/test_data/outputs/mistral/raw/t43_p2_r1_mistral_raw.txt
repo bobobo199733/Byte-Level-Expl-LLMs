@@ -1,0 +1,20 @@
+Here is the required Python function named `binary_tree_inorder` that performs an inorder traversal of a binary tree represented as a list:
+
+```python
+def binary_tree_inorder(tree):
+    def _inorder(node, result):
+        if node is None:
+            return
+        _inorder(node[1], result)
+        result.append(node[0])
+        _inorder(node[2], result)
+
+    if not isinstance(tree, list) or len(tree) < 3 or any(isinstance(v, str) for v in tree):
+        raise ValueError("Invalid binary tree representation")
+
+    result = []
+    _inorder(tree, result)
+    return result
+```
+
+This function defines a helper function `_inorder` to traverse the binary tree recursively and performs an inorder traversal. It also checks for valid inputs and raises a ValueError if the input is not a proper binary tree representation.

@@ -1,0 +1,75 @@
+**Dijkstra's Shortest Path Function**
+=====================================
+
+### Implementation
+```python
+import heapq
+
+def dijkstra_shortest_path(graph, start):
+    """
+    Compute shortest path distances from the `start` node to every reachable node in a weighted graph.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph. Each key is a node and its value is another dictionary with neighboring nodes as keys and edge weights as values.
+        start (node): The node from which to compute shortest paths.
+
+    Returns:
+        dict: A dictionary where each key is a node in the graph, and its corresponding value is the shortest distance from `start` to that node. Nodes not reachable from `start` have a distance of infinity.
+
+    Raises:
+        ValueError: If `start` is not a valid node in the graph.
+    """
+
+    # Check if start node exists in the graph
+    if start not in graph:
+        raise ValueError("Start node not found in the graph")
+
+    # Initialize distances dictionary with infinite values for all nodes
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0  # Distance from start to itself is 0
+
+    # Priority queue to store nodes to be processed, with their current shortest distance as priority
+    pq = [(0, start)]  # (distance, node)
+
+    while pq:
+        # Extract the node with the minimum distance from the priority queue
+        dist, current_node = heapq.heappop(pq)
+
+        # If the extracted node's distance is greater than its current known shortest distance, skip it
+        if dist > distances[current_node]:
+            continue
+
+        # Iterate over neighboring nodes of the current node
+        for neighbor, weight in graph[current_node].items():
+            # Compute new tentative distance to the neighbor through the current node
+            new_dist = distances[current_node] + weight
+
+            # If this path is shorter than the previously known shortest distance, update it and add the neighbor to the priority queue
+            if new_dist < distances[neighbor]:
+                distances[neighbor] = new_dist
+                heapq.heappush(pq, (new_dist, neighbor))
+
+    return distances
+```
+
+### Example Usage
+
+```python
+# Sample weighted graph represented as an adjacency list
+graph = {
+    'A': {'B': 2, 'C': 3},
+    'B': {'A': 2, 'D': 1},
+    'C': {'A': 3, 'F': 5},
+    'D': {'B': 1, 'E': 4},
+    'E': {'D': 4, 'F': 2},
+    'F': {'C': 5, 'E': 2}
+}
+
+# Compute shortest path distances from node 'A'
+shortest_distances = dijkstra_shortest_path(graph, 'A')
+print(shortest_distances)
+```
+
+This implementation uses a priority queue to efficiently select the next node with the minimum distance. It also handles disconnected graphs by keeping nodes not reachable from the start node in the `distances` dictionary with infinite values.
+
+Note: This code assumes that the input graph is represented as an adjacency list, where each key is a node and its corresponding value is another dictionary with neighboring nodes as keys and edge weights as values.

@@ -1,0 +1,40 @@
+Here's an implementation of the LRU (Least Recently Used) cache in Python using OrderedDict:
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: str) -> int:
+        if key not in self.cache:
+            return -1
+        # Move the accessed item to the end of the cache (most recently used)
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: str, value: int) -> None:
+        if key in self.cache:
+            # If the key already exists in the cache, remove it first to avoid exceeding capacity
+            self.cache.pop(key)
+        elif len(self.cache) >= self.capacity:
+            # If the cache is at its maximum capacity, remove the least recently used item (first item in the OrderedDict)
+            self.cache.popitem(last=False)
+        self.cache[key] = value  # Add or update the key-value pair in the cache
+
+# Testing the LRUCache class
+cache = LRUCache(2)
+cache.put("one", 1)
+cache.put("two", 2)
+print(cache.get("one"))  # Returns: 1
+cache.put("three", 3)     # Evicts key "two" since the cache reached its capacity and LRU principle is used
+print(cache.get("two"))  # Returns: -1 (not found)
+cache.put("four", 4)      # Evicts key "one" since it's the least recently used
+print(cache.get("one"))  # Returns: -1 (not found)
+print(cache.get("three")) # Returns: 3
+print(cache.get("four"))  # Returns: 4
+```
+
+This LRUCache implementation uses an OrderedDict to store the key-value pairs and moves the accessed item to the end of the cache, thus simulating the LRU behavior. The `get()` method retrieves a value from the cache if it exists, moves the accessed item to the end of the cache, and returns -1 if the key is not found. The `put()` method adds or updates a key-value pair in the cache, handling the case where the cache reaches its maximum capacity by evicting the least recently used item (first item in the OrderedDict).

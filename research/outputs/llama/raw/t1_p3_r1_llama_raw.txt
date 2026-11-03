@@ -1,0 +1,43 @@
+```python
+def roman_to_int(s: str) -> int:
+    if not s:
+        raise ValueError("Invalid input")
+    
+    mapping = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    subtractive_pairs = ['IV', 'IX', 'XL', 'XC', 'CD', 'CM']
+    valid_numerals = {
+        "I": [True, False],
+        "X": [False, True, False],
+        "C": [False, False, True],
+        "M": [False, False, False]
+    }
+    
+    i = 0
+    while i < len(s):
+        if s[i:i+2] in subtractive_pairs:
+            if s[i:i+2] not in mapping or s[i+1:i+3] not in mapping:
+                raise ValueError("Invalid numeral")
+            result += mapping[s[i+2]]
+            i += 2
+        elif s[i] in mapping:
+            repetition_valid = valid_numerals.get(s[i], [False])[i % 4]
+            if s[i] == 'V' or s[i] == 'L' or s[i] == 'D':
+                repetition_valid = True
+            if not repetition_valid and i > 0 and s[i] <= s[i-1]:
+                raise ValueError("Invalid numeral")
+            result += mapping[s[i]]
+            i += 1
+        else:
+            raise ValueError("Invalid numeral")
+    
+    return result
+```

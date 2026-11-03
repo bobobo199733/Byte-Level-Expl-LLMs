@@ -1,0 +1,56 @@
+Certainly! Below is a Python function that converts a Roman numeral string to an integer. The function checks for valid Roman numerals and correctly handles the subtractive notation. It raises `ValueError` if the input is invalid:
+
+```python
+def roman_to_int(s: str) -> int:
+    # Define the mapping of Roman numerals to integers
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    # Check for invalid input and empty string
+    if not s:
+        raise ValueError("Input cannot be an empty string")
+    
+    total = 0
+    prev_value = 0
+    
+    # Iterate over the Roman numeral from right to left
+    for char in reversed(s):
+        value = roman_values.get(char)
+        
+        # Check for invalid characters
+        if value is None:
+            raise ValueError(f"Invalid character: {char}")
+        
+        # Check for subtractive notation and repetition rules
+        if value < prev_value:
+            total -= value  # This handles the case of IV, IX, etc.
+        else:
+            total += value
+        
+        prev_value = value
+    
+    return total
+
+# Example usage:
+print(roman_to_int("III"))   # Output: 3
+print(roman_to_int("IV"))    # Output: 4
+print(roman_to_int("IX"))    # Output: 9
+print(roman_to_int("LVIII")) # Output: 58
+print(roman_to_int("MCMXCIV")) # Output: 1994
+```
+
+### Explanation:
+- **Mapping of Roman Numerals**: A dictionary `roman_values` is used to map each Roman numeral character to its integer value.
+- **Input Validation**: The function checks if the input string is empty and raises a `ValueError` if it is.
+- **Iterating in Reverse Order**: By iterating from right to left, we can easily handle the subtractive notation (e.g., "IV" for 4).
+- **Subtractive Notation Check**: If the current value is less than the previous value, it means this character should be subtracted; otherwise, it should be added.
+- **Repetition Rules**: The function inherently follows the rule that a smaller numeral can only precede a larger one once or twice (as in "IV" and "IX").
+
+This implementation ensures correctness for valid Roman numerals while raising appropriate errors for invalid inputs.

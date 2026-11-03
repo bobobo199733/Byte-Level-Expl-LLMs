@@ -1,0 +1,38 @@
+Here's a Python function named `course_schedule` that takes in the number of courses (`num_courses`) and a list of prerequisite pairs (`prerequisites`). The function uses Depth-First Search (DFS) to determine if all courses can be completed.
+
+```python
+from collections import defaultdict, deque
+
+def canFinish(numCourses, prerequisites):
+    # Initialize an adjacency list and a visited dictionary
+    graph = defaultdict(list)
+    visited = [False] * numCourses
+    degree = [0] * numCourses
+
+    for edge in prerequisites:
+        graph[edge[1]].append(edge[0])
+        degree[edge[0]] += 1
+
+    # Perform DFS and count the number of unvisited courses with zero indegree
+    queue = deque()
+    for course in range(numCourses):
+        if degree[course] == 0:
+            queue.append(course)
+
+    finished_courses = 0
+
+    while queue:
+        current_course = queue.popleft()
+        visited[current_course] = True
+        finished_courses += 1
+
+        for neighbor in graph[current_course]:
+            degree[neighbor] -= 1
+            if degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # If all courses can be visited, return True; otherwise False
+    return finished_courses == numCourses
+```
+
+This implementation uses a graph data structure to represent the course dependencies and performs DFS to visit the courses. The function returns `True` if all courses can be completed (i.e., visited) during the DFS process, otherwise it returns `False`.

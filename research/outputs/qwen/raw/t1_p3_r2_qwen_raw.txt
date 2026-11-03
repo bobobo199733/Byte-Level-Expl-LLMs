@@ -1,0 +1,31 @@
+```python
+def roman_to_int(s: str) -> int:
+    if s == "":
+        raise ValueError
+    
+    numeral_map = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    prev_value = 0
+    total = 0
+    
+    for char in s:
+        if char not in numeral_map:
+            raise ValueError
+        
+        value = numeral_map[char]
+        
+        if prev_value == 0 or value <= prev_value:
+            if prev_value * 10 < value:
+                raise ValueError
+            total += value
+        else:
+            if prev_value * 5 < value < prev_value * 10:
+                if (char, prev_value) not in [('IV', 1), ('IX', 1), ('XL', 10), ('XC', 10), ('CD', 100), ('CM', 100)]:
+                    raise ValueError
+                total += value - 2 * prev_value
+            else:
+                raise ValueError
+        
+        prev_value = value
+    
+    return total
+```

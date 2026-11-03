@@ -1,0 +1,10 @@
+Write exactly ONE Python function called json_validator(text) that validates whether a string contains syntactically valid JSON.
+
+Requirements:
+- Use only one function named json_validator.
+- Correctly handle nested objects and arrays.
+- Handle strings, numbers, booleans, and null values.
+- Detect invalid commas, brackets, and quotes.
+- Return True if valid and False otherwise.
+- Do not use external libraries or built-in JSON parsers.
+- The implementation should be robust and readable.

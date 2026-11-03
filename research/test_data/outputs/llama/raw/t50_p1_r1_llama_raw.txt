@@ -1,0 +1,63 @@
+**find_all_anagrams Function**
+=====================================
+
+### Overview
+
+This function finds all start indices in string `s` where an anagram of string `p` begins.
+
+### Code
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    """
+    Finds all start indices in string s where an anagram of string p begins.
+    
+    Args:
+        s (str): The string to search for anagrams.
+        p (str): The string to compare with.
+    
+    Returns:
+        list: A sorted list of starting indices.
+    """
+    if len(p) > len(s):
+        return []
+
+    # Create a counter for the characters in p
+    p_counter = Counter(p)
+
+    # Initialize variables to keep track of the count and start index
+    count = sum(freq for freq in p_counter.values())
+    left, right = 0, 0
+
+    # Initialize list to store anagram start indices
+    anagrams = []
+
+    while right < len(s):
+        if s[right] in p_counter:
+            p_counter[s[right]] -= 1
+            count -= 1
+
+        # If the window size is greater than or equal to p length, try to slide window
+        while left <= right and count != 0:
+            anagrams.append(left)
+
+            if s[left] in p_counter:
+                p_counter[s[left]] += 1
+                count += 1
+
+            left += 1
+
+        # Move the window to the right
+        right += 1
+
+    return sorted(anagrams)
+```
+### Example Use Cases
+
+```python
+print(find_all_anagrams("abxaba", "ab"))  # Output: [0, 2, 3]
+print(find_all_anagrams("abcde", "cde"))  # Output: []
+```
+
+This function uses a sliding window approach to efficiently find all anagram start indices. It counts the frequency of characters in `p` and then tries to slide a window of size `len(p)` over `s`. If the count matches, it adds the start index to the result list. The time complexity is O(n), where n is the length of `s`, making this function efficient for large strings.

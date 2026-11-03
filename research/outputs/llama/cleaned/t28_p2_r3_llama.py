@@ -1,0 +1,20 @@
+def robot_simulator(commands):
+    x = 0
+    y = 0
+    direction = 'N'
+    for command in commands:
+        if command == 'F':
+            if direction == 'N':
+                y += 1
+            elif direction == 'S':
+                y -= 1
+            elif direction == 'E':
+                x += 1
+            elif direction == 'W':
+                x -= 1
+        elif command == 'L':
+            directions = ['N', 'E', 'S', 'W']
+            direction = directions[(directions.index(direction) - 1) % 4]
+        elif command == 'R':
+            direction = {v: k for k, v in {'N': 'E', 'E': 'S', 'S': 'W', 'W': 'N'}.items()}[direction]
+    return [x, y, direction]

@@ -1,0 +1,51 @@
+Certainly! To solve this problem using a sliding window approach, we can use the `collections.Counter` to keep track of character counts for both the string `p` and the current window in `s`. Here's how you can implement the `find_all_anagrams(s, p)` function:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s: str, p: str) -> list:
+    if len(p) > len(s):
+        return []
+    
+    # Count characters in the pattern
+    target_counter = Counter(p)
+    window_counter = Counter()
+    result = []
+    
+    left = 0
+    for right in range(len(s)):
+        # Add the current character to the window counter
+        window_counter[s[right]] += 1
+        
+        # Check if we have processed a window of length equal to p
+        if right - left + 1 == len(p):
+            # If the window counter matches the target counter, it's an anagram
+            if window_counter == target_counter:
+                result.append(left)
+            
+            # Remove the character that is sliding out of the window
+            window_counter[s[left]] -= 1
+            if window_counter[s[left]] == 0:
+                del window_counter[s[left]]
+            left += 1
+    
+    return result
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+
+- **Initialization**: We initialize the `target_counter` with the character counts of the pattern string `p`. The `window_counter` keeps track of the characters in the current sliding window.
+  
+- **Sliding Window**:
+  - As we iterate through the string `s`, we add each new character to the `window_counter`.
+  - Once the window size matches the length of `p`, we compare `window_counter` with `target_counter`. If they match, it means that a valid anagram has been found at index `left`.
+  
+- **Shrinking Window**:
+  - After checking for anagrams at the current position, we slide the window to the right by removing the character that is sliding out of the window from `window_counter` and adjusting the size of the window.
+
+This approach ensures that each character in `s` is processed only a constant number of times (at most twice: once when adding it and once when removing it), making the time complexity O(n) where n is the length of `s`.

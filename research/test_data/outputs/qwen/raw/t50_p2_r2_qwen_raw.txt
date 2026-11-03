@@ -1,0 +1,63 @@
+Certainly! To implement the `find_all_anagrams` function using a sliding window approach and frequency counters, we can follow these steps:
+
+1. Import necessary modules.
+2. Define the function with two frequency counters: one for the pattern `p` and another for the current window in string `s`.
+3. Use a sliding window to slide through `s`, updating the frequency counter at each step.
+4. Check if the frequency counters match, indicating that the current window is an anagram of `p`.
+5. Record the starting index when a match is found.
+6. Return the list of all starting indices in sorted order.
+
+Here's the complete implementation:
+
+```python
+def find_all_anagrams(s: str, p: str) -> list:
+    from collections import Counter
+    
+    if len(p) > len(s):
+        return []
+    
+    # Initialize frequency counters for pattern and current window in s
+    counter_p = Counter(p)
+    counter_window = Counter()
+    
+    # Result list to store starting indices of anagrams
+    result_indices = []
+    
+    # Sliding window approach
+    left, right = 0, len(p) - 1
+    
+    while right < len(s):
+        # Add the new character that is entering the window
+        counter_window[s[right]] += 1
+        
+        # Remove the character that is leaving the window
+        if left > 0:
+            counter_window[s[left - 1]] -= 1
+            if counter_window[s[left - 1]] == 0:
+                del counter_window[s[left - 1]]
+        
+        # Check if current window is an anagram of p
+        if counter_p == counter_window:
+            result_indices.append(left)
+        
+        left += 1
+        right += 1
+    
+    return sorted(result_indices)
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+Explanation:
+
+1. **Imports**: We import the `Counter` class from the `collections` module to help with frequency counting.
+2. **Edge Case Handling**: If the length of `p` is greater than `s`, we return an empty list as no anagrams can be found.
+3. **Frequency Counters Initialization**: Two counters, `counter_p` for pattern `p` and `counter_window` for the current window in `s`.
+4. **Sliding Window**: We maintain a sliding window of length `len(p)` by adjusting the left and right pointers. As we slide the window, we update the counter `counter_window` to reflect the characters entering and leaving the window.
+5. **Anagram Check**: If at any point the two counters match (`counter_p == counter_window`), it means that the current window is an anagram of `p`, so we append the starting index of this window to our result list.
+6. **Result Sorting**: Finally, we return the sorted list of indices.
+
+This implementation ensures that all edge cases are handled and the function works efficiently for finding all anagrams in a given string using a sliding window approach.

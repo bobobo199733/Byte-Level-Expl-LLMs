@@ -1,0 +1,42 @@
+I'll provide you with a Python function named `linked_list_cycle` that follows the given requirements for detecting a cycle in a linked list. This solution uses Floyd's tortoise and hare algorithm, also known as the "space and constant time" cycle detection strategy.
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head:
+        return False
+
+    slow, fast = head, head.next
+
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+
+    return False
+```
+
+In this implementation, the `ListNode` class represents a node in the linked list, with values and pointers to the next node. The main function `linked_list_cycle` initializes two pointers, one moving one step at a time (slow) and another moving two steps at a time (fast). If there's a cycle in the list, both pointers will eventually meet somewhere in the loop. When that happens, the function returns `True`. Otherwise, it returns `False`, indicating no cycle exists.
+
+Here's an example of how to use this implementation:
+
+```python
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node2  # creating a cycle
+
+print(linked_list_cycle(node1))  # Output: True
+```

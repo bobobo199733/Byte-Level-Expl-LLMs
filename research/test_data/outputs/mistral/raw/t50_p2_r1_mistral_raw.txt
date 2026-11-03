@@ -1,0 +1,35 @@
+Here is a Python function called `find_all_anagrams` using a sliding window approach:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    if not p or len(p) > len(s):
+        return []
+
+    counter_p = Counter(p)
+    counter_window = Counter()
+    anagrams = []
+    start = 0
+
+    for end in range(len(s)):
+        # Add the current character to the window counter and check if the window counter matches counter_p
+        counter_window[s[end]] += 1
+        if counter_window[s[end]] <= counter_p[s[end]]:
+            pass
+        elif counter_window[s[end]] > counter_p[s[end]]:
+            # If the window counter exceeds counter_p, subtract the character that left the window
+            while start < end:
+                counter_window[s[start]] -= 1
+                if counter_window[s[start]] == counter_p[s[start]] or counter_window[s[start]] < counter_p[s[start]]:
+                    break
+                start += 1
+
+        # If the counters match, record the starting index and continue with the next character
+        if counter_window == counter_p:
+            anagrams.append(start)
+
+    return sorted(anagrams)
+```
+
+This function takes two strings `s` (source string) and `p` (pattern), and returns a list of starting indices in sorted order where the substring with the same frequency as the pattern is found in the source string. It handles the edge case when the length of the pattern is greater than the length of the source string by returning an empty list.

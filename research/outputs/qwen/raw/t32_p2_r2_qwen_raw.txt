@@ -1,0 +1,72 @@
+Certainly! Below is the Python function `n_queens(n)` that solves the N-Queens problem using backtracking. This function will return all valid solutions where no queens attack each other.
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        # Check this row on left side
+        for i in range(col):
+            if board[row][i] == 1:
+                return False
+        
+        # Check upper diagonal on left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        
+        # Check lower diagonal on left side
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        
+        return True
+
+    def solve_n_queens_util(board, col):
+        # base case: If all queens are placed then one solution found
+        if col >= n:
+            solutions.append([board[i][:] for i in range(n)])
+            return
+
+        # Consider this column and try placing this queen in all rows one by one
+        for i in range(n):
+            if is_safe(board, i, col):
+                # Place this queen in board[i][col]
+                board[i][col] = 1
+                
+                # recur to place rest of the queens
+                solve_n_queens_util(board, col + 1)
+                
+                # If placing queen in board[i][col] doesn't lead to a solution,
+                # then remove queen from board[i][col]
+                board[i][col] = 0  # BACKTRACK
+
+    def initialize_board(n):
+        return [[0 for _ in range(n)] for _ in range(n)]
+
+    solutions = []
+    
+    if n == 0 or n == 1:
+        return solutions
+    
+    board = initialize_board(n)
+    solve_n_queens_util(board, 0)
+    
+    return solutions
+
+# Example usage
+print(n_queens(4))
+```
+
+### Explanation:
+
+- **`is_safe` Function**: This function checks if placing a queen at position `(row, col)` is safe by checking the same column and both diagonals.
+  
+- **`solve_n_queens_util` Function**: This recursive function tries to place queens column by column. If all queens are placed (`col >= n`), it adds the current board configuration to the list of solutions.
+
+- **Backtracking**: The `board[i][col] = 1` line places a queen, and the `board[i][col] = 0` line removes the queen (backtracks) when placing a queen does not lead to a solution.
+
+- **Initialization**: The `initialize_board(n)` function creates an empty board of size `n x n`.
+
+### Example Usage:
+To find all solutions for a 4x4 board, you can call `print(n_queens(4))`.
+
+This implementation is efficient and readable while correctly handling the N-Queens problem.

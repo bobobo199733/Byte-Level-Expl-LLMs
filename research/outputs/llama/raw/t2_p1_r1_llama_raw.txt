@@ -1,0 +1,44 @@
+Here is a Python function that fulfills your requirements:
+
+```python
+def is_balanced(s: str) -> bool:
+    """
+    Checks if the brackets in the string are balanced and properly nested.
+    
+    Args:
+        s (str): The input string to check for bracket balance.
+    
+    Returns:
+        bool: True if the brackets are balanced, False otherwise.
+    """
+
+    # Create a dictionary mapping closing brackets to their corresponding opening brackets
+    bracket_map = {')': '(', '}': '{', ']': '['}
+
+    # Initialize an empty stack to store the opening brackets
+    opening_brackets = []
+
+    # Iterate over each character in the input string
+    for char in s:
+        # If the character is an opening bracket, push it onto the stack
+        if char in bracket_map.values():
+            opening_brackets.append(char)
+        # If the character is a closing bracket, check if it matches the top of the stack
+        elif char in bracket_map.keys():
+            # If the stack is empty or the top of the stack doesn't match the current closing bracket, return False
+            if not opening_brackets or opening_brackets.pop() != bracket_map[char]:
+                return False
+
+    # After iterating over all characters, if the stack is empty, it means every opening bracket was matched and returned to the stack, so return True
+    return not opening_brackets
+```
+
+You can use this function as follows:
+
+```python
+print(is_balanced("()"))  # Outputs: True
+print(is_balanced("()[]{}"))  # Outputs: True
+print(is_balanced("(]"))  # Outputs: False
+print(is_balanced("([)]"))  # Outputs: False
+print(is_balanced("{[]}"))  # Outputs: True
+```

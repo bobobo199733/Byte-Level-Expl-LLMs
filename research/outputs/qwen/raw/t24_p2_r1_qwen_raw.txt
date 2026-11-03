@@ -1,0 +1,6 @@
+```python
+def kth_largest(nums, k):
+    if k <= 0 or k > len(nums):
+        raise ValueError("k must be between 1 and the length of nums")
+    return sorted(nums, reverse=True)[k-1]
+```

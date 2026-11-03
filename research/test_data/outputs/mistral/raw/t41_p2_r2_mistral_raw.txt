@@ -1,0 +1,18 @@
+Here is the Python function `group_anagrams(words)` as requested:
+
+```python
+from collections import defaultdict
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+
+    for word in words:
+        if not isinstance(word, str):
+            raise ValueError("Invalid input type. All elements must be strings.")
+        sorted_word = list(sorted(word))
+        groups[sorted_word].append(word)
+
+    return list(groups.values())
+```
+
+This function uses a `defaultdict` to group anagrams, which provides the behavior of creating a new value when it doesn't exist yet. It sorts each word alphabetically and stores all original words in their respective groups. If any non-string element is encountered, it raises a `ValueError`.

@@ -1,0 +1,44 @@
+Here's the Python function that meets the requirements:
+
+```python
+import collections
+
+def dfs(graph, visited, recursive_visited, course):
+    visited[course] = True
+    recursive_visited[course] = True
+
+    for neighbor in graph[course]:
+        if not visited[neighbor] and not recursive_visits[neighbor]:
+            dfs(graph, visited, recursive_visited, neighbor)
+
+        elif recursive_visited[neighbor]:
+            raise ValueError("Cyclic dependency detected")
+
+    recursive_visited[course] = False
+
+def topological_sort(graph):
+    n = len(graph)
+    visited = [False] * n
+    recursive_visits = [False] * n
+
+    order = []
+    for course in range(n):
+        if not visited[course]:
+            dfs(graph, visited, recursive_visits, course)
+            order.append(course)
+
+    return order if len(order) == n else None
+
+def course_schedule(num_courses, prerequisites):
+    graph = collections.defaultdict(list)
+
+    for pair in prerequisites:
+        graph[pair[1]].append(pair[0])
+
+    if not topological_sort(graph):
+        raise ValueError("There is no solution")
+
+    return len(topological_sort(graph)) == num_courses
+```
+
+This code performs a Depth-First Search (DFS) to detect cycles and determine if it's possible to finish all courses. If the DFS finds a cycle, it raises a ValueError indicating that there is a cyclic dependency. The function also checks whether all courses can be completed by checking the length of the sorted order. If it's equal to `num_courses`, then all courses can be completed; otherwise, it raises a ValueError indicating that there is no solution.

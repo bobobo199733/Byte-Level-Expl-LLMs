@@ -1,0 +1,1 @@
+Write exactly one Python function called max_subarray_sum(nums) that returns the maximum sum of any contiguous subarray. Return only the function definition.

@@ -1,0 +1,61 @@
+To determine whether all courses can be completed given the prerequisites, we need to check for cycles in the dependency graph. If there is a cycle, it means that one or more courses cannot be completed because they are mutually dependent (or indirectly dependent). 
+
+Here's how you can implement this:
+
+1. **Graph Construction**: Represent each course as a node and create an adjacency list to represent dependencies.
+2. **Cycle Detection**: Use Depth-First Search (DFS) with a stack to detect cycles in the graph.
+
+Below is the Python function that implements this logic:
+
+```python
+def canFinish(num_courses, prerequisites):
+    # Build the graph
+    graph = {i: [] for i in range(num_courses)}
+    for course, prereq in prerequisites:
+        graph[course].append(prereq)
+    
+    # Helper function to detect cycles using DFS and stack
+    def is_cyclic_util(course, visited, rec_stack):
+        visited[course] = True
+        rec_stack[course] = True
+        
+        # Check all the nodes that are connected to this node
+        for neighbor in graph[course]:
+            if not visited[neighbor]:
+                if is_cyclic_util(neighbor, visited, rec_stack):
+                    return True
+            elif rec_stack[neighbor]:
+                return True
+        
+        # The node needs to be popped from recursion stack before function ends
+        rec_stack[course] = False
+        return False
+    
+    # Array to keep track of visited nodes and to detect cycle
+    visited = [False] * num_courses
+    rec_stack = [False] * num_courses
+    
+    # For each course, check for cycles
+    for i in range(num_courses):
+        if not visited[i]:
+            if is_cyclic_util(i, visited, rec_stack):
+                return False
+    
+    return True
+
+# Example usage:
+num_courses = 2
+prerequisites = [[1, 0]]
+print(canFinish(num_courses, prerequisites))  # Output: True
+
+num_courses = 2
+prerequisites = [[1, 0], [0, 1]]
+print(canFinish(num_courses, prerequisites))  # Output: False
+```
+
+### Explanation:
+- **Graph Construction**: We create a graph where each node (course) points to its dependent courses.
+- **Cycle Detection Function (`is_cyclic_util`)**: This function uses DFS and a `rec_stack` to detect cycles. If a node is visited and already in the recursion stack, it means there's a cycle.
+- **Main Logic**: We initialize the `visited` and `rec_stack` arrays for each course and use the helper function to check for cycles starting from each unvisited node.
+
+This approach ensures that we correctly determine whether all courses can be completed based on given prerequisites.

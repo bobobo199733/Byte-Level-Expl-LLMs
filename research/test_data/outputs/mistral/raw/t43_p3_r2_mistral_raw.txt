@@ -1,0 +1,26 @@
+Here's a simple implementation of the `binary_tree_inorder` function in Python using recursion. This assumes you have a class for the binary tree nodes and an attribute `left` and `right` to store left and right child nodes, and an attribute `data` to store the data at each node.
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def binary_tree_inorder(node):
+    result = []
+
+    if node:
+        # Traverse the left subtree
+        result += binary_tree_inorder(node.left)
+
+        # Visit the current node (print data at each node)
+        result.append(node.data)
+
+        # Traverse the right subtree
+        result += binary_tree_inorder(node.right)
+
+    return result
+```
+
+You can use this function to perform an in-order traversal on a given binary tree, and it will return a list containing the data of each node visited in the order left child, current node, right child.

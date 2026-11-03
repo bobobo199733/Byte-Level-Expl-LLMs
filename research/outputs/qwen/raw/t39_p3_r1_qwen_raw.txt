@@ -1,0 +1,40 @@
+Certainly! The 0/1 Knapsack Problem can be solved using dynamic programming. Here's a Python function named `knapsack_01` that implements this approach:
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(values)
+    
+    # Create a DP table where dp[i][w] represents the maximum value
+    # that can be obtained with the first i items and a maximum weight of w.
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+    
+    # Fill the DP table
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - weights[i - 1]] + values[i - 1])
+            else:
+                dp[i][w] = dp[i - 1][w]
+    
+    # The answer will be in the bottom-right cell of the DP table
+    return dp[n][capacity]
+
+# Example usage:
+weights = [1, 3, 4, 5]
+values = [1, 4, 5, 7]
+capacity = 7
+
+print(knapsack_01(weights, values, capacity))  # Output: 9
+```
+
+### Explanation:
+
+- **`dp[i][w]`**: This represents the maximum value that can be obtained with the first `i` items and a maximum weight of `w`.
+- We iterate over each item (`i`) and for each possible weight up to the capacity.
+- If the current item's weight is less than or equal to the current weight, we have two choices:
+  - Skip the current item: `dp[i][w] = dp[i-1][w]`
+  - Include the current item: `dp[i][w] = dp[i-1][w - weights[i-1]] + values[i-1]`
+- We take the maximum of these two choices.
+- Finally, the value at `dp[n][capacity]` gives us the maximum possible value for the given capacity.
+
+This function works efficiently with a time complexity of \(O(n \times C)\), where \(n\) is the number of items and \(C\) is the capacity.

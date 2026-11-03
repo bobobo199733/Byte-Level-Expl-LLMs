@@ -1,0 +1,5 @@
+Write a function:
+
+def evaluate(expr: str) -> int
+
+Evaluate an arithmetic expression string containing integers, +, -, *, /, and parentheses. Ignore whitespace and return the integer result.

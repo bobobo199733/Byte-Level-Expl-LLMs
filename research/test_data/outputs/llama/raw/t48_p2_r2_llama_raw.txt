@@ -1,0 +1,44 @@
+Here is the Python function that meets all your requirements:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    # Ensure m <= n to simplify code
+    if len(nums1) > len(nums2):
+        nums1, nums2 = nums2, nums1
+    
+    # Handle edge case: empty arrays or single-element array
+    if len(nums1) == 0:
+        return (nums2[0] + nums2[-1]) / 2.0 if len(nums2) % 2 else nums2[len(nums2)//2]
+    
+    left, right = 0, len(nums1)
+    while left <= right:
+        partition_x = (left + right) // 2
+        # Calculate the corresponding partition in nums2 using binary search
+        partition_y = len(nums2) - int((len(nums1) + len(nums2)) / 2.0 - partition_x)
+
+        max_left_x = float('-inf') if partition_x == 0 else nums1[partition_x-1]
+        min_right_x = float('inf') if partition_x == len(nums1) else nums1[partition_x]
+
+        max_left_y = float('-inf') if partition_y == 0 else nums2[partition_y - 1]
+        min_right_y = float('inf') if partition_y == len(nums2) else nums2[partition_y]
+
+        # Check if the current partitions satisfy the requirements
+        if max_left_x <= min_right_y and max_left_y <= min_right_x:
+            # Calculate median based on whether total length is odd or even
+            if (len(nums1) + len(nums2)) % 2 == 0:
+                return ((max(max_left_x, max_left_y) + min(min_right_x, min_right_y)) / 2.0)
+            else:
+                return float(max_left_x > min_right_y and max_left_y > min_right_x and (max_left_x or max_left_y))
+        elif max_left_x > min_right_y:
+            # If max of the left side is greater than min of right side, move partition x to the left
+            right = partition_x - 1
+        else:
+            # If max of the left side is less than or equal to min of right side, move partition x to the right
+            left = partition_x + 1
+
+# Example use cases:
+print(median_of_two_sorted_arrays([1,2], [3,4]))  # Output: 2.5
+print(median_of_two_sorted_arrays([1,2,3], [4,5]))  # Output: 3.0
+print(median_of_two_sorted_arrays([], [1,2,3,4,5]))  # Output: 3.0
+```
+This solution ensures that the time complexity is O(log(min(m,n))) by using binary search on the smaller array to find the correct partition. It handles edge cases such as empty arrays, arrays of different lengths, and even and odd total lengths. The median value is calculated based on whether the total length is odd or even.

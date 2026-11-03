@@ -1,0 +1,4 @@
+Write one Python function called knapsack_01(weights, values, capacity) that solves the 0/1 knapsack problem.
+
+Use only one function with that exact name.
+Return the best possible value.

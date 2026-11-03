@@ -1,0 +1,65 @@
+Here is a high-quality, readable, and well-documented Python function that meets all the requirements:
+
+```python
+def decode_string(s: str) -> str:
+    """
+    Decodes an encoded string.
+
+    Args:
+        s (str): The encoded string to be decoded.
+
+    Returns:
+        str: The decoded string.
+
+    Raises:
+        ValueError: If the input is invalid.
+    """
+
+    # Initialize a stack to store the characters and counts
+    stack = []
+    
+    # Initialize a variable to store the current number
+    num = 0
+    
+    # Initialize a variable to store the current character
+    res = ''
+    
+    # Iterate over each character in the string
+    for c in s:
+        
+        # If the character is a digit, update the number
+        if c.isdigit():
+            num = num * 10 + int(c)
+            
+        # If the character is an opening bracket, push it to the stack
+        elif c == '[':
+            stack.append(res)
+            res = ''
+            stack.append(num)
+            num = 0
+            
+        # If the character is a closing bracket, pop from the stack and repeat
+        elif c == ']':
+            
+            # Get the last number and string from the stack
+            count = stack.pop()
+            prev_str = stack.pop()
+            
+            # Repeat the previous string by the count
+            res = prev_str + count * res
+            
+        # If the character is a letter, add it to the current string
+        else:
+            res += c
+    
+    # Return the decoded string
+    return res
+
+# Test cases
+print(decode_string("3[a]"))  # "aaa"
+print(decode_string("3[a2[c]]"))  # "accaccacc"
+```
+
+This function works by using a stack to store the counts and strings. It iterates over each character in the string, updating the number or adding characters to the current string as necessary. When it encounters a closing bracket, it pops from the stack and repeats the previous string by the count. The decoded string is then returned.
+
+The test cases demonstrate the function's correctness for simple and nested patterns.

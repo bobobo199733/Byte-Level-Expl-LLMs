@@ -1,0 +1,9 @@
+{
+  "function_name": "heap_sort",
+  "description": "Sort a list of integers using heap sort.",
+  "category": "sorting",
+  "subtype": "heap",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

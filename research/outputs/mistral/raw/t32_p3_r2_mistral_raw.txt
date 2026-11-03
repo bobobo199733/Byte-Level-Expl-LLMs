@@ -1,0 +1,26 @@
+To solve the N-Queens problem, we can use backtracking algorithm. Here is a Python function named `n_queens` that returns all valid N-Queens solutions without using any external libraries:
+
+```python
+def n_queens(n):
+    def place_queen(queens, i):
+        for j in range(len(queens)):
+            if queens[j] == i or abs(queens[j] - i) == abs(j - len(queens)):
+                return False
+        queens.append(i)
+        if len(queens) == n:
+            yield queens[:]
+        for k in range(i + 1, len(board)):
+            if place_queen(queens, k):
+                yield from place_queens([], i + 1)
+
+    board = list(range(n))
+    yield from place_queens([], 0)
+
+if __name__ == "__main__":
+    solutions = set()
+    for solution in n_queens(4):
+        solutions.add(tuple(sorted(solution)))
+    print("Solutions for N=4:", sorted(list(solutions)))
+```
+
+This code defines the `n_queens` function with the help of a generator that yields all valid solutions when called. The inner helper functions `place_queen` and `place_queens` are used for placing queens in the board and generating the solutions respectively.

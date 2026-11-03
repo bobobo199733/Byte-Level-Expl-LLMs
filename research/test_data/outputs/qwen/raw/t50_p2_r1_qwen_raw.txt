@@ -1,0 +1,57 @@
+Certainly! Below is a Python function `find_all_anagrams` that implements the sliding window approach to find all anagram starts within string `s` based on the pattern `p`. The function uses two frequency counters: one for `p` and another for the current window in `s`.
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    if len(p) > len(s):
+        return []
+
+    # Frequency counter for the pattern string p
+    p_counter = Counter(p)
+    
+    # Initialize a sliding window frequency counter with an empty dictionary
+    s_counter = Counter()
+    
+    # Result list to store starting indices of valid anagrams
+    result_indices = []
+    
+    # Initialize left and right pointers for the sliding window
+    left, right = 0, len(p) - 1
+    
+    while right < len(s):
+        # Add the new character on the right side of the window
+        s_counter[s[right]] += 1
+        
+        # Remove the character that is going out of the window
+        if right >= len(p):
+            s_counter[s[left]] -= 1
+            left += 1
+        
+        # Check if both counters match
+        if p_counter == s_counter:
+            result_indices.append(left)
+        
+        # Move to the next window position
+        right += 1
+    
+    return result_indices
+
+# Example usage
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+
+s = "abab"
+p = "ab"
+print(find_all_anagrams(s, p))  # Output: [0, 1, 2]
+```
+
+### Explanation:
+- **Initialization**: The function first checks if the length of `p` is greater than `s`. If it is, an empty list is returned because no anagrams can be found.
+- **Sliding Window Setup**: Two pointers (`left` and `right`) are used to represent the window. Initially, the size of this window is equal to the length of `p`.
+- **Counter Initialization**: A frequency counter for both `p` (pattern) and a sliding window in `s` is created.
+- **Sliding Window Logic**: As the window slides through `s`, characters are added or removed from the `s_counter`. If at any point, the counters match, it means an anagram has been found, and its starting index is recorded.
+- **Result List**: The list of all valid starting indices is returned.
+
+This approach ensures that each character in `s` is processed a constant number of times, making the time complexity O(n), where n is the length of `s`.

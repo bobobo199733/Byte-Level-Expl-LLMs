@@ -1,0 +1,26 @@
+Here's a Python function named `linked_list_cycle` that meets the specified requirements. This solution uses Floyd's cycle-finding algorithm, also known as the tortoise and hare method:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head:
+        return False
+
+    slow, fast = head, head.next
+
+    while fast and fast.next:
+        if slow == fast:
+            return True
+        slow = slow.next
+        fast = fast.next.next
+
+    return False
+```
+
+In this implementation, we create a ListNode class to represent nodes in the linked list. The `linked_list_cycle` function takes a head node as an input and checks for cycles by moving one pointer (slow) one step at a time, while another pointer (fast) moves two steps at a time.
+
+If both pointers meet during their traversal, it means there is a cycle in the linked list, and we return `True`. If they don't intersect after completing a full loop around the cycle, then the linked list doesn't contain a cycle, and we return `False`.

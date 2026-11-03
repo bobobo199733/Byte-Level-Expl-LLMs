@@ -1,0 +1,27 @@
+Here's a Python function called `count_islands` that uses Depth-First Search (DFS) to count connected groups of land cells in a grid:
+
+```python
+def count_islands(grid):
+    def dfs(x, y):
+        if x < 0 or y < 0 or x >= len(grid) or y >= len(grid[0]) or grid[x][y] == "0":
+            return
+        grid[x][y] = "0"
+        dfs(x + 1, y)
+        dfs(x - 1, y)
+        dfs(x, y + 1)
+        dfs(x, y - 1)
+
+    count = 0
+    for row in grid:
+        for _ in row if row else ():
+            if row[_] == "1":
+                dfs(row.index(_), _)
+                count += 1
+    return count
+```
+
+This function takes a list of lists (2D array) as input where each inner list represents a row in the grid, and each element is either '1' for land or '0' for water. The function uses an auxiliary helper function `dfs(x, y)` to perform the Depth-First Search traversal on the grid, marking visited cells as '0'.
+
+The outer function `count_islands` initializes a counter variable and iterates through each row in the input grid. For every land cell found, it calls the helper function `dfs(x, y)`, which recursively visits all connected land cells in that group, marking them as '0'. After finishing with one island, the function moves on to the next island by incrementing the counter variable `count`.
+
+The empty grids are handled correctly since an empty grid means there are no land cells (i.e., all elements are '0'), and the outer loop will not find any land cell to initiate the DFS traversal, hence returning 0 as expected.

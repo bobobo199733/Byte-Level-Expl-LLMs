@@ -1,0 +1,1 @@
+Create a Python function called group_anagrams(words) that groups anagrams together.

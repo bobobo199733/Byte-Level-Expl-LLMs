@@ -1,0 +1,73 @@
+Certainly! To traverse a matrix in a spiral order, you can follow these steps:
+
+1. **Initialize** variables to keep track of the boundaries (top, bottom, left, right).
+2. **Iterate** over the matrix layer by layer, starting from the outermost layer and moving inward.
+3. **Collect** elements as you traverse each side of the current layer.
+
+Here's a Python function that implements this logic:
+
+```python
+def spiral_matrix(matrix):
+    if not matrix or not matrix[0]:
+        return []
+    
+    result = []
+    rows, cols = len(matrix), len(matrix[0])
+    top, bottom, left, right = 0, rows - 1, 0, cols - 1
+    
+    while top <= bottom and left <= right:
+        # Traverse from left to right along the top boundary
+        for i in range(left, right + 1):
+            result.append(matrix[top][i])
+        
+        # Move down one row if there are still rows to traverse
+        if top < bottom:
+            for i in range(top + 1, bottom + 1):
+                result.append(matrix[i][right])
+        
+        # Traverse from right to left along the bottom boundary
+        if bottom > top:
+            for i in range(right - 1, left - 1, -1):
+                result.append(matrix[bottom][i])
+        
+        # Move up one row if there are still rows to traverse
+        if bottom > top + 1:
+            for i in range(bottom - 1, top, -1):
+                result.append(matrix[i][left])
+        
+        # Adjust the boundaries after traversing this layer
+        top += 1
+        bottom -= 1
+        left += 1
+        right -= 1
+    
+    return result
+
+# Example usage:
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]
+
+matrix = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12]
+]
+
+print(spiral_matrix(matrix))  # Output: [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]
+```
+
+### Explanation:
+- **Initialization**: The boundaries (`top`, `bottom`, `left`, `right`) are initialized to define the current layer of the matrix.
+- **Traversal**:
+  - Traverse from left to right along the top boundary.
+  - If there are still rows below, traverse from top + 1 to bottom along the rightmost column.
+  - Traverse from right to left along the bottom boundary (if applicable).
+  - If there are still rows above, traverse from bottom - 1 to top + 1 along the leftmost column.
+- **Adjust Boundaries**: After completing a layer, adjust the boundaries to move inward and repeat the process until all elements are visited.
+
+This approach ensures that you visit each element exactly once in spiral order.

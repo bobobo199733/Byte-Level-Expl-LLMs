@@ -1,0 +1,31 @@
+Here's a Python implementation of the 0/1 KnapSack problem using dynamic programming approach without utilizing any external libraries:
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(weights)
+
+    # Create an auxiliary table to store the maximum value for a given weight capacity.
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    # Fill up the table using bottom-up approach.
+    for i in range(n + 1):
+        for w in range(capacity + 1):
+            if i == 0 or w == 0:
+                dp[i][w] = 0
+            elif weights[i - 1] <= w:
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    # Return the maximum value obtained after filling up the table.
+    return dp[-1][-1]
+```
+
+You can test this function with the following example input:
+
+```python
+weights = [60, 100, 120]
+values = [60, 100, 120]
+capacity = 200
+print(knapsack_01(weights, values, capacity)) # Returns: 240
+```

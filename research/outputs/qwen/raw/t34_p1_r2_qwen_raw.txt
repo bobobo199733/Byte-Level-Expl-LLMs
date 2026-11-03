@@ -1,0 +1,45 @@
+Certainly! Here's a Python function `binary_search_rotated` that implements an efficient search algorithm for a target in a rotated sorted array:
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # If the middle element is the target
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side is normally ordered and check for the target there
+        if values[left] <= values[mid]:
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # The right half is normally ordered
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(binary_search_rotated(arr, target))  # Output: 4
+
+target = 3
+print(binary_search_rotated(arr, target))  # Output: -1
+```
+
+### Explanation:
+- **Input**: `values` is a list of integers representing the rotated sorted array and `target` is the integer we are searching for.
+- **Output**: The function returns the index of the target if found; otherwise, it returns `-1`.
+
+### Key Points:
+1. **Binary Search**: The algorithm uses binary search to find the target efficiently in O(log n) time complexity.
+2. **Rotation Check**: The key is to identify which part of the array (left or right half) is normally ordered and then check if the `target` lies within that range.
+
+This approach ensures that we can handle the rotated sorted nature of the array while maintaining efficiency.

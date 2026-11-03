@@ -1,0 +1,33 @@
+Creating a fully functional calculator without using `eval()` is quite complex due to the need to handle operator precedence, parentheses, and edge cases. However, I can provide you with a simple version that handles addition, subtraction, and parentheses. For more complex calculations like multiplication and division, or handling operator precedence, you would need a more sophisticated approach.
+
+Here is a basic implementation using the `re` module for regular expressions:
+
+```python
+import re
+def basic_calculator(expression):
+    def parse_parentheses(expr):
+        return '('.join([parse_parentheses(inner) for inner in re.findall(r'\(([\w\s]+)\)', expr)]) if expr else ''
+
+    def calculate(operators, numbers):
+        total = 0
+        current_number = 0
+        for operator, number in zip(operators, numbers):
+            if operator == '-':
+                current_number -= number
+            else:
+                current_number += number
+            total += current_number
+            current_number = 0
+        return total + current_number
+
+    operators = re.findall(r'[+-]', expression)
+    numbers = [int(number.strip()) for number in re.split(r'[+-()]', expression) if number.strip()]
+
+    # Handle parentheses
+    numbers[numbers.index('+')] = calculate(parse_parentheses(numbers[numbers.index('('):numbers.index(')')+1]), numbers[numbers[numbers.index('('):].index('+')+1:])
+    numbers[numbers.index('-')] = calculate(parse_parentheses(numbers[numbers.index('('):numbers.index(')')+1]), numbers[numbers[numbers.index('('):].index('-')+1:])
+
+    return calculate(operators, numbers)
+```
+
+This function will handle expressions like `"2 + (3 - 4)"`, but it won't handle more complex expressions or edge cases such as multiplication and division. For a complete calculator implementation, I would recommend using libraries such as SymPy or PyParsing for more robust parsing capabilities.

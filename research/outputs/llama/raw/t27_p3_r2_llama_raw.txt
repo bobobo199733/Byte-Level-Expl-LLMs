@@ -1,0 +1,47 @@
+```python
+def trapping_rain_water(heights):
+    """
+    Calculate the volume of trapped rainwater in a given array of building heights.
+
+    Args:
+        heights (list): A list of integers representing the height of each building.
+
+    Returns:
+        int: The total volume of water that can be trapped between buildings.
+    """
+
+    # Initialize two pointers, one at the start and one at the end of the array
+    left = 0
+    right = len(heights) - 1
+
+    # Initialize the maximum height on the left and right sides
+    max_left = 0
+    max_right = 0
+
+    # Initialize the total volume of trapped water
+    total_water = 0
+
+    # Loop through the array until the two pointers meet
+    while left <= right:
+        # If the current building is taller than the one on its left, update max_left and add the difference to total_water
+        if heights[left] > max_left:
+            max_left = heights[left]
+            total_water += (max_left - heights[left]) * (left - 0)
+        else:
+            total_water += (max_left - heights[left]) * (left - 0)
+
+        # If the current building is taller than the one on its right, update max_right and add the difference to total_water
+        if heights[right] > max_right:
+            max_right = heights[right]
+            total_water += (max_right - heights[right]) * (len(heights) - 1 - right)
+        else:
+            total_water += (max_right - heights[right]) * (len(heights) - 1 - right)
+
+        # Move the pointer of the shorter building towards the other end
+        if heights[left] < heights[right]:
+            left += 1
+        else:
+            right -= 1
+
+    return total_water
+```

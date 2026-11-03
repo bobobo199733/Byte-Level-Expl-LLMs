@@ -1,0 +1,25 @@
+Here is a Python function named `coin_change` that uses dynamic programming approach to find the minimum number of coins required to make the given amount. The function assumes that `coins` is a sorted list of unique positive integers, and `amount` is a non-negative integer. If no solution exists, it returns -1.
+
+```python
+def coin_change(coins, amount):
+    dp = [0] + [float('inf')]*amount  # In Python, we use a list of zeros to store the minimum number of coins for each amount from 1 to amount. For amounts less than 1, we initialize it as infinity.
+
+    for c in coins:
+        for i in range(c, amount+1):
+            dp[i] = min(dp[i], dp[i-c]+1)
+
+    if dp[-1] == float('inf'):
+        return -1
+    else:
+        return dp[-1]
+```
+
+You can test this function with the following example:
+
+```python
+coins = [1, 2, 3]
+amount = 4
+print(coin_change(coins, amount))   # Output: 2
+```
+
+This function works by iterating through each coin and for each iteration going from the current coin value to the given amount and finding the minimum number of coins required (including the current coin) to make that amount. The base case is when the amount is equal to 0, in which case we store 0 as the minimum number of coins required (as there are no coins involved).

@@ -1,0 +1,10 @@
+Write exactly one Python function named rotate_array(nums, k).
+
+The function should rotate the input array to the right by k positions.
+
+Requirements:
+- Return the rotated array
+- Correctly handle large k values
+- Raise ValueError for invalid inputs
+- Only output Python code
+- Do not include explanations

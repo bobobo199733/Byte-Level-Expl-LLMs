@@ -1,0 +1,68 @@
+Here's a Python function to convert infix expressions into postfix notation. This function uses the Stack data structure to keep track of operators and their precedence.
+
+```python
+def expression_to_postfix(expression):
+    """
+    Converts an infix expression into postfix notation.
+
+    Args:
+        expression (str): The infix expression to be converted.
+
+    Returns:
+        str: The equivalent postfix expression.
+    """
+
+    # Define operator precedence
+    precedence = {
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2
+    }
+
+    output = []
+    stack = []
+
+    for char in expression:
+
+        # If the character is an operand, add it to the output
+        if char.isalnum():
+            output.append(char)
+
+        # If the character is a left parenthesis, push it onto the stack
+        elif char == '(':
+            stack.append(char)
+
+        # If the character is a right parenthesis, pop operators from the stack and add them to the output until we find the matching left parenthesis
+        elif char == ')':
+            while stack[-1] != '(':
+                output.append(stack.pop())
+            stack.pop()
+
+        # If the character is an operator, pop higher-precedence operators from the stack and add them to the output, then push the current operator onto the stack
+        else:
+            while (stack and 
+                   stack[-1].isalnum() == False and 
+                   precedence[stack[-1]] >= precedence[char]):
+                output.append(stack.pop())
+            stack.append(char)
+
+    # Pop any remaining operators from the stack and add them to the output
+    while stack:
+        if stack[-1] != '(':
+            output.append(stack.pop())
+        else:
+            break
+
+    return ''.join(output)
+```
+
+Here's an example usage of this function:
+
+```python
+print(expression_to_postfix('A+B*C'))  # Output: ABC*
+print(expression_to_postfix('(A+B)*C'))  # Output: ABC*
+print(expression_to_postfix('A*(B+C)'))  # Output: ABC*
+```
+
+Note that this implementation only supports the four basic arithmetic operators (`+`, `-`, `*`, `/`) and does not support parentheses for grouping operands. If you need to support more complex expressions, you may want to consider using a parsing library or implementing a recursive descent parser.

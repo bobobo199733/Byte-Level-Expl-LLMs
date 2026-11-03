@@ -1,0 +1,1 @@
+Write exactly one Python function called matrix_multiply(A, B) that multiplies two matrices and returns the resulting matrix. Return only the function definition.

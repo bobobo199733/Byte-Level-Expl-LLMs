@@ -1,0 +1,53 @@
+Certainly! The problem you're describing is known as the **Levenshtein Distance** (or edit distance), which measures the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into the other.
+
+Here's a Python function that implements this:
+
+```python
+def edit_distance(word1: str, word2: str) -> int:
+    # If one of the strings is empty, return the length of the other string
+    if len(word1) == 0:
+        return len(word2)
+    if len(word2) == 0:
+        return len(word1)
+
+    # Create a matrix to store edit distances
+    m, n = len(word1), len(word2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Initialize the first row and column of the matrix
+    for i in range(m + 1):
+        dp[i][0] = i
+    for j in range(n + 1):
+        dp[0][j] = j
+
+    # Fill in the rest of the matrix
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if word1[i - 1] == word2[j - 1]:
+                cost = 0
+            else:
+                cost = 1
+            dp[i][j] = min(
+                dp[i - 1][j] + 1,          # Deletion
+                dp[i][j - 1] + 1,          # Insertion
+                dp[i - 1][j - 1] + cost    # Substitution
+            )
+
+    # The answer is the value in the bottom-right cell of the matrix
+    return dp[m][n]
+
+# Example usage:
+word1 = "kitten"
+word2 = "sitting"
+print(edit_distance(word1, word2))  # Output: 3
+```
+
+### Explanation:
+
+- **Initialization**: We initialize a `dp` (dynamic programming) table with dimensions `(m+1)x(n+1)` where `m` is the length of `word1` and `n` is the length of `word2`. The first row and column represent single-character edits to an empty string, so they are initialized accordingly.
+
+- **Filling the DP Table**: We iterate through each character in both strings. If characters match, no cost is added; otherwise, a substitution cost (1) is considered. For insertions and deletions, the costs are 1.
+
+- **Result**: The value at `dp[m][n]` contains the minimum number of edits required to transform `word1` into `word2`.
+
+This approach has a time complexity of \(O(m \times n)\), where \(m\) and \(n\) are the lengths of the two input strings, respectively.

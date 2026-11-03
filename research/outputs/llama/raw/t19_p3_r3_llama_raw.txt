@@ -1,0 +1,68 @@
+Here is a Python solution using Depth-First Search (DFS):
+
+```python
+def count_islands(grid):
+    """
+    Counts the number of islands in a given 2D grid.
+
+    Args:
+        grid (list): A 2D list of boolean values where True represents land and False represents water.
+
+    Returns:
+        int: The total number of islands.
+    """
+
+    # Check if the input grid is empty
+    if not grid:
+        return 0
+
+    # Get the dimensions of the grid
+    rows, cols = len(grid), len(grid[0])
+
+    def dfs(row, col):
+        """
+        Performs a Depth-First Search from the given row and column.
+
+        Args:
+            row (int): The current row index.
+            col (int): The current column index.
+        """
+
+        # Check if the current cell is within bounds and represents land
+        if 0 <= row < rows and 0 <= col < cols and grid[row][col]:
+            # Mark the current cell as visited by setting it to False
+            grid[row][col] = False
+
+            # Recursively visit all adjacent cells (up, down, left, right)
+            dfs(row - 1, col)  # Up
+            dfs(row + 1, col)  # Down
+            dfs(row, col - 1)  # Left
+            dfs(row, col + 1)  # Right
+
+    count = 0
+    for row in range(rows):
+        for col in range(cols):
+            # If the current cell represents land and has not been visited yet (i.e., it is True)
+            if grid[row][col]:
+                # Perform a DFS from this cell and increment the island count
+                dfs(row, col)
+                count += 1
+
+    return count
+```
+
+Here's an example usage:
+
+```python
+grid = [
+    [True, True, False, False],
+    [True, False, False, False],
+    [False, False, True, True],
+    [False, False, False, True]
+]
+
+island_count = count_islands(grid)
+print(island_count)  # Output: 3
+```
+
+This function iterates over each cell in the grid. If it encounters a land cell (i.e., `grid[row][col]` is `True`), it increments an island count and performs a DFS to mark all adjacent land cells as visited (`False`). This effectively isolates one island from others, allowing us to count them separately.

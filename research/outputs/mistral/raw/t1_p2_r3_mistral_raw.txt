@@ -1,0 +1,24 @@
+Here is a Python function that converts a Roman numeral string into its integer value. This function follows the standard symbols I, V, X, L, C, D, M and raises ValueError for invalid inputs:
+
+```python
+def roman_to_int(s):
+    # Dictionary mapping Roman numerals to their values
+    roman_values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+    # Initialize result and previous numeral as an empty string
+    result = 0
+    prev_numerals = ''
+
+    for i in range(len(s)):
+        current_numerals = s[i]
+
+        if i > 0 and roman_values[current_numerals] > roman_values[prev_numerals]:
+            raise ValueError("Invalid Roman numeral: subtractive notation is not allowed")
+
+        prev_numerals = current_numerals
+        result += roman_values.get(current_numerals, 0)
+
+    return result
+```
+
+This function iterates through the input string and checks for valid subtraction before adding the value of each Roman numeral to the result. If it encounters an invalid Roman numeral or an incorrect subtractive notation, it raises a ValueError with an appropriate error message.

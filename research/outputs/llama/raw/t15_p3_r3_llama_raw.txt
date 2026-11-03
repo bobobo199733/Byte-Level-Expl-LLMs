@@ -1,0 +1,70 @@
+**Topological Sort Function**
+===========================
+
+Here is a Python function that performs a topological sort on a Directed Acyclic Graph (DAG):
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Performs a topological sort on a directed acyclic graph.
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+               Each key is a node and its corresponding value is a list of its neighbors.
+
+    Returns:
+        A list of nodes in a topologically sorted order.
+    """
+
+    # Initialize a dictionary to store the in-degree of each node
+    in_degree = defaultdict(int)
+    for node in graph:
+        in_degree[node] = 0
+
+    # Calculate the in-degree of each node
+    for node in graph:
+        for neighbor in graph[node]:
+            in_degree[neighbor] += 1
+
+    # Initialize a queue to store nodes with an in-degree of 0
+    queue = deque([node for node in graph if in_degree[node] == 0])
+
+    # Initialize a list to store the sorted nodes
+    sorted_nodes = []
+
+    # Perform the topological sort
+    while queue:
+        node = queue.popleft()
+        sorted_nodes.append(node)
+
+        # Decrease the in-degree of each neighbor
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+
+            # Add the neighbor to the queue if its in-degree becomes 0
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # Check if there's a cycle (i.e., not all nodes have been visited)
+    if len(sorted_nodes) != len(graph):
+        raise ValueError("The graph contains a cycle and cannot be topologically sorted.")
+
+    return sorted_nodes
+```
+**Example Usage**
+----------------
+
+Here's an example usage of the `topological_sort` function:
+```python
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+sorted_nodes = topological_sort(graph)
+print(sorted_nodes)  # Output: ['A', 'C', 'B', 'D']
+```
+Note that the graph is represented as an adjacency list, where each key is a node and its corresponding value is a list of its neighbors. The function returns a list of nodes in a topologically sorted order. If the graph contains a cycle (i.e., not all nodes have been visited), it raises a `ValueError`.

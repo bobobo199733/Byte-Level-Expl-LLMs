@@ -1,0 +1,66 @@
+Here is a Python implementation of the `topological_sort` function using Depth-First Search (DFS):
+
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Returns a topological ordering of a Directed Acyclic Graph (DAG).
+
+    Args:
+        graph: A dictionary representing the adjacency list of the DAG.
+            Each key is a node and its corresponding value is a list of its neighbors.
+
+    Returns:
+        A list representing the nodes in topological order.
+    """
+
+    # Initialize a set to keep track of visited nodes
+    visited = set()
+
+    # Initialize a stack to store nodes with no incoming edges (i.e., sources)
+    sources = deque()
+
+    # Initialize a dictionary to store the number of incoming edges for each node
+    in_degree = defaultdict(int)
+
+    # Calculate the in-degree of each node and identify source nodes
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            in_degree[neighbor] += 1
+
+        if in_degree[node] == 0:
+            sources.append(node)
+            visited.add(node)
+
+    # Perform DFS to traverse the DAG in topological order
+    ordering = []
+    while sources:
+        node = sources.popleft()
+        ordering.append(node)
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                sources.append(neighbor)
+                visited.add(neighbor)
+
+    # Check if the graph is a DAG (i.e., there are no cycles)
+    if len(ordering) != len(graph):
+        raise ValueError("The graph contains a cycle")
+
+    return ordering
+
+# Example usage
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'C', 'B', 'D']
+```
+
+In this implementation, we use a dictionary to represent the adjacency list of the graph and another dictionary to store the in-degree of each node. We then perform DFS using a stack of source nodes (i.e., nodes with no incoming edges). Finally, we return the ordering as a list.
+
+Note that this function assumes that the input graph is a DAG (Directed Acyclic Graph) without cycles. If the graph contains a cycle, the function will raise an error indicating that it's not possible to perform a topological sort on the graph.

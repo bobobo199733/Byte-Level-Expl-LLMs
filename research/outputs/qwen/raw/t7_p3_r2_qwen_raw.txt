@@ -1,0 +1,33 @@
+Certainly! To count the frequency of each word in a given string, you can use the `split()` method to break the text into words and then utilize a dictionary to keep track of the frequency of each word. Here's how you can implement this:
+
+```python
+def word_frequency(text):
+    # Split the text into words based on whitespace
+    words = text.split()
+    
+    # Initialize an empty dictionary to store word frequencies
+    freq_dict = {}
+    
+    # Iterate over each word in the list
+    for word in words:
+        # If the word is already in the dictionary, increment its count
+        if word in freq_dict:
+            freq_dict[word] += 1
+        # Otherwise, add it to the dictionary with a count of 1
+        else:
+            freq_dict[word] = 1
+    
+    return freq_dict
+
+# Example usage
+text = "This is a test. This test is only a test."
+print(word_frequency(text))
+```
+
+In this function:
+
+- `text.split()` splits the input string into a list of words.
+- A dictionary `freq_dict` is used to store the frequency of each word.
+- The loop iterates over each word and updates its count in the dictionary.
+
+You can run this code with any given text to get the frequency of each word.

@@ -1,0 +1,18 @@
+```python
+def sieve_primes(n):
+    """Returns a list of all prime numbers less than or equal to n."""
+    if not isinstance(n, int):
+        raise TypeError("Input must be an integer.")
+    if n < 2:
+        return []
+
+    sieve = [True] * (n + 1)
+    sieve[0:2] = [False, False]
+
+    for current_prime in range(2, int(n**0.5) + 1):
+        if sieve[current_prime]:
+            for multiple in range(current_prime*2, n+1, current_prime):
+                sieve[multiple] = False
+
+    return [num for num, is_prime in enumerate(sieve) if is_prime]
+```

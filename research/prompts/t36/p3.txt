@@ -1,0 +1,4 @@
+Write one Python function called dijkstra_shortest_path(graph, start) that computes shortest paths in a weighted graph.
+
+Use only one function with that exact name.
+Do not use external libraries.

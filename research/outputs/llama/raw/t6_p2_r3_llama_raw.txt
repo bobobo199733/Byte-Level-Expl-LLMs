@@ -1,0 +1,95 @@
+Here is the Python function to solve this problem:
+```python
+def wildcard_match(s: str, p: str) -> bool:
+    """
+    Check whether a string matches a wildcard pattern.
+
+    Args:
+        s (str): The input string.
+        p (str): The wildcard pattern where '?' matches one character and '*' matches any sequence of characters.
+
+    Returns:
+        bool: True if the string matches the pattern, False otherwise.
+    """
+
+    # Initialize two pointers, one for the string and one for the pattern
+    s_ptr = 0
+    p_ptr = 0
+
+    # Iterate over both strings using the pointer variables
+    while p_ptr < len(p):
+        # If the current character in the pattern is '*', it can match any sequence of characters in the string
+        if p[p_ptr] == '*':
+            # Move to the next '*' in the pattern or skip the rest of the pattern and move on with the string pointer
+            p_ptr += 1
+            while p_ptr < len(p) and p[p_ptr] != '*':
+                p_ptr += 1
+            # If we found a match, move forward one step
+            if p_ptr == len(p):
+                break
+            s_ptr = skip_chars(s, s_ptr)
+        # If the current character in the pattern is '?', it matches any single character
+        elif p[p_ptr] == '?':
+            # Move both pointers forward by 1
+            s_ptr += 1
+            p_ptr += 1
+        # If the current characters do not match or if there are no more characters left to compare, return False
+        else:
+            # Try to skip '*' in the pattern
+            p_ptr = skip_pattern(s, s_ptr, p_ptr)
+            break
+
+    # Check the remaining string and pattern characters
+    while s_ptr < len(s) and p_ptr < len(p):
+        if not (p[p_ptr] == '?' or p[p_ptr] == '*'):
+            return False
+        s_ptr += 1
+        p_ptr += 1
+
+    # If we have matched all the remaining characters, the string matches the pattern
+    return True
+
+
+def skip_chars(s: str, s_ptr: int) -> int:
+    """
+    Skip any sequence of characters in the string and move forward one step.
+
+    Args:
+        s (str): The input string.
+        s_ptr (int): The current pointer position in the string.
+
+    Returns:
+        int: The new pointer position after skipping any sequence of characters.
+    """
+
+    while s_ptr < len(s) and s[s_ptr] != '*':
+        s_ptr += 1
+    return s_ptr
+
+
+def skip_pattern(s: str, s_ptr: int, p_ptr: int) -> int:
+    """
+    Skip the '*' in the pattern and move forward one step.
+
+    Args:
+        s (str): The input string.
+        s_ptr (int): The current pointer position in the string.
+        p_ptr (int): The current pointer position in the pattern.
+
+    Returns:
+        int: The new pointer position after skipping the '*'.
+    """
+
+    while p_ptr < len(p) and p[p_ptr] == '*':
+        if p_ptr + 1 < len(p) and p[p_ptr + 1] != '*':
+            return s_ptr
+        p_ptr += 2
+    return p_ptr
+
+
+# Example usage:
+print(wildcard_match("aa", "a*"))  # True
+print(wildcard_match("ab", "*"))   # True
+print(wildcard_match("aab", "c*a*b"))  # True
+```
+This solution uses two pointers, `s_ptr` and `p_ptr`, to traverse the string and pattern respectively. It handles both '?' and '*' characters correctly by moving one or both pointers forward accordingly. If a '*' is encountered, it tries to match any sequence of characters in the string. The function returns True if all characters in the string match the pattern and False otherwise.

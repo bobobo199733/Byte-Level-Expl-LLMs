@@ -1,0 +1,18 @@
+Here is the Python function `sieve_primes(n)` which finds all prime numbers up to `n` using the Sieve of Eratosthenes algorithm:
+
+```python
+def sieve_primes(n):
+    primes = [True] * (n + 1)
+    p = 2
+    while p ** 2 <= n:
+        if primes[p]:
+            for i in range(p**2, n+1, p):
+                primes[i] = False
+        p += 1
+
+    primes[0] = primes[1] = False
+    result = [p for p in range(2, len(primes)) if primes[p]]
+    return result
+```
+
+This function initializes all numbers as prime, then iteratively marks the multiples of each discovered prime as non-prime. It also skips even numbers smaller than 3, since they are not prime. The remaining true values in the list represent the prime numbers found. Finally, it returns a list containing only those primes.

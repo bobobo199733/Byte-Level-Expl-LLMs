@@ -1,0 +1,1 @@
+Write a function called generate_parentheses(n) that returns all valid parentheses combinations.

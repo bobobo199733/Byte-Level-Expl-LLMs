@@ -1,0 +1,33 @@
+Here's a Python function that implements the solution for removing `k` digits from a given number string to obtain the smallest possible result:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    if not num or k == 0:
+        return ''
+
+    stack = []
+    for digit in num:
+        while stack and stack[-1] > digit and k > 0:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+
+    # Pop the remaining elements from the stack, which have a smaller value than the first remaining digits of the number
+    while stack and k > 0:
+        stack.pop()
+        k -= 1
+
+    # If there are still some numbers left in the original string that haven't been removed, add them to the result
+    result = num[:len(stack)]
+    for digit in num[len(stack):]:
+        if not result or int(digit) < int(result[-1]):
+            result += digit
+
+    # Remove leading zeros from the result
+    while result and result[0] == '0':
+        result = result[1:]
+
+    return result
+```
+
+This function uses a stack data structure to iterate through the number string. It pops digits with higher value than the current one if they still have `k` chances left to be popped, and adds them to the result. After processing all the digits, it removes leading zeros from the result.

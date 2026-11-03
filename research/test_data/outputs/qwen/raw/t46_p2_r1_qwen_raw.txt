@@ -1,0 +1,69 @@
+Certainly! Below is the implementation of the `text_justification` function in Python that meets the specified requirements:
+
+```python
+def text_justification(words, max_width):
+    result = []
+    line = []
+    current_length = 0
+    
+    def add_line():
+        nonlocal current_length
+        if len(line) == 1:
+            # Single word: left-justify and pad with trailing spaces.
+            result.append(' '.join(line).ljust(max_width))
+        else:
+            # Distribute spaces as evenly as possible between words.
+            total_spaces = max_width - current_length + len(line)
+            num_gaps = len(line) - 1
+            extra_spaces = total_spaces // num_gaps if num_gaps > 0 else 0
+            extra_spaces_needed = total_spaces % num_gaps if num_gaps > 0 else 0
+            
+            # Create the line with spaces.
+            justified_line = ''
+            for i in range(len(line)):
+                justified_line += line[i]
+                if i < len(line) - 1:
+                    num_spaces = extra_spaces + (i < extra_spaces_needed)
+                    justified_line += ' ' * num_spaces
+            result.append(justified_line.ljust(max_width))
+        
+        # Reset for the next line.
+        line.clear()
+        current_length = 0
+    
+    for word in words:
+        if current_length + len(word) + len(line) <= max_width:
+            line.append(word)
+            current_length += len(word)
+        else:
+            add_line()
+            line = [word]
+            current_length = len(word)
+    
+    # Add the last line.
+    add_line()
+    
+    return result
+
+# Example usage:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width = 16
+print(text_justification(words, max_width))
+```
+
+### Explanation:
+
+1. **Initialization**: We initialize an empty list `result` to store the final lines and a helper function `add_line()` which formats and adds each line to `result`.
+2. **Line Handling**: We maintain two variables: `line`, which is a list of words currently being processed, and `current_length`, which tracks the total length (in characters) of the current line.
+3. **Adding Words to Line**:
+    - If adding another word doesn't exceed `max_width`, we add it to `line` and update `current_length`.
+    - Otherwise, we call `add_line()` to handle the current line and reset for a new one.
+4. **Handling Lines**: 
+    - For a single-word line, we simply left-justify with trailing spaces.
+    - For multi-word lines:
+        - We calculate the total number of spaces needed (including gaps between words).
+        - We determine how many extra spaces to distribute as evenly as possible among the word gaps.
+        - We construct each part of the line and add necessary spaces.
+5. **Final Line**: After processing all input words, we call `add_line()` one last time to ensure the final line is justified.
+
+This function ensures that the text is properly formatted according to the requirements.

@@ -1,0 +1,58 @@
+Certainly! Below is a Python function `n_queens(n)` that returns all valid solutions to the N-Queens problem. This implementation uses a backtracking approach without any external libraries.
+
+```python
+def n_queens(n):
+    def is_safe(board, row, col):
+        # Check this row on left side
+        for i in range(col):
+            if board[row][i]:
+                return False
+        
+        # Check upper diagonal on left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j]:
+                return False
+        
+        # Check lower diagonal on left side
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j]:
+                return False
+        
+        return True
+
+    def solve(board, col):
+        if col >= n:
+            result.append([''.join('Q' if x else '.' for x in row) for row in board])
+            return
+    
+        for i in range(n):
+            if is_safe(board, i, col):
+                board[i][col] = 1
+                solve(board, col + 1)
+                board[i][col] = 0
+
+    result = []
+    initial_board = [[0]*n for _ in range(n)]
+    solve(initial_board, 0)
+    return result
+
+# Example usage:
+solutions = n_queens(4)
+for solution in solutions:
+    print("\n".join(solution))
+    print()
+```
+
+### Explanation:
+
+1. **`is_safe(board, row, col)`**: This function checks if placing a queen at `board[row][col]` is safe. It checks for conflicts with the current column and both diagonals.
+
+2. **`solve(board, col)`**: This recursive function tries to place queens in each column one by one. If it successfully places all `n` queens (i.e., `col >= n`), it adds the board configuration to the result list.
+
+3. **Backtracking**: The function backtracks when a queen cannot be placed at any position in the current column, setting the last attempted cell to 0 and trying the next row.
+
+4. **Result Storage**: Valid configurations are stored as lists of strings where 'Q' represents a queen and '.' represents an empty space.
+
+5. **Example Usage**: The `n_queens` function is called with `n=4`, and all solutions are printed out in a readable format.
+
+This implementation correctly handles small and large values of `n` by using the backtracking approach, which efficiently explores only the necessary configurations.

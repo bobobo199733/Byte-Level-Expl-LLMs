@@ -1,0 +1,42 @@
+Certainly! The problem you're describing can be solved using dynamic programming. Here's a Python implementation for the `coin_change` function:
+
+```python
+def coin_change(coins, amount):
+    # If the amount is 0, no coins are needed
+    if amount == 0:
+        return 0
+    
+    # Initialize a list to store the minimum number of coins required to make each amount up to 'amount'
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 coins are needed to make an amount of 0
+    dp[0] = 0
+    
+    # Fill in the dp array
+    for coin in coins:
+        for x in range(coin, amount + 1):
+            dp[x] = min(dp[x], dp[x - coin] + 1)
+    
+    # If we couldn't find a solution to make 'amount'
+    if dp[amount] == float('inf'):
+        return -1
+    
+    return dp[amount]
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (because we can use 5 + 5 + 1)
+```
+
+### Explanation:
+
+- **dp array**: The `dp` array is initialized with a size of `amount + 1`, and each element in the array is initially set to infinity (`float('inf')`). This array will store the minimum number of coins needed to make up the amount at that index.
+  
+- **Initialization**: We initialize `dp[0]` to 0 because no coins are needed to make an amount of 0.
+
+- **Filling dp array**: For each coin, we iterate over all amounts from the value of the coin up to the given amount. We update the `dp[x]` for each amount by considering whether using the current coin can lead to a smaller number of coins than previously calculated.
+
+- **Result check**: After filling the `dp` array, if `dp[amount]` is still infinity (`float('inf')`), it means it's not possible to make up that amount with the given coins. Otherwise, we return `dp[amount]`.
+
+This approach ensures that we find the minimum number of coins needed or determine that it's impossible to achieve the desired amount.

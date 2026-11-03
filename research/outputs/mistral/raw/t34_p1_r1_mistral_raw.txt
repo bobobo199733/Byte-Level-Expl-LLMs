@@ -1,0 +1,29 @@
+Here's a Python function called `binary_search_rotated` that searches for a target in a rotated sorted array using an efficient binary search algorithm:
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        mid_value = values[mid]
+
+        # If the middle element is equal to the target, return its index.
+        if mid_value == target:
+            return mid
+
+        # If the left half is sorted and the middle element is greater than the target,
+        # the target must be in the right half, so update 'left' accordingly.
+        if values[left] <= mid_value and mid_value > values[right]:
+            pivot = mid  # The pivot is the middle element itself.
+        # If the left half is not sorted (the pivot is found), or the pivot is smaller than the target,
+        # the target must be in the left half, so update 'right' accordingly.
+        elif values[left] <= mid_value <= values[right]:
+            right = mid - 1  # Move to the left of the pivot.
+        else:
+            left = mid + 1  # Move to the right of the pivot.
+
+    return -1  # If 'left' and 'right' overlap after iterations, the target is not found.
+```
+
+This function uses a binary search algorithm with some modifications to handle rotated sorted arrays. The main idea is to find the pivot (if it exists) by looking for an element that is greater than its following element, or smaller than its preceding element. If no such element is found within the array, then the array is not rotated and a regular binary search can be performed. The function returns the index of the target if found, or -1 if not found.

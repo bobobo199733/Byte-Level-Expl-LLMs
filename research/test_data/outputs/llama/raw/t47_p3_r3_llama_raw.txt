@@ -1,0 +1,99 @@
+Here's a Python function that uses a stack to evaluate the math string:
+
+```python
+def basic_calculator(s):
+    """
+    Evaluates a math string with +, -, *, /, (, ), and spaces.
+
+    Args:
+        s (str): A string containing a valid math expression.
+
+    Returns:
+        int: The integer result of the evaluated math expression.
+    """
+    # Define operator precedence
+    precedence = {
+        '+': 1,
+        '-': 1,
+        '*': 2,
+        '/': 2
+    }
+
+    # Initialize stack and output queue
+    stack = []
+    output = []
+
+    # Split string into tokens (operators and operands)
+    tokens = s.replace(' ', '').split('+')
+    for token in tokens:
+        if token.strip() == '':
+            continue
+
+        # Check for operators
+        for op in precedence.keys():
+            if op in token:
+                stack.append(token.split(op)[0])
+                output.append((op, token.split(op)[1]))
+
+                break
+
+        else:
+            # Token is an operand, push onto stack
+            stack.append(token)
+
+    # Evaluate expressions in parentheses
+    i = 0
+    while '(' in stack and ')' in stack:
+        # Find matching opening parenthesis
+        open_bracket_idx = stack.index('(')
+        close_bracket_idx = stack.index(')')
+
+        # Pop operators from stack into output queue
+        while open_bracket_idx < close_bracket_idx and i <= close_bracket_idx:
+            if stack[i] != '(' and stack[i] != ')':
+                op, operand = output[i]
+                pop1 = int(stack[open_bracket_idx])
+                pop2 = int(operand)
+
+                # Evaluate expression with operators at top of stack
+                if op == '*':
+                    result = pop1 * pop2
+                elif op == '/':
+                    result = pop1 // pop2  # integer division
+
+                stack.pop(open_bracket_idx)
+                output.pop(i)
+                output.insert(i, ('=', result))
+                stack[open_bracket_idx] = str(result)
+
+            i += 1
+
+        # Move opening and closing parentheses to top of stack
+        stack.pop(close_bracket_idx)
+        stack.pop(open_bracket_idx)
+        output.pop(0)
+        output.append(('=', stack[-1]))
+
+    # Evaluate any remaining expressions
+    for op, operand in reversed(output):
+        if op == '=':
+            continue
+
+        pop2 = int(operand)
+        pop1 = int(stack.pop())
+
+        if op == '*':
+            result = pop1 * pop2
+        elif op == '/':
+            result = pop1 // pop2  # integer division
+
+        stack.append(str(result))
+
+    return int(stack[-1])
+```
+
+Here's an example use case:
+
+```python
+print(basic_calculator("3 + 30-5 * 2"))  # Output: 28
+```

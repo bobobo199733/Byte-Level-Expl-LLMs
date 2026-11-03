@@ -1,0 +1,21 @@
+Here is a Python function that implements the wildcard matching logic using recursion:
+
+```python
+def wildcard_match(s, p):
+    def match(i, j):
+        if not p:
+            return not s
+
+        first_match = bool(s) and (p[0] == s[0] or p[0] == '?')
+
+        if len(p) > 1 and p[1] == '*':
+            return match(i, j-1) or (first_match and match(i+1, j))
+        else:
+            return first_match and match(i+1, j)
+
+    return match(0, len(p))
+```
+
+This function works by defining a helper function `match(i, j)` that checks if the prefix of string `s` starting at index `i` matches the prefix of pattern `p` starting at index `j`. If the pattern character is '*', then it allows for zero or more characters, so we check if the matched substrings match recursively. If the pattern character is a single '?', then it matches any character in the string.
+
+Finally, the outer function checks if the entire string and pattern match by calling `match(0, len(p))`.

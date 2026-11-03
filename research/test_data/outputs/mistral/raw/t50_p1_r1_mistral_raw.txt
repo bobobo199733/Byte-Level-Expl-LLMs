@@ -1,0 +1,39 @@
+Here is a Python function named `find_all_anagrams` that finds all starting indices in a string `s` where an anagram of the given pattern string `p` occurs. It sorts and returns the found indices:
+
+```python
+def find_all_anagrams(s, p):
+    results = []
+    table = {}  # Create a dictionary to store character counts in p
+
+    # Populate the table with character counts for pattern p
+    for char in p:
+        if char not in table:
+            table[char] = 0
+        table[char] += 1
+
+    # Slide the window of length len(p) through the string s
+    window_size = len(p)
+    for i in range(len(s) - window_size + 1):
+        substring = s[i:i+window_size]
+        count_table = {}  # Create a dictionary to store character counts in the current substring
+
+        # Populate the count table for the current substring
+        for char in substring:
+            if char not in count_table:
+                count_table[char] = 0
+            count_table[char] += 1
+
+        # Check if the current substring is an anagram of p and append its starting index to results
+        if count_table == table:
+            results.append(i)
+
+    return sorted(results)
+```
+
+You can test this function with the following example:
+
+```python
+s = "cabbage"
+p = "bag"
+print(find_all_anagrams(s, p))  # Output: [3, 4]
+```

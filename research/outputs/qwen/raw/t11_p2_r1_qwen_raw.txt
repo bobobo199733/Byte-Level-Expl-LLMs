@@ -1,0 +1,48 @@
+To solve the coin change problem using dynamic programming, we can create a DP table where `dp[i]` represents the minimum number of coins required to make up the amount `i`. If it's not possible to form the amount `i`, then `dp[i]` will be set to `-1`.
+
+Here is the implementation of the function `coin_change(coins, amount)`:
+
+```python
+def coin_change(coins, amount):
+    # Initialize the dp array with infinity (to represent impossible amounts)
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 coins needed to make up an amount of 0
+    dp[0] = 0
+    
+    # Iterate over all the possible target amounts from 1 to the given amount
+    for i in range(1, amount + 1):
+        # Check each coin value to see if it can contribute to forming the current amount i
+        for coin in coins:
+            if i - coin >= 0 and dp[i - coin] != float('inf'):
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # If dp[amount] is still infinity, it means we couldn't form the amount with given coins
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (1+5+5)
+
+# Edge case examples:
+print(coin_change([1], 0))  # Output: 0 (No coins needed for 0)
+print(coin_change([2], 3))  # Output: -1 (Cannot form the amount with given coins)
+```
+
+### Explanation:
+
+1. **Initialization**:
+   - `dp = [float('inf')] * (amount + 1)` initializes a list of size `amount + 1` filled with infinity to represent that it's initially impossible to make any positive amount.
+   - `dp[0] = 0` sets the base case where no coins are needed to form an amount of zero.
+
+2. **Dynamic Programming Table Update**:
+   - We iterate over each possible target amount from `1` to `amount`.
+   - For each target amount, we check every coin in the list.
+   - If the current coin can be used (i.e., `i - coin >= 0`) and the value of `dp[i - coin]` is not infinity (meaning it's possible to form that sub-amount), we update `dp[i]` with the minimum number of coins needed.
+
+3. **Result**:
+   - Finally, if `dp[amount]` is still `float('inf')`, it means it's impossible to form the given amount with the provided coins, so we return `-1`.
+   - Otherwise, we return `dp[amount]` which contains the minimum number of coins needed.
+
+This approach ensures that we efficiently compute the result using dynamic programming and handle edge cases appropriately.

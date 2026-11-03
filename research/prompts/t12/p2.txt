@@ -1,0 +1,9 @@
+Write a Python function called bfs_shortest_path(graph, start, target) that computes the shortest distance between two nodes in an unweighted graph using breadth-first search.
+
+Requirements:
+- The graph is represented as a dictionary of adjacency lists.
+- Return -1 if no path exists.
+- Do not use external libraries.
+- Avoid revisiting nodes.
+- Handle cycles correctly.
+- The function should work efficiently on larger graphs.

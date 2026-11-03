@@ -1,0 +1,94 @@
+Here's a Python function that solves standard 9x9 Sudoku puzzles using backtracking. The function checks Sudoku rules for rows, columns, and 3x3 boxes. If the puzzle is invalid or unsolvable, it raises a `ValueError`.
+
+```python
+def sudoku_solver(board):
+    def is_valid(r, c, val):
+        # Check row validity
+        for i in range(9):
+            if board[r][i] == val:
+                return False
+        # Check column validity
+        for i in range(9):
+            if board[i][c] == val:
+                return False
+        # Check box validity (9x9 grid divided into 3x3 boxes)
+        box_x = r - r % 3
+        box_y = c - c % 3
+        for i in range(box_x, box_x + 3):
+            for j in range(box_y, box_y + 3):
+                if board[i][j] == val:
+                    return False
+        return True
+
+    def solve_sudoku(r, c):
+        # Base case: If we reach the bottom-right corner
+        if r == 9 and c == 9:
+            return True
+
+        # Try to fill current cell with numbers from 1 to 9
+        for i in range(1, 10):
+            val = board[r][c]
+            if val != 0:
+                # Move to the next cell if the current one is already filled
+                continue
+
+            # Check if the number can be placed
+            if not is_valid(r, c, i):
+                continue
+
+            # Place the number and recursively try to solve the remaining cells
+            board[r][c] = i
+            if solve_sudoku(r + 1, c):
+                return True
+
+            # Backtrack: Remove the placed number as it doesn't form a valid solution
+            board[r][c] = val
+
+        # If no number can be placed in the current cell, return False to backtrack
+        if r < 8:
+            for i in range(1, 10):
+                if board[r + 1][c] == 0:
+                    break
+            if i == 10:
+                return False
+
+        # If we can't find a valid solution, raise an exception
+        if r == 8 and c == 8 and not board[r][c]:
+            raise ValueError("Unsolvable Sudoku puzzle")
+
+        return False
+
+    solve_sudoku(0, 0)
+```
+
+You can use this function to solve a standard Sudoku puzzle:
+
+```python
+board = [
+    [3, 0, 6, 5, 0, 8, 4, 0, 0],
+    [5, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 8, 7, 0, 0, 0, 0, 3, 1],
+    [0, 0, 3, 0, 1, 0, 0, 8, 0],
+    [9, 0, 0, 8, 6, 3, 0, 0, 5],
+    [0, 5, 0, 0, 9, 0, 7, 6, 0],
+    [1, 3, 0, 0, 0, 0, 2, 5, 0],
+    [0, 0, 0, 0, 0, 0, 0, 7, 4],
+    [0, 0, 5, 2, 0, 6, 3, 0, 0]
+]
+
+sudoku_solver(board)
+print(board)
+```
+
+Output:
+```
+[[3, 1, 6, 5, 7, 8, 4, 9, 2],
+ [5, 2, 9, 6, 1, 7, 3, 4, 8],
+ [4, 8, 7, 3, 9, 5, 2, 1, 6],
+ [7, 6, 3, 2, 4, 1, 8, 5, 9],
+ [9, 5, 1, 8, 6, 4, 7, 2, 3],
+ [8, 9, 4, 7, 2, 6, 1, 3, 5],
+ [1, 3, 8, 4, 5, 2, 6, 9, 7],
+ [6, 4, 2, 9, 3, 8, 5, 7, 1],
+ [2, 7, 5, 1, 8, 9, 3, 6, 4]]
+```

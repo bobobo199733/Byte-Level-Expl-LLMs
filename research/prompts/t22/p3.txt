@@ -1,0 +1,1 @@
+Write one function called sieve_primes(n) that returns all primes up to n. Return only the function.

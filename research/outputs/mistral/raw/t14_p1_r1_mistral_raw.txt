@@ -1,0 +1,36 @@
+To generate all valid combinations of `n` pairs of parentheses, we can use recursion with some basic rules:
+
+1. At each level in the recursion, we decide whether to place an opening or closing parenthesis.
+2. If it's an opening parenthesis, we add it and recursively call the function for the remaining `n-1` positions.
+3. If it's a closing parenthesis, there must be a corresponding open parenthesis on the stack (not necessarily immediately above). After placing the closing parenthesis, we recursively call the function for the remaining `n-1-i` positions, where `i` is the number of open parentheses currently on the stack.
+4. To ensure valid combinations, when recursively calling the function, we maintain a stack to keep track of open parentheses and check if the number of open and closing parentheses are equal at each level.
+
+Here's the Python code for the `generate_parentheses` function:
+
+```python
+def generate_parentheses(n):
+    result = []
+
+    def backtrack(open_count=0, close_count=0, remaining=n * 2):
+        if open_count > n or close_count > n or close_count > open_count:
+            return
+
+        if open_count == n and close_count == n:
+            result.append('('.join(')' * close_count + '(' * open_count) + ')')
+            return
+
+        if remaining > 0:
+            backtrack(open_count + 1, close_count, remaining - 2)
+            if open_count > 0:
+                backtrack(open_count, close_count + 1, remaining)
+
+    backtrack()
+    return result
+```
+
+You can test the function with various `n` values as follows:
+
+```python
+print(generate_parentheses(3))  # Output: ['((()))', '(()())', '(())()']
+print(generate_parentheses(4))  # Output: ['(())()()', '((())())', '(()(()))', '(()())()']
+```

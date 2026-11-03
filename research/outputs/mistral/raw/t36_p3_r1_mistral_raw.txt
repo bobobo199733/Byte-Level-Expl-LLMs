@@ -1,0 +1,53 @@
+I'll provide you with a basic implementation of Dijkstra's algorithm for finding the shortest path in a weighted graph. Note that this code assumes the input graph is represented as an adjacency list, where `graph[node]` contains a list of tuples `(neighbor, weight)`.
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    inf = float('inf')
+    distances = {node: inf for node in graph}
+    distances[start] = 0
+    shortest_path = {}
+    unvisited = set(graph)
+    priority_queue = list(map(lambda node: (distances[node], node), unvisited))
+    heapq.heapify(priority_queue)
+
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+        if current_distance > distances[current_node]:
+            continue
+        unvisited.remove(current_node)
+
+        for neighbor, weight in graph[current_node]:
+            distance = distances[current_node] + weight
+            if distance < distances.get(neighbor, inf):
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+                shortest_path[neighbor] = current_node
+
+    return distances, shortest_path
+```
+
+This implementation uses a priority queue to efficiently find the next node with the smallest distance from the current node that hasn't been visited yet. The `distances` dictionary keeps track of the shortest known distance for each node, and the `shortest_path` dictionary records the previous node in the path leading to each reachable node (you can use this information to reconstruct the actual shortest path).
+
+Here is an example usage:
+
+```python
+graph = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('A', 1), ('C', 2), ('D', 5)],
+    'C': [('A', 4), ('B', 2), ('D', 1)],
+    'D': [('B', 5), ('C', 1)]
+}
+
+distances, shortest_path = dijkstra_shortest_path(graph, 'A')
+print("Shortest distances: ", distances)
+print("Shortest paths: ", {node: shortest_path.get(node, None) for node in distances})
+```
+
+This example results in the following output:
+
+```
+Shortest distances:  {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+Shortest paths: {'D': 'C', 'C': 'A', 'B': 'A', None}
+```

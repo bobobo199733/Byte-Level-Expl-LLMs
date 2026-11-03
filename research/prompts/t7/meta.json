@@ -1,0 +1,9 @@
+{
+  "task_id": "t7",
+  "function_name": "word_frequency",
+  "entrypoint": "word_frequency",
+  "tests": [
+    ["hello hello world", {"hello": 2, "world": 1}],
+    ["a b a", {"a": 2, "b": 1}]
+  ]
+}

@@ -1,0 +1,76 @@
+**text_justification Function**
+=====================================
+
+This function takes in a list of words and a maximum line width as input, and returns a list of justified lines.
+
+```python
+def text_justification(words, max_width):
+    """
+    Justify the given list of words to fit within the specified maximum line width.
+    
+    Args:
+        words (list): A list of words to be justified.
+        max_width (int): The maximum allowed line width.
+        
+    Returns:
+        list: A list of justified lines.
+    """
+
+    lines = []
+    current_line = []
+    total_chars = 0
+
+    for word in words:
+        if total_chars + len(current_line) + len(word) > max_width:
+            # If adding the current word would exceed max width, justify and add to lines
+            lines.append(justify_line(current_line, max_width))
+            current_line = [word]
+            total_chars = len(word)
+        else:
+            current_line.append(word)
+            total_chars += len(word)
+
+    if current_line:  # Add last line to lines list if it's not empty
+        lines.append(' '.join(current_line).ljust(max_width))
+
+    return lines
+
+
+def justify_line(words, max_width):
+    """
+    Justify a single line of words by spreading spaces evenly between them.
+    
+    Args:
+        words (list): A list of words to be justified.
+        max_width (int): The maximum allowed line width.
+        
+    Returns:
+        str: The justified line as a string.
+    """
+
+    total_chars = sum(len(word) for word in words)
+    num_spaces = max_width - total_chars
+    space_between_words = ' ' if len(words) == 1 else num_spaces // (len(words) - 1)
+
+    justified_line = ''
+    for i, word in enumerate(words):
+        justified_line += word
+        if i < len(words) - 1:
+            justified_line += space_between_words
+
+    # Add extra spaces to the beginning of the line if necessary
+    num_extra_spaces = (max_width - len(justified_line)) // (len(words) - 1)
+    justified_line = ' ' * num_extra_spaces + justified_line
+
+    return justified_line
+
+
+# Example usage:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+max_width = 16
+print(text_justification(words, max_width))
+```
+
+The `text_justification` function works by iterating over the list of words and adding them to a temporary line. When the maximum width is exceeded, it justifies the current line using the `justify_line` helper function and adds it to the result list.
+
+Note that this implementation assumes that all input is valid (i.e., `max_width` is positive and `words` is a non-empty list of strings). You may want to add error handling or type checking depending on your specific use case.

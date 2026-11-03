@@ -1,0 +1,57 @@
+**Password Validation Function**
+=====================================
+
+The following Python function `validate_password` checks if a given password meets certain criteria for validity.
+
+```python
+import re
+
+def validate_password(password):
+    """
+    Validate a password based on the following rules:
+     - At least 8 characters long
+     - At most 128 characters long
+     - Contains at least one lowercase letter
+     - Contains at least one uppercase letter
+     - Contains at least one digit
+     - Does not contain any whitespace
+
+    Args:
+        password (str): The password to validate.
+
+    Returns:
+        bool: True if the password is valid, False otherwise.
+    """
+    # Define regular expression patterns for validation
+    pattern = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\s).{8,128}$')
+
+    # Check if password matches the pattern
+    return bool(pattern.match(password))
+```
+
+**Explanation**
+---------------
+
+This function uses a regular expression to validate the password. The `^` and `$` anchors ensure that the entire string must match the pattern. Here's what each part of the pattern means:
+
+- `(?=.*[a-z])`: Ensure at least one lowercase letter is present.
+- `(?=.*[A-Z])`: Ensure at least one uppercase letter is present.
+- `(?=.*\d)`: Ensure at least one digit is present.
+- `(?!.*\s)`: Ensure no whitespace characters are present anywhere in the string.
+- `. {8,128}`: The password must be between 8 and 128 characters long.
+
+**Example Usage**
+----------------
+
+```python
+# Test a valid password
+print(validate_password("Password123!"))  # Output: True
+
+# Test an invalid password (too short)
+print(validate_password("Short"))  # Output: False
+
+# Test an invalid password (contains whitespace)
+print(validate_password("My password is secure "))  # Output: False
+```
+
+Note that this function considers a password valid if it meets the specified criteria. You may need to adjust these rules based on your specific requirements for password validation.

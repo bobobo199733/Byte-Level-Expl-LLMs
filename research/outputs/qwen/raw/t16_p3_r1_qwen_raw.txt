@@ -1,0 +1,86 @@
+Certainly! Below is an implementation of the `sudoku_solver` function in Python. This function uses backtracking to solve a given Sudoku board.
+
+```python
+def is_valid(board, row, col, num):
+    # Check if 'num' is not already placed in current row, column and 3x3 sub-board
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+        if board[x][col] == num:
+            return False
+
+    start_row = row - row % 3
+    start_col = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[i + start_row][j + start_col] == num:
+                return False
+    return True
+
+def find_empty_location(board, pos):
+    # Find the next empty location on the board
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                pos[0], pos[1] = row, col
+                return True
+    return False
+
+def sudoku_solver(board):
+    position = [0, 0]
+    
+    # If there are no empty locations left then the Sudoku is solved
+    if not find_empty_location(board, position):
+        return True
+    
+    row, col = position[0], position[1]
+
+    for num in range(1, 10):  # Numbers 1-9
+        if is_valid(board, row, col, str(num)):
+            board[row][col] = str(num)
+
+            # Recursively solve the rest of the board
+            if sudoku_solver(board):
+                return True
+
+            # If placing num doesn't lead to a solution, backtrack and reset
+            board[row][col] = '0'
+
+    # If no number can be placed in this location, backtrack
+    return False
+
+# Example usage:
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+if sudoku_solver(board):
+    for row in board:
+        print(row)
+else:
+    print("No solution exists")
+```
+
+### Explanation:
+
+1. **is_valid Function**: This function checks if it is valid to place a number `num` at the given `(row, col)` position on the board.
+
+2. **find_empty_location Function**: This function finds an empty cell (cell with value 0) and returns its coordinates in `position`.
+
+3. **sudoku_solver Function**:
+    - The main backtracking function.
+    - If no empty cells are left (`find_empty_location` returns False), the Sudoku is solved, so return True.
+    - For each number from 1 to 9, if it can be placed at the current position using `is_valid`, place it and recursively try to solve the rest of the board.
+    - If placing a number doesn't lead to a solution, backtrack by resetting that cell to 0.
+
+4. **Example Usage**: The example provided demonstrates how to use this function with a sample Sudoku puzzle.
+
+This implementation will print the solved Sudoku board if there is a valid solution or indicate that no solution exists.

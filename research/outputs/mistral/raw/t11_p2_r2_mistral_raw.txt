@@ -1,0 +1,20 @@
+Here is a Python function called `coin_change` that follows the requirements you've mentioned:
+
+```python
+def coin_change(coins, amount):
+    if not coins or amount < 1:
+        return -1
+
+    # Create an array to store the minimum number of coins for each amount from 0 to amount.
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+
+    # Iterate through each coin and compute the minimum number of coins needed for every amount.
+    for coin in coins:
+        for i in range(coin, amount + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    return dp[-1] if dp[-1] != float('inf') else -1
+```
+
+This function uses dynamic programming to iterate through each coin and compute the minimum number of coins required for every amount. The time complexity is O(n * amount), where n is the number of unique coins in the given list (since there can be duplicate values). The space complexity is O(amount) since we store the minimum number of coins needed for every amount up to `amount`.

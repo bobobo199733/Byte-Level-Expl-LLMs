@@ -1,0 +1,56 @@
+To determine whether all courses can be completed given their dependencies, we can model this problem as a graph where each course is a node and the prerequisites define directed edges. The goal is to check if there are any cycles in the graph because a cycle would mean that one or more courses cannot be completed.
+
+Here's how you can implement this:
+
+1. **Graph Representation**: We'll use an adjacency list to represent the graph.
+2. **Cycle Detection**: We'll use Depth-First Search (DFS) with a visited set to detect cycles.
+3. **Topological Sort**: If we successfully visit all nodes and don't find any cycles, then it's possible to complete all courses.
+
+Below is the implementation of the `course_schedule` function:
+
+```python
+def course_schedule(num_courses, prerequisites):
+    # Step 1: Build the graph using an adjacency list
+    graph = [[] for _ in range(num_courses)]
+    for course, prereq in prerequisites:
+        graph[prereq].append(course)
+    
+    # Step 2: Define a helper function to perform DFS and detect cycles
+    def dfs(course):
+        if visited[course] == 'in_progress':
+            return False  # Cycle detected
+        if visited[course] == 'completed':
+            return True
+        
+        visited[course] = 'in_progress'
+        for next_course in graph[course]:
+            if not dfs(next_course):
+                return False
+        
+        visited[course] = 'completed'
+        return True
+    
+    # Step 3: Initialize the visited set
+    visited = ['unvisited'] * num_courses
+    
+    # Step 4: Perform DFS on each course to detect cycles
+    for i in range(num_courses):
+        if visited[i] == 'unvisited' and not dfs(i):
+            return False
+    
+    return True
+
+# Example usage:
+num_courses = 4
+prerequisites = [[1, 0], [2, 1], [3, 2]]
+print(course_schedule(num_courses, prerequisites))  # Output: True
+```
+
+### Explanation:
+
+- **Graph Construction**: We create an adjacency list where each course points to the courses it depends on.
+- **DFS Function**: This function performs a depth-first search. If we encounter a course that is currently being processed (`visited[course] == 'in_progress'`), there's a cycle, and we return `False`. Otherwise, if all dependent courses are successfully visited without cycles, we mark the current course as completed.
+- **Cycle Detection**: We use an array `visited` to keep track of the state of each node: `'unvisited'`, `'in_progress'`, or `'completed'`.
+- **Main Function**: We iterate over all courses and call the DFS function for each unvisited course. If we find a cycle, we return `False`; otherwise, if all courses are successfully visited without cycles, we return `True`.
+
+This approach ensures that all courses can be completed as long as there are no cycles in the dependency graph.

@@ -1,0 +1,271 @@
+Your introduction should not read like:
+
+“LLMs are popular and SHAP is interesting.”
+
+That’s weak and generic.
+
+Your introduction needs to establish a REAL research gap.
+
+Right now, your strongest angle is this:
+
+Modern code-generating LLMs produce functionally similar outputs, but it remains unclear whether low-level representations of generated code preserve distinguishable model-specific patterns that can be detected and interpreted using post-hoc explainability techniques.
+
+That is the core.
+
+Everything in your introduction should support why that matters.
+
+⸻
+
+The key points your introduction MUST cover
+
+⸻
+
+1. Explosion of code-generating LLMs
+
+You need this section, but keep it concise.
+
+Mention:
+
+* GitHub Copilot
+* ChatGPT
+* Code Llama
+* Qwen
+* Mistral
+* widespread use in software engineering
+
+The point is NOT hype.
+
+The point is:
+
+LLM-generated code is now everywhere.
+
+Therefore understanding generated code matters.
+
+⸻
+
+2. Existing evaluation focuses almost entirely on correctness
+
+This is critical.
+
+Most literature evaluates:
+
+* pass@k
+* HumanEval
+* MBPP
+* correctness
+* syntax validity
+* benchmark scores
+
+But:
+
+these metrics only measure whether generated code works.
+
+They do NOT analyze:
+
+* structural generation patterns
+* stylistic signatures
+* low-level representations
+* latent model fingerprints
+
+This is your first real gap.
+
+⸻
+
+3. LLMs may produce distinguishable generation fingerprints
+
+Very important section.
+
+You need to argue:
+even if two solutions are functionally equivalent,
+they may differ in:
+
+* control flow
+* branching structure
+* recursion style
+* memory patterns
+* bytecode layout
+* token distributions
+* compiled representations
+
+This is where your low-level representation becomes justified.
+
+The key insight:
+
+semantic equivalence does not imply representational equivalence.
+
+That sentence is thesis gold.
+
+⸻
+
+4. Existing explainability work rarely targets generated code representations
+
+Another major gap.
+
+Most XAI work:
+
+* tabular ML
+* vision
+* NLP classification
+* feature attribution on human-written code
+
+Very little work examines:
+
+* generated code
+* low-level code representations
+* byte-level model fingerprints
+* SHAP explanations over compiled/code-derived features
+
+This justifies novelty.
+
+⸻
+
+5. Why low-level representations matter
+
+This section is essential.
+
+You need to explain:
+why not just use tokens or ASTs?
+
+Your argument:
+
+Low-level representations:
+
+* may preserve hidden structural regularities
+* are harder to manually manipulate
+* may reduce superficial stylistic artifacts
+* may reveal deeper generation tendencies
+
+You are essentially testing:
+
+whether model identity survives abstraction into lower-level representations.
+
+That is a genuinely interesting question.
+
+⸻
+
+6. Explainability is necessary, not optional
+
+Very important.
+
+Otherwise your thesis becomes:
+
+“classifier detects models.”
+
+Who cares?
+
+SHAP/LIME matter because:
+
+* they identify WHICH features drive classification
+* they expose important byte regions/patterns
+* they help determine whether the classifier learns meaningful structure or superficial artifacts
+
+This is huge.
+
+Without explainability:
+your work is just another classification paper.
+
+With explainability:
+you investigate representation-level behavior.
+
+⸻
+
+7. Importance for trust, attribution, and AI forensics
+
+This is where relevance becomes real-world relevant.
+
+Possible applications:
+
+* AI-generated code attribution
+* software provenance
+* model fingerprinting
+* AI forensics
+* plagiarism detection
+* generated-code auditing
+* security analysis
+
+Especially:
+future systems may need to determine:
+
+* which model generated code
+* whether generated code has recognizable patterns
+* whether models leak identifiable signatures
+
+This is your “why should anyone care?” section.
+
+⸻
+
+8. Your central research uncertainty
+
+You MUST explicitly state uncertainty.
+
+Bad:
+
+“This thesis proves low-level representations work.”
+
+Good:
+
+“It remains unclear whether low-level representations preserve sufficient information to distinguish LLM-generated code across unseen tasks.”
+
+That sounds scientific.
+
+⸻
+
+9. Your actual contribution
+
+This section is critical.
+
+Your contribution is NOT:
+
+“I used SHAP.”
+
+That is not enough.
+
+Your contributions are closer to:
+
+* constructing a multi-model generated-code dataset
+* comparing low-level representations for model attribution
+* evaluating generalization across unseen tasks
+* applying post-hoc explainability to generated-code representations
+* investigating whether classifiers learn meaningful structural signals
+
+THAT sounds like research.
+
+⸻
+
+Biggest trap to avoid
+
+Do NOT oversell.
+
+If your classifier gets:
+
+* 44%
+* 50%
+* 60%
+
+that can STILL be interesting.
+
+Your thesis is NOT:
+
+“we solved attribution.”
+
+Your thesis is:
+
+“we investigated whether detectable model-specific signals survive in low-level representations.”
+
+That is much more defensible.
+
+⸻
+
+Your introduction structure should roughly be:
+
+1. Rise of code LLMs
+2. Existing evaluation methods
+3. Missing understanding of structural/model-specific patterns
+4. Low-level representations as unexplored analysis space
+5. Need for explainability
+6. Research gap
+7. Research question
+8. Contributions
+9. Thesis overview
+
+That structure is clean and academically solid.

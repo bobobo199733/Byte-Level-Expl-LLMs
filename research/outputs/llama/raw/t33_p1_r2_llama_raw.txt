@@ -1,0 +1,104 @@
+**Heap Sort Function**
+=======================
+
+Here is the Python function `heap_sort` that implements the Heap Sort algorithm:
+
+```python
+def heap_sort(values):
+    """
+    Sorts a list of values using the Heap Sort algorithm.
+
+    Args:
+        values (list): The list to be sorted.
+
+    Returns:
+        list: A new sorted list.
+    """
+
+    # Build the max-heap from the given values
+    build_max_heap(values)
+
+    # Extract elements one by one and place them at the end of the array
+    sorted_values = []
+    while len(values) > 0:
+        # Remove the maximum element (root)
+        max_value = heap_extract_max(values)
+        
+        # Add it to the sorted list
+        sorted_values.append(max_value)
+
+    return sorted_values
+
+def build_max_heap(values):
+    """
+    Builds a max-heap from the given values.
+
+    Args:
+        values (list): The list of values.
+    """
+
+    # Start from the last non-leaf node and perform heapify on each node
+    for i in range(len(values) // 2 - 1, -1, -1):
+        heapify(values, len(values), i)
+
+def heapify(heap, n, i):
+    """
+    Heapifies the subtree rooted at index i.
+
+    Args:
+        heap (list): The list to be heapified.
+        n (int): The size of the heap.
+        i (int): The root of the subtree to be heapified.
+    """
+
+    # Initialize largest as the root
+    largest = i
+    
+    # Check if the left child is larger than the current largest
+    left_child_index = 2 * i + 1
+    if left_child_index < n and heap[left_child_index] > heap[largest]:
+        largest = left_child_index
+
+    # Check if the right child is larger than the current largest
+    right_child_index = 2 * i + 2
+    if right_child_index < n and heap[right_child_index] > heap[largest]:
+        largest = right_child_index
+
+    # If the largest is not the root, swap them and recursively heapify
+    if largest != i:
+        heap[i], heap[largest] = heap[largest], heap[i]
+        heapify(heap, n, largest)
+
+def heap_extract_max(heap):
+    """
+    Removes and returns the maximum element from the heap.
+
+    Args:
+        heap (list): The list to be modified.
+
+    Returns:
+        int: The maximum value.
+    """
+
+    # Store the root
+    max_value = heap[0]
+    
+    # Replace the root with the last leaf node
+    heap[0] = heap[-1]
+    
+    # Remove the last leaf node
+    heap.pop()
+    
+    # Heapify the reduced heap
+    heapify(heap, len(heap), 0)
+    
+    return max_value
+```
+
+You can use this function like so:
+
+```python
+values = [4, 2, 9, 6, 1]
+sorted_values = heap_sort(values)
+print(sorted_values)  # Output: [1, 2, 4, 6, 9]
+```

@@ -1,0 +1,64 @@
+**Binary Search Rotated Array**
+=====================================
+
+### Function: `binary_search_rotated`
+
+```python
+def binary_search_rotated(values, target):
+    """
+    Searches for a target in a rotated sorted array using binary search.
+
+    Args:
+        values (list): The rotated sorted array.
+        target: The value to be searched.
+
+    Returns:
+        int: Index of the target if found. -1 otherwise.
+    """
+
+    # Initialize pointers
+    left, right = 0, len(values) - 1
+
+    while left <= right:
+        # Calculate middle index
+        mid = (left + right) // 2
+
+        # If target is found at the middle index, return it
+        if values[mid] == target:
+            return mid
+
+        # Check for rotated array
+        if values[left] <= values[mid]:
+            # Target should be on the left half
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            # Target should be on the right half
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+    # If not found, return -1
+    return -1
+```
+
+**Example Usage:**
+-------------------
+
+```python
+values = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+
+index = binary_search_rotated(values, target)
+print(index)  # Output: 4
+
+values = [4, 5, 6, 7, 0, 1, 2]
+target = 3
+index = binary_search_rotated(values, target)
+print(index)  # Output: -1
+```
+
+This function uses a modified binary search algorithm to efficiently search for the target in a rotated sorted array. It iteratively narrows down the search space by comparing values at the middle index and adjusting the pointers accordingly. If the target is found, its index is returned; otherwise, -1 is returned indicating that the target was not found.

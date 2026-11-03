@@ -1,0 +1,34 @@
+To create a function that counts the frequency of each word in a given text, you can follow this approach in Python:
+
+```python
+def word_frequency(text):
+    # First, we lowercase the entire string for case-insensitive comparisons
+    text = text.lower()
+
+    # Next, we split the string into individual words using whitespace as a delimiter
+    words = text.split()
+
+    # Create an empty dictionary to store the frequency of each word
+    word_count = {}
+
+    # Iterate through the list of words and count their occurrences
+    for word in words:
+        if word in word_count:
+            word_count[word] += 1
+        else:
+            word_count[word] = 1
+
+    return word_count
+```
+
+Now you can use this function to count the frequency of words in a given text, like so:
+
+```python
+text = "Hello world! Hello again, world!"
+print(word_frequency(text))
+```
+
+This will output the following dictionary:
+
+```
+{'hello': 2, 'world': 2, 'again': 1}

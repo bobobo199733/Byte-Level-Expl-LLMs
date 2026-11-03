@@ -1,0 +1,62 @@
+Certainly! The Least Recently Used (LRU) Cache is a popular caching mechanism used in computer science to manage memory efficiently by removing the least recently used items first. To simulate this behavior, we can use Python's `collections.OrderedDict` which maintains the order of insertion and allows us to efficiently remove the least recently used item.
+
+Here's how you could implement the function `lru_cache(operations, capacity)`:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    cache = OrderedDict()
+    result = []
+    
+    def get(key):
+        if key not in cache:
+            result.append(-1)
+            return -1
+        else:
+            value = cache.pop(key)
+            result.append(value)
+            cache[key] = value  # Move the accessed item to the end of the ordered dictionary
+            return value
+    
+    def set(key, value):
+        nonlocal capacity
+        if key in cache:
+            cache.pop(key)
+        elif len(cache) == capacity:
+            cache.popitem(last=False)  # Remove the least recently used item (first inserted)
+        cache[key] = value
+
+    for operation in operations:
+        if isinstance(operation, tuple):
+            # It's a set operation
+            key, value = operation
+            result.append(set(key, value))
+        else:
+            # It's a get operation
+            result.append(get(operation))
+    
+    return result
+
+# Example usage:
+operations = [(10, 12), (30, 56), (10), (1), (1, 20), (2)]
+capacity = 2
+output = lru_cache(operations, capacity)
+print(output)  # Output: [12, -1, -1, 20]
+```
+
+### Explanation:
+- **OrderedDict**: This is used to maintain the order of insertion and to efficiently remove the least recently used item.
+- **get(key)**: 
+  - If the key is not in the cache, append `-1` to the result list and return `-1`.
+  - Otherwise, move the accessed item to the end of the `OrderedDict` and update its value (if provided) or retrieve it.
+- **set(key, value)**:
+  - Removes the item if it already exists.
+  - If the cache is full (`len(cache) == capacity`), removes the least recently used item.
+  - Adds a new key-value pair to the end of the `OrderedDict`.
+- The function iterates over the operations and performs the corresponding `get` or `set` operation, appending results to the result list.
+
+### Example:
+In the example provided, the `lru_cache` function is called with a set of operations and a cache capacity. It returns a list of results from each `get` operation.
+
+This implementation ensures that all get operations are recorded correctly according to their outcomes in an LRU cache scenario.

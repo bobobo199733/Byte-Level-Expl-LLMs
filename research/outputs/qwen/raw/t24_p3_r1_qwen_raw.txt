@@ -1,0 +1,7 @@
+```python
+def kth_largest(nums, k):
+    nums.sort(reverse=True)
+    return nums[k-1]
+```
+
+This function sorts the list in descending order and then returns the kth element (adjusting for zero-based indexing).

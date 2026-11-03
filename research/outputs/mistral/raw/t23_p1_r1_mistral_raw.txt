@@ -1,0 +1,14 @@
+Here's a Python function named `fast_power` that computes `base` raised to the power of `exponent` using an optimized approach, specifically by avoiding repeated multiplications:
+
+```python
+def fast_power(base, exponent):
+    result = 1
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result *= base
+        base *= base
+        exponent //= 2
+    return result
+```
+
+This function works by iteratively squaring the base (i.e., multiplying it by itself) and checking whether we need to include the original multiplier in each step, based on the parity of `exponent`. This approach can significantly speed up the calculation for large exponents because it minimizes repeated multiplications.

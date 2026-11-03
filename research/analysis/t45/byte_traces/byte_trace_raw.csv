@@ -1,0 +1,271 @@
+file,true_model,prompt,run,byte_pos,byte_role,raw_value,opname,arg,argval,code_name
+t45_p1_r1_llama.py,llama,p1,r1,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r1_llama.py,llama,p1,r1,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r2_llama.py,llama,p1,r2,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r3_llama.py,llama,p1,r3,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,13,arg,38,POP_JUMP_IF_FALSE,38.0,120,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,14,opcode,91,LOAD_GLOBAL,5.0,len,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,15,arg,5,LOAD_GLOBAL,5.0,len,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,17,arg,0,LOAD_FAST,0.0,nums,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,19,arg,1,CALL,1.0,1,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,31,arg,0,MAKE_FUNCTION,,None,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,39,arg,1,CALL,1.0,1,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,48,opcode,53,CALL,1.0,1,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,62,opcode,45,BINARY_OP,10.0,10,search_insert_position
+t45_p2_r1_llama.py,llama,p2,r1,81,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,13,arg,0,TO_BOOL,,None,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,14,opcode,100,POP_JUMP_IF_TRUE,11.0,68,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,15,arg,11,POP_JUMP_IF_TRUE,11.0,68,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,17,arg,5,LOAD_GLOBAL,5.0,ValueError,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,19,arg,1,LOAD_CONST,1.0,nums must be a list,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,31,arg,0,LOAD_DEREF,0.0,nums,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,39,arg,0,TO_BOOL,,None,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,48,opcode,101,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,62,opcode,85,LOAD_FAST,1.0,target,search_insert_position
+t45_p2_r2_llama.py,llama,p2,r2,81,arg,0,MAKE_FUNCTION,,None,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,13,arg,15,POP_JUMP_IF_FALSE,15.0,74,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,14,opcode,91,LOAD_GLOBAL,5.0,len,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,15,arg,5,LOAD_GLOBAL,5.0,len,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,17,arg,0,LOAD_FAST,0.0,nums,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,19,arg,1,CALL,1.0,1,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,31,arg,1,CALL,1.0,1,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,39,arg,0,LOAD_FAST,0.0,nums,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,48,opcode,88,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,62,opcode,110,STORE_FAST,4.0,mid,search_insert_position
+t45_p2_r3_llama.py,llama,p2,r3,81,arg,0,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,13,arg,1,CALL,1.0,1,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,14,opcode,101,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,15,arg,1,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,17,arg,2,LOAD_CONST,2.0,0,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,19,arg,3,LOAD_GLOBAL,3.0,len,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,31,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,39,arg,0,BINARY_OP,0.0,0,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,62,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r1_llama.py,llama,p3,r1,81,arg,4,LOAD_FAST,4.0,mid,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p3_r2_llama.py,llama,p3,r2,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,62,opcode,110,STORE_FAST,3.0,right,search_insert_position
+t45_p3_r3_llama.py,llama,p3,r3,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,13,arg,1,POP_JUMP_IF_FALSE,1.0,34,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,14,opcode,103,RETURN_CONST,1.0,0,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,15,arg,1,RETURN_CONST,1.0,0,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,17,arg,1,LOAD_CONST,1.0,0,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,19,arg,1,LOAD_GLOBAL,1.0,len,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,31,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,39,arg,0,BINARY_OP,0.0,0,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,62,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r1_mistral.py,mistral,p1,r1,81,arg,4,LOAD_FAST,4.0,mid,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r2_mistral.py,mistral,p1,r2,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r3_mistral.py,mistral,p1,r3,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,13,arg,23,POP_JUMP_IF_FALSE,23.0,90,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,14,opcode,91,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,15,arg,5,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,17,arg,1,LOAD_CONST,1.0,"<code object <genexpr> at 0x119c88390, file ""/Users/valentyngnativ/Dev/uva/thesis/research/test_data/outputs/mistral/cleaned/t45_p2_r1_mistral.py"", line 2>",search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,19,arg,0,MAKE_FUNCTION,,None,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,31,arg,11,POP_JUMP_IF_TRUE,11.0,112,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,39,arg,1,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,48,opcode,53,CALL,1.0,1,search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,62,opcode,88,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p2_r1_mistral.py,mistral,p2,r1,81,arg,2,POP_JUMP_IF_FALSE,2.0,188,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,13,arg,1,LOAD_FAST_LOAD_FAST,1.0,"('nums', 'target')",search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,14,opcode,53,CALL,2.0,2,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,15,arg,2,CALL,2.0,2,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,17,arg,0,POP_TOP,,None,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,19,arg,2,LOAD_CONST,2.0,0,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,31,arg,2,LOAD_CONST,2.0,0,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,39,arg,40,POP_JUMP_IF_FALSE,40.0,144,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,48,opcode,110,STORE_FAST,5.0,mid,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,62,opcode,36,RETURN_VALUE,,None,search_insert_position
+t45_p2_r2_mistral.py,mistral,p2,r2,81,arg,3,STORE_FAST,3.0,left,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,13,arg,2,LOAD_GLOBAL,2.0,list,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,14,opcode,53,CALL,2.0,2,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,15,arg,2,CALL,2.0,2,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,17,arg,1,LOAD_CONST,1.0,False,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,19,arg,0,IS_OP,0.0,0,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,31,arg,3,LOAD_CONST,3.0,0,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,39,arg,4,LOAD_CONST,4.0,1,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,48,opcode,97,POP_JUMP_IF_FALSE,43.0,202,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,62,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p2_r3_mistral.py,mistral,p2,r3,81,arg,18,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,13,arg,2,LOAD_CONST,2.0,1,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,14,opcode,45,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,15,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,17,arg,3,STORE_FAST,3.0,right,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,19,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,31,arg,2,BINARY_OP,2.0,2,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,39,arg,1,LOAD_FAST,1.0,target,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,48,opcode,88,LOAD_FAST_LOAD_FAST,4.0,"('nums', 'mid')",search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,62,opcode,45,BINARY_OP,0.0,0,search_insert_position
+t45_p3_r1_mistral.py,mistral,p3,r1,81,arg,2,POP_JUMP_IF_FALSE,2.0,130,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,13,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,14,opcode,58,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,15,arg,18,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,17,arg,40,POP_JUMP_IF_FALSE,40.0,116,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,19,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,31,arg,0,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,39,arg,4,LOAD_FAST,4.0,mid,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,48,opcode,58,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,62,opcode,85,LOAD_FAST,4.0,mid,search_insert_position
+t45_p3_r2_mistral.py,mistral,p3,r2,81,?,-1,OUT_OF_RANGE,-1.0,?,?
+t45_p3_r3_mistral.py,mistral,p3,r3,13,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,14,opcode,58,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,15,arg,18,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,17,arg,40,POP_JUMP_IF_FALSE,40.0,116,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,19,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,31,arg,0,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,39,arg,4,LOAD_FAST,4.0,mid,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,48,opcode,58,COMPARE_OP,18.0,<,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,62,opcode,85,LOAD_FAST,4.0,mid,search_insert_position
+t45_p3_r3_mistral.py,mistral,p3,r3,81,?,-1,OUT_OF_RANGE,-1.0,?,?
+t45_p1_r1_qwen.py,qwen,p1,r1,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,62,opcode,110,STORE_FAST,3.0,right,search_insert_position
+t45_p1_r1_qwen.py,qwen,p1,r1,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r2_qwen.py,qwen,p1,r2,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p1_r3_qwen.py,qwen,p1,r3,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,13,arg,1,CALL,1.0,1,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,14,opcode,101,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,15,arg,1,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,17,arg,2,LOAD_CONST,2.0,0,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,19,arg,3,LOAD_GLOBAL,3.0,len,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,31,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,39,arg,0,BINARY_OP,0.0,0,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,62,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p2_r1_qwen.py,qwen,p2,r1,81,arg,4,LOAD_FAST,4.0,mid,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,13,arg,23,POP_JUMP_IF_FALSE,23.0,90,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,14,opcode,91,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,15,arg,5,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,17,arg,1,LOAD_CONST,1.0,"<code object <genexpr> at 0x119dac030, file ""/Users/valentyngnativ/Dev/uva/thesis/research/test_data/outputs/qwen/cleaned/t45_p2_r2_qwen.py"", line 15>",search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,19,arg,0,MAKE_FUNCTION,,None,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,31,arg,11,POP_JUMP_IF_TRUE,11.0,112,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,39,arg,1,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,48,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,62,opcode,45,BINARY_OP,2.0,2,search_insert_position
+t45_p2_r2_qwen.py,qwen,p2,r2,81,arg,4,LOAD_FAST_LOAD_FAST,4.0,"('nums', 'mid')",search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,13,arg,23,POP_JUMP_IF_FALSE,23.0,90,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,14,opcode,91,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,15,arg,5,LOAD_GLOBAL,5.0,all,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,17,arg,1,LOAD_CONST,1.0,"<code object <genexpr> at 0x119c88390, file ""/Users/valentyngnativ/Dev/uva/thesis/research/test_data/outputs/qwen/cleaned/t45_p2_r3_qwen.py"", line 11>",search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,19,arg,0,MAKE_FUNCTION,,None,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,31,arg,11,POP_JUMP_IF_TRUE,11.0,112,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,39,arg,1,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,48,opcode,52,BUILD_TUPLE,2.0,2,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,62,opcode,101,RAISE_VARARGS,1.0,1,search_insert_position
+t45_p2_r3_qwen.py,qwen,p2,r3,81,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p3_r1_qwen.py,qwen,p3,r1,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,13,arg,2,LOAD_CONST,2.0,1,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,14,opcode,45,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,15,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,17,arg,3,STORE_FAST,3.0,right,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,19,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,31,arg,2,BINARY_OP,2.0,2,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,39,arg,1,LOAD_FAST,1.0,target,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,48,opcode,88,LOAD_FAST_LOAD_FAST,4.0,"('nums', 'mid')",search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,62,opcode,45,BINARY_OP,0.0,0,search_insert_position
+t45_p3_r2_qwen.py,qwen,p3,r2,81,arg,2,POP_JUMP_IF_FALSE,2.0,130,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,13,arg,10,BINARY_OP,10.0,10,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,14,opcode,112,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,15,arg,50,STORE_FAST_STORE_FAST,50.0,"('right', 'left')",search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,17,arg,35,LOAD_FAST_LOAD_FAST,35.0,"('left', 'right')",search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,19,arg,58,COMPARE_OP,58.0,<=,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,31,arg,4,STORE_FAST,4.0,mid,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,39,arg,88,COMPARE_OP,88.0,==,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,48,opcode,5,BINARY_SUBSCR,,None,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,62,opcode,110,STORE_FAST,2.0,left,search_insert_position
+t45_p3_r3_qwen.py,qwen,p3,r3,81,arg,43,JUMP_BACKWARD,43.0,42,search_insert_position

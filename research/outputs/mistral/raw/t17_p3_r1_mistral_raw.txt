@@ -1,0 +1,42 @@
+Here's a Python implementation of an LRU (Least Recently Used) cache using OrderedDict:
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key):
+        if key not in self.cache:
+            return None
+        else:
+            # Move the accessed item to the end of the cache (most recently used)
+            self.cache.move_to_end(key)
+            return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            # If the key is already in the cache, remove it first to avoid exceeding capacity
+            self.cache.pop(key)
+
+        # Check if we need to evict an item due to reaching cache capacity
+        if len(self.cache) >= self.capacity:
+            # Remove the least recently used item (the first item in the OrderedDict)
+            self.cache.popitem(last=False)
+
+        # Add the new item to the cache
+        self.cache[key] = value
+
+# Usage example:
+cache = LRUCache(3)
+cache.put("one", 1)
+cache.put("two", 2)
+cache.put("three", 3)
+print(cache.get("one"))  # Output: 1 (accessed and moved to the end of the cache)
+cache.put("four", 4)      # Evicts "two" since it is least recently used
+print(cache.get("two"))   # Output: None (since it has been evicted from the cache)
+```
+
+This implementation uses an OrderedDict to store the key-value pairs in the order they were accessed, with the most recently accessed item at the end of the dictionary. The `get()` function moves the accessed item to the end of the cache, and the `put()` function evicts the least recently used item if necessary when adding a new one.

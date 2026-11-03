@@ -1,0 +1,76 @@
+**Topological Sort Function**
+================================
+
+Here's an implementation of a topological sort function for directed acyclic graphs (DAGs) using Python:
+
+```python
+def topological_sort(graph):
+    """
+    Performs a topological sort on a directed acyclic graph.
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+
+    Returns:
+        A list containing the nodes in topological order.
+
+    Raises:
+        ValueError: If a cycle exists in the graph.
+    """
+
+    # Initialize set to keep track of visited nodes
+    visited = set()
+
+    # Initialize set to detect cycles (i.e., back edges)
+    current_path = set()
+
+    # Initialize stack for storing nodes in topological order
+    ordering = []
+
+    def dfs(node):
+        """
+        Recursive depth-first search function.
+
+        Args:
+            node: The current node being visited.
+        """
+
+        # Mark node as visited and add it to the current path
+        visited.add(node)
+        current_path.add(node)
+
+        # Iterate over neighbors of the current node
+        for neighbor in graph.get(node, []):
+            if neighbor not in visited:
+                dfs(neighbor)
+            elif neighbor in current_path:
+                raise ValueError("Cycle detected")
+
+        # Remove node from current path and add it to the ordering
+        current_path.remove(node)
+        ordering.append(node)
+
+    # Iterate over all nodes in the graph and perform DFS
+    for node in graph.keys():
+        if node not in visited:
+            dfs(node)
+
+    return ordering[::-1]  # Return ordering in reverse due to stack-based implementation
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'B', 'C', 'D']
+```
+
+This implementation uses a depth-first search (DFS) approach with recursion to traverse the graph and detect cycles. The `topological_sort` function takes a dictionary representing the adjacency list of the graph as input, performs the DFS traversal, and returns the nodes in topological order.
+
+If a cycle is detected during the traversal, a `ValueError` is raised.
+
+Note that this implementation assumes that the input graph represents a DAG (i.e., it does not contain cycles). If your graph may contain cycles, you should add additional error handling or consider using a different algorithm.

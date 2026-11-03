@@ -1,0 +1,14 @@
+```python
+def kth_largest(nums, k):
+    """
+    Returns the kth largest element in a list.
+
+    Args:
+        nums (list): A list of numbers.
+        k (int): The position of the desired number from the end (1-indexed).
+
+    Returns:
+        int: The kth largest number in the list.
+    """
+    return sorted(nums, reverse=True)[k-1]
+```

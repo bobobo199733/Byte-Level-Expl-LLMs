@@ -1,0 +1,29 @@
+The 0/1 Knapsack Problem is a classic optimization problem where you need to put together a subset of items from a list such that the total weight is less than or equal to a given capacity, and the summed-up values of the items in the chosen subset are maximized. Here's a Python function called `knapsack_01` that solves this problem:
+
+```python
+def knapsack_01(weights, values, capacity):
+    n = len(weights)
+
+    # Create a table to store the maximum value for different weights and indices
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+
+    # Fill up the DP table using bottom-up approach
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    # The maximum value is stored in the last row of the last column
+    return dp[-1][-1]
+```
+
+You can use this function as follows:
+
+```python
+weights = [60, 100, 120]
+values = [60, 100, 150]
+capacity = 200
+print(knapsack_01(weights, values, capacity))  # Output: 310
+```

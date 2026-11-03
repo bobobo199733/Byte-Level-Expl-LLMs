@@ -1,0 +1,28 @@
+Here's a Python function `roman_to_int(s)` that meets your requirements:
+
+```python
+def roman_to_int(s):
+    if not s:
+        raise ValueError("The input cannot be an empty string.")
+
+    dictionary = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000,
+    }
+
+    total = dictionary[s[-1]]
+    for i in range(len(s) - 2, -1, -1):
+        if dictionary[s[i]] < dictionary[s[i + 1]]:
+            total -= dictionary[s[i]]
+        else:
+            total += dictionary[s[i]]
+
+    return total
+```
+
+This function iterates through the input string from right to left and adds or subtracts the corresponding values based on the standard subtractive notation. If an invalid Roman numeral is encountered, it raises a `ValueError`. The function also checks for an empty string and returns an error if it's found.

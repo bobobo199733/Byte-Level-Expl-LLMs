@@ -1,0 +1,61 @@
+To create a function that evaluates arithmetic expressions with basic operators (`+`, `-`, `*`, `/`) and parentheses, we can use Python's built-in `ast` module to safely parse and evaluate the expression. This approach avoids the risk of executing arbitrary code if the input is untrusted.
+
+Here's how you can implement this:
+
+```python
+import ast
+import operator
+
+def safe_eval(expr: str) -> int:
+    # Replace whitespace with empty string to ignore it
+    expr = expr.replace(" ", "")
+    
+    # Define a mapping from operator symbols to their corresponding functions
+    operators = {
+        "+": operator.add,
+        "-": operator.sub,
+        "*": operator.mul,
+        "/": operator.floordiv  # Use floordiv for integer division
+    }
+    
+    # Safe evaluation using ast module
+    try:
+        node = ast.parse(expr, mode='eval')
+        safe_node = ast.Expression(node.body)
+        
+        def eval_expr(node):
+            if isinstance(node, ast.Num):  # <number>
+                return node.n
+            elif isinstance(node, ast.BinOp):  # <left> <operator> <right>
+                left_val = eval_expr(node.left)
+                right_val = eval_expr(node.right)
+                return operators[type(node.op).__name__](left_val, right_val)
+            elif isinstance(node, ast.UnaryOp):  # unary operation
+                operand = eval_expr(node.operand)
+                if type(node.op) == ast.USub:  # unary minus
+                    return -operand
+                else:
+                    raise ValueError("Unsupported unary operator")
+            else:
+                raise ValueError("Unsupported node type")
+        
+        result = eval_expr(safe_node.body)
+        return int(result)  # Ensure the result is an integer
+    
+    except (SyntaxError, ValueError):
+        raise ValueError("Invalid expression")
+
+# Example usage
+print(evaluate("3 + 5 * (10 - 2)"))  # Output: 43
+```
+
+### Explanation:
+1. **Whitespace Removal**: The `expr.replace(" ", "")` line removes any whitespace from the input string to ensure it's properly parsed.
+2. **Operator Mapping**: We create a dictionary mapping arithmetic operators to their corresponding Python functions (`operator.add`, `operator.sub`, etc.).
+3. **Safe Evaluation**:
+    - We use the `ast.parse()` function to parse the expression safely.
+    - The `ast.Expression` class is used to ensure the parsed node represents an expression, not a statement.
+4. **Recursive Evaluation**: A helper function `eval_expr(node)` recursively evaluates the AST nodes. It handles different types of nodes such as numbers, binary operations (`+`, `-`, `*`, `/`), and unary operations (negation).
+5. **Error Handling**: The try-except block catches potential syntax errors or unsupported operations.
+
+This approach ensures that the input expression is safely evaluated without executing any potentially harmful code.

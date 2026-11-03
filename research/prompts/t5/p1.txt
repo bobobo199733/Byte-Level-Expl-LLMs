@@ -1,0 +1,13 @@
+Write a Python function:
+
+def remove_k_digits(num: str, k: int) -> str
+
+The function should remove exactly k digits from the non-negative integer string num so that the resulting number is as small as possible.
+
+Requirements:
+- Return the result as a string
+- Remove leading zeros from the result
+- If the result is empty, return "0"
+- Do not convert the full input directly to an integer
+- Do not print anything
+- Output only Python code

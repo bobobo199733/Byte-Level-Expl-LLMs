@@ -1,0 +1,43 @@
+I'll provide you with a basic implementation of Dijkstra's Shortest Path Algorithm using Python. This function does not utilize any external libraries and assumes the graph is represented as an adjacency list, where `graph[node]` is a dictionary containing key-value pairs for each adjacent node and their corresponding edge weights.
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    shortest_queue = [(0, start)]
+
+    while shortest_queue:
+        current_distance, current_node = heapq.heappop(shortest_queue)
+
+        if current_distance > distances[current_node]:
+            continue
+
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(shortest_queue, (distance, neighbor))
+
+    return distances
+```
+
+Example usage:
+
+```python
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'C': 2, 'D': 5},
+    'C': {'A': 4, 'B': 2, 'D': 1},
+    'D': {'B': 5, 'C': 1}
+}
+
+print(dijkstra_shortest_path(graph, 'A'))
+```
+
+Output:
+
+```python
+{'A': 0, 'B': 1, 'C': 3, 'D': 4}
+```

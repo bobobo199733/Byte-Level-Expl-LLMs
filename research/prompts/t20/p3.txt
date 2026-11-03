@@ -1,0 +1,1 @@
+Write a function called merge_k_sorted_lists(lists) that combines multiple sorted lists into one sorted list.

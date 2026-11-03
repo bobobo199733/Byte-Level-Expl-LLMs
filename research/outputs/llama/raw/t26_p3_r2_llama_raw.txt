@@ -1,0 +1,68 @@
+```python
+from collections import defaultdict
+
+def min_window_substring(s, t):
+    """
+    Returns the shortest substring of s that contains all characters of t.
+
+    Args:
+        s (str): The string to search in.
+        t (str): The string containing the characters to search for.
+
+    Returns:
+        str: The shortest substring of s that contains all characters of t. If no such substring exists, returns an empty string.
+    """
+
+    # Handle edge cases
+    if not s or not t:
+        return ""
+
+    # Create a dictionary to store the frequency of characters in t
+    t_freq = defaultdict(int)
+    for char in t:
+        t_freq[char] += 1
+
+    # Initialize variables to keep track of the minimum window
+    min_window_len = float('inf')
+    min_window = ""
+    formed_chars = 0
+
+    # Initialize the window boundaries
+    left = 0
+
+    # Create a dictionary to store the frequency of characters in the current window
+    window_freq = defaultdict(int)
+
+    # Iterate over the string s
+    for right, char in enumerate(s):
+        # Add the character at the right end of the window to the window frequency dictionary
+        window_freq[char] += 1
+
+        # If the character is in t and its frequency in the window is less than or equal to its frequency in t,
+        # increment the formed_chars count
+        if char in t_freq and window_freq[char] <= t_freq[char]:
+            formed_chars += 1
+
+        # While the window contains all characters of t and the left end of the window is not too far away from the right end,
+        # try to shrink the window by moving the left end to the right
+        while left <= right and formed_chars == len(t):
+            # Update the minimum window if the current window is smaller
+            if right - left + 1 < min_window_len:
+                min_window_len = right - left + 1
+                min_window = s[left:right+1]
+
+            # Remove the character at the left end of the window from the window frequency dictionary
+            char_at_left = s[left]
+            window_freq[char_at_left] -= 1
+
+            # If the character is in t and its frequency in the window is less than its frequency in t,
+            # decrement the formed_chars count
+            if char_at_left in t_freq and window_freq[char_at_left] < t_freq[char_at_left]:
+                formed_chars -= 1
+
+            # Move the left end of the window to the right
+            left += 1
+
+    # Return the minimum window substring
+    return min_window
+```

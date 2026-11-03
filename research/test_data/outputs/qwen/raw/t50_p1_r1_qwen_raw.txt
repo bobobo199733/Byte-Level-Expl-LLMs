@@ -1,0 +1,60 @@
+Certainly! To solve this problem, we can use the sliding window technique combined with character frequency counting to efficiently find all starting indices of anagrams of `p` within `s`. Here's how you can implement it:
+
+```python
+def find_all_anagrams(s, p):
+    from collections import Counter
+    
+    # Lengths of strings s and p
+    len_s = len(s)
+    len_p = len(p)
+    
+    # Frequency count of characters in p
+    target_count = Counter(p)
+    window_count = Counter()
+    
+    # Result list to store the starting indices
+    result = []
+    
+    # Sliding window approach
+    for i in range(len_s):
+        # Add the current character to the window counter
+        window_count[s[i]] += 1
+        
+        # Remove the character that is sliding out of the window (if it's part of p)
+        if i >= len_p:
+            char_to_remove = s[i - len_p]
+            window_count[char_to_remove] -= 1
+            if window_count[char_to_remove] == 0:
+                del window_count[char_to_remove]
+        
+        # Check if current window is an anagram of p
+        if i >= len_p - 1 and window_count == target_count:
+            result.append(i - len_p + 1)
+    
+    return sorted(result)
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+1. **Frequency Count Initialization**:
+   - `target_count` stores the frequency of each character in `p`.
+   - `window_count` is a sliding window counter that keeps track of characters within the current window of length `len_p`.
+
+2. **Sliding Window**:
+   - We iterate through `s` using an index `i`. For each position, we update `window_count` by adding the current character.
+   - If the window size exceeds `len_p`, we remove the leftmost character from consideration and adjust `window_count`.
+   
+3. **Check for Anagrams**:
+   - When the window is of length `len_p`, we check if `window_count` matches `target_count`. If it does, it means the current window is an anagram of `p`.
+
+4. **Result Collection**:
+   - We append the starting index to the result list when a match is found.
+
+5. **Return Sorted Result**:
+   - Finally, we return the sorted list of starting indices.
+
+This approach ensures that each character in `s` is processed at most twice (once for addition and once for removal), making the solution efficient with a time complexity of \(O(n)\) where \(n\) is the length of `s`.

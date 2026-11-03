@@ -1,0 +1,53 @@
+Certainly! Below is a Python function `json_validator` that checks whether a string contains syntactically valid JSON without using any external libraries or built-in JSON parsers. It handles nested objects and arrays, as well as strings, numbers, booleans, and null values.
+
+```python
+def json_validator(text):
+    # Define the valid characters for JSON
+    valid_chars = set('[]{}:,"<> \t\n\r\v\f\b-0123456789. ')
+    
+    # Helper function to check if a character is part of an unquoted string
+    def is_unquoted_char(c):
+        return c.isalnum() or c in '-+@*#%&^?|<>=~!,;:(){}[]<>'
+
+    stack = []
+    last_char = None
+
+    for char in text:
+        if char == '"':
+            # Handle quotes
+            if not stack and (last_char is None or last_char != '\\'):
+                return False
+            elif stack and stack[-1] != '\\':
+                stack.pop()  # Pop the opening quote if we have a matching closing quote
+        elif char in '{[,':
+            # Handle opening brackets
+            stack.append(char)
+        elif char in '}]':
+            # Handle closing brackets
+            if not stack or (char == '}' and stack[-1] != '{') or (char == ']' and stack[-1] != '['):
+                return False
+            stack.pop()
+        elif last_char is None:
+            continue  # Skip the first character if it's a special case
+        elif char in valid_chars and not is_unquoted_char(char):
+            return False  # Invalid character outside of quotes or numbers/boolean/null
+
+        last_char = char
+    
+    # Ensure all brackets are properly closed
+    return len(stack) == 0
+
+# Example usage:
+print(json_validator('{"key": "value", "list": [1, 2, 3], "object": {"nestedKey": true}}'))  # True
+print(json_validator('{"key": "value", "list": [1, 2, 3], "object": {"nestedKey": true'))   # False
+print(json_validator('"invalid string'))  # False
+```
+
+### Explanation:
+- **Valid Characters**: The function defines a set of valid characters for JSON.
+- **Quotes Handling**: When it encounters a quote (`"`), it checks if the quote is part of an unquoted string. If not, it returns `False`.
+- **Stack Usage**: It uses a stack to track opening brackets `{`, `[`, and commas `,`. Each time it encounters a closing bracket or comma, it pops from the stack.
+- **Character Validation**: It ensures that characters outside quotes are valid (alphanumeric, `-` for numbers, etc.).
+- **Final Check**: After processing all characters, it checks if the stack is empty to ensure all brackets and commas were correctly matched.
+
+This function should handle most common cases of syntactically valid JSON with nested objects and arrays.

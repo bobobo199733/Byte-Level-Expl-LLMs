@@ -1,0 +1,37 @@
+def longest_palindrome(s: str) -> str:
+    """
+    Given a string s, return the longest palindromic substring in s.
+
+    Args:
+        s (str): The input string.
+
+    Returns:
+        str: The longest palindromic substring in s.
+    """
+
+    def expand_around_center(left: int, right: int) -> str:
+        """
+        Expand around the center of a palindrome to find its length.
+
+        Args:
+            left (int): The left index of the center of the palindrome.
+            right (int): The right index of the center of the palindrome.
+
+        Returns:
+            str: The longest palindromic substring centered at (left, right).
+        """
+        while left >= 0 and right < len(s) and (s[left] == s[right]):
+            left -= 1
+            right += 1
+        return s[left + 1:right]
+    if not s:
+        return ''
+    longest_palindrome = ''
+    for i in range(len(s)):
+        palindrome = expand_around_center(i, i)
+        if len(palindrome) > len(longest_palindrome):
+            longest_palindrome = palindrome
+        palindrome = expand_around_center(i, i + 1)
+        if len(palindrome) > len(longest_palindrome):
+            longest_palindrome = palindrome
+    return longest_palindrome

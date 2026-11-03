@@ -1,0 +1,26 @@
+In Python, binary trees can be represented using various methods, but one common way is by representing each node as a dictionary with keys `'left'`, `'right'`, and `'val'`. Here's an implementation of the `binary_tree_inorder` function that follows this representation:
+
+```python
+def binary_tree_inorder(tree):
+    result = []
+
+    def traverse(node):
+        if node is None:
+            return
+
+        traverse(node['left'])
+        result.append(node['val'])
+        traverse(node['right'])
+
+    traverse(tree)
+    return result
+```
+
+You can use this function like so:
+
+```python
+root = {'val': 1, 'left': {'val': 2, 'left': None, 'right': None}, 'right': {'val': 3, 'left': {'val': 4, 'left': None, 'right': None}, 'right': {'val': 5, 'left': None, 'right': None}}}
+print(binary_tree_inorder(root))  # Output: [4, 2, 5, 1, 3]
+```
+
+Note that the binary tree representation above is not balanced. You can create a balanced binary tree by adjusting how you insert nodes during the construction process or by using a self-balancing binary search tree like AVL trees or Red-Black trees.

@@ -1,0 +1,56 @@
+Certainly! Below is a Python function named `dijkstra_shortest_path` that implements Dijkstra's algorithm to find the shortest path from a given start node to all other nodes in a weighted graph. The graph will be represented as an adjacency list where each key is a node and its value is a dictionary of neighboring nodes with their corresponding edge weights.
+
+```python
+def dijkstra_shortest_path(graph, start):
+    # Initialize distances to all nodes as infinity except the start node which is 0
+    distances = {node: float('infinity') for node in graph}
+    distances[start] = 0
+    
+    # Create a set of unvisited nodes
+    unvisited_nodes = set(graph.keys())
+    
+    while unvisited_nodes:
+        # Find the unvisited node with the smallest known distance
+        current_min_node = None
+        for node in unvisited_nodes:
+            if current_min_node is None or distances[node] < distances[current_min_node]:
+                current_min_node = node
+        
+        # If the smallest distance node is infinity, we've visited all reachable nodes
+        if distances[current_min_node] == float('infinity'):
+            break
+        
+        # Mark the current node as visited and remove it from unvisited_nodes set
+        unvisited_nodes.remove(current_min_node)
+        
+        # Update the distances of neighboring nodes
+        for neighbor in graph[current_min_node]:
+            distance = distances[current_min_node] + graph[current_min_node][neighbor]
+            
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+    
+    return distances
+
+# Example usage:
+graph = {
+    'A': {'B': 1, 'C': 4},
+    'B': {'A': 1, 'D': 2, 'E': 7},
+    'C': {'A': 4, 'D': 3, 'F': 2},
+    'D': {'B': 2, 'C': 3, 'E': 1, 'F': 6},
+    'E': {'B': 7, 'D': 1},
+    'F': {'C': 2, 'D': 6}
+}
+
+start_node = 'A'
+shortest_paths = dijkstra_shortest_path(graph, start_node)
+print(shortest_paths)
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where each key is a node and its value is another dictionary representing the neighbors and their edge weights.
+- **Initialization**: Distances are initialized to infinity for all nodes except the start node which is set to 0. A set of unvisited nodes keeps track of the remaining nodes that need to be processed.
+- **Main Loop**: The algorithm repeatedly selects the unvisited node with the smallest known distance, updates its neighbors' distances if a shorter path is found, and marks the node as visited by removing it from `unvisited_nodes`.
+- **Result**: After completing the loop, the function returns a dictionary where each key is a node and its value is the shortest distance from the start node to that node.
+
+This implementation ensures that only one function with the exact name `dijkstra_shortest_path` is used as required.

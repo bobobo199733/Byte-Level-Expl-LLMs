@@ -1,0 +1,7 @@
+Write exactly ONE Python function called dijkstra_shortest_path(graph, start) that computes shortest path distances from a starting node.
+
+Requirements:
+- Use only one function named dijkstra_shortest_path.
+- Return shortest distances to all reachable nodes.
+- Use Dijkstra's algorithm.
+- Do not use external libraries.

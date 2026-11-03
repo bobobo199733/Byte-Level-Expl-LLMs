@@ -1,0 +1,7 @@
+Write a single Python function called find_all_anagrams(s, p) using a sliding window approach. The function should:
+- Use two frequency counters: one for p and one for the current window in s
+- Maintain a window of length len(p) sliding through s
+- At each step, add the new character and remove the character that left the window
+- When the two counters match, record the start index
+- Return a list of all starting indices in sorted order
+Handle edge cases where len(p) > len(s).

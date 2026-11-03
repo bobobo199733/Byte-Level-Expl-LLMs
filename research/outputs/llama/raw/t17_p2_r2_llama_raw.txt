@@ -1,0 +1,65 @@
+Here's a Python function that meets your requirements:
+
+```python
+from collections import OrderedDict
+
+def lru_cache(operations, capacity):
+    """
+    Simulates a Least Recently Used cache.
+
+    Args:
+        operations (list): A list of tuples such as ("put", key, value) or ("get", key).
+        capacity (int): The maximum number of items the cache can hold.
+
+    Returns:
+        list: Results from all get operations.
+    """
+
+    cache = OrderedDict()
+
+    results = []
+
+    for op, *args in operations:
+        if op == "put":
+            key, value = args
+            # Remove old values before updating
+            if key in cache:
+                del cache[key]
+            cache[key] = value
+
+            # Evict the least recently used item when capacity is exceeded
+            while len(cache) > capacity:
+                cache.popitem(last=False)
+
+        elif op == "get":
+            key = args[0]
+
+            # If the key exists, move it to the end (mark as most recently used)
+            if key in cache:
+                value = cache.pop(key)
+                cache[key] = value
+                results.append(value)
+
+            # If the key does not exist, append None
+            else:
+                results.append(None)
+
+    return results
+
+# Example usage:
+operations = [
+    ("put", "key1", "value1"),
+    ("get", "key1"),
+    ("put", "key2", "value2"),
+    ("get", "key3"),  # key does not exist, append None
+    ("put", "key4", "value4"),
+]
+
+capacity = 2
+
+print(lru_cache(operations, capacity))  # Output: ["value1", None, "value2", None]
+```
+
+This function works by maintaining an ordered dictionary (`cache`) to keep track of the items in the cache. When a `put` operation is performed, we remove the old value (if any) and then update the item with the new value, which will be marked as most recently used due to its position at the end of the ordered dictionary. When the capacity is exceeded, we simply pop the least recently used item from the beginning of the dictionary.
+
+When a `get` operation is performed, we check if the key exists in the cache. If it does, we move the item to the end (marking it as most recently used) and append its value to the results list. If the key does not exist, we append `None` to the results list.

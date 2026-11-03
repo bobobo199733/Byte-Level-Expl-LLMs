@@ -1,0 +1,50 @@
+**Knapsack 0/1 Problem Solution**
+=====================================
+
+Here is a Python function that solves the 0/1 Knapsack problem using dynamic programming:
+```python
+def knapsack_01(weights, values, capacity):
+    """
+    Solves the 0/1 Knapsack problem.
+
+    Args:
+        weights (list): List of item weights.
+        values (list): List of item values corresponding to weights.
+        capacity (int): Maximum weight capacity of the knapsack.
+
+    Returns:
+        int: Maximum achievable value.
+    """
+    n = len(values)
+    dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        for w in range(1, capacity + 1):
+            if weights[i - 1] <= w:
+                # Include current item
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+            else:
+                # Exclude current item
+                dp[i][w] = dp[i - 1][w]
+
+    return dp[n][capacity]
+```
+**Example Use Cases**
+---------------------
+
+```python
+weights = [2, 3, 4, 5]
+values = [10, 20, 30, 40]
+capacity = 7
+
+max_value = knapsack_01(weights, values, capacity)
+print(max_value)  # Output: 60
+
+# Another example:
+weights = [1, 2, 3]
+values = [10, 20, 30]
+capacity = 4
+max_value = knapsack_01(weights, values, capacity)
+print(max_value)  # Output: 40
+```
+This function takes as input the weights and values of items, along with the maximum capacity of the knapsack. It returns the maximum achievable value using dynamic programming.

@@ -1,0 +1,23 @@
+def text_justification(words, max_width):
+    if not words:
+        return []
+    lines = []
+    current_line = []
+    line_length = 0
+    for word in words:
+        if line_length + len(word) + len(current_line) > max_width:
+            lines.append(' '.join(current_line))
+            current_line = [word]
+            line_length = len(word)
+        elif line_length == 0:
+            current_line.append(word)
+            line_length += len(word) + 1
+        else:
+            spaces_left = max_width - line_length
+            spaces_to_add = min(spaces_left // (len(current_line) + 1), len(word) - 1)
+            current_line.append(word + ' ' * (spaces_to_add + 1))
+            line_length += len(word) + spaces_to_add + 1
+    lines.append(' '.join(current_line))
+    last_line = lines[-1].strip().ljust(max_width, ' ')
+    lines[-1] = last_line
+    return lines

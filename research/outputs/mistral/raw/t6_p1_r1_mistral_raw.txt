@@ -1,0 +1,30 @@
+Here is a Python function that implements the wildcard matching logic based on the rules you provided:
+
+```python
+def wildcard_match(s, p):
+    def match_helper(s, p, i=0, j=0):
+        if j == len(p):
+            return i == len(s)
+
+        if p[j] == '*':
+            while i < len(s) and (j+1 < len(p) and p[j+1] == '*'):
+                j += 1
+
+            if j >= len(p):
+                return match_helper(s, p, i, j-1)
+            else:
+                return match_helper(s, p, i) or match_helper(s[i+1:], p, i+1, j)
+
+        if p[j] == '?' or s[i] == p[j]:
+            return match_helper(s, p, i+1, j+1)
+
+        return False
+
+    return match_helper(s, p)
+```
+
+This function uses recursion to check if the string `s` matches the wildcard pattern `p`. It defines a helper function `match_helper()`, which takes the current positions in both the string and pattern as parameters. The main function calls this helper function with initial positions 0, 0 for the given input strings.
+
+The helper function checks if the current character in the pattern is either '?' (matches any character) or '*' (matches any sequence of characters). If it's '*', the function skips one or more occurrences of '*' and either matches the rest of the string with the same pattern using recursion or checks if the remaining substring of `s` can match the rest of the pattern.
+
+If the current character in the pattern is not '?' or '*', it checks if the current characters in both the string and pattern are the same, and then advances to the next positions for both strings using recursion. If there's a mismatch, the function immediately returns `False`.

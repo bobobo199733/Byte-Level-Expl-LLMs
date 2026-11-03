@@ -1,0 +1,42 @@
+Here is a simple implementation of the `robot_simulator` function in Python. This function assumes a 2D grid with the origin at the bottom-left (0,0), and the directions 'N' for North, 'S' for South, 'E' for East, and 'W' for West.
+
+```python
+def robot_simulator(commands):
+    pos = (0, 0)  # initial position is at bottom-left (0,0)
+    direction = 'E'  # initially facing east
+
+    for command in commands:
+        if command == 'F':  # move forward
+            if direction == 'N':
+                pos = (pos[0], pos[1] + 1)
+            elif direction == 'S':
+                pos = (pos[0], pos[1] - 1)
+            elif direction == 'E':
+                pos = (pos[0] + 1, pos[1])
+            elif direction == 'W':
+                pos = (pos[0] - 1, pos[1])
+
+        elif command == 'L':  # turn left by 90 degrees
+            if direction == 'N':
+                direction = 'W'
+            elif direction == 'S':
+                direction = 'E'
+            elif direction == 'E':
+                direction = 'N'
+            elif direction == 'W':
+                direction = 'S'
+
+        elif command == 'R':  # turn right by 90 degrees
+            if direction == 'N':
+                direction = 'E'
+            elif direction == 'S':
+                direction = 'W'
+            elif direction == 'E':
+                direction = 'S'
+            elif direction == 'W':
+                direction = 'N'
+
+    return pos, direction
+```
+
+You can use this function to simulate the movement of a robot on a grid by providing commands in the format: `["F", "L", "R", ...]`. The returned value will be a tuple representing the final position and direction.

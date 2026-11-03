@@ -1,0 +1,58 @@
+```python
+def course_schedule(num_courses, prerequisites):
+    """
+    Determines whether it's possible to finish all courses given prerequisite dependencies.
+
+    Args:
+        num_courses (int): The total number of courses.
+        prerequisites (list[tuple[int, int]]): A list of pairs (course1, course2), 
+            where course1 must be completed before taking course2.
+
+    Returns:
+        bool: True if all courses can be completed; False otherwise.
+
+    Raises:
+        ValueError: If num_courses is negative or any prerequisite pair contains a non-negative index.
+    """
+
+    # Check for invalid inputs
+    if num_courses < 0:
+        raise ValueError("Number of courses cannot be negative")
+    
+    # Initialize the adjacency list
+    graph = [[] for _ in range(num_courses)]
+    
+    # Populate the adjacency list
+    for course1, course2 in prerequisites:
+        if not (0 <= course1 < num_courses and 0 <= course2 < num_courses):
+            raise ValueError("Invalid prerequisite pair")
+        graph[course1].append(course2)
+    
+    # Initialize the visited array with False values
+    visited = [False] * num_courses
+    
+    # Define a helper function to perform DFS
+    def dfs(course, path):
+        if not visited[course]:
+            visited[course] = True
+            path.append(course)
+            
+            for neighbor in graph[course]:
+                if (neighbor in path and neighbor != course) or \
+                   (not visited[neighbor] and dfs(neighbor, path)):
+                    return True
+            
+            path.pop()
+            visited[course] = False
+            return False
+        
+        return False
+    
+    # Perform DFS from each unvisited course
+    for i in range(num_courses):
+        if not visited[i] and dfs(i, []):
+            return False
+    
+    # If no cycle is found, all courses can be completed
+    return True
+```

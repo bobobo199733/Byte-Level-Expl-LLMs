@@ -1,0 +1,61 @@
+Here's a well-documented and readable implementation of the BFS (Breadth-First Search) algorithm to find the shortest path between two nodes in an unweighted graph:
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Returns the length of the shortest path between two nodes in an unweighted graph.
+
+    Args:
+        graph (dict): Adjacency list representation of the graph.
+        start (node): The starting node for the BFS traversal.
+        target (node): The target node to find the shortest path from the start node.
+
+    Returns:
+        int: The length of the shortest path between the start and target nodes. If there is no path, returns -1.
+    """
+    
+    # Check if the graph is empty
+    if not graph or start not in graph or target not in graph:
+        return -1
+    
+    # Create a queue for BFS with the starting node as the first element
+    queue = deque([(start, 0)])  # (node, distance)
+    
+    # Create a set to keep track of visited nodes
+    visited = set()
+    
+    while queue:
+        current_node, distance = queue.popleft()  # Dequeue the next node
+        
+        # If we've reached the target node, return the path length
+        if current_node == target:
+            return distance
+        
+        # Mark the current node as visited
+        visited.add(current_node)
+        
+        # Enqueue all unvisited neighbors of the current node
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                queue.append((neighbor, distance + 1))
+    
+    # If there is no path from the start to the target node, return -1
+    return -1
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 2
+```
+
+This implementation assumes that the graph is represented as an adjacency list (a dictionary where each key is a node and its corresponding value is a list of neighboring nodes). The function uses a queue to keep track of the nodes to visit next and a set to ensure that we don't revisit nodes. If there's no path between the start and target nodes, it returns -1.

@@ -1,0 +1,25 @@
+Here's a Python function that groups anagrams using the built-in `sorted()` function and a dictionary to store the groups:
+
+```python
+def group_anagrams(words):
+    groups = {}
+
+    for word in words:
+        sorted_word = "".join(sorted(word))
+        if sorted_word not in groups:
+            groups[sorted_word] = [word]
+        else:
+            groups[sorted_word].append(word)
+
+    return list(groups.values())
+```
+
+This function works by iterating through each word in the input list and sorting it alphabetically. The sorted version of the word is used as a key to store the word in a dictionary, where the values are lists containing all anagrams for that particular sorted word. At the end, the function returns the groups as a list.
+
+In the example provided:
+
+```python
+words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(words))
+# Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+```

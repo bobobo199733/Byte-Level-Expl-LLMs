@@ -1,0 +1,24 @@
+Here's a Python function named `word_break` that solves the word break problem using dynamic programming approach. The function checks if the given string `s` can be constructed by concatenating words from the provided dictionary `word_dict`. Reusing words is allowed in this implementation.
+
+```python
+def word_break(s, word_dict):
+    n = len(s)
+    dp = [False] * (n + 1)
+    dp[0] = True
+
+    for i in range(1, n + 1):
+        for j in range(i, n + 1):
+            if dp[j - len(word)] and s[j - len(word):j] == word:
+                dp[i] = True
+                break
+        for word in word_dict:
+            if i + len(word) > n:
+                continue
+            if dp[i + len(word)]:
+                dp[i] = True
+                break
+
+    return dp[-1]
+```
+
+The function initializes an array `dp` to keep track of the dynamic programming results. It then iterates through each position `i` in the string, checking if it can be built by concatenating words from `word_dict`. If a match is found at position `j`, the corresponding substring is updated as part of the solution. Additionally, the function checks if the remaining substring can be constructed using other words from the dictionary. The final answer is stored in `dp[-1]`.

@@ -1,0 +1,45 @@
+To solve this problem, we can use a stack-based approach to ensure that we always get the smallest possible number after removing `k` digits. The idea is to maintain a non-decreasing sequence of digits in the resulting string by removing necessary digits when the current digit is smaller than the previous one.
+
+Here's the Python function implementing this logic:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    # Edge case: if num becomes empty or we need to delete all digits
+    if not num or k >= len(num):
+        return "0"
+    
+    stack = []
+    
+    for digit in num:
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    
+    # Remove the remaining excess digits from the end if needed
+    final_num = ''.join(stack[:-k if k else None])
+    
+    # Handle leading zeros after removing digits
+    return str(int(final_num))
+
+# Example usage:
+print(remove_k_digits("4321", 1))  # Output: "321"
+print(remove_k_digits("10200", 1))  # Output: "0200" -> "200" (leading zero is removed)
+print(remove_k_digits("10", 2))     # Output: "0"
+```
+
+### Explanation:
+1. **Edge Case Handling**: If the string becomes empty or if we need to delete all digits, return `"0"`.
+
+2. **Stack Initialization**: Use a stack to help build the result in a way that ensures non-decreasing order of digits.
+
+3. **Processing Each Digit**:
+   - For each digit in the input string, while there are still `k` deletions left and the last digit on the stack is greater than the current digit, pop from the stack.
+   - Push the current digit onto the stack to maintain a non-decreasing sequence of digits.
+
+4. **Final Cleanup**:
+   - After processing all digits, if there are still remaining deletions (`k` > 0), remove those many digits from the end of the resulting string.
+   
+5. **Remove Leading Zeros**: The `str(int(...))` ensures that any leading zeros in the final number are removed.
+
+This approach ensures that we always get the smallest possible number after removing exactly `k` digits.

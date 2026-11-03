@@ -1,0 +1,56 @@
+**N-Queens Problem Solution**
+=====================================
+
+Here is a Python function named `n_queens` that uses efficient backtracking to solve the N-Queens problem.
+
+```python
+def n_queens(n):
+    """
+    Returns all valid solutions for the N-Queens problem.
+    
+    Parameters:
+    n (int): The size of the chessboard.
+    
+    Returns:
+    list: A list of lists, where each sublist represents a solution with a queen in each position.
+    """
+    def is_valid(board, row, col):
+        # Check if there's a queen in the same column or diagonal
+        for i in range(row):
+            if board[i] == col or abs(i - row) == abs(board[i] - col):
+                return False
+        return True
+
+    def backtrack(board, row):
+        # If we've placed all queens, add this solution to our result list
+        if row == n:
+            solutions.append(board[:])
+            return
+        
+        # Try placing a queen in each column of the current row
+        for col in range(n):
+            if is_valid(board, row, col):
+                board[row] = col  # Place a queen in this position
+                backtrack(board, row + 1)  # Recursively try to place queens in the next row
+                
+    solutions = []
+    if n <= 0:
+        return solutions
+    
+    # Initialize the board with empty columns
+    board = [-1] * n
+    
+    # Start placing queens from the first row
+    backtrack(board, 0)
+    
+    return solutions
+
+# Example usage:
+print(n_queens(4))
+```
+
+This implementation uses two helper functions: `is_valid` to check if a queen can be placed in a given position without being attacked by another queen, and `backtrack` to recursively try placing queens in each column of the current row. The main function `n_queens` initializes an empty board and calls `backtrack` to find all valid solutions.
+
+**Note:** This implementation uses 0-based indexing for both rows and columns. If you prefer 1-based indexing, simply adjust the code accordingly.
+
+The example usage at the end demonstrates how to call `n_queens(4)` to get all valid solutions for a 4x4 chessboard.

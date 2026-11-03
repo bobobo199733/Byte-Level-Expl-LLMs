@@ -1,0 +1,36 @@
+```python
+def fast_power(base, exponent):
+    """
+    Quickly compute base to the exponent.
+
+    Args:
+        base (int): The base number.
+        exponent (int): The power to which the base is raised.
+
+    Returns:
+        int: The result of base to the exponent.
+    """
+    # Handle edge case where exponent is 0
+    if exponent == 0:
+        return 1
+    
+    # If exponent is negative, make it positive and change the base to its reciprocal
+    if exponent < 0:
+        base = 1 / base
+        exponent = -exponent
+
+    # Initialize result to 1
+    result = 1
+    
+    # Use divide-and-conquer approach
+    while exponent > 0:
+        # If exponent is odd, multiply the result by base
+        if exponent % 2 == 1:
+            result *= base
+        
+        # Square the base and halve the exponent
+        base *= base
+        exponent //= 2
+    
+    return result
+```

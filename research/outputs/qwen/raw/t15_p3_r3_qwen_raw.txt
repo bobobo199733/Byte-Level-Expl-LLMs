@@ -1,0 +1,77 @@
+Certainly! To perform a topological sort on a Directed Acyclic Graph (DAG), we can use Depth-First Search (DFS). The idea is to keep track of the visited nodes and order them based on their finish times. Here's a Python function that implements this:
+
+```python
+def topological_sort(graph):
+    """
+    Perform topological sorting on a DAG.
+
+    :param graph: A dictionary representing the DAG, where keys are vertices
+                  and values are lists of adjacent vertices.
+    :return: A list representing a valid topological order of nodes.
+    """
+
+    def dfs(node, visited, stack):
+        if node not in visited:
+            visited.add(node)
+            for neighbor in graph[node]:
+                dfs(neighbor, visited, stack)
+            stack.appendleft(node)
+
+    # Initialize the result stack
+    from collections import deque
+    stack = deque()
+
+    # Track which nodes have been visited
+    visited = set()
+
+    # Perform DFS on each node
+    for node in graph:
+        dfs(node, visited, stack)
+
+    return list(stack)
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+print(topological_sort(graph))  # Output could be: ['A', 'C', 'B', 'E', 'D', 'F']
+```
+
+### Explanation:
+
+1. **DFS Function**:
+   - `dfs(node, visited, stack)` performs a depth-first search on the given node.
+   - If the node is not in the `visited` set, it adds the node to `visited` and recursively calls itself for all adjacent nodes.
+   - After visiting all neighbors, the current node is added to the `stack`.
+
+2. **Stack Initialization**:
+   - We use a deque from the `collections` module to efficiently append elements at both ends.
+
+3. **Tracking Visited Nodes**:
+   - A set `visited` keeps track of nodes that have already been processed.
+
+4. **Main Loop for DFS**:
+   - The function iterates over all nodes in the graph and calls `dfs` if the node has not been visited yet.
+   - The order of nodes in the stack represents a valid topological sort when read from left to right (since we use `deque.appendleft()`).
+
+### Example:
+
+For the given example graph:
+```
+{
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+```
+
+The function will return a valid topological sort, such as `['A', 'C', 'B', 'E', 'D', 'F']`. Note that there can be multiple valid topological sorts for the same graph due to the presence of nodes with no incoming edges.

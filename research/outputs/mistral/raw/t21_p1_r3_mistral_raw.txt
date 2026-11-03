@@ -1,0 +1,15 @@
+Here is a simple Python function for matrix multiplication. This function assumes that both input matrices `A` and `B` are square (i.e., they have equal number of rows and columns). If you need to handle non-square matrices, you will need additional checks and modifications.
+
+```python
+def matrix_multiply(A, B):
+    result = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
+
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(A[0])):
+                result[i][j] += A[i][k] * B[k][j]
+
+    return result
+```
+
+This function takes two matrices `A` and `B` as input, multiplies them element-wise according to the matrix multiplication rules, and returns the resulting matrix.

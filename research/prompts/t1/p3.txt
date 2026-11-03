@@ -1,0 +1,25 @@
+Write exactly one Python function with this signature:
+
+def roman_to_int(s: str) -> int
+
+The function must convert a Roman numeral to an integer and must strictly validate the input.
+
+Requirements:
+- Support only the standard Roman numeral symbols: I, V, X, L, C, D, M
+- Reject the empty string by raising ValueError
+- Reject any character outside the standard symbols by raising ValueError
+- Only the following subtractive pairs are allowed:
+  - IV, IX, XL, XC, CD, CM
+- Reject all other subtractive combinations, including:
+  - IC, IL, ID, IM, XD, XM, VX, LC, DM
+- Repetition rules:
+  - I, X, C, M may not appear more than 3 times in a row
+  - V, L, D may never repeat
+- Reject invalid numeral structure, including examples such as:
+  - IIII, VV, IC, XM, VX, IL, XD, IIV, XXC, IVI
+- Return the integer value for valid numerals only
+- Do not use regular expressions
+- Do not print anything
+- Do not include example usage
+- Do not include explanations
+- Output only the Python code

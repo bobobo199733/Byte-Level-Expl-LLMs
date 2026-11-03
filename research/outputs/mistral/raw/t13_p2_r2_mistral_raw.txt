@@ -1,0 +1,46 @@
+Here's a Python function called `spiral_matrix` that follows the requirements you specified:
+
+```python
+def spiral_matrix(matrix):
+    if not matrix or not matrix:
+        return []
+
+    rows, cols = len(matrix), len(matrix[0])
+    traversed = []
+    top, bottom, left, right = 0, rows-1, 0, cols-1
+
+    while True:
+        for i in range(left+1, right+1):
+            traversed.append(matrix[top][i])
+
+        if not (top+1 <= bottom):
+            break
+
+        for i in range(top+1, bottom+1):
+            traversed.append(matrix[i][right])
+
+        if left > right:
+            break
+
+        for i in range(right-1, left-1, -1):
+            if top < bottom and traversed[-1] == matrix[bottom][i]:
+                break
+            traversed.append(matrix[bottom][i])
+
+        if not (top+1 <= bottom):
+            break
+
+        for i in range(top+1, bottom+1):
+            if left > right and traversed[-1] == matrix[i][left]:
+                break
+            traversed.append(matrix[i][left])
+
+        top += 1
+        left -= 1
+        if top > bottom or left > right:
+            break
+
+    return traversed
+```
+
+This function should work for any rectangular matrix, handling empty matrices correctly and avoiding revisiting elements. The traversal is done in a clockwise manner starting from the top-left corner.

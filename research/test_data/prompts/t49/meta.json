@@ -1,0 +1,16 @@
+{
+  "task_id": "t49",
+  "function_name": "word_break",
+  "valid_cases": [
+    [["leetcode", ["leet", "code"]], true],
+    [["applepenapple", ["apple", "pen"]], true],
+    [["catsandog", ["cats", "dog", "sand", "and", "cat"]], false],
+    [["a", ["a"]], true],
+    [["cars", ["car", "ca", "rs"]], true]
+  ],
+  "invalid_cases": [
+    [[null, ["word"]]],
+    [["abc", null]]
+  ],
+  "expected_exception": "ValueError"
+}

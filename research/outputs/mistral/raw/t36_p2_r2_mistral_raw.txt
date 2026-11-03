@@ -1,0 +1,34 @@
+Here is a Python function implementing Dijkstra's algorithm as per your requirements:
+
+```python
+def dijkstra_shortest_path(graph, start):
+    import heapq
+
+    infinite = float('inf')
+    n = len(graph)
+    distances = [infinite] * n
+    distances[start] = 0
+    shortest_queue = []
+    heapq.heappush(shortest_queue, (0, start))
+
+    while shortest_queue:
+        current_distance, current_node = heapq.heappop(shortest_queue)
+
+        if current_distance > distances[current_node]:
+            continue
+
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(shortest_queue, (distance, neighbor))
+
+    return distances
+```
+
+In this implementation:
+- The `graph` is represented as an adjacency list, where `graph[node]` returns a dictionary of key-value pairs containing the neighbors and their weights.
+- Each node in the graph has a unique index from 0 to n - 1.
+- The function initializes all distances as infinite and updates them accordingly during Dijkstra's algorithm execution.
+- It uses a min-heap (`shortest_queue`) to keep track of nodes with the smallest distances.
+- When there is more than one shortest path between nodes, it may return different shortest paths depending on the order in which nodes are explored. However, for a connected graph, it will always find the minimum distance from start to every reachable node.

@@ -1,0 +1,38 @@
+Certainly! Below is the Python function `binary_search_rotated` that implements an efficient search for a target in a rotated sorted array:
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side is properly sorted
+        if values[left] <= values[mid]:
+            # Left side is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            # Right side is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(binary_search_rotated(arr, target))  # Output: 4
+
+target = 3
+print(binary_search_rotated(arr, target))  # Output: -1
+```
+
+This function works by first determining which part of the array is sorted and then deciding whether to search in that part or the other. This allows it to maintain an efficient O(log n) time complexity even for rotated arrays.

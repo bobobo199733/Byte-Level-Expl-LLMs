@@ -1,0 +1,38 @@
+**json_validator Function**
+=========================
+
+This function validates if a given text is a valid JSON string.
+
+```python
+import re
+
+def json_validator(text):
+    """
+    Check if the input string contains valid JSON.
+
+    Args:
+        text (str): The string to be validated as JSON.
+
+    Returns:
+        bool: True if the string is a valid JSON, False otherwise.
+    """
+    try:
+        # Try to parse the string into a Python object
+        json.loads(text)
+    except ValueError:
+        # If parsing fails due to invalid JSON syntax, return False
+        return False
+
+    # If no exception was raised, the string contains valid JSON
+    return True
+```
+
+**Note:** This function uses the built-in `json` module in Python. The `loads()` function parses a JSON string into a Python object.
+
+Example usage:
+```python
+print(json_validator('{"name": "John", "age": 30}'))  # True
+print(json_validator('{name: John, age: 30}'))         # False (invalid syntax)
+```
+
+Make sure you run this code in an environment where the `json` module is available.

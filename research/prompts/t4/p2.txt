@@ -1,0 +1,5 @@
+Write a function:
+
+def decode_string(s: str) -> str
+
+Decode strings like "3[a]" into "aaa" and support nested patterns like "2[a2[b]]".

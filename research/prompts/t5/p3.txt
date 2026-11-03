@@ -1,0 +1,24 @@
+Write exactly one Python function with this signature:
+
+def remove_k_digits(num: str, k: int) -> str
+
+The function must remove exactly k digits from the decimal string num to produce the smallest possible number.
+
+Requirements:
+- num contains only digits
+- k is an integer such that 0 <= k <= len(num)
+- Return the result as a string
+- Remove leading zeros from the final result
+- If all digits are removed, return "0"
+- If the result becomes an empty string after stripping zeros, return "0"
+- The function must remove exactly k digits, not fewer
+- Do not convert the entire input directly to an integer
+- Do not print anything
+- Do not include explanations
+- Output only the Python function
+
+Examples:
+- remove_k_digits("1432219", 3) -> "1219"
+- remove_k_digits("10200", 1) -> "200"
+- remove_k_digits("10", 2) -> "0"
+- remove_k_digits("9", 1) -> "0"

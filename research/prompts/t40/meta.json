@@ -1,0 +1,9 @@
+{
+  "function_name": "autocomplete_system",
+  "description": "Return autocomplete suggestions for a given prefix.",
+  "category": "string_processing",
+  "subtype": "prefix_search",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

@@ -1,0 +1,77 @@
+Certainly! To perform a topological sort on a directed acyclic graph (DAG), we can use Kahn's algorithm, which is based on the concept of a breadth-first search. The idea is to:
+
+1. Identify and remove all nodes with zero indegree (nodes that have no incoming edges).
+2. Add these nodes to a queue.
+3. Process each node in the queue by removing its outgoing edges from other nodes' indegrees, decrementing those indegrees if an edge is removed.
+4. If any node's indegree becomes zero during processing, add it to the queue.
+5. Continue this process until all nodes have been added to the result.
+
+If at any point we are unable to remove a node with zero indegree (indicating a cycle), raise a `ValueError`.
+
+Here is how you can implement this in Python:
+
+```python
+def topological_sort(graph):
+    # Step 1: Calculate the indegrees of all nodes
+    indegrees = {node: 0 for node in graph}
+    for node, neighbors in graph.items():
+        for neighbor in neighbors:
+            indegrees[neighbor] += 1
+
+    # Step 2: Initialize a queue with nodes having zero indegree
+    from collections import deque
+    queue = deque([node for node in graph if indegrees[node] == 0])
+
+    # Step 3: Perform topological sort using Kahn's algorithm
+    result = []
+    while queue:
+        current_node = queue.popleft()
+        result.append(current_node)
+        
+        # Decrease the indegree of each neighbor by 1
+        for neighbor in graph[current_node]:
+            indegrees[neighbor] -= 1
+            
+            # If any node's indegree becomes zero, add it to the queue
+            if indegrees[neighbor] == 0:
+                queue.append(neighbor)
+
+    # Step 4: Check if all nodes are included in the result
+    if len(result) != len(graph):
+        raise ValueError("Cycle detected or graph is not a DAG")
+
+    return result
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+
+try:
+    print(topological_sort(graph))
+except ValueError as e:
+    print(e)
+```
+
+### Explanation:
+
+1. **Indegrees Calculation**:
+   - We first calculate the indegree (number of incoming edges) for each node.
+   
+2. **Initialization**:
+   - We initialize a queue with all nodes that have an indegree of zero, meaning they have no incoming edges.
+
+3. **Processing**:
+   - While there are still nodes in the queue, we dequeue a node and add it to our result list.
+   - For each neighbor of the current node, we decrement its indegree by one. If this decrement makes the neighbor's indegree zero, we enqueue that node as well.
+
+4. **Cycle Detection**:
+   - After processing all nodes, if not all nodes are included in the result (i.e., some nodes were never added to the queue), it means there was a cycle in the graph and we raise an error.
+
+5. **Return Result**:
+   - The list `result` will contain the topologically sorted order of nodes.
+
+This implementation ensures that you get a valid topological sort if the graph is a DAG, or detect cycles otherwise.

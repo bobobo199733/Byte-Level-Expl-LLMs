@@ -1,0 +1,1 @@
+Write a function called bfs_shortest_path(graph, start, target) that returns the shortest distance between two nodes using BFS.

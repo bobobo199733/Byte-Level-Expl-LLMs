@@ -1,0 +1,36 @@
+**Rotating an Array to the Right**
+=====================================
+
+Here's a simple and efficient function in Python to rotate an array to the right by `k` steps:
+
+```python
+def rotate_array(nums, k):
+    """
+    Rotate the input array to the right by k steps.
+
+    Args:
+        nums (list): The input list of integers.
+        k (int): The number of steps to rotate to the right.
+
+    Returns:
+        list: The rotated list.
+    """
+    # Normalize k value to be within 0 <= k < len(nums)
+    k = k % len(nums)
+
+    # Use Python's slicing feature to rotate the array
+    return nums[-k:] + nums[:-k]
+```
+
+**Example Use Cases**
+---------------------
+
+```python
+# Rotate [1, 2, 3, 4, 5] by 2 steps to the right
+print(rotate_array([1, 2, 3, 4, 5], 2))  # Output: [4, 5, 1, 2, 3]
+
+# Rotate [1, 2, 3, 4, 5] by 7 steps to the right (equivalent to 3 steps)
+print(rotate_array([1, 2, 3, 4, 5], 7))  # Output: [4, 5, 1, 2, 3]
+```
+
+This function uses Python's slicing feature to rotate the array. The expression `nums[-k:]` gets the last `k` elements of the array (to the right), and `nums[:-k]` gets all elements except the last `k`. By concatenating these two slices in reverse order, we effectively rotate the array to the right by `k` steps.

@@ -1,0 +1,11 @@
+def fast_power(base, exponent):
+    if exponent < 0:
+        return 1 / fast_power(base, -exponent)
+    elif exponent == 0:
+        return 1
+    elif exponent % 2 == 0:
+        half_pow = fast_power(base, exponent // 2)
+        return half_pow * half_pow
+    else:
+        half_pow = fast_power(base, (exponent - 1) // 2)
+        return base * half_pow * half_pow

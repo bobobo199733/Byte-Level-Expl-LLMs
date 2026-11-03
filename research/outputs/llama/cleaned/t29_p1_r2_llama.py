@@ -1,0 +1,3 @@
+def parse_csv_line(line):
+    """Parses a single CSV line into a list of fields."""
+    return [field.strip() for field in line.split(',')]

@@ -1,0 +1,30 @@
+```python
+def course_schedule(num_courses, prerequisites):
+    if not isinstance(num_courses, int) or not isinstance(prerequisites, list):
+        raise ValueError("Invalid input types")
+    if num_courses <= 0:
+        return False
+    
+    graph = {i: [] for i in range(num_courses)}
+    indegree = [0] * num_courses
+    
+    for course, pre in prerequisites:
+        if course >= num_courses or pre >= num_courses:
+            raise ValueError("Invalid course numbers")
+        graph[pre].append(course)
+        indegree[course] += 1
+    
+    zero_indegree_queue = [i for i in range(num_courses) if indegree[i] == 0]
+    
+    completed_courses = 0
+    while zero_indegree_queue:
+        pre_course = zero_indegree_queue.pop(0)
+        completed_courses += 1
+        
+        for course in graph[pre_course]:
+            indegree[course] -= 1
+            if indegree[course] == 0:
+                zero_indegree_queue.append(course)
+    
+    return completed_courses == num_courses
+```

@@ -1,0 +1,63 @@
+Here's the implementation of the `bfs_shortest_path` function according to the provided specifications:
+
+```python
+from typing import Dict, List, Tuple
+
+def bfs_shortest_path(graph: Dict[int, List[int]], start: int, target: int) -> int:
+    """
+    This function performs a breadth-first search (BFS) on an unweighted graph and returns the shortest distance between two nodes.
+
+    Args:
+        graph: A dictionary representing the adjacency list of the graph.
+        start: The node where the BFS traversal begins.
+        target: The target node for which we want to find the shortest distance from the start node.
+
+    Returns:
+        An integer representing the shortest distance between the start and target nodes. If no path exists, returns -1.
+    """
+
+    # Create a queue for storing nodes to be visited
+    queue = [start]
+
+    # Mark the start node as visited (use a set)
+    visited = {start}
+
+    # Initialize the distance to all nodes as infinity except for the start node which is 0
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    while queue:
+        current_node = queue.pop(0)
+
+        if current_node == target:
+            return distances[current_node]
+
+        # Visit each neighbor of the current node
+        for neighbor in graph.get(current_node, []):
+            if neighbor not in visited:
+                # Update the distance to the neighbor
+                distances[neighbor] = min(distances[neighbor], 1 + distances[current_node])
+
+                # Add the neighbor to the queue and mark it as visited
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+    return -1
+
+# Example usage:
+graph = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0, 4],
+    3: [1],
+    4: [2]
+}
+
+print(bfs_shortest_path(graph, 0, 3))  # Output: 2
+```
+
+This function implements a breadth-first search traversal on the graph and returns the shortest distance between the start node and the target node. If no path exists, it returns -1.
+
+The time complexity of this function is O(|E| + |V|), where |E| is the number of edges and |V| is the number of vertices in the graph.
+
+Note: The use of `float('inf')` as the initial distance to all nodes except for the start node assumes that there are no negative edge weights. If there are negative weight edges, you would need to modify this function accordingly to handle Bellman-Ford algorithm's requirements for handling such cases.

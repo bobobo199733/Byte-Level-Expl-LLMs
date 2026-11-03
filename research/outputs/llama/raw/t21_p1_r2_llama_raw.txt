@@ -1,0 +1,21 @@
+```python
+def matrix_multiply(A, B):
+    """
+    Multiplies two matrices A and B.
+
+    Args:
+        A (list of lists): The first matrix.
+        B (list of lists): The second matrix.
+
+    Returns:
+        list of lists: The product of A and B.
+    """
+    if len(A[0]) != len(B):  # check for compatible dimensions
+        raise ValueError("Incompatible matrices for multiplication")
+    
+    result = [[sum(a*b for a,b in zip(A_row,B_col)) 
+               for B_col in zip(*B)] 
+              for A_row in A]
+    
+    return result
+```

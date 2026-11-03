@@ -1,0 +1,64 @@
+**Island Counter Function**
+==========================
+
+The following Python function uses depth-first search (DFS) to traverse each cell in the grid. If it encounters an unvisited cell with a value of 1, it marks all connected cells as visited and increments the island count.
+
+```python
+def count_islands(grid):
+    """
+    Counts the number of islands in a 2D grid.
+
+    Args:
+        grid (list[list[int]]): A 2D grid where 0s represent water and 1s represent land.
+
+    Returns:
+        int: The total number of islands.
+    """
+
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    island_count = 0
+
+    def dfs(r, c):
+        """
+        Performs DFS from a given cell and marks all connected cells as visited.
+
+        Args:
+            r (int): The row index of the current cell.
+            c (int): The column index of the current cell.
+        """
+
+        if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
+            grid[r][c] = 0
+            dfs(r - 1, c)    # Up
+            dfs(r + 1, c)    # Down
+            dfs(r, c - 1)    # Left
+            dfs(r, c + 1)    # Right
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                island_count += 1
+                dfs(r, c)
+
+    return island_count
+```
+
+**Example Usage**
+---------------
+
+```python
+grid = [
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0]
+]
+
+island_count = count_islands(grid)
+print(island_count)  # Output: 1
+```
+
+This function assumes that the input grid is a list of lists where each inner list represents a row in the grid. The `count_islands` function returns the total number of islands found in the grid, which is the sum of island sizes minus one because DFS marks all connected cells as visited after counting them.

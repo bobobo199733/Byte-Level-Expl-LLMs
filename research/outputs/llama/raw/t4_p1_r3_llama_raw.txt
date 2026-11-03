@@ -1,0 +1,73 @@
+```python
+def decode_string(s: str) -> str:
+    """
+    Decodes an encoded string where a number followed by brackets means repetition.
+    
+    Args:
+        s (str): The encoded string to be decoded.
+    
+    Returns:
+        str: The decoded string.
+    
+    Raises:
+        ValueError: If the input string is invalid.
+    """
+
+    # Initialize variables to store the current repeated character and its count
+    stack = []
+    cur_num = 0
+    cur_char = ''
+    
+    for i in range(len(s)):
+        
+        # If the current character is a digit, update the number of repetition
+        if s[i].isdigit():
+            cur_num = cur_num * 10 + int(s[i])
+            
+        # If the current character is an opening bracket, push the current repeated string and its count to the stack
+        elif s[i] == '[':
+            stack.append((cur_char, cur_num))
+            cur_char = ''
+            cur_num = 0
+            
+        # If the current character is a closing bracket, pop the last repetition from the stack and append it to the current repeated string 'cur_char' 'cur_num' times
+        elif s[i] == ']':
+            if not stack:
+                raise ValueError("Invalid input string")
+            num_repeats, prev_char = stack.pop()
+            cur_char = prev_char + num_repeats * cur_char
+            
+        # If the current character is a letter and it's outside brackets or at the end of the string, update 'cur_char'
+        elif s[i].isalpha():
+            if s[i-1] == ']':
+                raise ValueError("Invalid input string")
+            else:
+                cur_char += s[i]
+                
+    return cur_char
+```
+
+**Example Usage:**
+
+```python
+print(decode_string("3[a]"))  # "aaa"
+print(decode_string("3[a2[c]]"))  # "accaccacc"
+try:
+    print(decode_string("3[a2[c"))
+except ValueError as e:
+    print(e)  # "Invalid input string"
+```
+
+**Explanation:**
+
+1. The function iterates over the encoded string `s`.
+2. It keeps track of the current repeated character and its count using variables `cur_char` and `cur_num`, respectively.
+3. When it encounters a digit, it updates `cur_num`.
+4. When it encounters an opening bracket `[`, it pushes `(cur_char, cur_num)` onto the stack and resets `cur_char` and `cur_num`.
+5. When it encounters a closing bracket `]`, it pops the last repetition from the stack and appends it to `cur_char` `num_repeats` times.
+6. If it encounters a letter and it's outside brackets or at the end of the string, it updates `cur_char`.
+
+**Note:**
+
+* The function uses recursion implicitly by using a stack to store the repeated strings and their counts.
+* It raises a `ValueError` when the input string is invalid (e.g., there are unmatched brackets).

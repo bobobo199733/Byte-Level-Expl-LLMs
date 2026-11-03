@@ -1,0 +1,8 @@
+def count_set_bits(n):
+    if n < 0:
+        raise ValueError('Input must be a non-negative integer')
+    cnt = 0
+    while n:
+        cnt += n & 1
+        n >>= 1
+    return cnt

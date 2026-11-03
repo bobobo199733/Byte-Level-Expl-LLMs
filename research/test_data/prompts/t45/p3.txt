@@ -1,0 +1,1 @@
+Create a Python function called search_insert_position(nums, target) that returns the correct index or insertion position in a sorted array.

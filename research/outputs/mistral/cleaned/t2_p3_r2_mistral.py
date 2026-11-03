@@ -1,0 +1,11 @@
+def is_balanced(s: str) -> bool:
+    brackets = {')': '(', '}': '{', ']': '['}
+    stack = []
+    for char in s:
+        if char in brackets.values():
+            stack.append(char)
+        elif char in brackets.keys() and (not stack) or brackets[char] != stack[-1]:
+            return False
+        elif char in brackets.keys():
+            stack.pop()
+    return not stack

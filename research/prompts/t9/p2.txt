@@ -1,0 +1,12 @@
+Write a Python function merge_intervals(intervals).
+
+Requirements:
+- intervals is a list of intervals, where each interval is [start, end]
+- Merge all overlapping intervals
+- Sort intervals by start value before merging
+- Return the merged intervals as a list of lists
+- Handle an empty input list correctly
+- Do not modify the input list directly
+- Return only valid Python code
+- Do not include example usage
+- Do not print anything

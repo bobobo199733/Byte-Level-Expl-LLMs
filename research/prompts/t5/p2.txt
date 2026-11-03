@@ -1,0 +1,5 @@
+Write a function:
+
+def remove_k_digits(num: str, k: int) -> str
+
+Remove k digits from the number string so the result is as small as possible. Return the answer as a string.

@@ -1,0 +1,18 @@
+Here's the implementation of the `word_break` function using dynamic programming in Python:
+
+```python
+def word_break(s, word_dict):
+    dp = [False]*(len(s)+1)
+    dp[0] = True
+    word_set = set(word_dict)
+
+    for i in range(1, len(s)+1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_set:
+                dp[i] = True
+                break
+
+    return dp[-1]
+```
+
+This function takes a string `s` and a list of words (converted to set for O(1) lookup) as arguments. It initializes the DP array with False values, sets the base case (dp[0] = True), and iterates through the string from position 1 to the end. At each position, it checks all substrings from previous positions, if they can be segmented using words from `word_dict` and if their dp value is True, then it updates the current position's dp value to True. Finally, the function returns the last element of the DP array (dp[-1]) which represents whether the entire string can be broken down into words from the dictionary or not.

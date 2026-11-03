@@ -1,0 +1,57 @@
+Here's the Python function that finds all anagrams using a sliding window approach:
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s, p):
+    """
+    Return a list of all start indices in s where an anagram of p starts.
+
+    Args:
+        s (str): The string to search for anagrams.
+        p (str): The pattern string.
+
+    Returns:
+        list: A list of start indices where an anagram of p is found.
+    """
+    if len(p) > len(s):
+        return []
+
+    # Create a counter for the pattern
+    p_counter = Counter(p)
+
+    # Initialize result and window counters
+    result = []
+    left, right = 0, 0
+
+    while right < len(s):
+        # Expand the window to the right
+        if s[right] in p_counter:
+            p_counter[s[right]] += 1
+        while p_counter <= Counter(s[left:right+1]):
+            # An anagram is found, add start index to result and slide window left
+            result.append(left)
+            p_counter[s[left]] -= 1
+            if p_counter[s[left]] == 0:
+                del p_counter[s[left]]
+            left += 1
+
+        right += 1
+
+    return result
+```
+
+Here's an explanation of the code:
+
+* We first check if `p` is longer than `s`, in which case there can't be any anagrams, and we return an empty list.
+* We create a counter for the pattern string `p`.
+* We initialize two pointers, `left` and `right`, to 0. These will form our sliding window.
+* We expand the window to the right by adding characters to the counter until an anagram is found (or until we reach the end of the string).
+* When an anagram is found, we add the start index to the result list and slide the window left by moving `left` forward.
+
+Example usage:
+
+```python
+print(find_all_anagrams("abxaba", "ab"))  # Output: [0, 3]
+print(find_all_anagrams("abcde", "b"))    # Output: []
+```

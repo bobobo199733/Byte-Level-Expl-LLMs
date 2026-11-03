@@ -1,0 +1,66 @@
+**Heap Sort Function**
+======================
+
+Here is the Python function `heap_sort` that implements the heap sort algorithm:
+
+```python
+def heap_sort(values):
+    """
+    Sorts a list using the heap sort algorithm.
+
+    Args:
+        values (list): The list to be sorted.
+
+    Returns:
+        list: A new sorted list.
+    """
+
+    # Create a copy of the original list to avoid modifying it in-place
+    sorted_values = values[:]
+
+    # Build a max-heap from the unsorted list
+    def build_max_heap(values):
+        for i in range(len(values) // 2 - 1, -1, -1):
+            heapify(values, i)
+
+    # Heapify the array to form a valid heap tree rooted at index i
+    def heapify(values, i):
+        left_child = 2 * i + 1
+        right_child = 2 * i + 2
+
+        largest = i
+
+        if left_child < len(values) and values[left_child] > values[largest]:
+            largest = left_child
+
+        if right_child < len(values) and values[right_child] > values[largest]:
+            largest = right_child
+
+        if largest != i:
+            values[i], values[largest] = values[largest], values[i]
+            heapify(values, largest)
+
+    # Build the max-heap
+    build_max_heap(sorted_values)
+
+    # Extract elements one by one from the heap
+    for i in range(len(sorted_values) - 1, 0, -1):
+        sorted_values[0], sorted_values[i] = sorted_values[i], sorted_values[0]
+        heapify(sorted_values, 0)
+        sorted_values.pop()
+
+    return sorted_values
+```
+
+**Example Usage**
+---------------
+
+Here's an example usage of the `heap_sort` function:
+
+```python
+values = [64, 34, 25, 12, 22, 11, 90]
+sorted_values = heap_sort(values)
+print(sorted_values)  # Output: [11, 12, 22, 25, 34, 64, 90]
+```
+
+This code implements the heap sort algorithm in a single function called `heap_sort`. It first builds a max-heap from the input list and then repeatedly extracts the maximum element from the heap, placing it at the end of the sorted list. The final sorted list is returned as a new list to avoid modifying the original list in-place.

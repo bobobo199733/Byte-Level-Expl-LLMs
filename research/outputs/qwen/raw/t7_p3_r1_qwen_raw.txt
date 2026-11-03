@@ -1,0 +1,35 @@
+Certainly! To count the frequency of each word in a given text, you can use Python's `collections.Counter` from the `collections` module along with some basic string processing techniques. Below is an example implementation of the `word_frequency` function:
+
+```python
+from collections import Counter
+
+def word_frequency(text):
+    # Convert to lower case to ensure consistent counting (case-insensitive)
+    text = text.lower()
+    
+    # Remove punctuation using str.translate and string.punctuation
+    import string
+    translator = str.maketrans('', '', string.punctuation)
+    cleaned_text = text.translate(translator)
+    
+    # Split the text into words
+    words = cleaned_text.split()
+    
+    # Count the frequency of each word
+    word_count = Counter(words)
+    
+    return word_count
+
+# Example usage:
+text = "Hello, world! Hello everyone. Welcome to the world of programming."
+print(word_frequency(text))
+```
+
+This function does the following:
+
+1. Converts the entire text to lowercase to ensure case-insensitive counting.
+2. Removes punctuation from the text using `str.translate` and `string.punctuation`.
+3. Splits the cleaned text into individual words.
+4. Uses `Counter` from the `collections` module to count the frequency of each word.
+
+You can run this example with different texts to see how it works.

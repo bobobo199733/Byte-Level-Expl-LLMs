@@ -1,0 +1,4 @@
+def parse_csv_line(line):
+    if line.startswith('"') and line.endswith('"'):
+        line = line[1:-1]
+    return [field.strip('"').strip() for field in line.split(',') if field.strip() or not line.strip()]

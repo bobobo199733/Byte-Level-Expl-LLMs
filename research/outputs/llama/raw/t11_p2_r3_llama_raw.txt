@@ -1,0 +1,46 @@
+Here's a Python function that uses dynamic programming to compute the minimum number of coins required to make the target amount.
+
+```python
+def coin_change(coins, amount):
+    """
+    Compute the minimum number of coins required to make the target amount.
+
+    Args:
+        coins (list): A list of positive integers representing coin values.
+        amount (int): The target amount that needs to be formed using coins.
+
+    Returns:
+        int: The minimum number of coins required to form the target amount. 
+             Returns -1 if it's impossible to form the target amount.
+    """
+    
+    # Create a dynamic programming table to store the minimum number of coins for each amount
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 can be formed with 0 coins
+    dp[0] = 0
+    
+    # Iterate over each coin value
+    for coin in coins:
+        # Iterate from the coin value to the target amount
+        for i in range(coin, amount + 1):
+            # Update the minimum number of coins required for the current amount
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # If the minimum number of coins for the target amount is still infinity, return -1
+    if dp[amount] == float('inf'):
+        return -1
+    
+    # Return the minimum number of coins required to form the target amount
+    return dp[amount]
+```
+
+Example use cases:
+
+```python
+print(coin_change([1, 2, 5], 11))   # Output: 3 (10 = 5 + 5 + 1)
+print(coin_change([2], 3))          # Output: -1 (impossible to form 3 using only 2s)
+print(coin_change([1, 4, 5], 0))    # Output: 0
+```
+
+This function works by creating a dynamic programming table `dp` where `dp[i]` represents the minimum number of coins required to form amount `i`. It iterates over each coin value and updates the minimum number of coins for each amount accordingly. If it's impossible to form the target amount, the function returns -1. Otherwise, it returns the minimum number of coins required to form the target amount.

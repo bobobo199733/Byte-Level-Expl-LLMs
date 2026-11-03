@@ -1,0 +1,34 @@
+Here's a Python function that uses breadth-first search (BFS) to find the shortest path between two nodes in an unweighted graph. It handles cycles and avoids revisiting nodes by keeping track of visited nodes.
+
+```python
+def bfs_shortest_path(graph, start, target):
+    if not graph or not isinstance(graph, dict) or not start or not target:
+        return -1
+
+    visited = set()
+    queue = [(start, [], 0)]
+
+    while queue:
+        node, path, distance = queue.pop(0)
+
+        if node == target:
+            return distance
+
+        if node in visited:
+            continue
+
+        visited.add(node)
+
+        for neighbor in graph[node]:
+            new_path = path + [node]
+            queue.append((neighbor, new_path, distance + 1))
+
+    return -1
+```
+
+In this function:
+- The graph is represented as a dictionary where keys are nodes and values are lists of adjacent nodes.
+- `visited` is a set to keep track of visited nodes.
+- `queue` stores the current nodes to be processed, each containing the node, its path from start, and the current distance from start.
+- The function iteratively processes the queue, updating the shortest known distance and maintaining the path towards the target.
+- If a cycle is encountered or if the target is not found after processing all nodes, the function returns -1.

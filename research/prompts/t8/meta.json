@@ -1,0 +1,11 @@
+{
+  "task_id": "t8",
+  "function_name": "validate_password",
+  "entrypoint": "validate_password",
+  "tests": [
+    ["Password123!", true],
+    ["short", false],
+    ["NoDigits!", false],
+    ["nodigits123", false]
+  ]
+}

@@ -1,0 +1,22 @@
+Here's an implementation of the `median_of_two_sorted_arrays` function using Python:
+
+```python
+def median_of_two_sorted_arrays(nums1, nums2):
+    merged = sorted(nums1 + nums2)
+    total_length = len(merged)
+
+    if total_length == 0:
+        return float('nan')  # Return nan if both arrays are empty
+
+    mid_index = total_length // 2
+
+    # If the length of merged array is odd, we have a unique median
+    if total_length % 2 == 1:
+        return merged[mid_index]
+
+    # If the length of merged array is even, we take the average of the two middle numbers as the median
+    else:
+        return (merged[mid_index - 1] + merged[mid_index]) / 2
+```
+
+This function first merges the two sorted arrays and sorts them. Then it checks if both arrays are empty, and returns `nan` in that case. It calculates the middle index of the merged array based on its length and determines whether there's a unique median or an average of the two middle numbers.

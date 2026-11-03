@@ -1,0 +1,26 @@
+```python
+def max_subarray_sum(nums):
+    """
+    This function calculates the maximum sum of a contiguous subarray.
+
+    Args:
+        nums (list): A list of integers representing the array.
+
+    Returns:
+        int: The maximum sum of a contiguous subarray.
+    """
+
+    # Initialize the current maximum and overall maximum sums to the first element in the array
+    current_max = overall_max = nums[0]
+
+    # Iterate over the rest of the array starting from the second element (index 1)
+    for num in nums[1:]:
+        # Update the current maximum sum by adding the current number, but only if it's greater than the current maximum plus the current number
+        current_max = max(num, current_max + num)
+        
+        # Update the overall maximum sum with the updated current maximum sum
+        overall_max = max(overall_max, current_max)
+
+    # Return the overall maximum sum after iterating over the entire array
+    return overall_max
+```

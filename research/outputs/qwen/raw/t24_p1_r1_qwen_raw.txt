@@ -1,0 +1,6 @@
+```python
+def kth_largest(nums, k):
+    return sorted(nums, reverse=True)[k-1]
+```
+
+Note: This implementation is straightforward but not the most efficient for large lists or when `k` is close to the length of the list. For larger datasets, consider using a more optimized approach like the Quickselect algorithm.

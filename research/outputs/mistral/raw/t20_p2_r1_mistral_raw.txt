@@ -1,0 +1,28 @@
+Here's an implementation of the merge function using heapsort, which is efficient for merging many lists:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    if not lists:
+        return []
+    elif len(lists) == 1:
+        return lists[0]
+
+    minheap = []
+    for list_ in lists:
+        heapq.heappush(minheap, (len(list_), list_[0]))
+
+    result = []
+    while minheap:
+        length, value = heapq.heappop(minheap)
+        result.append(value)
+        if len(result[-1]) > 0:
+            heapq.heappush(minheap, (length - 1, result[-1][-1]))
+
+    return result
+```
+
+This function uses a min-heap to store the smallest element from each input list along with their respective list lengths. It keeps track of the length of each list so that when it removes an element, it can push the next smallest element from the same list back into the heap if there's any remaining elements.
+
+The main advantage of this implementation is its efficiency for many lists since the time complexity is O(n log k), where n is the total number of elements and k is the number of input lists. This makes it suitable for large numbers of lists and sorted integers.

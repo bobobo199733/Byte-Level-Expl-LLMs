@@ -1,0 +1,5 @@
+```python
+def count_set_bits(n: int) -> int:
+    """Returns the number of set bits (1s) in the binary representation of n."""
+    return bin(n).count('1')
+```

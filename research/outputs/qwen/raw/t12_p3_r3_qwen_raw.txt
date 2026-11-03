@@ -1,0 +1,63 @@
+Certainly! Below is an implementation of the `bfs_shortest_path` function in Python. This function performs a breadth-first search (BFS) to find the shortest path from a `start` node to a `target` node in a given graph.
+
+The graph will be represented as an adjacency list, where each key is a node and its value is a list of nodes connected to it.
+
+Here's the Python code:
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Perform BFS to find the shortest path from 'start' to 'target' in the graph.
+    
+    :param graph: A dictionary representing the adjacency list of the graph
+    :param start: The starting node
+    :param target: The target node
+    :return: The shortest distance (number of edges) or None if no path exists
+    """
+    # Initialize distances for all nodes to infinity, except for the start node which is 0
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    
+    # Queue for BFS traversal
+    queue = deque([start])
+    
+    while queue:
+        current_node = queue.popleft()
+        
+        # Explore each neighbor of the current node
+        for neighbor in graph[current_node]:
+            if distances[neighbor] == float('inf'):
+                # If not visited, mark it as visited and enqueue it
+                distances[neighbor] = distances[current_node] + 1
+                queue.append(neighbor)
+                
+                # If we reach the target node, return its distance
+                if neighbor == target:
+                    return distances[target]
+    
+    # If no path is found to the target, return None
+    return None
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print(bfs_shortest_path(graph, 'A', 'F'))  # Output: 2
+```
+
+### Explanation:
+- **Graph Representation**: The graph is represented as a dictionary where each key (node) maps to a list of neighboring nodes.
+- **Distances Initialization**: A dictionary `distances` keeps track of the shortest distance from the start node to each other node, initialized to infinity for all nodes except the start node which has a distance of 0.
+- **BFS Traversal**: We use a queue to perform BFS. Each time we process a node, we check its neighbors and update their distances if they haven't been visited yet.
+- **Path Detection**: If the target node is reached, we return its distance immediately as this represents the shortest path length.
+
+This implementation assumes that all edges in the graph have equal weight (i.e., 1). If you need to handle weighted graphs where each edge has a different cost, you would need to modify the `distances` update step accordingly.

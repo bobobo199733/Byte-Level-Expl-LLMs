@@ -1,0 +1,1 @@
+Write exactly one Python function called robot_simulator(commands) that simulates a robot moving on a grid and returns its final position and direction. Return only the function definition.

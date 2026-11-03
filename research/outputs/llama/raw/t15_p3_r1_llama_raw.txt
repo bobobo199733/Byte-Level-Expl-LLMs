@@ -1,0 +1,74 @@
+**Topological Sort Function**
+=====================================
+
+Here is a Python implementation of the topological sort algorithm:
+```python
+from collections import defaultdict, deque
+
+def topological_sort(graph):
+    """
+    Performs a topological sorting on a directed acyclic graph (DAG).
+
+    Args:
+        graph: A dictionary representing the adjacency list of the DAG.
+            Each key is a node and its value is a set or list of adjacent nodes.
+
+    Returns:
+        A list of nodes in topologically sorted order. If a cycle exists,
+        an empty list is returned.
+
+    Example:
+        >>> graph = {'A': ['B', 'C'], 'B': ['D'], 'C': ['D'], 'D': []}
+        >>> print(topological_sort(graph))
+        ['D', 'B', 'C', 'A']
+    """
+
+    # Initialize in-degree of each node to 0
+    in_degree = {node: 0 for node in graph}
+
+    # Calculate in-degree of each node
+    for node in graph:
+        for neighbor in graph[node]:
+            in_degree[neighbor] += 1
+
+    # Create a queue with nodes having in-degree 0
+    queue = deque([node for node, degree in in_degree.items() if degree == 0])
+
+    sorted_nodes = []
+    while queue:
+        node = queue.popleft()
+        sorted_nodes.append(node)
+
+        # Decrease in-degree of neighboring nodes
+        for neighbor in graph[node]:
+            in_degree[neighbor] -= 1
+
+            # Add neighbor to queue if its in-degree becomes 0
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+
+    # If there are remaining nodes with non-zero in-degree, a cycle exists
+    if len(sorted_nodes) != len(graph):
+        return []
+
+    return sorted_nodes
+```
+**Explanation**
+
+The function takes as input a dictionary `graph` representing the adjacency list of the DAG. It initializes an `in_degree` dictionary to keep track of the in-degree (number of incoming edges) of each node.
+
+It then calculates the in-degree of each node by iterating over the adjacency list and incrementing the in-degree of each neighboring node.
+
+The function creates a queue with nodes having an in-degree of 0, which are added to the sorted list. It then iterates over these nodes, removing them from the graph and adding their neighbors to the queue if their in-degree becomes 0.
+
+Finally, it checks if all nodes have been processed (i.e., their in-degree is 0). If not, a cycle exists, and an empty list is returned.
+
+Note that this implementation assumes that the input graph is a DAG. If the graph contains cycles, the function will return an empty list.
+
+**Example Use Case**
+
+```python
+graph = {'A': ['B', 'C'], 'B': ['D'], 'C': ['D'], 'D': []}
+print(topological_sort(graph))  # Output: ['D', 'B', 'C', 'A']
+```
+This example demonstrates the function's ability to perform a topological sorting on a DAG.

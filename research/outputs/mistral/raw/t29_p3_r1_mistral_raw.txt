@@ -1,0 +1,20 @@
+Here is a simple implementation of the `parse_csv_line` function in Python using built-in methods:
+
+```python
+import csv
+
+def parse_csv_line(line):
+    return list(csv.reader([line], delimiter=','))[0]
+```
+
+This function uses the `csv.reader()` to split the line into fields based on commas as a delimiter and returns the resulting list of fields. To make it more flexible for cases where there might be quoted fields, you can modify the implementation like so:
+
+```python
+import csv
+
+def parse_csv_line(line):
+    reader = csv.reader([line], delimiter=',', quotechar='"')
+    return list(reader)[0]
+```
+
+In this version, we also specify a quote character using `quotechar='"'`, so that any text enclosed in double quotes is treated as a single field.

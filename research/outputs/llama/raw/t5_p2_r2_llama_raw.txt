@@ -1,0 +1,40 @@
+Here's a Python solution that uses a stack to keep track of the remaining digits.
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    """
+    Removes k digits from the number string so the result is as small as possible.
+
+    Args:
+        num (str): The input number string.
+        k (int): The number of digits to be removed.
+
+    Returns:
+        str: The smallest possible resulting number after removing k digits.
+    """
+
+    # Initialize a stack to store the remaining digits
+    stack = []
+
+    # Iterate over each digit in the input number
+    for digit in num:
+        # While the stack is not empty and the top of the stack is greater than the current digit, and we still have k digits to remove
+        while stack and stack[-1] > digit and k:
+            # Remove the top digit from the stack
+            stack.pop()
+            # Decrement the number of digits to be removed
+            k -= 1
+        # Push the current digit onto the stack
+        stack.append(digit)
+
+    # If we still have k digits to remove, remove them all from the end of the stack
+    if k:
+        stack = stack[:-k]
+
+    # Join the remaining digits in the stack into a string and return it
+    return ''.join(stack).lstrip('0') or '0'
+```
+
+This function works by maintaining a stack of digits. It iterates over each digit in the input number, and if the top of the stack is greater than the current digit and we still have digits to remove, it pops the top digit from the stack until either the stack is empty or the top of the stack is not greater than the current digit.
+
+After iterating over all digits in the input number, if there are still digits to be removed, it removes them all from the end of the stack. Finally, it joins the remaining digits in the stack into a string and returns it. If the resulting number is zero and has no leading zeros, it returns '0'.

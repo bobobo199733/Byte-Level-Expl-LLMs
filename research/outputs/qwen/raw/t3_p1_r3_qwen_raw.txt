@@ -1,0 +1,72 @@
+```python
+def evaluate(expr: str) -> int:
+    import re
+
+    # Remove all whitespaces from the expression
+    expr = expr.replace(" ", "")
+
+    # Helper function to perform arithmetic operations
+    def calculate(op1, operator, op2):
+        if operator == '+':
+            return op1 + op2
+        elif operator == '-':
+            return op1 - op2
+        elif operator == '*':
+            return op1 * op2
+        elif operator == '/':
+            return int(op1 / op2)  # Truncate towards zero
+
+    # Helper function to evaluate the expression using a stack
+    def shunting_yard(expr):
+        operators = []
+        operands = []
+
+        precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+        token_pattern = re.compile(r'(\d+|[-+*/()])')
+
+        for token in token_pattern.findall(expr):
+            if token.isdigit():
+                # Convert to integer and push onto the operand stack
+                operands.append(int(token))
+            elif token == '(':
+                operators.append(token)
+            elif token == ')':
+                # Pop from operator stack until we find matching '('
+                while operators and operators[-1] != '(':
+                    op2 = operands.pop()
+                    op1 = operands.pop()
+                    operator = operators.pop()
+                    operands.append(calculate(op1, operator, op2))
+                # Remove the '(' from the operator stack
+                if operators and operators[-1] == '(':
+                    operators.pop()
+            else:
+                # Handle operators
+                while (operators and operators[-1] != '(' and
+                       precedence[operators[-1]] >= precedence[token]):
+                    op2 = operands.pop()
+                    op1 = operands.pop()
+                    operator = operators.pop()
+                    operands.append(calculate(op1, operator, op2))
+                operators.append(token)
+
+        # Handle any remaining operators in the stack
+        while operators:
+            op2 = operands.pop()
+            op1 = operands.pop()
+            operator = operators.pop()
+            operands.append(calculate(op1, operator, op2))
+
+        return operands[0]
+
+    try:
+        result = shunting_yard(expr)
+        return int(result)  # Ensure the result is an integer
+    except (IndexError, ValueError):
+        raise ValueError("Invalid expression")
+
+# Example usage:
+# print(evaluate("3 + 5 * 2 - 4 / 2"))  # Output: 11
+```
+
+This function uses the Shunting Yard algorithm to parse and evaluate arithmetic expressions. It respects operator precedence, handles parentheses, and ensures that division truncates towards zero. The use of regular expressions helps manage whitespace removal effectively.

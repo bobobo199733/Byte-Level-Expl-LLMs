@@ -1,0 +1,57 @@
+Certainly! To determine whether a linked list contains a cycle, we can use Floyd's Tortoise and Hare algorithm. This method uses two pointers: a slow pointer (`tortoise`) that moves one step at a time and a fast pointer (`hare`) that moves two steps at a time. If there is a cycle, the fast pointer will eventually meet the slow pointer.
+
+Here is the Python function `linked_list_cycle` that implements this algorithm:
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def linked_list_cycle(head: ListNode) -> bool:
+    if not head or not head.next:
+        return False
+    
+    tortoise = head
+    hare = head.next
+    
+    while tortoise != hare:
+        if not hare or not hare.next:
+            return False
+        tortoise = tortoise.next
+        hare = hare.next.next
+    
+    return True
+
+# Example usage:
+# Create a linked list with a cycle: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 3 (cycle)
+node1 = ListNode(1)
+node2 = ListNode(2)
+node3 = ListNode(3)
+node4 = ListNode(4)
+node5 = ListNode(5)
+node6 = ListNode(6)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = node6
+node6.next = node3  # Creating a cycle
+
+print(linked_list_cycle(node1))  # Output: True
+
+# Create an empty list or a list without a cycle
+empty_head = ListNode()
+single_node_head = ListNode(1)
+
+print(linked_list_cycle(empty_head))  # Output: False
+print(linked_list_cycle(single_node_head))  # Output: False
+```
+
+### Explanation:
+- **Initialization**: We start by checking if the head is `None` or has only one node, in which case there can't be a cycle. If not, we initialize two pointers: `tortoise` and `hare`.
+- **Cycle Detection**: The loop continues until either the fast pointer (`hare`) meets the slow pointer (`tortoise`), indicating a cycle, or the fast pointer reaches the end of the list (indicating no cycle).
+- **Return Value**: If a meeting point is found, we return `True`. Otherwise, if the fast pointer reaches the end of the list, we return `False`.
+
+This implementation ensures that cycles of all sizes are correctly detected and handles edge cases such as empty lists or single-node lists.

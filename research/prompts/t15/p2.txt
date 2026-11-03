@@ -1,0 +1,8 @@
+Write a Python function called topological_sort(graph) that performs a topological sort on a directed acyclic graph.
+
+Requirements:
+- The graph is represented as a dictionary of adjacency lists.
+- Return the ordering as a list.
+- Detect cycles and raise a ValueError if a cycle exists.
+- Do not use external libraries.
+- Ensure all nodes are included in the result.

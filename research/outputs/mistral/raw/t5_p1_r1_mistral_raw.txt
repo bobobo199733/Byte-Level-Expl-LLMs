@@ -1,0 +1,19 @@
+Here's a Python function that implements the removal of k digits from the non-negative integer string `num`:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    if len(num) <= k:
+        return "0" if not num else num
+
+    stack = []
+    for digit in num:
+        while stack and stack[-1] > digit and k > 0:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+
+    result = stack[:len(num) - k]
+    return ''.join(result).zfill(len(result) or 1) if result else "0"
+```
+
+This function uses a stack to keep track of the current number's digits, and it removes the smaller digits as long as the total number of removals (k) is not exhausted. The final result is converted to a string, any leading zeros are removed, and if the result is empty, "0" is returned instead.

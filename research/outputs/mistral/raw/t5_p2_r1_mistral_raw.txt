@@ -1,0 +1,23 @@
+Here's a Python solution for the problem using a stack data structure to efficiently keep track of the current sequence of numbers. The function iterates through each digit in the input string `num`, and if the length of the stack plus the remaining digits is greater than `k`, it pops digits off the back of the stack until the condition is met.
+
+```python
+from typing import List
+
+def remove_k_digits(num: str, k: int) -> str:
+    stack = []
+
+    for digit in num:
+        while stack and len(stack) > k - 1 and stack[-1] > digit:
+            stack.pop()
+        stack.append(digit)
+
+    # Remove the leading zeros from the stack before converting back to a string
+    stack = [num[0]] + list(filter(lambda x: x != '0', stack))
+
+    if not stack:
+        return "0"  # If all digits were removed, return 0
+
+    return ''.join(stack)
+```
+
+This solution has a time complexity of O(n), where n is the length of the input string, since it only iterates once through the entire input.

@@ -1,0 +1,33 @@
+Here's a simple implementation of a Python function called `binary_tree_inorder` that performs an in-order traversal of a binary tree represented as a list. In this example, I assume that the tree is stored in a specific format:
+
+1. The root node is always at index 0.
+2. Children of a node are stored recursively in a sublist ordered as left child then right child.
+3. If a node doesn't have a child, it is represented by an empty list ([]).
+
+```python
+def binary_tree_inorder(tree):
+    result = []
+
+    def _traverse(node):
+        if not node:
+            return
+
+        # Traverse left subtree first
+        _traverse(node[1])
+
+        # Visit the current node (print the value)
+        result.append(node[0])
+
+        # Traverse right subtree after visiting the current node
+        _traverse(node[2])
+
+    _traverse(tree)
+    return result
+```
+
+You can call this function on a binary tree like this:
+
+```python
+root = [value, [left_subtree], [right_subtree]]
+binary_tree_inorder(root)
+```

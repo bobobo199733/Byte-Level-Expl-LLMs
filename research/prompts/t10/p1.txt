@@ -1,0 +1,7 @@
+Write a Python function longest_palindrome(s) that returns the longest palindromic substring in s.
+
+If there are multiple valid answers with the same maximum length, return any one of them.
+
+Return only valid Python code.
+Do not include example usage.
+Do not print anything.

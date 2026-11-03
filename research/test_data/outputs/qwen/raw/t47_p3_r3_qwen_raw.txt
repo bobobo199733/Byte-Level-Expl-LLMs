@@ -1,0 +1,70 @@
+Certainly! To create a basic calculator in Python that can handle addition (`+`), subtraction (`-`), parentheses `(` and `)`, and spaces without using the `eval()` function, you can use a stack-based approach to manage nested operations and parentheses.
+
+Here's the implementation:
+
+```python
+def basic_calculator(s):
+    def apply_operation(operators, values, operation):
+        b = values.pop()
+        a = values.pop()
+        if operation == '+':
+            values.append(a + b)
+        elif operation == '-':
+            values.append(a - b)
+
+    operators = []
+    values = []
+    num = 0
+    for char in s:
+        if char.isdigit():
+            num = num * 10 + int(char)
+        elif char in ['+', '-']:
+            # Push the current number and its operator to stacks
+            values.append(num)
+            if operators and (operators[-1] == '+'):
+                apply_operation(operators, values, '+')
+            elif operators and (operators[-1] == '-'):
+                apply_operation(operators, values, '-')
+            
+            operators.append(char)
+            num = 0
+        elif char == '(':
+            # Push the current state to stacks
+            operators.append('(')
+        elif char == ')':
+            if operators and (operators[-1] != '('):
+                apply_operation(operators, values, operators.pop())
+            # Pop the '(' from stack and discard it
+            operators.pop()
+    
+    # Apply the last operation after the loop
+    while operators:
+        apply_operation(operators, values, operators.pop())
+
+    return values[0]
+
+# Example usage:
+print(basic_calculator("1 + 2 - 3"))  # Output: 0
+print(basic_calculator("(1 + 2) - (3 + 4)"))  # Output: -4
+```
+
+### Explanation:
+
+1. **Stacks**: We use two stacks, one for operators and one for values.
+   - `values` stack will store the intermediate results.
+   - `operators` stack will store the operations (`+`, `-`) as we encounter them.
+
+2. **Digit Handling**:
+   - As we read through the string, if a digit is encountered, we build up the number (considering multiple digits in one go).
+
+3. **Operator Handling**:
+   - When an operator (`+` or `-`) is encountered, we push the current number and its corresponding operator to their respective stacks.
+   - If there's an operator on top of the `operators` stack that needs to be applied, we do so by popping the necessary values from the `values` stack and applying the operation.
+
+4. **Parentheses Handling**:
+   - When a left parenthesis (`(`) is encountered, it is pushed onto the `operators` stack.
+   - When a right parenthesis (`)`) is encountered, we pop operations from the `operators` stack until a matching left parenthesis is found (this will be discarded).
+
+5. **Final Result**: After processing all characters, any remaining operations are applied.
+
+This approach ensures that nested expressions and parentheses are handled correctly.

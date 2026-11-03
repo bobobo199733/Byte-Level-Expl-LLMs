@@ -1,0 +1,42 @@
+Here is the code that meets the specifications:
+```
+def decode_string(s: str) -> str:
+    """
+    This function decodes a string s with encoded characters, replacing each encoded character
+    with its actual value. The encoding syntax is 'num[c]' where num is a decimal number and c
+    is any character.
+    
+    :param s: The input string to be decoded.
+    :return: The decoded string.
+    """
+    stack = []
+    curNum = 0
+    prevChar = ''
+    
+    for i in range(len(s)):
+        if s[i].isdigit():
+            # Add the digit to the current number
+            curNum = curNum * 10 + int(s[i])
+        elif s[i] == '[':
+            # Push the current character and number onto the stack
+            stack.append((prevChar, curNum))
+            prevChar = ''
+            curNum = 0
+        elif s[i] == ']':
+            # Pop the last character and number from the stack
+            num, char = stack.pop()
+            # Repeat the character by its value in the decoded string
+            prevChar = char * curNum + prevChar
+            curNum = num
+        else:
+            # Add the non-digit and non-encoding character to the current character
+            prevChar += s[i]
+    
+    return prevChar
+
+# Example use cases
+print(decode_string("3[a]"))  # Output: "aaa"
+print(decode_string("2[ab]"))  # Output: "abab"
+print(decode_string("10[a]2[b]"))  # Output: "aabbbbbbabb"
+```
+This code defines a function called `decode_string` that takes an input string `s` and returns the decoded string. It uses a stack to keep track of characters and their corresponding counts, as specified in the requirements. The example use cases are also provided at the end to demonstrate how the function works with different inputs.

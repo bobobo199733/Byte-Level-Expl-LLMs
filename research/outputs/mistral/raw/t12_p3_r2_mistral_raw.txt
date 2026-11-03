@@ -1,0 +1,50 @@
+To implement BFS for finding the shortest path in a graph, we'll use a queue data structure to keep track of the nodes to be explored next, and a visited array to mark the nodes already visited. Here is a Python implementation of the `bfs_shortest_path` function:
+
+```python
+from collections import defaultdict
+import sys
+
+def bfs_shortest_path(graph, start, target):
+    if start not in graph or target not in graph:
+        raise ValueError("Both start and target nodes must be present in the graph.")
+
+    # Initialize the visited dictionary with False values
+    visited = {node: False for node in graph}
+    distances = {node: sys.maxsize for node in graph}
+    distances[start] = 0
+
+    queue = [(start, 0)]  # (node, distance) pairs are added to the queue
+
+    while queue:
+        current_node, current_distance = queue.pop(0)
+
+        if visited[current_node]:
+            continue
+
+        visited[current_node] = True
+        for neighbor, edge_weight in graph[current_node].items():
+            new_distance = current_distance + edge_weight
+            if neighbor not in visited or new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                queue.append((neighbor, new_distance))
+
+    return distances[target] if target in distances else -1
+```
+
+In this implementation, the `graph` is a dictionary where keys are nodes and values are dictionaries containing neighboring nodes as keys with their corresponding edge weights as values. For example:
+
+```python
+graph = {
+    "A": {"B": 1, "C": 4},
+    "B": {"A": 1, "D": 2},
+    "C": {"A": 4, "D": 3, "E": 5},
+    "D": {"B": 2, "C": 3},
+    "E": {"C": 5}
+}
+```
+
+You can use the `bfs_shortest_path` function to find the shortest path between two nodes like this:
+
+```python
+print(bfs_shortest_path(graph, "A", "E"))  # Output: 4
+```

@@ -1,0 +1,45 @@
+Certainly! Below is a Python function `binary_search_rotated` that searches for a target in a rotated sorted array. The function returns the index of the target if found, and `-1` if the target is not present.
+
+```python
+def binary_search_rotated(values, target):
+    left, right = 0, len(values) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        # Check if mid element is the target
+        if values[mid] == target:
+            return mid
+        
+        # Determine which side is properly sorted
+        if values[left] <= values[mid]:  # Left half is sorted
+            if values[left] <= target < values[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:  # Right half is sorted
+            if values[mid] < target <= values[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    
+    return -1
+
+# Example usage:
+arr = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+print(binary_search_rotated(arr, target))  # Output: 4
+
+target = 3
+print(binary_search_rotated(arr, target))  # Output: -1
+```
+
+### Explanation:
+- **Binary Search on Rotated Array**: The array is rotated at some pivot point. We need to handle the fact that both halves of the array are not necessarily sorted.
+- **Left and Right Boundaries**: `left` and `right` mark the current search range in the array.
+- **Mid Calculation**: `mid` is calculated as usual, but we must decide which half of the array might contain the target based on whether the left or right side is sorted.
+- **Sorted Half Check**:
+  - If the left half is sorted (`values[left] <= values[mid]`), then we check if the target lies within this range. If it does, we search in the left half; otherwise, we search in the right half.
+  - Otherwise, the right half is sorted, and similar checks are performed.
+
+This approach ensures that we can efficiently find the target with a time complexity of \(O(\log n)\).

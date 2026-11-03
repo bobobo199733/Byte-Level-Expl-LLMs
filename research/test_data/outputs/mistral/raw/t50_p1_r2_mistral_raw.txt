@@ -1,0 +1,41 @@
+Here's a Python function called `find_all_anagrams` that finds all start indices in a given string `s` where an anagram of string `p` begins. The function returns a sorted list of starting indices:
+
+```python
+def find_all_anagrams(s, p):
+    result = []
+    table = {}
+
+    # Create a table for the characters in pattern 'p' and their counts
+    for char in p:
+        if char not in table:
+            table[char] = 0
+        table[char] += 1
+
+    window_start = 0
+    window = {}
+    match_length = len(p)
+
+    for end in range(len(s)):
+        right_char = s[end]
+        if right_char not in window:
+            window[right_char] = 0
+        window[right_char] += 1
+
+        while match_length <= len(s):
+            if table == dict(window):
+                result.append(window_start)
+
+            if (window_start < end and s[window_start] == s[end]):
+                window_count = window[s[window_start]] - 1
+                if window_count == 0:
+                    del window[s[window_start]]
+                else:
+                    window[s[window_start]] = window_count
+
+            window_start += 1
+        match_length += 1
+
+    return sorted(result)
+```
+
+This function uses a sliding window approach to find all anagrams of the given pattern `p`. The function maintains two tables: one for the characters in the pattern and their counts, and another for the characters in the string `s` and their current counts within the sliding window. It compares the table of the pattern with the table of the current sliding window to find anagrams, while also moving the start of the window as it slides along the string `s`. The function returns a sorted list of starting indices where an anagram of `p` begins in `s`.

@@ -1,0 +1,68 @@
+Certainly! To solve the problem of counting islands in a 2D grid, we can use Depth-First Search (DFS). The idea is to traverse through each cell of the grid. Whenever we encounter a land ('1' or 'L' depending on how you represent it), we increment our island count and perform a DFS to mark all connected land cells as visited.
+
+Here's a Python function `count_islands` that implements this approach:
+
+```python
+def count_islands(grid):
+    if not grid:
+        return 0
+
+    rows, cols = len(grid), len(grid[0])
+    visit = set()  # Set of coordinates already visited
+    
+    def dfs(r, c):
+        # Check boundaries and validity
+        if (r < 0 or r == rows or c < 0 or c == cols or grid[r][c] == '0' or (r, c) in visit):
+            return 
+        visit.add((r, c))  # Mark current cell as visited
+        
+        # Continue DFS for all four directions
+        dfs(r + 1, c)
+        dfs(r - 1, c)
+        dfs(r, c + 1)
+        dfs(r, c - 1)
+
+    count = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 'L' and (r, c) not in visit:
+                count += 1
+                dfs(r, c)  # Perform DFS to mark all cells of the island
+    
+    return count
+
+# Example usage:
+grid = [
+    ['L', 'W', 'L', 'L'],
+    ['W', 'L', 'W', 'W'],
+    ['L', 'W', 'L', 'L'],
+    ['W', 'W', 'L', 'L']
+]
+
+print(count_islands(grid))  # Output should be 3
+```
+
+### Explanation:
+
+1. **Initialization**:
+   - `rows` and `cols` store the dimensions of the grid.
+   - `visit` is a set to keep track of visited cells.
+
+2. **DFS Function (`dfs`)**:
+   - This function takes row and column indices as arguments.
+   - It checks boundaries, validity (i.e., if the cell is land ('L') and not already visited).
+   - If valid, it marks the cell as visited and recursively visits all four adjacent cells.
+
+3. **Main Loop**:
+   - Iterate over each cell in the grid.
+   - If a cell contains 'L' and has not been visited, increment the island count (`count`) and start DFS from that cell.
+
+4. **Return**:
+   - The function returns the total number of islands found.
+
+### Example Usage:
+
+- In the given example, there are three distinct land areas ('L'), so the output will be `3`.
+
+This approach ensures that each land cell is visited only once, making it efficient with a time complexity of O(m * n), where m and n are the dimensions of the grid.

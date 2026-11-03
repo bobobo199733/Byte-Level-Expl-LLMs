@@ -1,0 +1,26 @@
+Sure, here's a simple Python function that merges overlapping intervals in a list of tuples. The function sorts the intervals first to ensure proper merging.
+
+```python
+def merge_intervals(intervals):
+    # Sort the intervals based on their start times
+    intervals.sort(key=lambda x: x[0])
+
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+
+    return merged
+```
+
+This function works by first sorting the intervals, then iterating through them. If we are at the start of the list or the current interval does not overlap with the last merged interval, we append it to the `merged` list. Otherwise, we extend the end time of the last merged interval to include the current one.
+
+Here's an example usage:
+
+```python
+intervals = [(1, 3), (2, 6), (8, 10), (15, 18)]
+merged_intervals = merge_intervals(intervals)
+print(merged_intervals)  # Output: [(1, 6), (8, 10), (15, 18)]
+```

@@ -1,0 +1,24 @@
+Here's an implementation of the `word_break` function using dynamic programming in Python. The idea is to check if it's possible to break the given string `s` into substrings that are all found in the provided dictionary `word_dict`. Reusing words is allowed, and the function uses memoization to optimize the solution.
+
+```python
+def word_break(s, word_dict):
+    if not s:
+        return True
+
+    dp = [False] * (len(s) + 1)
+    dp[0] = True
+
+    for i in range(len(s)):
+        for j in range(i+1, len(s)+1):
+            if dp[j-1] and s[j-1:] in word_dict:
+                dp[j] = True
+                break
+
+    return dp[-1]
+```
+
+You can use this function like so:
+
+```python
+word_break("leetcode", set(word for word in open('words.txt')))  # Replace 'words.txt' with your custom dictionary file
+```

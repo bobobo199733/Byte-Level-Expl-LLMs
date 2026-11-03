@@ -1,0 +1,11 @@
+Write a Python function longest_palindrome(s).
+
+Requirements:
+- s is a string
+- Return the longest substring of s that is a palindrome
+- A palindrome reads the same forwards and backwards
+- If multiple longest palindromes exist, returning any one of them is acceptable
+- Return an empty string if the input string is empty
+- Return only valid Python code
+- Do not include example usage
+- Do not print anything

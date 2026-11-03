@@ -1,0 +1,36 @@
+Certainly! To rotate an array to the right by `k` steps, you can follow these steps:
+
+1. Normalize `k` to ensure it's within the bounds of the length of the array (i.e., `k % len(nums)`).
+2. Use Python slicing to rearrange the elements.
+
+Here's a Python function that implements this logic:
+
+```python
+def rotate_array(nums, k):
+    # Normalize k to be within the range of the length of nums
+    n = len(nums)
+    k = k % n
+    
+    if k == 0:
+        return nums  # No need to rotate
+
+    # Rotate the array by slicing and concatenating
+    rotated_part = nums[-k:]
+    non_rotated_part = nums[:-k]
+    
+    return rotated_part + non_rotated_part
+
+# Example usage:
+nums = [1, 2, 3, 4, 5]
+k = 2
+print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3]
+
+k = 7
+print(rotate_array(nums, k))  # Output: [4, 5, 1, 2, 3] (since 7 % 5 == 2)
+```
+
+### Explanation:
+- **Normalization of `k`:** We use `k % n` to handle cases where `k` is larger than the length of the array. This ensures that we only perform necessary rotations.
+- **Slicing:** The last `k` elements are sliced and appended to the beginning of the remaining elements.
+
+This approach ensures efficient rotation with a time complexity of O(n).

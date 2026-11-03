@@ -1,0 +1,83 @@
+Certainly! Below is a Python function that solves a standard 9x9 Sudoku puzzle using backtracking. The function `sudoku_solver(board)` modifies the board in-place and raises a `ValueError` if the puzzle is invalid or unsolvable.
+
+```python
+def is_valid_move(board, row, col, num):
+    # Check if `num` is not already placed in current row, column, and 3x3 box
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+        if board[x][col] == num:
+            return False
+    
+    start_row = row - row % 3
+    start_col = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[i + start_row][j + start_col] == num:
+                return False
+
+    return True
+
+def find_empty_location(board):
+    # Find an empty cell (0) on the board
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                return row, col
+    return None
+
+def sudoku_solver(board):
+    empty_loc = find_empty_location(board)
+    
+    # If there is no empty cell, we have solved the puzzle
+    if not empty_loc:
+        return True
+    
+    row, col = empty_loc
+    
+    for num in range(1, 10):  # Loop over numbers from 1 to 9
+        if is_valid_move(board, row, col, num):
+            board[row][col] = num
+            
+            if sudoku_solver(board):
+                return True
+            
+            # If placing `num` doesn't lead to a solution, backtrack and reset the cell
+            board[row][col] = 0
+    
+    # No valid number can be placed in this empty location. The puzzle is unsolvable.
+    raise ValueError("Unsolvable Sudoku puzzle")
+
+# Example usage:
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+try:
+    sudoku_solver(board)
+    print("Solved Sudoku board:")
+    for row in board:
+        print(row)
+except ValueError as e:
+    print(e)
+```
+
+### Explanation:
+
+1. **is_valid_move**: This function checks if placing a number `num` at position `(row, col)` is valid according to the rules of Sudoku.
+2. **find_empty_location**: This function finds an empty cell (represented by 0) on the board. It returns None if there are no more empty cells.
+3. **sudoku_solver**: 
+   - It first tries to find an empty location using `find_empty_location`.
+   - If all locations are filled, it means the puzzle is solved and returns True.
+   - For each empty location, it tries numbers from 1 to 9 and places them if they are valid according to `is_valid_move`.
+   - Recursively calls itself for the next cell. If placing a number does not lead to a solution, it backtracks by resetting the cell to 0.
+
+This approach ensures that the board is modified in-place and handles invalid or unsolvable puzzles by raising an exception.

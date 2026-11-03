@@ -1,0 +1,25 @@
+Here's a Python function that follows your requirements:
+
+```python
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+
+    # Sort the intervals by start value
+    intervals.sort(key=lambda x: x[0])
+
+    merged = [intervals[0]]
+
+    for interval in intervals:
+        last_interval = merged[-1]
+        if interval[0] > last_interval[1]:
+            # No overlap, add the new interval to the list
+            merged.append(interval)
+        else:
+            # Overlap, merge the intervals
+            last_interval[1] = max(last_interval[1], interval[1])
+
+    return merged
+```
+
+This function first sorts the input intervals by their start values and then iterates through them. If a new interval doesn't overlap with the last merged interval, it adds the new interval to the list of merged intervals. Otherwise, it merges the overlapping intervals by updating the end value of the last merged interval with the maximum end value between the two. The function returns the final list of merged intervals.

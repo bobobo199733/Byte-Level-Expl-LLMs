@@ -1,0 +1,79 @@
+**Serialization Function**
+=======================
+
+```python
+def serialize_tree(root):
+    """
+    Serializes a binary tree into a string representation.
+
+    Args:
+        root (Node): Root node of the binary tree.
+
+    Returns:
+        str: Serialized string representation of the binary tree.
+    """
+    if not root:
+        return 'X,'  # Empty tree or null node
+
+    serialized = []
+    stack = [(root, False)]  # Node, is_end_of_child_list
+
+    while stack:
+        node, is_end_of_child_list = stack.pop()
+
+        if not node:
+            serialized.append('X')  # Null node
+        else:
+            serialized.append(str(node.val))  # Node value
+            stack.append((node.right, False))
+            if not is_end_of_child_list:  # Right child not null or empty
+                stack.append((node.left, True))
+
+    return ','.join(serialized)
+```
+
+**Explanation**
+---------------
+
+This function uses a pre-order traversal with recursion to serialize the binary tree. The `stack` data structure stores nodes and a boolean flag indicating whether it's an end of a child list.
+
+Here's how it works:
+
+1. If the input `root` is `None`, return `'X,'`.
+2. Initialize an empty list `serialized` for storing node values.
+3. Create an empty stack with `(root, False)` as the initial element. The first boolean value indicates whether we're at the end of a child list.
+4. Enter a loop that continues until the stack is empty:
+   - Pop an element from the stack: (`node`, `is_end_of_child_list`).
+   - If `node` is `None`, append `'X'` to `serialized`.
+   - Otherwise, append the node's value as a string.
+5. Push `(node.right, False)` onto the stack to serialize the right child (if it exists).
+6. If we're not at the end of a child list (`not is_end_of_child_list`) and the left child is not `None` or empty, push `(node.left, True)` onto the stack.
+7. Repeat steps 4-6 until the stack is empty.
+8. Join the serialized nodes with commas to form the final string representation.
+
+**Example Use Cases**
+----------------------
+
+```python
+# Create a binary tree:
+#       1
+#     /   \
+#    2     3
+#   / \   /
+#  4   5 6
+
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.left = Node(6)
+
+serialized_tree = serialize_tree(root)
+print(serialized_tree)  # Output: "1,2,4,X,X,5,X,X,3,6,X,X"
+
+# Deserialize the string representation back into a binary tree
+# ... (omitted for brevity)
+```
+
+Note that this implementation assumes Node objects with `val`, `left`, and `right` attributes. You can modify it to work with your specific node class structure.

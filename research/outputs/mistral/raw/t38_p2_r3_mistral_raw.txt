@@ -1,0 +1,61 @@
+I will provide a Python function that meets your requirements. However, due to the limitations of this platform, I cannot test the code. Here's the function:
+
+```python
+def precedence(op):
+    if op == "+" or op == "-":
+        return 1
+    elif op == "*" or op == "/":
+        return 2
+    else:
+        return -1
+
+def associativity(op):
+    return "right" if op in ["+", "-"] else "left"
+
+def expression_to_postfix(expression):
+    def is_operator(ch):
+        return ch in ['+', '-', '*', '/', '(', ')']
+
+    def apply_operators():
+        global i
+        while (not stack.empty()) and (precedence(stack[-1]) >= precedence(operators[i])) and (associativity(stack[-1]) == associativity(operators[i])):
+            postfix.append(stack.pop())
+
+    def invalid_parentheses():
+        if (not stack.empty() and stack[-1] == '(' and operators[i] == ')'):
+            return True
+        elif (stack.empty() or (stack[-1] != '(' and operators[i] == ')')):
+            return True
+        return False
+
+    operators = list(expression)
+    i = 0
+    stack, postfix = [], []
+
+    while i < len(operators):
+        if is_operator(operators[i]):
+            apply_operators()
+            stack.append(operators[i])
+            i += 1
+        elif operators[i] == '(':
+            stack.append(operators[i])
+            i += 1
+        elif operators[i] == ')':
+            apply_operators()
+            while stack[-1] != '(':
+                postfix.append(stack.pop())
+            stack.pop()
+            i += 1
+        else:
+            while (not stack.empty()) and (precedence(stack[-1]) > precedence(operators[i])) or (precedence(stack[-1]) == precedence(operators[i]) and associativity(stack[-1]) == "left"):
+                postfix.append(stack.pop())
+            stack.append(operators[i])
+            i += 1
+
+    while not stack.empty():
+        postfix.append(stack.pop())
+
+    return " ".join(postfix)
+```
+
+This function `expression_to_postfix()` converts an infix mathematical expression into postfix notation with proper operator precedence and parentheses handling. It does not use any external libraries.

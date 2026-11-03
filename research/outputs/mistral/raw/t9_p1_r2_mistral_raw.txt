@@ -1,0 +1,24 @@
+Here is a Python function called `merge_intervals` that does what you've asked:
+
+```python
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+
+    # Sort the intervals based on their start times
+    intervals.sort(key=lambda x: x[0])
+
+    merged_intervals = [intervals[0]]
+    for interval in intervals:
+        last_merged = merged_intervals[-1]
+        if interval[0] > last_merged[1]:
+            # No overlap, add the new interval to the list
+            merged_intervals.append(interval)
+        else:
+            # Overlap, update the end time of the last merged interval
+            last_merged[1] = max(last_merged[1], interval[1])
+
+    return merged_intervals
+```
+
+This function first sorts the input intervals based on their start times. Then it iterates through the sorted list and merges overlapping intervals by updating the end time of the last merged interval whenever it encounters an overlapping interval. The merged intervals are stored in `merged_intervals`, which is returned at the end.

@@ -1,0 +1,81 @@
+Sure! Solving a Sudoku puzzle can be done using backtracking. Here's an implementation of the `sudoku_solver` function:
+
+```python
+def is_valid(board, row, col, num):
+    # Check if 'num' is not already placed in current row, current column and current 3x3 box
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+        if board[x][col] == num:
+            return False
+    
+    start_row = (row // 3) * 3
+    start_col = (col // 3) * 3
+    for i in range(start_row, start_row + 3):
+        for j in range(start_col, start_col + 3):
+            if board[i][j] == num:
+                return False
+    
+    return True
+
+def solve_sudoku(board):
+    # Find an empty cell (represented by 0)
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == '.':
+                # Try values from 1 to 9
+                for num in '123456789':
+                    if is_valid(board, row, col, num):
+                        # Place the number on the board
+                        board[row][col] = num
+                        
+                        # Recursively solve the rest of the board
+                        if solve_sudoku(board):
+                            return True
+                        
+                        # If placing 'num' led to a dead end, backtrack and reset the cell
+                        board[row][col] = '.'
+                
+                # If no number can be placed in this cell (backtracking)
+                return False
+    
+    # If there are no empty cells left, the puzzle is solved
+    return True
+
+def sudoku_solver(board):
+    solve_sudoku(board)
+
+# Example usage:
+board = [
+    ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+    ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+    [".", "9", "8", ".", ".", ".", ".", "6", "."],
+    ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+    ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+    ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+    [".", "6", ".", ".", ".", ".", "2", "8", "."],
+    [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+    [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+]
+
+sudoku_solver(board)
+
+for row in board:
+    print(' '.join(row))
+```
+
+### Explanation:
+
+1. **is_valid Function**:
+   - This function checks if placing a number `num` at position `(row, col)` is valid according to Sudoku rules.
+   
+2. **solve_sudoku Function**:
+   - This recursive function tries to solve the puzzle by filling in numbers from 1 to 9.
+   - If it finds an empty cell (represented by `.`, you can change this to `0` if your board uses integers), it tries each number and backtracks if placing a number leads to a dead end.
+
+3. **sudoku_solver Function**:
+   - This function is a simple wrapper around the recursive solver, making it easy to call with a given Sudoku board.
+
+### Example Usage:
+
+The example usage at the bottom of the code creates a sample 9x9 Sudoku puzzle and solves it in place. After calling `sudoku_solver(board)`, the board will be filled with the solution.

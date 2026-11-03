@@ -1,0 +1,51 @@
+Here's a Python function named `find_all_anagrams` that utilizes a sliding window approach to find all start indices in string `s` where an anagram of `p` starts:
+
+```python
+def find_all_anagrams(s, p):
+    result = []
+    window = {}
+    need = {}
+
+    # Populate the 'need' dictionary with frequency counts for each character in pattern 'p'.
+    for char in p:
+        if char not in need:
+            need[char] = 0
+        need[char] += 1
+
+    start = 0
+    end = 0
+
+    while end < len(s):
+        # Add the current character to the window and adjust its count.
+        char = s[end]
+        if char in window:
+            window[char] += 1
+        else:
+            window[char] = 1
+
+        # If the number of characters in the window matches the number of characters in the pattern,
+        # check if the current window is an anagram of 'p'.
+        if len(window) == len(need):
+            for char, count in need.items():
+                if char not in window or window[char] < count:
+                    break
+            else:
+                # If all conditions are met, the current substring is an anagram of 'p'. Add its start index to the result.
+                result.append(start)
+
+        # Move the sliding window one character to the right.
+        if end + 1 < len(s):
+            end += 1
+        else:
+            break
+
+        # If a character in the pattern has been processed and its count drops below zero,
+        # remove it from the window.
+        if s[start] in need and window[s[start]] == need[s[start]]:
+            del need[s[start]]
+        start += 1
+
+    return result
+```
+
+This function uses a sliding window to iterate through `s`, comparing the frequency counts of characters in the current substring with those in the pattern `p`. If there's an exact match, it adds the start index of the substring to the result.

@@ -1,0 +1,40 @@
+Here's the Python function `word_break` using dynamic programming:
+
+```python
+def word_break(s: str, word_dict: list[str]) -> bool:
+    """
+    Determine if s can be segmented into words from word_dict.
+
+    Args:
+    - s (str): Input string.
+    - word_dict (list[str]): List of valid words.
+
+    Returns:
+    - bool: Whether s can be segmented using words from word_dict.
+    """
+
+    # Create DP array and initialize dp[0] = True
+    n = len(s) + 1
+    dp = [False] * n
+    dp[0] = True
+
+    # Convert word_dict to a set for O(1) lookup
+    word_set = set(word_dict)
+
+    # For each position i, check all substrings s[j:i]
+    for i in range(n):
+        if dp[i]:
+            # Check all substrings s[j:i]
+            for j in range(i + 1, n):
+                if s[i:j] in word_set:
+                    dp[j] = True
+
+    return dp[-1]
+
+# Example usage
+s = "applepenapple"
+word_dict = ["apple", "pen"]
+print(word_break(s, word_dict))  # Output: True
+```
+
+This function uses a boolean dynamic programming (DP) array `dp` of length `len(s)+1`, where `dp[i]` is `True` if the substring `s[:i]` can be segmented using words from `word_dict`. The time complexity is O(n^2), and the space complexity is O(n), where n is the length of string `s`.

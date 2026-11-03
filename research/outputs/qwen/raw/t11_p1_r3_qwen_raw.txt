@@ -1,0 +1,36 @@
+Certainly! The problem you're describing is a classic example of a dynamic programming problem often referred to as the "Coin Change Problem". We can solve this using a bottom-up dynamic programming approach.
+
+Here's how you can implement the `coin_change` function:
+
+```python
+def coin_change(coins, amount):
+    # Initialize a list to store the minimum number of coins needed for each amount from 0 to target
+    dp = [float('inf')] * (amount + 1)
+    
+    # Base case: 0 coins are needed to make up an amount of 0
+    dp[0] = 0
+    
+    # Iterate over every possible amount from 1 to the given target amount
+    for i in range(1, amount + 1):
+        # Check each coin and update dp[i] if using that coin results in a smaller number of coins needed
+        for coin in coins:
+            if i - coin >= 0:
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # If dp[amount] is still infinity, it means it's not possible to make up the amount with the given coins
+    return -1 if dp[amount] == float('inf') else dp[amount]
+
+# Example usage:
+coins = [1, 2, 5]
+amount = 11
+print(coin_change(coins, amount))  # Output: 3 (because we can use three 1 coins)
+```
+
+### Explanation:
+- **`dp` array**: This is an array where `dp[i]` represents the minimum number of coins needed to make up the amount `i`. We initialize all values in this array to infinity (`float('inf')`) except for `dp[0]`, which is set to 0 because zero coins are needed to make up an amount of 0.
+  
+- **Filling the DP Table**: For each possible amount from 1 to the target, we iterate over each coin. If using a particular coin results in a smaller number of coins being used for that amount (i.e., `dp[i - coin] + 1` is less than `dp[i]`), we update `dp[i]`.
+
+- **Result**: After filling the DP table, if `dp[amount]` remains infinity, it means it's not possible to make up the given amount with the provided coins. Otherwise, `dp[amount]` contains the minimum number of coins needed.
+
+This approach ensures that the solution is efficient and works well for a wide range of inputs.

@@ -1,0 +1,1 @@
+Write a single Python function called find_all_anagrams(s, p). Return a list of all start indices in s where an anagram of p starts. Use a sliding window. Keep it in one function.

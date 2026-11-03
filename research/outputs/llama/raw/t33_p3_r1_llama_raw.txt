@@ -1,0 +1,58 @@
+**Heap Sort Implementation in Python**
+======================================
+
+```python
+def heap_sort(values):
+    """
+    Heap sort algorithm implementation.
+
+    :param values: List of elements to be sorted
+    :return: Sorted list
+    """
+
+    # Build a max-heap from the input list
+    def build_max_heap(arr, n):
+        for i in range(n // 2 - 1, -1, -1):
+            heapify(arr, n, i)
+
+    # Heapify a subtree rooted at index i to maintain heap property
+    def heapify(arr, n, i):
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        if left < n and arr[left] > arr[largest]:
+            largest = left
+
+        if right < n and arr[right] > arr[largest]:
+            largest = right
+
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            heapify(arr, n, largest)
+
+    # Extract the maximum element from the heap and place it at the end of the sorted list
+    def extract_max_heap(arr):
+        n = len(arr)
+        root = arr[0]
+        arr[0] = arr[n - 1]
+        n -= 1
+        heapify(arr, n, 0)
+        return root
+
+    # Sort the input list using heap sort algorithm
+    build_max_heap(values, len(values))
+    for i in range(len(values) - 1, 0, -1):
+        max_element = extract_max_heap(values)
+        values[i] = max_element
+
+    return values
+```
+
+**Example Use Case:**
+```python
+values = [5, 2, 8, 1, 9]
+sorted_values = heap_sort(values)
+print(sorted_values)  # Output: [1, 2, 5, 8, 9]
+```
+This implementation provides a clear and readable solution for the heap sort algorithm in Python. The `heap_sort` function is designed to be used as-is without modification.

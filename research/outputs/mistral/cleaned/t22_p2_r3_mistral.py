@@ -1,0 +1,13 @@
+def sieve_primes(n):
+    primes = [True] * (n + 1)
+    p = 2
+    while p ** 2 <= n:
+        if primes[p]:
+            for i in range(p ** 2, n + 1, p):
+                primes[i] = False
+        p += 1
+    primes_list = []
+    for p in range(2, len(primes)):
+        if primes[p]:
+            primes_list.append(p)
+    return sorted(primes_list)

@@ -1,0 +1,34 @@
+Here is the Python code using dynamic programming for the Word Break problem:
+
+```python
+def wordBreak(s: str, word_dict) -> bool:
+    n = len(s)
+    
+    # dp[i] == True means s[:i+1] can be segmented by word_dict
+    dp = [False] * (n + 1)
+    dp[0] = True
+    
+    for i in range(1, n + 1):
+        for j in range(i):
+            if dp[j] and s[j:i] in word_dict:
+                dp[i] = True
+                break
+                
+    return dp[-1]
+```
+
+### Explanation:
+
+This function uses a dynamic programming approach to solve the problem. It maintains an array `dp` of size `n + 1`, where `dp[i]` is `True` if the string `s[:i+1]` can be segmented by words in `word_dict`.
+
+- We initialize `dp[0] = True` because the empty string can always be segmented.
+- Then we iterate through `s`. For each character at index `i`, we check all substrings ending at this position. If a substring is in `word_dict` and its preceding segment (`dp[j]`) is also `True`, then we can segment `s[:i+1]`, so we set `dp[i] = True`.
+- Finally, we return the last element of `dp`, which indicates whether the entire string `s` can be segmented by words in `word_dict`.
+
+### Example Use Cases:
+
+```python
+print(wordBreak("leetcode", ["leet","code"])) # returns True because "leetcode" can be segmented to "leet code".
+print(wordBreak("applepenapple", ["apple","pen"])) # returns True because "applepenapple" can be segmented to "apple pen apple".
+print(wordBreak("catsandog", ["cats","dog","sand","and","cat"])) # returns False
+```

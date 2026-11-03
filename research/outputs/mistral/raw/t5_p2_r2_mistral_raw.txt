@@ -1,0 +1,33 @@
+Here's an implementation of the function `remove_k_digits` in Python. This solution uses a stack data structure to maintain the current number sequence and iteratively remove the smallest digits until we reach the target number of removals (`k`).
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    if not num or k == len(num):
+        return ""
+
+    stack = []
+    for digit in num:
+        while stack and stack[-1] > digit and k > 0:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+
+    # Remove remaining leading zeros
+    while stack and stack[0] == '0':
+        stack.pop(0)
+
+    # If there are remaining digits to be removed, remove the rest from the end of the stack
+    if k > 0:
+        for _ in range(k):
+            stack.pop()
+
+    return "".join(stack)
+```
+
+Here's an example usage:
+
+```python
+print(remove_k_digits("1432219", 5))  # Output: "1219"
+print(remove_k_digits("10200", 1) )   # Output: "10"
+print(remove_k_digits("10", 2))       # Output: ""
+```

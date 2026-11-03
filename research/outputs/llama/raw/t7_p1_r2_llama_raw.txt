@@ -1,0 +1,54 @@
+**Word Frequency Counter Function**
+=====================================
+
+The following is a Python function named `word_frequency` that takes in a string of text and returns a dictionary with the frequency of each word.
+
+```python
+import re
+from collections import defaultdict
+
+def word_frequency(text):
+    """
+    Counts the frequency of each word in the given text.
+    
+    Args:
+        text (str): The input text to count word frequencies from.
+    
+    Returns:
+        dict: A dictionary where keys are words and values are their respective frequencies.
+    """
+
+    # Convert text to lowercase
+    text = text.lower()
+    
+    # Remove punctuation using regular expressions
+    text = re.sub(r'[^\w\s]', '', text)
+    
+    # Split text into individual words
+    words = text.split()
+    
+    # Use a defaultdict to store word frequencies
+    frequency_dict = defaultdict(int)
+    
+    # Count the frequency of each word
+    for word in words:
+        frequency_dict[word] += 1
+    
+    return dict(frequency_dict)
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```
+
+**Explanation**
+
+1. The function `word_frequency` takes a string of text as input.
+2. It converts the text to lowercase using the `lower()` method to ensure that words are not counted separately based on their case.
+3. It removes punctuation from the text using regular expressions (regex) and the `sub()` function, which replaces any characters in the text that don't match `\w` (word character) or whitespace with an empty string (`''`).
+4. The text is then split into individual words using the `split()` method.
+5. A dictionary called `frequency_dict` is created as a defaultdict, where each word will be stored and its frequency initialized to 0 if it hasn't been seen before.
+6. The function iterates over the list of words and increments the count for each word in `frequency_dict`.
+7. Finally, the function returns the `frequency_dict` dictionary.
+
+**Note**: This implementation counts all occurrences of each word, regardless of its position within sentences or paragraphs, and is case-insensitive.

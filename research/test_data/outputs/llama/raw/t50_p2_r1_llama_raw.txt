@@ -1,0 +1,53 @@
+Here is a Python function called `find_all_anagrams(s, p)` using a sliding window approach to find all anagram indices in `s` for given pattern `p`.
+
+```python
+from collections import Counter
+
+def find_all_anagrams(s: str, p: str) -> list[int]:
+    """
+    Returns a list of all starting indices in s where the substring 
+    matches the anagram of p.
+    
+    Parameters:
+    s (str): The string to search for anagrams.
+    p (str): The pattern to find anagrams for.
+    
+    Returns:
+    list[int]: A list of all starting indices where the substring is an anagram of p, sorted in ascending order.
+    """
+    if len(p) > len(s):
+        return []
+
+    # Create frequency counter for p
+    p_counter = Counter(p)
+    
+    # Initialize window boundaries and result
+    left = 0
+    right = len(p)
+    result = []
+    s_counter = Counter(s[:len(p)])
+
+    while right <= len(s):
+        if s_counter == p_counter:
+            result.append(left)
+
+        # Move the left boundary of the window one step to the right
+        s_counter[s[left]] -= 1
+        if s_counter[s[left]] == 0:
+            del s_counter[s[left]]
+
+        left += 1
+
+        # If we have a valid window, add the next character to the counter and move the right boundary
+        if right <= len(s):
+            s_counter[s[right - 1]] = s_counter.get(s[right - 1], 0) + 1
+            right += 1
+
+    return sorted(result)
+```
+
+This function first checks for edge cases where `p` is longer than `s`. It then creates frequency counters for the pattern `p` and an initial window of length `len(p)` in string `s`.
+
+It uses two pointers (`left` and `right`) to define a sliding window. The `while` loop moves the `left` pointer one step at a time, maintaining the invariant that the current window matches `p`. When the frequency counters match, it adds the start index of the current window to the result list.
+
+Finally, the function returns a sorted list of all starting indices where anagrams were found. If no matching anagrams are found in the string `s`, it returns an empty list.

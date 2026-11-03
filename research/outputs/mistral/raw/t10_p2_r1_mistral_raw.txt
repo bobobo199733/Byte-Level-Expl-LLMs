@@ -1,0 +1,33 @@
+Here's a Python function that finds the longest palindrome in a given string. The function uses a dynamic programming approach with two nested loops to compare all possible substrings and check if they are palindromes.
+
+```python
+def longest_palindrome(s):
+    n = len(s)
+    dp = [[False] * n for _ in range(n)]
+    max_length, center = 0, 0
+
+    # base case: single characters are palindromes
+    for i in range(n):
+        dp[i][i] = True
+
+    # grow the palindrome substrings
+    for l in range(2, n + 1):
+        for i in range(n - l + 1):
+            j = i + l - 1
+            if s[i] == s[j] and dp[i + 1][j - 1]:
+                dp[i][j] = True
+                if l > max_length:
+                    max_length = l
+                    center = i
+
+    return s[center:center + max_length]
+```
+
+You can use the function like this:
+
+```python
+print(longest_palindrome("babad"))  # Output: "bab"
+print(longest_palindrome("cbbd"))   # Output: "bb"
+print(longest_palindrome("a"))      # Output: "a"
+print(longest_palindrome(""))       # Output: ""
+```

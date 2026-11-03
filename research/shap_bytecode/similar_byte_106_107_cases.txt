@@ -1,0 +1,829 @@
+Top cases where byte_106 and byte_107 are similar across models
+==========================================================================================
+
+==========================================================================================
+CASE: t2_p3_r2
+score: 55
+byte_106 values: 82.0
+byte_107 values: 5.0
+byte_106 opnames: LOAD_ATTR
+byte_107 opnames: LOAD_ATTR
+==========================================================================================
+
+--- MODEL: llama ---
+file: t2_p3_r2_llama.py
+status: ok
+bytecode_length: 218.0
+byte_106: value=82.0, opname=LOAD_ATTR, position=opcode_byte, argrepr=keys + NULL|self
+byte_107: value=5.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=keys + NULL|self
+
+Full code:
+    def is_balanced(s: str) -> bool:
+        stack = []
+        brackets_map = {')': '(', '}': '{', ']': '['}
+        for char in s:
+            if char in brackets_map.values():
+                stack.append(char)
+            elif char in brackets_map.keys():
+                if not stack or stack.pop() != brackets_map[char]:
+                    return False
+        return True
+
+--- MODEL: mistral ---
+file: t2_p3_r2_mistral.py
+status: ok
+bytecode_length: 278.0
+byte_106: value=82.0, opname=LOAD_ATTR, position=opcode_byte, argrepr=keys + NULL|self
+byte_107: value=5.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=keys + NULL|self
+
+Full code:
+    def is_balanced(s: str) -> bool:
+        brackets = {')': '(', '}': '{', ']': '['}
+        stack = []
+        for char in s:
+            if char in brackets.values():
+                stack.append(char)
+            elif char in brackets.keys() and (not stack) or brackets[char] != stack[-1]:
+                return False
+            elif char in brackets.keys():
+                stack.pop()
+        return not stack
+
+--- MODEL: qwen ---
+file: t2_p3_r2_qwen.py
+status: ok
+bytecode_length: 230.0
+byte_106: value=82.0, opname=LOAD_ATTR, position=opcode_byte, argrepr=keys + NULL|self
+byte_107: value=5.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=keys + NULL|self
+
+Full code:
+    def is_balanced(s: str) -> bool:
+        stack = []
+        mapping = {')': '(', ']': '[', '}': '{'}
+        for char in s:
+            if char in mapping.values():
+                stack.append(char)
+            elif char in mapping.keys():
+                if not stack or stack.pop() != mapping[char]:
+                    return False
+            else:
+                continue
+        return not stack
+
+==========================================================================================
+CASE: t5_p1_r2
+score: 55
+byte_106 values: 58.0
+byte_107 values: 148.0
+byte_106 opnames: COMPARE_OP
+byte_107 opnames: COMPARE_OP
+==========================================================================================
+
+--- MODEL: llama ---
+file: t5_p1_r2_llama.py
+status: ok
+bytecode_length: 310.0
+byte_106: value=58.0, opname=COMPARE_OP, position=opcode_byte, argrepr=bool(>)
+byte_107: value=148.0, opname=COMPARE_OP, position=argument_or_cache_byte, argrepr=bool(>)
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        """
+        Removes exactly k digits from the non-negative integer string num 
+        so that the resulting number is as small as possible.
+
+        Args:
+            num (str): A non-negative integer string.
+            k (int): The number of digits to remove.
+
+        Returns:
+            str: The result as a string. If the result is empty, returns "0".
+        """
+        stack = []
+        for digit in num:
+            while k > 0 and stack and (stack[-1] > digit):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        if len(stack) == k:
+            return '0'
+        result = ''.join(stack).lstrip('0') or '0'
+        return result
+
+--- MODEL: mistral ---
+file: t5_p1_r2_mistral.py
+status: ok
+bytecode_length: 54.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+
+        def helper(stack, num):
+            if not num:
+                return ''.join(stack) or '0'
+            top = stack[-1] if stack else None
+            while num and top and (int(top) > int(num[0])):
+                stack.pop()
+                k -= 1
+                if not k:
+                    break
+                if not num:
+                    return ''.join(stack)
+                helper(stack, num[1:])
+            if num:
+                helper(stack + [num[0]], num[1:])
+        helper([], list(num))
+
+--- MODEL: qwen ---
+file: t5_p1_r2_qwen.py
+status: ok
+bytecode_length: 348.0
+byte_106: value=58.0, opname=COMPARE_OP, position=opcode_byte, argrepr=bool(>)
+byte_107: value=148.0, opname=COMPARE_OP, position=argument_or_cache_byte, argrepr=bool(>)
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        stack = []
+        for digit in num:
+            while k > 0 and stack and (stack[-1] > digit):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        result = ''.join(stack).lstrip('0')
+        return result if result else '0'
+
+==========================================================================================
+CASE: t8_p2_r2
+score: 55
+byte_106 values: 0.0
+byte_107 values: 0.0
+byte_106 opnames: LOAD_ATTR
+byte_107 opnames: LOAD_ATTR
+==========================================================================================
+
+--- MODEL: llama ---
+file: t8_p2_r2_llama.py
+status: ok
+bytecode_length: 286.0
+byte_106: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+byte_107: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+
+Full code:
+    import re
+
+    def validate_password(password):
+        """
+        Validate a password based on several criteria.
+
+        Args:
+            password (str): The password to be validated.
+
+        Returns:
+            bool: True if the password is valid, False otherwise.
+        """
+        has_upper = re.search('[A-Z]', password)
+        has_lower = re.search('[a-z]', password)
+        has_digit = re.search('\\d', password)
+        has_special = re.search('[^A-Za-z0-9]', password)
+        return len(password) >= 8 and has_upper and has_lower and has_digit and has_special
+
+--- MODEL: mistral ---
+file: t8_p2_r2_mistral.py
+status: ok
+bytecode_length: 268.0
+byte_106: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+byte_107: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+
+Full code:
+    import re
+
+    def validate_password(password):
+        if len(password) < 8:
+            return False
+        if not re.search('[A-Z]', password):
+            return False
+        if not re.search('[a-z]', password):
+            return False
+        if not re.search('\\d', password):
+            return False
+        if not re.search('[\\W_]', password):
+            return False
+        return True
+
+--- MODEL: qwen ---
+file: t8_p2_r2_qwen.py
+status: ok
+bytecode_length: 96.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    import re
+
+    def validate_password(password):
+        if len(password) < 8:
+            return False
+        pattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$'
+        if re.match(pattern, password):
+            return True
+        else:
+            return False
+
+==========================================================================================
+CASE: t8_p1_r3
+score: 55
+byte_106 values: 0.0
+byte_107 values: 0.0
+byte_106 opnames: LOAD_ATTR
+byte_107 opnames: LOAD_ATTR
+==========================================================================================
+
+--- MODEL: llama ---
+file: t8_p1_r3_llama.py
+status: ok
+bytecode_length: 302.0
+byte_106: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+byte_107: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+
+Full code:
+    import re
+
+    def validate_password(password):
+        """
+        Validate a given password.
+
+        Args:
+            password (str): The password to be validated.
+
+        Returns:
+            bool: True if the password is valid, False otherwise.
+        """
+        has_lower = re.search('[a-z]', password)
+        has_upper = re.search('[A-Z]', password)
+        has_digit = re.search('\\d', password)
+        has_special = re.search("[!@#$%^&*()_+=-{};:'<>,./?]", password)
+        return len(password) >= 8 and has_lower is not None and (has_upper is not None) and (has_digit is not None) and (has_special is not None)
+
+--- MODEL: mistral ---
+file: t8_p1_r3_mistral.py
+status: ok
+bytecode_length: 340.0
+byte_106: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+byte_107: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+
+Full code:
+    import re
+
+    def validate_password(password):
+        if len(password) < 8:
+            return False
+        if not re.search('[A-Z]', password):
+            return False
+        if not re.search('[a-z]', password):
+            return False
+        if not re.search('[0-9]', password):
+            return False
+        if not re.search('[!@#$%^&*(),.?/:;{}]', password):
+            return False
+        if any((letter == next_letter for letter, next_letter in zip(password, password[1:]))):
+            return False
+        return True
+
+--- MODEL: qwen ---
+file: t8_p1_r3_qwen.py
+status: ok
+bytecode_length: 152.0
+byte_106: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+byte_107: value=0.0, opname=LOAD_ATTR, position=argument_or_cache_byte, argrepr=search
+
+Full code:
+    import re
+
+    def validate_password(password):
+        if len(password) < 8:
+            return False
+        if not re.search('[0-9]', password):
+            return False
+        if not re.search('[!@#$%^&*(),.?":{}|<>]', password):
+            return False
+        return True
+
+==========================================================================================
+CASE: t6_p1_r1
+score: 55
+byte_106 values: 85.0
+byte_107 values: 0.0
+byte_106 opnames: LOAD_FAST
+byte_107 opnames: LOAD_FAST
+==========================================================================================
+
+--- MODEL: llama ---
+file: t6_p1_r1_llama.py
+status: ok
+bytecode_length: 396.0
+byte_106: value=85.0, opname=LOAD_FAST, position=opcode_byte, argrepr=s
+byte_107: value=0.0, opname=LOAD_FAST, position=argument_or_cache_byte, argrepr=s
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        """
+        Returns True if the entire string s matches the wildcard pattern p, otherwise returns False.
+
+        Rules:
+        - '?' matches exactly one character
+        - '*' matches any sequence of characters, including the empty sequence
+        - Matching must cover the entire string
+
+        :param s: The input string to match.
+        :param p: The wildcard pattern to match against.
+        :return: True if the string matches the pattern, False otherwise.
+        """
+        if not s and (not p):
+            return True
+        if p and p[0] == '*':
+            return wildcard_match(s, p[1:]) or (s and wildcard_match(s[1:], p))
+        if p and len(p) > 0 and (len(s) > 0) and (p[0] != s[0] and p[0] != '?'):
+            return False
+        if p and len(p) > 0 and (p[0] == s[0] or p[0] == '?'):
+            return wildcard_match(s[1:], p[1:])
+        return False
+
+--- MODEL: mistral ---
+file: t6_p1_r1_mistral.py
+status: ok
+bytecode_length: 36.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s, p):
+
+        def match_helper(s, p, i=0, j=0):
+            if j == len(p):
+                return i == len(s)
+            if p[j] == '*':
+                while i < len(s) and (j + 1 < len(p) and p[j + 1] == '*'):
+                    j += 1
+                if j >= len(p):
+                    return match_helper(s, p, i, j - 1)
+                else:
+                    return match_helper(s, p, i) or match_helper(s[i + 1:], p, i + 1, j)
+            if p[j] == '?' or s[i] == p[j]:
+                return match_helper(s, p, i + 1, j + 1)
+            return False
+        return match_helper(s, p)
+
+--- MODEL: qwen ---
+file: t6_p1_r1_qwen.py
+status: ok
+bytecode_length: 42.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+
+        def match(s_idx, p_idx):
+            if s_idx == len(s) and p_idx == len(p):
+                return True
+            if s_idx < len(s) and p_idx < len(p) and (p[p_idx] == '?' or p[p_idx] == s[s_idx]):
+                return match(s_idx + 1, p_idx + 1)
+            if p_idx < len(p) and p[p_idx] == '*':
+                return match(s_idx, p_idx + 1) or (s_idx < len(s) and match(s_idx + 1, p_idx))
+            return False
+        return match(0, 0)
+
+==========================================================================================
+CASE: t8_p3_r3
+score: 55
+byte_106 values: 0.0
+byte_107 values: 0.0
+byte_106 opnames: LOAD_GLOBAL
+byte_107 opnames: LOAD_GLOBAL
+==========================================================================================
+
+--- MODEL: llama ---
+file: t8_p3_r3_llama.py
+status: ok
+bytecode_length: 98.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    import re
+
+    def validate_password(password):
+        """
+        Check if a password is strong.
+
+        A strong password must have:
+            * Minimum length of 8 characters
+            * At least one uppercase letter
+            * At least one lowercase letter
+            * At least one digit
+            * At least one special character
+
+        Args:
+            password (str): The password to validate.
+
+        Returns:
+            bool: True if the password is strong, False otherwise.
+        """
+        pattern = re.compile('(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}')
+        return bool(pattern.match(password))
+
+--- MODEL: mistral ---
+file: t8_p3_r3_mistral.py
+status: ok
+bytecode_length: 422.0
+byte_106: value=0.0, opname=LOAD_GLOBAL, position=argument_or_cache_byte, argrepr=bool + NULL
+byte_107: value=0.0, opname=LOAD_GLOBAL, position=argument_or_cache_byte, argrepr=bool + NULL
+
+Full code:
+    import re
+
+    def validate_password(password):
+        if len(password) < 8:
+            return False
+        has_uppercase = bool(re.search('[A-Z]', password))
+        has_lowercase = bool(re.search('[a-z]', password))
+        has_digit = bool(re.search('\\d', password))
+        has_special = bool(re.search('[!@#$%^&*()]', password))
+        if not (has_uppercase and has_lowercase and has_digit and has_special):
+            return False
+        if any((char == next_char for char, next_char in zip(password, password[1:]))):
+            return False
+        return True
+
+--- MODEL: qwen ---
+file: t8_p3_r3_qwen.py
+status: ok
+bytecode_length: 354.0
+byte_106: value=0.0, opname=LOAD_GLOBAL, position=argument_or_cache_byte, argrepr=bool + NULL
+byte_107: value=0.0, opname=LOAD_GLOBAL, position=argument_or_cache_byte, argrepr=bool + NULL
+
+Full code:
+    import re
+
+    def validate_password(password):
+        MIN_LENGTH = 8
+        if len(password) < MIN_LENGTH:
+            return False
+        has_uppercase = bool(re.search('[A-Z]', password))
+        has_lowercase = bool(re.search('[a-z]', password))
+        has_digit = bool(re.search('\\d', password))
+        has_special_char = bool(re.search('[^A-Za-z0-9]', password))
+        if not (has_uppercase and has_lowercase and has_digit and has_special_char):
+            return False
+        return True
+
+==========================================================================================
+CASE: t6_p1_r2
+score: 55
+byte_106 values: 103.0
+byte_107 values: 4.0
+byte_106 opnames: RETURN_CONST
+byte_107 opnames: RETURN_CONST
+==========================================================================================
+
+--- MODEL: llama ---
+file: t6_p1_r2_llama.py
+status: ok
+bytecode_length: 712.0
+byte_106: value=103.0, opname=RETURN_CONST, position=opcode_byte, argrepr=True
+byte_107: value=4.0, opname=RETURN_CONST, position=argument_or_cache_byte, argrepr=True
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        """
+        Returns True if the entire string s matches the wildcard pattern p, otherwise returns False.
+
+        Rules:
+        - '?' matches exactly one character
+        - '*' matches any sequence of characters, including the empty sequence
+        - Matching must cover the entire string
+
+        :param s: The input string to match against the pattern.
+        :type s: str
+        :param p: The wildcard pattern to match against the string.
+        :type p: str
+        :return: True if the string matches the pattern, False otherwise.
+        """
+        if len(s) == 0:
+            for i in range(len(p)):
+                if p[i] != '*':
+                    return False
+            return True
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for i in range(1, len(p) + 1):
+            if p[i - 1] == '*':
+                dp[0][i] = dp[0][i - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(p) + 1):
+                if p[j - 1] == '*':
+                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+                else:
+                    dp[i][j] = p[j - 1] == s[i - 1] and dp[i - 1][j - 1]
+        return dp[len(s)][len(p)]
+
+--- MODEL: mistral ---
+file: t6_p1_r2_mistral.py
+status: ok
+bytecode_length: 42.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+
+        def match(s_, p_):
+            if not p_:
+                return not s_
+            first = s_ and p_[0] in {'*', '?'}
+            if len(p_) > 1 and p_[1] == '$':
+                return match(s_, p_[2:])
+            if first:
+                return match(s[1:], p_[1:]) or (not s_ and match(s, p[1:]))
+            if s_ and p_[0] == s[0]:
+                return match(s[1:], p[1:])
+            return False
+        return match(s, p)
+
+--- MODEL: qwen ---
+file: t6_p1_r2_qwen.py
+status: ok
+bytecode_length: 42.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+
+        def match(s_idx, p_idx):
+            if s_idx == len(s) and p_idx == len(p):
+                return True
+            if p_idx + 1 < len(p) and p[p_idx + 1] == '*':
+                return match(s_idx, p_idx + 2) or (s_idx < len(s) and p_idx < len(p) and match(s_idx + 1, p_idx))
+            if s_idx < len(s) and p_idx < len(p) and (s[s_idx] == p[p_idx] or p[p_idx] == '?'):
+                return match(s_idx + 1, p_idx + 1)
+            return False
+        return match(0, 0)
+
+==========================================================================================
+CASE: t6_p1_r3
+score: 55
+byte_106 values: 53.0
+byte_107 values: 1.0
+byte_106 opnames: CALL
+byte_107 opnames: CALL
+==========================================================================================
+
+--- MODEL: llama ---
+file: t6_p1_r3_llama.py
+status: ok
+bytecode_length: 792.0
+byte_106: value=53.0, opname=CALL, position=opcode_byte, argrepr=
+byte_107: value=1.0, opname=CALL, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        """
+        Return True if the entire string s matches the wildcard pattern p, otherwise return False.
+
+        Rules:
+        - '?' matches exactly one character
+        - '*' matches any sequence of characters, including the empty sequence
+        - Matching must cover the entire string
+        """
+        if len(p) == 0 and len(s) > 0:
+            return False
+        if len(p) == 0 and len(s) != 0:
+            return False
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for j in range(1, len(p) + 1):
+            if p[j - 1] == '*':
+                dp[0][j] = dp[0][j - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(p) + 1):
+                if p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+                elif p[j - 1] == '?':
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    dp[i][j] = dp[i - 1][j - 1] and s[i - 1] == p[j - 1]
+        return dp[len(s)][len(p)]
+
+--- MODEL: mistral ---
+file: t6_p1_r3_mistral.py
+status: ok
+bytecode_length: 42.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+
+        def match(i, j):
+            if j == len(p):
+                return i == len(s)
+            if j + 1 < len(p) and p[j + 1] == '*':
+                return match(i, j + 1) or (i < len(s) and s[i] == p[i] or match(i + 1, j))
+            if i < len(s) and (p[j] == s[i] or p[j] == '?'):
+                return match(i + 1, j + 1)
+            else:
+                return False
+        return match(0, 0)
+
+--- MODEL: qwen ---
+file: t6_p1_r3_qwen.py
+status: ok
+bytecode_length: 82.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+
+        def match(i: int, j: int) -> bool:
+            if j == len(p):
+                return i == len(s)
+            first_match = i < len(s) and (p[j] == s[i] or p[j] == '?')
+            if p[j] == '*':
+                return match(i, j + 1) or (i < len(s) and match(i + 1, j))
+            else:
+                return first_match and match(i + 1, j + 1)
+        return match(0, 0)
+
+==========================================================================================
+CASE: t6_p2_r1
+score: 55
+byte_106 values: 32.0
+byte_107 values: 0.0
+byte_106 opnames: POP_TOP
+byte_107 opnames: POP_TOP
+==========================================================================================
+
+--- MODEL: llama ---
+file: t6_p2_r1_llama.py
+status: ok
+bytecode_length: 660.0
+byte_106: value=32.0, opname=POP_TOP, position=opcode_byte, argrepr=
+byte_107: value=0.0, opname=POP_TOP, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        """
+        Check whether a string matches a wildcard pattern.
+
+        Args:
+            s (str): The input string.
+            p (str): The wildcard pattern.
+
+        Returns:
+            bool: True if the string matches the pattern, False otherwise.
+        """
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for i in range(1, len(p) + 1):
+            if p[i - 1] == '*':
+                dp[0][i] = dp[0][i - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(p) + 1):
+                if p[j - 1] == '?':
+                    dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+                elif s[i - 1] == p[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+        return dp[len(s)][len(p)]
+
+--- MODEL: mistral ---
+file: t6_p2_r1_mistral.py
+status: ok
+bytecode_length: 42.0
+byte_106: value=nan, opname=nan, position=out_of_range, argrepr=nan
+byte_107: value=nan, opname=nan, position=out_of_range, argrepr=nan
+
+Full code:
+    def wildcard_match(s, p):
+
+        def match(s_index, p_index):
+            if p_index == len(p):
+                return s_index == len(s)
+            current_char = p[p_index]
+            next_char = None
+            if current_char == '*':
+                if match(s_index, p_index + 1):
+                    return True
+                while s_index < len(s):
+                    if match(s_index + 1, p_index):
+                        return True
+                    s_index += 1
+                return False
+            elif current_char == '?' or (current_char == s[s_index] and next_char is None):
+                if p_index + 1 < len(p) and p[p_index + 1] == '*':
+                    return match(s_index + 1, p_index + 2)
+                if p_index + 1 < len(p) and p[p_index + 1] != s[s_index + 1]:
+                    return False
+                if s_index < len(s) - 1 and match(s_index + 1, p_index + 1):
+                    return True
+            else:
+                return False
+        return match(0, 0)
+
+--- MODEL: qwen ---
+file: t6_p2_r1_qwen.py
+status: ok
+bytecode_length: 620.0
+byte_106: value=32.0, opname=POP_TOP, position=opcode_byte, argrepr=
+byte_107: value=0.0, opname=POP_TOP, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def wildcard_match(s: str, p: str) -> bool:
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for j in range(1, len(p) + 1):
+            if p[j - 1] == '*':
+                dp[0][j] = dp[0][j - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(p) + 1):
+                if p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+                elif p[j - 1] == '?' or s[i - 1] == p[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+        return dp[len(s)][len(p)]
+
+==========================================================================================
+CASE: t5_p3_r2
+score: 50
+byte_106 values: 0.0,40.0
+byte_107 values: 0.0
+byte_106 opnames: TO_BOOL
+byte_107 opnames: TO_BOOL
+==========================================================================================
+
+--- MODEL: llama ---
+file: t5_p3_r2_llama.py
+status: ok
+bytecode_length: 344.0
+byte_106: value=0.0, opname=TO_BOOL, position=argument_or_cache_byte, argrepr=
+byte_107: value=0.0, opname=TO_BOOL, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        stack = []
+        for digit in num:
+            while stack and k > 0 and (stack[-1] > digit):
+                k -= 1
+                stack.pop()
+            stack.append(digit)
+        while k > 0:
+            stack.pop()
+            k -= 1
+        return ''.join(stack).lstrip('0') or '0'
+
+--- MODEL: mistral ---
+file: t5_p3_r2_mistral.py
+status: ok
+bytecode_length: 320.0
+byte_106: value=40.0, opname=TO_BOOL, position=opcode_byte, argrepr=
+byte_107: value=0.0, opname=TO_BOOL, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def remove_k_digits(num, k):
+        stack = []
+        for digit in num:
+            while stack and stack[-1] > digit and k:
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        stack = stack[:-k]
+        result = ''.join(stack)
+        if not result:
+            return '0'
+        return ''.join(filter(bool, result))
+
+--- MODEL: qwen ---
+file: t5_p3_r2_qwen.py
+status: ok
+bytecode_length: 374.0
+byte_106: value=40.0, opname=TO_BOOL, position=opcode_byte, argrepr=
+byte_107: value=0.0, opname=TO_BOOL, position=argument_or_cache_byte, argrepr=
+
+Full code:
+    def remove_k_digits(num: str, k: int) -> str:
+        stack = []
+        for digit in num:
+            while k and stack and (stack[-1] > digit):
+                stack.pop()
+                k -= 1
+            stack.append(digit)
+        result = ''.join(stack[:-k]) if k else ''.join(stack)
+        return str(int(result.lstrip('0'))) or '0'

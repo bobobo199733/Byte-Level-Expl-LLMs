@@ -1,0 +1,30 @@
+Here's a Python function called `kth_largest` that meets the specified requirements:
+
+```python
+def heapq_kth_largest(nums, k):
+    import heapq
+
+    if len(nums) < k:
+        raise ValueError("K must be smaller than the length of the list")
+
+    heap = sorted(nums)[:k]
+    return heapq.nlargest(1, heap)[0]
+```
+
+This implementation uses the built-in Python `heapq` module for efficient sorting and prioritization of elements. The function first checks if the specified k is valid, then it sorts the input list and takes the top k elements (which are the k largest numbers). Finally, it returns the largest of these k elements.
+
+Here's a more Pythonic solution without using external libraries:
+
+```python
+def no_heapq_kth_largest(nums, k):
+    if len(nums) < k:
+        raise ValueError("K must be smaller than the length of the list")
+
+    max_heap = [(-num, num) for num in sorted(set(nums), reverse=True)]  # Create a max heap
+    for _ in range(k-1):  # Extract and discard k-1 largest elements from the heap
+        _ = heappop(max_heap)
+
+    return -heappop(max_heap)[1]  # Return the kth largest number by popping from the max heap
+```
+
+This implementation creates a min heap of the unique sorted numbers, then extracts and discards the k-1 largest elements to find the kth largest number. It returns the negative value of the popped element because the min heap uses a custom comparison function with `(-num, num)` tuples to store the negated values as keys in order to maintain the min-heap property.

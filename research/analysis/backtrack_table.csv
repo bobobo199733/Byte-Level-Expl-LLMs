@@ -1,0 +1,8 @@
+task,prompt,byte_pos,llama_run,llama_opname,llama_raw,llama_argval,llama_source,llama_shap,llama_correct,mistral_run,mistral_opname,mistral_raw,mistral_argval,mistral_source,mistral_shap,mistral_correct,qwen_run,qwen_opname,qwen_raw,qwen_argval,qwen_source,qwen_shap,qwen_correct
+t45,p3,16,r1,LOAD_CONST,83,0,"left, right = (0, len(nums) - 1)",0.061,✓,r1,STORE_FAST,110,right,right = len(nums) - 1,0.481,✓,r1,LOAD_FAST_LOAD_FAST,88,"('left', 'right')",while left <= right:,-0.019,✓
+t41,p2,16,r1,LOAD_CONST,83,"<code object <genexpr> at 0x120d848b0, file ""/Users/valentyn","if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",0.01,✓,r2,STORE_FAST,110,word,for word in words:,0.669,✓,r1,LOAD_CONST,83,"<code object <genexpr> at 0x120d848b0, file ""/Users/valentyn","if not isinstance(words, list) or not all((isinstance(word, str) for word in words)):",-0.04,✗
+t41,p3,16,r1,LOAD_ATTR,82,join,sorted_word = ''.join(sorted(word)),0.018,✓,r3,STORE_FAST,110,word,for word in words:,0.548,✓,r1,PUSH_NULL,34,None,anagram_groups = defaultdict(list),0.154,✓
+t49,p1,16,r1,LOAD_CONST,83,1,dp = [False] * (n + 1),0.034,✓,r1,STORE_FAST,110,dp,dp = {len(s) + 1: False},0.471,✓,r1,BINARY_OP,45,5,dp = [False] * (len(s) + 1),0.013,✗
+t49,p3,16,r1,LOAD_CONST,83,1,dp = [False] * (n + 1),0.034,✓,r2,STORE_FAST,110,n,n = len(s),0.739,✓,r1,LOAD_CONST,83,1,dp = [False] * (n + 1),-0.021,✗
+t50,p1,16,r2,POP_JUMP_IF_FALSE,97,54,if len(p) > len(s):,-0.039,✓,r1,STORE_FAST,110,char,for char in p:,0.547,✓,r2,POP_JUMP_IF_FALSE,97,54,if len(s) < len(p):,-0.059,✓
+t44,p3,14,r2,LOAD_FAST_LOAD_FAST,88,"('nums', 'k')",return nums[-k:] + nums[:-k],0.089,✓,r3,BUILD_LIST,47,0,nums[:k] = [],0.373,✓,r1,STORE_FAST,110,k,k %= n,-0.097,✗

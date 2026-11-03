@@ -1,0 +1,33 @@
+Here is a Python function named `longest_palindrome` that finds the longest palindromic substring in a given string:
+
+```python
+def longest_palindrome(s):
+    if len(s) == 0:
+        return ""
+
+    max_length = 1
+    start_index = 0
+
+    for i in range(len(s)):
+        # Odd length palindromes centered at current index
+        low, high = i, i
+        while (low >= 0 and high < len(s) and s[low] == s[high]):
+            if high - low + 1 > max_length:
+                start_index = low
+                max_length = high - low + 1
+            low -= 1
+            high += 1
+
+        # Even length palindromes with current index as the middle
+        low, high = i, i+1
+        while (low >= 0 and high < len(s) and s[low] == s[high]):
+            if high - low + 1 > max_length:
+                start_index = low + 1
+                max_length = high - low + 1
+            low -= 1
+            high += 1
+
+    return s[start_index:start_index+max_length]
+```
+
+This function checks for both odd and even length palindromes in the given string. It iterates through the string, and expands around the center of each possible palindrome, updating `max_length` and `start_index` variables accordingly. Once it finds the longest palindromic substring, it returns that substring as a result.

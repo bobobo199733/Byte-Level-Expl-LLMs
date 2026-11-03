@@ -1,0 +1,9 @@
+{
+  "function_name": "linked_list_cycle",
+  "description": "Detect whether a linked list contains a cycle.",
+  "category": "linked_list",
+  "subtype": "cycle_detection",
+  "difficulty": "medium",
+  "uses_recursion": false,
+  "uses_graph": false
+}

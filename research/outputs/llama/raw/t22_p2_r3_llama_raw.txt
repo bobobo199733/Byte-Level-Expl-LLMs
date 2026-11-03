@@ -1,0 +1,22 @@
+```python
+def sieve_primes(n):
+    """Finds all prime numbers up to and including n using the Sieve of Eratosthenes algorithm."""
+    
+    # Return an empty list if n is less than 2
+    if n < 2:
+        return []
+        
+    # Create a boolean array, prime, of size n+1
+    prime = [True] * (n + 1)
+    prime[0] = prime[1] = False
+    
+    # Iterate from 2 to sqrt(n)
+    for p in range(2, int(n ** 0.5) + 1):
+        # If p is a prime, mark as composite all the multiples of p
+        if prime[p]:
+            for i in range(p * p, n + 1, p):
+                prime[i] = False
+    
+    # Return a list of all prime numbers in the range [2, n]
+    return [p for p in range(2, n + 1) if prime[p]]
+```

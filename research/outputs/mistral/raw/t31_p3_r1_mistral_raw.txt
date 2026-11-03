@@ -1,0 +1,44 @@
+To serialize a binary tree into a string without using any external libraries, we can use Depth-First Search (DFS) approach and convert the tree structure into a level order traversal. Here's a Python implementation:
+
+```python
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+def serialize_tree(root):
+    def dfs(node, result):
+        if node is None:
+            result.append('#')
+            return
+
+        result.append(str(node.val))
+        dfs(node.left, result)
+        dfs(node.right, result)
+
+    result = []
+    dfs(root, result)
+    return ' '.join(result)
+```
+
+In this implementation:
+
+1. `Node` is a simple class to represent binary tree nodes.
+2. The function `serialize_tree` takes the root of the binary tree as an argument.
+3. The `dfs` function performs Depth-First Search and appends the node values to the result list in level order traversal format.
+4. In case of an empty node, it appends '#' instead.
+5. The final string is returned by joining all the elements of the resulting list with spaces.
+
+Here's how you can test the function:
+
+```python
+# Creating a sample binary tree
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+
+print(serialize_tree(root)) # Output: 1 2 3 # 4 5 #
+```

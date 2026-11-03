@@ -1,0 +1,67 @@
+Certainly! To perform a topological sort on a directed acyclic graph (DAG), we can use Kahn's algorithm, which is based on the concept of "in-degrees" of nodes. Here's how you can implement it in Python:
+
+```python
+from collections import defaultdict
+
+def topological_sort(graph):
+    # Initialize the number of incoming edges for each node
+    in_degrees = defaultdict(int)
+    
+    # Calculate in-degrees of all nodes
+    for neighbors in graph.values():
+        for neighbor in neighbors:
+            in_degrees[neighbor] += 1
+    
+    # Initialize a queue with all nodes that have no incoming edges
+    queue = [node for node in graph if in_degrees[node] == 0]
+    
+    # List to store the topological order
+    top_order = []
+    
+    # Process each node until the queue is empty
+    while queue:
+        node = queue.pop(0)
+        top_order.append(node)
+        
+        # Decrease the in-degree of each neighbor by 1
+        for neighbor in graph[node]:
+            in_degrees[neighbor] -= 1
+            
+            # If a neighbor's in-degree becomes zero, add it to the queue
+            if in_degrees[neighbor] == 0:
+                queue.append(neighbor)
+    
+    return top_order
+
+# Example usage:
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D', 'E'],
+    'D': [],
+    'E': []
+}
+
+print(topological_sort(graph))  # Output: ['A', 'B', 'C', 'E', 'D'] or any valid permutation
+```
+
+### Explanation:
+
+1. **In-degree Calculation**:
+   - We first calculate the in-degree (number of incoming edges) for each node. This is done by iterating through all the nodes and their neighbors.
+
+2. **Initialization**:
+   - Nodes with zero in-degrees are added to a queue because they can be processed immediately since they have no dependencies.
+
+3. **Processing**:
+   - We process each node from the queue, add it to the topological order list.
+   - For each of its neighbors, we decrease their in-degree by one. If any neighbor's in-degree becomes zero during this step, we add that node to the queue for processing later.
+
+4. **Result**:
+   - The `top_order` list will contain a valid topological ordering of the nodes if the graph is a DAG (Directed Acyclic Graph).
+
+### Notes:
+
+- This algorithm assumes that the input graph is a directed acyclic graph (DAG). If there are cycles in the graph, this approach will not terminate and may lead to an infinite loop.
+- The output can vary depending on which node of the same level you choose first, but it will always be a valid topological ordering.

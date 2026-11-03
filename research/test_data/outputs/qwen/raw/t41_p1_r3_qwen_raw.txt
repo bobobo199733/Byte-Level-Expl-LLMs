@@ -1,0 +1,39 @@
+Certainly! To group together words that are anagrams of each other, we can use a dictionary to map sorted versions of the words to their original forms. Here's how you can implement this in Python:
+
+```python
+def group_anagrams(words):
+    # Dictionary to hold grouped anagrams
+    anagram_groups = {}
+
+    for word in words:
+        # Sort the characters of the word and create a tuple (since keys must be immutable)
+        sorted_word = tuple(sorted(word))
+
+        # If the tuple is not already in the dictionary, add it with an empty list
+        if sorted_word not in anagram_groups:
+            anagram_groups[sorted_word] = []
+
+        # Append the original word to its corresponding group
+        anagram_groups[sorted_word].append(word)
+
+    # Return the values of the dictionary as a list of lists
+    return list(anagram_groups.values())
+
+# Example usage
+input_words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+print(group_anagrams(input_words))
+```
+
+### Explanation:
+1. **Sorting and Tuples**: We sort the characters of each word to form a key for the dictionary. This works because anagrams will have the same sorted representation.
+2. **Dictionary Construction**: We use a dictionary where the keys are the sorted tuples and the values are lists of words that correspond to those keys (i.e., anagrams).
+3. **Grouping**: For each word, we check if its sorted tuple is already in the dictionary. If it is, we append the original word to the list associated with that key; otherwise, we create a new entry.
+4. **Result**: Finally, we return the values of the dictionary as a list of lists.
+
+### Example Output:
+For the input `["eat", "tea", "tan", "ate", "nat", "bat"]`, the function will output:
+```
+[['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]
+```
+
+This approach ensures that all anagrams are grouped together efficiently.

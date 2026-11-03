@@ -1,0 +1,55 @@
+**Word Frequency Counter**
+=========================
+
+Below is an example of how to create a Python function called `word_frequency` that counts the occurrences of each word in a given text.
+
+```python
+import re
+
+def word_frequency(text):
+    """
+    Counts the occurrences of each word in a given text.
+    
+    Args:
+        text (str): The input text
+    
+    Returns:
+        dict: A dictionary where keys are unique words and values are their frequencies
+    """
+    
+    # Convert to lower case and remove punctuation
+    text = re.sub(r'[^\w\s]', '', text.lower())
+    
+    # Split the text into words
+    words = text.split()
+    
+    # Use a dictionary comprehension to count word frequencies
+    frequency = {word: words.count(word) for word in set(words)}
+    
+    return frequency
+
+# Example usage:
+text = "This is an example sentence. This sentence is just an example."
+print(word_frequency(text))
+```
+
+**Output:**
+
+```python
+{
+    'is': 2, 
+    'an': 2, 
+    'example': 2, 
+    'sentence': 2, 
+    'this': 2, 
+    'just': 1
+}
+```
+
+This function works by:
+
+1. Removing punctuation and converting the text to lower case using a regular expression.
+2. Splitting the text into words using the `split()` method.
+3. Using a dictionary comprehension with `set(words)` to count the occurrences of each word.
+
+Note: This implementation has a time complexity of O(n^2) due to the use of the `count()` method inside the dictionary comprehension. For large texts, you may want to consider using a more efficient data structure or algorithm, such as a hash table or a suffix tree.

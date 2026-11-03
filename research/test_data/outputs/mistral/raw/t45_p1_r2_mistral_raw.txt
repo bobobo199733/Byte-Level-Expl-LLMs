@@ -1,0 +1,19 @@
+Here is a Python function named `search_insert_position` that accomplishes what you've described:
+
+```python
+def search_insert_position(nums, target):
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return left  # If the target is not found, we return the index where it should be inserted
+```
+
+This function uses binary search to find the insertion point for the target in a sorted array. The `left`, `right`, and `mid` variables represent the ranges within which the target might be found or could be inserted, and the while loop continues until we find the target or determine its correct insertion position. When the loop finishes, it returns either the index of the target if it's present or the next available index (where the target would go) if it isn't.

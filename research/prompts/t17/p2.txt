@@ -1,0 +1,8 @@
+Write a Python function called lru_cache(operations, capacity) that simulates a Least Recently Used cache.
+
+Requirements:
+- operations is a list of tuples such as ("put", key, value) or ("get", key).
+- Return a list containing results from all get operations.
+- When capacity is exceeded, evict the least recently used key.
+- Do not use external libraries.
+- Handle repeated updates correctly.

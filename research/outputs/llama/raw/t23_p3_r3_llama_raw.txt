@@ -1,0 +1,43 @@
+```python
+def fast_power(base: int, exponent: int) -> float:
+    """
+    Quickly compute base to the power of exponent using exponentiation by squaring algorithm.
+
+    Args:
+        base (int): The base number.
+        exponent (int): The power to which the base is raised.
+
+    Returns:
+        float: The result of base to the power of exponent.
+    """
+
+    # If the exponent is 0, any base raised to the power of 0 is 1
+    if exponent == 0:
+        return 1
+    
+    # Initialize the result as 1
+    result = 1
+    
+    # Make a copy of the base for repeated squaring
+    temp_base = abs(base)
+    
+    # While the exponent is greater than 0
+    while exponent > 0:
+        
+        # If the exponent is odd, multiply the result by the current base
+        if exponent % 2 == 1:
+            result *= temp_base
+        
+        # Square the current base for the next iteration
+        temp_base *= temp_base
+        
+        # Halve the exponent for the next iteration
+        exponent //= 2
+    
+    # If the original base was negative, return the negative of the result
+    if base < 0:
+        return -result
+    
+    # Return the final result
+    return result
+```

@@ -1,0 +1,15 @@
+Here is a Python function named `fast_power` that calculates base to the exponent using an efficient method, especially for large exponents:
+
+```python
+def fast_power(base, exponent):
+    result = 1
+    while exponent > 0:
+        if exponent % 2 == 1:
+            result *= base
+            exponent -= 1
+        base *= base
+        exponent //= 2
+    return result
+```
+
+This function uses the square-and-multiply algorithm, also known as binary exponentiation, to efficiently compute large exponents. The basic idea is to repeatedly square the base and, if the exponent is odd, multiply the intermediate result by the base. By doing so, we halve the exponent in each iteration, which leads to an O(log n) time complexity for the computation of the power.

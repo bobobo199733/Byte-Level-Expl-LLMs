@@ -1,0 +1,118 @@
+{
+  "feature_selection": "global_shap_importance",
+  "top_n": 48,
+  "classes": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "features": [
+    "byte_69",
+    "byte_142",
+    "byte_186",
+    "byte_14",
+    "byte_181",
+    "byte_16",
+    "byte_254",
+    "byte_132",
+    "byte_36",
+    "byte_55",
+    "byte_85",
+    "byte_4",
+    "byte_68",
+    "byte_140",
+    "byte_98",
+    "byte_82",
+    "byte_247",
+    "byte_103",
+    "byte_202",
+    "byte_87",
+    "byte_2",
+    "byte_193",
+    "byte_44",
+    "byte_71",
+    "byte_76",
+    "byte_20",
+    "byte_251",
+    "byte_57",
+    "byte_230",
+    "byte_223",
+    "byte_156",
+    "byte_179",
+    "byte_134",
+    "byte_205",
+    "byte_222",
+    "byte_77",
+    "byte_50",
+    "byte_86",
+    "byte_166",
+    "byte_218",
+    "byte_15",
+    "byte_204",
+    "byte_75",
+    "byte_35",
+    "byte_235",
+    "byte_92",
+    "byte_41",
+    "byte_195"
+  ],
+  "num_features": 48,
+  "train_samples": 1053,
+  "test_samples": 129,
+  "accuracy": 0.3488372093023256,
+  "classification_report": {
+    "llama": {
+      "precision": 0.3968253968253968,
+      "recall": 0.5555555555555556,
+      "f1-score": 0.46296296296296297,
+      "support": 45.0
+    },
+    "mistral": {
+      "precision": 0.2978723404255319,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.3146067415730337,
+      "support": 42.0
+    },
+    "qwen": {
+      "precision": 0.3157894736842105,
+      "recall": 0.14285714285714285,
+      "f1-score": 0.19672131147540983,
+      "support": 42.0
+    },
+    "accuracy": 0.3488372093023256,
+    "macro avg": {
+      "precision": 0.336829070311713,
+      "recall": 0.3439153439153439,
+      "f1-score": 0.32476367200380213,
+      "support": 129.0
+    },
+    "weighted avg": {
+      "precision": 0.33822433371900806,
+      "recall": 0.3488372093023256,
+      "f1-score": 0.3279776090028524,
+      "support": 129.0
+    }
+  },
+  "confusion_matrix_labels": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "confusion_matrix": [
+    [
+      25,
+      16,
+      4
+    ],
+    [
+      19,
+      14,
+      9
+    ],
+    [
+      19,
+      17,
+      6
+    ]
+  ]
+}

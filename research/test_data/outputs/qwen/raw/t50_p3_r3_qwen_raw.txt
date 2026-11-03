@@ -1,0 +1,55 @@
+Certainly! Here's a Python function `find_all_anagrams` that uses a sliding window approach to find all the starting indices in `s` where an anagram of `p` starts:
+
+```python
+def find_all_anagrams(s, p):
+    from collections import Counter
+    
+    # Lengths of s and p
+    len_s = len(s)
+    len_p = len(p)
+    
+    # If length of p is greater than s, no anagram can exist
+    if len_p > len_s:
+        return []
+    
+    # Create a counter for the characters in p
+    p_count = Counter(p)
+    
+    # Initialize the sliding window and the result list
+    window_count = Counter()
+    result = []
+    
+    # Initial count of characters for the first window of size equal to len_p
+    for i in range(len_p):
+        window_count[s[i]] += 1
+    
+    # Sliding window logic
+    if p_count == window_count:
+        result.append(0)
+    
+    # Slide the window over the string s one character at a time
+    for i in range(len_s - len_p):
+        # Remove the leftmost character of previous window
+        window_count[s[i]] -= 1
+        
+        # Add the new rightmost character to the current window
+        window_count[s[i + len_p]] += 1
+        
+        # Check if both counters match, indicating an anagram found
+        if p_count == window_count:
+            result.append(i + 1)
+    
+    return result
+
+# Example usage:
+s = "cbaebabacd"
+p = "abc"
+print(find_all_anagrams(s, p))  # Output: [0, 6]
+```
+
+### Explanation:
+- **Counter**: We use the `collections.Counter` to count the occurrences of each character in both `p` and the current window in `s`.
+- **Sliding Window**: The function uses a sliding window approach where we maintain a counter for the characters in the current window. As we slide the window one position at a time, we adjust the counts by subtracting the leftmost character count and adding the new rightmost character count.
+- **Comparison**: If the counters match after adjusting, it means the current window contains an anagram of `p`, and we record its starting index.
+
+This function efficiently finds all starting indices where `s` has an anagram of `p`.

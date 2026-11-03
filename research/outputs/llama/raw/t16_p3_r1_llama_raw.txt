@@ -1,0 +1,82 @@
+**Sudoku Solver Function**
+==========================
+
+The following is an implementation of the `sudoku_solver` function in Python, which uses backtracking to solve a Sudoku puzzle.
+
+```python
+def is_valid(board, row, col, num):
+    """
+    Check if it's possible to place a number in the given position.
+    
+    Args:
+        board (list): The Sudoku board.
+        row (int): The row index.
+        col (int): The column index.
+        num (int): The number to be placed.
+    
+    Returns:
+        bool: Whether the placement is valid or not.
+    """
+    # Check if the number already exists in the row or column
+    for x in range(9):
+        if board[row][x] == num or board[x][col] == num:
+            return False
+    
+    # Check if the number exists in the box
+    start_row, start_col = row - row % 3, col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[i + start_row][j + start_col] == num:
+                return False
+    
+    return True
+
+
+def sudoku_solver(board):
+    """
+    Solve a Sudoku puzzle using backtracking.
+    
+    Args:
+        board (list): The Sudoku board.
+    
+    Returns:
+        bool: Whether the puzzle is solvable or not.
+    """
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, i, j, num):
+                        board[i][j] = num
+                        if sudoku_solver(board):
+                            return True
+                        else:
+                            board[i][j] = 0
+                return False
+    
+    return True
+
+
+# Example usage
+board = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
+
+if sudoku_solver(board):
+    for row in board:
+        print(row)
+else:
+    print("No solution exists")
+```
+
+This implementation defines two functions: `is_valid` and `sudoku_solver`. The `is_valid` function checks whether it's possible to place a number at a given position on the board. The `sudoku_solver` function uses backtracking to solve the puzzle.
+
+To use this code, simply call the `sudoku_solver` function with your Sudoku board as an argument. If the puzzle has a solution, the function will modify the board in-place and print it out. Otherwise, it will output "No solution exists".

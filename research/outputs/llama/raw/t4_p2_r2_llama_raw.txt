@@ -1,0 +1,61 @@
+**Decoding Nested Strings**
+==========================
+
+The following Python function decodes strings with nested patterns, as described in the problem statement.
+
+```python
+def decode_string(s: str) -> str:
+    """
+    Decodes a string with nested patterns into its plain text representation.
+    
+    Args:
+        s (str): The input string to be decoded.
+    
+    Returns:
+        str: The decoded string.
+    """
+    
+    # Initialize an empty stack to store counts and strings
+    stack = []
+    
+    # Initialize an empty string to build the result
+    res = ""
+    
+    # Initialize a count variable to 0
+    curr_num = 0
+    
+    # Initialize a string variable to ''
+    curr_str = ""
+    
+    # Iterate over each character in the input string
+    for c in s:
+        
+        # If the character is a digit, update the current number
+        if c.isdigit():
+            curr_num = curr_num * 10 + int(c)
+        
+        # If the character is an opening bracket, push the count and string onto the stack
+        elif c == '[':
+            stack.append(curr_str)
+            stack.append(curr_num)
+            curr_str = ""
+            curr_num = 0
+        
+        # If the character is a closing bracket, pop counts and strings from the stack and repeat the current string that many times
+        elif c == ']':
+            num = stack.pop()
+            prev_str = stack.pop()
+            curr_str = prev_str + num * curr_str
+            
+        # If the character is a letter, add it to the current string
+        else:
+            curr_str += c
+    
+    return res + curr_str
+
+# Example usage:
+print(decode_string("3[a]"))  # Outputs: "aaa"
+print(decode_string("2[a2[b]]"))  # Outputs: "aaabbb"
+```
+
+This function uses a stack to store counts and strings, allowing it to efficiently decode nested patterns. It iterates over each character in the input string, updating counts and strings as necessary based on the character's type (digit, opening bracket, closing bracket, or letter).

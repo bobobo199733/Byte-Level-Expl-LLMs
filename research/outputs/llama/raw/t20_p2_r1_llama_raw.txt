@@ -1,0 +1,49 @@
+Here's the Python function to merge multiple sorted lists:
+
+```python
+import heapq
+
+def merge_k_sorted_lists(lists):
+    """
+    Merges k sorted lists into a single sorted list.
+
+    Args:
+        lists (list): A list containing k sorted integer lists.
+
+    Returns:
+        list: The merged sorted list of integers.
+    """
+    
+    # Handle edge case where input is empty
+    if not lists:
+        return []
+
+    # Create a min-heap from the first element of each list
+    heap = [(lst[0], i, 0) for i, lst in enumerate(lists)]
+    heapq.heapify(heap)
+
+    result = []
+    while heap:
+        val, list_idx, elem_idx = heapq.heappop(heap)
+        
+        # Append the current value to the result list
+        result.append(val)
+        
+        # If there are more elements in the current list, add it to the heap
+        if elem_idx + 1 < len(lists[list_idx]):
+            next_val = lists[list_idx][elem_idx + 1]
+            heapq.heappush(heap, (next_val, list_idx, elem_idx + 1))
+
+    return result
+
+# Example usage:
+lists = [[1, 3, 5], [2, 4, 6], [0, 7, 8]]
+print(merge_k_sorted_lists(lists))  # Output: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+In this code:
+
+- We use Python's built-in `heapq` module to create a min-heap from the first elements of each list.
+- The heap contains tuples where each tuple has three elements: the current value (`val`), its index in the original list (`list_idx`), and its position within that list (`elem_idx`).
+- We then enter a loop where we repeatedly pop the smallest element off the heap, append it to our result list, and push any remaining elements from the same list onto the heap.
+- This process continues until all lists have been processed (i.e., when the heap is empty).

@@ -1,0 +1,71 @@
+Certainly! Below is the implementation of a Python function named `expression_to_postfix` which converts an infix expression to postfix notation. This function uses a stack to handle operators and parentheses:
+
+```python
+def expression_to_postfix(expression):
+    # Operator precedence dictionary
+    prec = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    
+    def is_operator(char):
+        return char in "+-*/^"
+    
+    def get_precedence(op):
+        return prec[op] if op in prec else 0
+    
+    def apply_operation(op, stack, output):
+        while (stack and get_precedence(stack[-1]) >= get_precedence(op)):
+            output.append(stack.pop())
+        stack.append(op)
+    
+    # Split the expression into tokens
+    tokens = []
+    i = 0
+    while i < len(expression):
+        if expression[i].isspace():
+            i += 1
+        elif is_operator(expression[i]):
+            tokens.append(expression[i])
+            i += 1
+        else:
+            start = i
+            while i < len(expression) and not is_operator(expression[i]) and not expression[i].isspace():
+                i += 1
+            tokens.append(expression[start:i])
+
+    stack = []  # Stack to hold operators
+    output = []  # List that will contain the postfix expression
+
+    for token in tokens:
+        if token.isdigit() or (len(token) > 1 and token[0] == '-' and token[1:].isdigit()):
+            output.append(token)
+        elif is_operator(token):
+            apply_operation(token, stack, output)
+        elif token == '(':
+            stack.append(token)
+        elif token == ')':
+            top_token = stack.pop()
+            while top_token != '(':
+                output.append(top_token)
+                top_token = stack.pop()
+
+    # Add remaining operators to the output
+    while stack:
+        output.append(stack.pop())
+
+    return ' '.join(output)
+
+# Example usage
+infix_expression = "3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3"
+postfix_expression = expression_to_postfix(infix_expression)
+print(postfix_expression)  # Output: 3 4 2 * 1 5 - 2 3 ^ ^ / +
+```
+
+### Explanation:
+- **`prec`:** A dictionary that maps operators to their precedence levels.
+- **`is_operator`:** Checks if a character is an operator.
+- **`get_precedence`:** Returns the precedence of an operator.
+- **`apply_operation`:** Pops higher or equal precedence operations from the stack and appends them to the output until it finds an operator with lower precedence, then pushes the current operation onto the stack.
+- **Tokenization:** The expression is split into tokens (numbers, operators, parentheses).
+- **Stack Handling:** Uses a stack to manage operators. When encountering a closing parenthesis `)`, it pops from the stack and appends operators until it finds an opening parenthesis `(`.
+- **Output Construction:** Appends numbers directly to the output list. Operators are pushed onto the stack or popped and appended to the output based on their precedence.
+
+This function will correctly handle parentheses, ensuring that operations inside parentheses are evaluated first before moving outward.

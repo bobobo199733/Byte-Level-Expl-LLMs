@@ -1,0 +1,18 @@
+```python
+def parse_csv_line(line):
+    """
+    Splits a CSV line into fields.
+
+    Args:
+        line (str): A string representing a single line of a CSV file.
+
+    Returns:
+        list: A list of strings where each string is a field from the CSV line.
+    """
+
+    # The split function in Python splits a string into a list where each word is a list item
+    # It defaults to splitting at spaces, but we can specify a different separator like a comma
+    # If the CSV line has quotes around fields with commas inside them, this will work as expected
+
+    return line.split(',')
+```

@@ -1,0 +1,16 @@
+def binary_tree_inorder(tree):
+    if not tree:
+        raise ValueError('Invalid input. The provided tree is empty.')
+    if isinstance(tree, list) and len(tree) == 1 and isinstance(tree[0], (int, float)):
+        return [tree[0]]
+    if not isinstance(tree, (list, type(None))):
+        raise ValueError('Invalid input. The provided tree must be a list or None.')
+    result = []
+
+    def _inorder_traversal(node=tree):
+        if node:
+            _inorder_traversal(node[1])
+            result.append(node[0])
+            _inorder_traversal(node[2])
+    _inorder_traversal()
+    return result

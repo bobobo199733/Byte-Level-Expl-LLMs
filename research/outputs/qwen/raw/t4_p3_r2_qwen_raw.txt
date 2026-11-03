@@ -1,0 +1,16 @@
+```python
+def decode_string(s: str) -> str:
+    stack, num, res = [], 0, ''
+    for char in s:
+        if char.isdigit():
+            num = num * 10 + int(char)
+        elif char == '[':
+            stack.append((res, num))
+            res, num = '', 0
+        elif char.isalpha() or char == ']':
+            res += char
+            if char == ']':
+                prev_res, count = stack.pop()
+                res = prev_res + count * res
+    return res if not stack else ''
+```

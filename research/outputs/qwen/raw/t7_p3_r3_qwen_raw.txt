@@ -1,0 +1,35 @@
+Certainly! To count the number of words in a given string in Python, you can define a function named `word_frequency`. This function will split the input text into words and then count them. Here's how you can do it:
+
+```python
+def word_frequency(text):
+    # Split the text by whitespace to get individual words
+    words = text.split()
+    
+    # Return the number of words
+    return len(words)
+
+# Example usage:
+example_text = "This is an example sentence."
+print(word_frequency(example_text))  # Output: 5
+```
+
+In this function, `text.split()` splits the input string into a list of words based on whitespace (spaces, tabs, and newlines). The `len()` function then counts the number of elements in this list, which corresponds to the number of words in the text.
+
+If you want to handle punctuation more precisely or count words differently, you can modify the splitting logic. For example, you could use regular expressions to split on any non-word character:
+
+```python
+import re
+
+def word_frequency(text):
+    # Split the text by any sequence of non-word characters
+    words = re.findall(r'\b\w+\b', text)
+    
+    # Return the number of words
+    return len(words)
+
+# Example usage:
+example_text = "This is an example sentence."
+print(word_frequency(example_text))  # Output: 5
+```
+
+Here, `re.findall(r'\b\w+\b', text)` uses a regular expression to match sequences of word characters (`\w+`), ensuring that punctuation marks are not included as part of the words.

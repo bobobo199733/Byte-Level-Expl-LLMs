@@ -1,0 +1,70 @@
+Certainly! Below is a Python implementation of a `bfs_shortest_path` function that uses Breadth-First Search (BFS) to find the shortest path between two nodes in an undirected graph. The graph will be represented as an adjacency list.
+
+```python
+from collections import deque
+
+def bfs_shortest_path(graph, start, target):
+    """
+    Perform BFS to find the shortest path from 'start' to 'target' node in a graph.
+    
+    :param graph: A dictionary representing the graph where keys are nodes and values are lists of adjacent nodes.
+    :param start: The starting node for the search.
+    :param target: The target node to reach.
+    :return: The shortest distance (number of edges) from 'start' to 'target'. Returns -1 if there is no path.
+    """
+    
+    # If the graph or any input parameters are invalid, return an error message
+    if not isinstance(graph, dict) or start not in graph or target not in graph:
+        return "Invalid input"
+    
+    # Initialize a queue for BFS and a set to keep track of visited nodes
+    queue = deque([(start, 0)])  # (node, distance)
+    visited = set()
+    
+    while queue:
+        current_node, distance = queue.popleft()
+        
+        if current_node == target:
+            return distance
+        
+        if current_node in visited:
+            continue
+        
+        visited.add(current_node)
+        
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                queue.append((neighbor, distance + 1))
+    
+    # If the target node is not reachable from start
+    return -1
+
+# Example usage:
+
+# Define an undirected graph as a dictionary of adjacency lists
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# Test the function
+start_node = 'A'
+target_node = 'F'
+shortest_distance = bfs_shortest_path(graph, start_node, target_node)
+
+print(f"The shortest path from {start_node} to {target_node} is of length: {shortest_distance}")
+```
+
+### Explanation:
+1. **Graph Representation**: The graph is represented as a dictionary where each key is a node and the corresponding value is a list of adjacent nodes.
+2. **BFS Initialization**: We initialize a queue with a tuple containing the start node and its distance (0).
+3. **Visited Set**: A set is used to keep track of visited nodes to avoid processing them multiple times.
+4. **Queue Processing**: For each node, we check if it's the target node. If so, we return the current distance. Otherwise, we process its unvisited neighbors by appending them to the queue with an incremented distance.
+5. **Result**: The function returns the shortest distance or -1 if no path is found.
+
+### Example Usage:
+In the provided example, the graph is a simple undirected graph and we are finding the shortest path from node 'A' to node 'F'.

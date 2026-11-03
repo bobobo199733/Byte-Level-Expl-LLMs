@@ -1,0 +1,1 @@
+Write a single Python function called word_break(s, word_dict). Return True if the string s can be built by concatenating words from word_dict (reuse allowed), False otherwise. Use dynamic programming.

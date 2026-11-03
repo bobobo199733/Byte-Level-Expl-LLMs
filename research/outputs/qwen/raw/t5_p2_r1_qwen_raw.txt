@@ -1,0 +1,47 @@
+To solve this problem, we can use a greedy approach by leveraging a stack to ensure that we always have the smallest possible number after removing `k` digits. Here's how you can implement it:
+
+1. Convert the number string into a list of characters so that we can easily manipulate individual digits.
+2. Use a stack to keep track of the current sequence of digits that forms the smallest possible number.
+3. Iterate through each digit in the input string and decide whether to push or pop from the stack based on the comparison with the next digit.
+4. After processing all digits, ensure we remove exactly `k` digits by popping additional elements from the stack if necessary.
+5. Construct the final result string from the stack.
+
+Here's the implementation:
+
+```python
+def remove_k_digits(num: str, k: int) -> str:
+    # Edge case: if the number is of length k or less, we can't remove any digits and must return "0"
+    if len(num) <= k:
+        return "0"
+
+    stack = []
+    
+    for digit in num:
+        while k > 0 and stack and stack[-1] > digit:
+            stack.pop()
+            k -= 1
+        stack.append(digit)
+    
+    # Remove remaining k digits from the end of the sequence
+    while k > 0:
+        stack.pop()
+        k -= 1
+    
+    # Construct the result string from the stack, removing any leading zeros
+    result = ''.join(stack).lstrip('0')
+    
+    # If the result is empty after stripping, return "0"
+    return result if result else "0"
+
+# Example usage:
+print(remove_k_digits("1432219", 3))  # Output: "1219"
+print(remove_k_digits("10200", 1))    # Output: "200"
+print(remove_k_digits("10", 2))       # Output: "0"
+```
+
+### Explanation:
+- **Stack Usage**: The stack helps in maintaining the smallest possible number by ensuring that when we encounter a smaller digit, it replaces the larger previous digits.
+- **Edge Case Handling**: If the length of the number is equal to or less than `k`, removing all digits results in "0".
+- **Final Cleanup**: After processing all digits and potentially removing extra digits from the stack, any leading zeros are removed to get the smallest possible number.
+
+This approach ensures that the resulting number is as small as possible after removing exactly `k` digits.

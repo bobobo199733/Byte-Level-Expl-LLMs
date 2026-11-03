@@ -1,0 +1,4 @@
+Write one Python function called json_validator(text) that checks if a string is valid JSON.
+
+Use only one function with that exact name.
+Do not use built-in JSON libraries.

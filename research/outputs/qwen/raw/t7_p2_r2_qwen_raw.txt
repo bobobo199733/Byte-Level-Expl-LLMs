@@ -1,0 +1,53 @@
+Certainly! Below is a Python function `word_frequency` that takes a string as input, splits the text into words based on whitespace, counts the frequency of each word, and returns a dictionary with the word frequencies.
+
+```python
+def word_frequency(text):
+    # Initialize an empty dictionary to store word counts
+    word_count = {}
+    
+    # Split the text by one or more whitespace characters (including tabs, newlines)
+    words = text.split()
+    
+    # Iterate over each word in the list of words
+    for word in words:
+        # Remove any leading and trailing punctuation using translate and string.maketrans if needed
+        word = word.strip(' ,.!?;:"\'()[]{}')
+        
+        # Convert to lowercase to ensure case-insensitive counting
+        word = word.lower()
+        
+        # Update the count of the current word in the dictionary
+        if word in word_count:
+            word_count[word] += 1
+        else:
+            word_count[word] = 1
+    
+    return word_count
+
+# Example usage
+text = "Hello, world! Hello everyone. This is a simple example."
+result = word_frequency(text)
+print(result)
+```
+
+### Explanation:
+- **Splitting the Text**: `text.split()` splits the input text by any whitespace character (spaces, tabs, newlines), producing a list of words.
+- **Removing Punctuation and Lowercasing**: The `strip` method is used to remove leading and trailing punctuation. You can extend this part if you need to handle more specific cases. Then, we convert each word to lowercase to ensure the counting is case-insensitive.
+- **Counting Words**: We use a dictionary to keep track of how many times each word appears.
+
+### Example Output:
+For the provided example text:
+
+```python
+text = "Hello, world! Hello everyone. This is a simple example."
+result = word_frequency(text)
+print(result)
+```
+
+The output will be:
+
+```python
+{'hello': 2, 'world': 1, 'everyone': 1, 'this': 1, 'is': 1, 'a': 1, 'simple': 1, 'example': 1}
+```
+
+This function should meet your requirements and work with standard Python.

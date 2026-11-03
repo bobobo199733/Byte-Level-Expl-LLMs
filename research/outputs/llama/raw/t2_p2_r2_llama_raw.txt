@@ -1,0 +1,42 @@
+Here's the solution in Python using a stack data structure to keep track of opening brackets.
+
+```python
+def is_balanced(s: str) -> bool:
+    """
+    Check whether brackets are balanced and correctly nested.
+
+    Args:
+        s (str): The input string containing brackets and possibly other characters.
+
+    Returns:
+        bool: True if the brackets in the string are balanced, False otherwise.
+    """
+
+    # Define a dictionary to map closing brackets to their corresponding opening ones
+    bracket_map = {')': '(', '}': '{', ']': '['}
+
+    # Initialize an empty stack to store opening brackets
+    stack = []
+
+    # Iterate over each character in the input string
+    for char in s:
+        # If the character is an opening bracket, push it onto the stack
+        if char in bracket_map.values():
+            stack.append(char)
+        # If the character is a closing bracket and the stack is not empty
+        elif char in bracket_map.keys() and stack:
+            # Get the last opening bracket from the stack
+            last_opening = stack.pop()
+            # If it doesn't match with the current closing bracket, return False
+            if bracket_map[char] != last_opening:
+                return False
+
+    # After iterating over all characters, if the stack is empty and there were no mismatches, return True
+    return not stack
+
+# Example usage:
+print(is_balanced("([{}])"))  # Returns: True
+print(is_balanced("(]{"))     # Returns: False
+```
+
+This solution has a time complexity of O(n) where n is the length of the input string and uses extra space for storing opening brackets in the stack.

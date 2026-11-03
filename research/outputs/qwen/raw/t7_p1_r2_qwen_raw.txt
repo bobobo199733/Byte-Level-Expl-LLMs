@@ -1,0 +1,44 @@
+Certainly! Below is a Python function named `word_frequency` that takes a string `text` as input and returns a dictionary where the keys are words and the values are the frequency of their occurrences in the text.
+
+```python
+def word_frequency(text):
+    # Convert to lowercase to ensure case-insensitive counting
+    text = text.lower()
+    
+    # Import necessary library
+    import re
+    
+    # Use regular expression to find all words (sequences of alphanumeric characters)
+    words = re.findall(r'\b\w+\b', text)
+    
+    # Initialize an empty dictionary to store word frequencies
+    frequency_dict = {}
+    
+    # Iterate over each word and count its occurrences
+    for word in words:
+        if word in frequency_dict:
+            frequency_dict[word] += 1
+        else:
+            frequency_dict[word] = 1
+    
+    return frequency_dict
+
+# Example usage:
+text = "Hello world! Hello everyone. Welcome to the world of Python."
+print(word_frequency(text))
+```
+
+### Explanation:
+- **Lowercasing**: The text is converted to lowercase using `lower()` to ensure that the function counts words regardless of their case.
+- **Regular Expression**: The regular expression `\b\w+\b` is used to extract all sequences of alphanumeric characters (words) from the input string. This helps in handling punctuation and spaces properly.
+- **Dictionary Initialization**: An empty dictionary `frequency_dict` is initialized to keep track of word frequencies.
+- **Counting Words**: For each word found, the function checks if it already exists in the dictionary. If so, it increments its count; otherwise, it adds the word with a count of 1.
+
+### Output:
+For the example text provided, the output would be:
+
+```python
+{'hello': 2, 'world': 2, 'everyone': 1, 'welcome': 1, 'to': 1, 'the': 1, 'of': 1, 'python': 1}
+```
+
+This function can be used to analyze the frequency of words in any given text.

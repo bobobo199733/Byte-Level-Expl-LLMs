@@ -1,0 +1,55 @@
+return HistGradientBoostingClassifier(
+            max_iter=300,
+            learning_rate=0.05,
+            max_leaf_nodes=31,
+            l2_regularization=0.1,
+            random_state=28,
+            class_weight="balanced",
+        )
+hist_gradient_boosting:
+with mask:
+768 - 34.88%
+512 - 34.11%
+256 - 40.31%
+200 - 32.56%
+128 - 33.33%
+
+no mask:
+768 - 34.88%
+512 - 34.11%
+256 - 40.31%
+
+
+
+return HistGradientBoostingClassifier(
+            max_iter=800,
+            learning_rate=0.02,
+            max_leaf_nodes=31,
+            l2_regularization=0.5,
+            min_samples_leaf=20,
+            random_state=28,
+            class_weight="balanced",
+        )
+
+256 - 41.86% no mask
+xgboost:
+with mask:
+2048 - 38.76%
+1024 - 38.76%
+768 - 38.76%
+512 - 37.98%
+256 - 38.76%
+128 - 31.78%
+
+
+without mask:
+2048 - 37.21%
+1024 - 37.21%
+768 - 39.53%
+512 - 39.53%
+256 - 36.43%
+128 - 37.21%
+
+
+
+

@@ -1,0 +1,10 @@
+Write exactly ONE Python function called knapsack_01(weights, values, capacity) that computes the optimal value for the 0/1 knapsack problem.
+
+Requirements:
+- Use only one function named knapsack_01.
+- Each item can either be taken once or not taken at all.
+- Maximize total value without exceeding capacity.
+- Handle empty input lists correctly.
+- Use an efficient dynamic programming solution.
+- Do not use external libraries.
+- The implementation should be readable and robust.

@@ -1,0 +1,9 @@
+Write exactly one Python function called matrix_multiply(A, B) that returns the matrix product of A and B.
+
+Requirements:
+- Return only the function definition and nothing else.
+- Do not define helper functions or classes.
+- Do not use external libraries.
+- A and B are lists of lists containing integers.
+- Handle rectangular matrices correctly.
+- Raise ValueError if the matrix dimensions are incompatible.

@@ -1,0 +1,75 @@
+Here is a high-quality Python function that meets your requirements:
+
+```python
+def roman_to_int(s: str) -> int:
+    """
+    Convert a Roman numeral string into its integer value.
+    
+    Args:
+        s (str): The Roman numeral string to convert.
+        
+    Returns:
+        int: The integer value of the input Roman numeral string.
+    
+    Raises:
+        ValueError: If the input is not valid, including incorrect subtractive notation or invalid repetitions.
+    """
+    
+    # Define a dictionary mapping Roman numerals to their integer values
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    # Initialize the result to 0
+    result = 0
+    
+    # Check if the input is a string and contains only valid characters
+    if not isinstance(s, str) or not all(c in roman_values for c in s):
+        raise ValueError("Invalid Roman numeral string")
+    
+    # Iterate over each character in the input string
+    for i, char in enumerate(s):
+        
+        # If this is not the last character and its value is less than the next one,
+        # subtract its value from the result (this handles subtractive notation)
+        if i < len(s) - 1 and roman_values[char] < roman_values[s[i + 1]]:
+            result -= roman_values[char]
+        else:
+            # Otherwise, add its value to the result
+            result += roman_values[char]
+    
+    # If the final result is less than 0 or greater than 3999 (the largest valid Roman numeral),
+    # raise a ValueError
+    if not 1 <= result <= 3999:
+        raise ValueError("Invalid Roman numeral string")
+    
+    return result
+```
+
+Here's an example use case:
+
+```python
+print(roman_to_int('III'))   # Output: 3
+print(roman_to_int('IV'))    # Output: 4
+print(roman_to_int('IX'))    # Output: 9
+print(roman_to_int('LVIII')) # Output: 58
+print(roman_to_int('MCMXCIV')) # Output: 1994
+
+try:
+    print(roman_to_int('MMXI'))
+except ValueError as e:
+    print(e) # Output: Invalid Roman numeral string
+
+try:
+    print(roman_to_int('ABC'))
+except ValueError as e:
+    print(e) # Output: Invalid Roman numeral string
+```
+
+This code works by defining a dictionary that maps each Roman numeral character to its integer value. It then iterates over the input string, adding or subtracting the value of each character from the result based on whether it represents an addition or subtraction in the original notation. Finally, it checks if the final result is within the valid range for Roman numerals (1-3999) and raises a ValueError if not.

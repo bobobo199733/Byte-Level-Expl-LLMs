@@ -1,0 +1,58 @@
+**N-Queens Function**
+======================
+
+The following Python function, `n_queens`, returns all valid solutions to the N-Queens problem. This function uses a backtracking approach with recursion.
+
+```python
+def n_queens(n):
+    """
+    Returns all valid board configurations for the N-Queens problem.
+    
+    Parameters:
+        n (int): The size of the square board.
+        
+    Returns:
+        list[list[str]]: A list of all valid board configurations. Each configuration is represented as a list of strings, where 'Q' denotes a queen and '.' denotes an empty space.
+    """
+    def backtrack(row):
+        # If all queens are placed, add the current configuration to the result
+        if row == n:
+            solution = [''.join(board[i]) for i in range(n)]
+            solutions.append(solution)
+            return
+        
+        # Try to place a queen in each column of the current row
+        for col in range(n):
+            if is_valid(board, row, col):
+                board[row] = board[row][:col] + 'Q' + board[row][col+1:]
+                backtrack(row + 1)
+    
+    def is_valid(board, row, col):
+        # Check if a queen can be placed at the specified position
+        for i in range(row):
+            if board[i] == '.' * col or board[i][col - (row-i)] == 'Q':
+                return False
+        return True
+    
+    solutions = []
+    board = ['.'] * n  # Initialize the board with empty spaces
+    backtrack(0)
+    return solutions
+```
+
+**Example Usage**
+----------------
+
+```python
+# Get all valid configurations for a 4x4 board
+solutions_4x4 = n_queens(4)
+
+# Print each solution on a new line, with rows separated by commas
+for i, solution in enumerate(solutions_4x4):
+    print(f'Solution {i+1}:')
+    for row in solution:
+        print(row)
+    print()
+```
+
+This code will output all valid board configurations for the 4-Queens problem. You can modify it to handle larger values of `n` or use it as a starting point for other problems involving backtracking and recursion.

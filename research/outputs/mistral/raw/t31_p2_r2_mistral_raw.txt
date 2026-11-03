@@ -1,0 +1,47 @@
+To serialize a binary tree into a string representation, we can use Depth-First Search (DFS) with Preorder traversal. In this approach, we visit the current node, then its left subtree, and finally its right subtree. For null or empty child nodes, we represent them as 'N' in the serialization. Here is the implementation of the `serialize_tree` function:
+
+```python
+class Node:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+def serialize_tree(root):
+    def _serialize_tree(node, serialized=[]):
+        if node is None:
+            serialized.append('N')
+        else:
+            serialized.append(str(node.val))
+            serialized = _serialize_tree(node.left, serialized)
+            serialized = _serialize_tree(node.right, serialized)
+        return serialized
+
+    if root is None:
+        return ''
+    return ' '.join(_serialize_tree(root))
+```
+
+In this code, the `Node` class represents each node in the binary tree with a value (x), a left child (left), and a right child (right). The `serialize_tree` function takes the root of the tree as an argument and returns a space-separated string representation of the serialized tree.
+
+The inner function `_serialize_tree` performs the recursive DFS traversal, visiting the current node, its left subtree, and its right subtree in that order. If a node is null or empty (i.e., None), it is represented as 'N' in the serialization. The outer function wraps the _serialize_tree call to serialize the entire tree.
+
+To deserialize the serialized string back into a binary tree, you can split the string by spaces, and reconstruct the nodes using their positions in the list. Here is an example implementation for reference:
+
+```python
+def deserialize(data):
+    if not data:
+        return None
+
+    def _deserialize_helper(data, index):
+        if data[index] == 'N':
+            return None
+        node = Node(int(data[index]))
+        node.left = _deserialize_helper(data, 2 * index + 1)
+        node.right = _deserialize_helper(data, 2 * index + 2)
+        return node
+
+    return _deserialize_helper(data, 0)
+```
+
+The `deserialize` function splits the serialized string by spaces and then uses a helper function called `_deserialize_helper` to recursively build each node in the tree. The helper function takes the data list and the current index as arguments, deserializes the current node using its position in the list, and builds the left and right child nodes recursively.

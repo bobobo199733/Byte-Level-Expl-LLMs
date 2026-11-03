@@ -1,0 +1,36 @@
+{
+  "experiment": "rq1_validation_v1",
+  "seeds": [
+    7,
+    42,
+    101
+  ],
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "bootstrap_draws": 1000,
+  "variants": [
+    "ast_original",
+    "ast_no_length",
+    "ast_core_count",
+    "ast_core_prop",
+    "length_only",
+    "opcode_full",
+    "opcode_ngram"
+  ],
+  "ngrams": "complete_opcode_bigrams_stable_hashed",
+  "ngram_buckets": 256,
+  "classifier": "logistic_regression",
+  "tuning": "inner_task_grouped_macro_f1",
+  "task_partition": "stratified_groupkfold_shuffled_by_seed",
+  "n": 1316,
+  "n_tasks": 50,
+  "python": "3.13.18",
+  "numpy": "2.5.4",
+  "pandas": "3.1.0",
+  "sklearn": "1.9.1",
+  "train_sha256": "cc82fd8d2a61c20521f98149ff5a549636f02c7b45f974087164d95138adedb0",
+  "test_sha256": "f8b58a0f4b55ca5534211e41dd293d1d64c807bf4c4c41e4dc781ca8e0fcb9af",
+  "source_audit_sha256": "9e3d07a9c5d16f35ce1fbf72e6545241bece8f2003a2d9a9ea31c5eb9c248223",
+  "correctness_score_coverage": 154,
+  "prepare_only": true
+}

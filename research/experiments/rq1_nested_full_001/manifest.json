@@ -1,0 +1,38 @@
+{
+  "ast_source_inventory_sha256": "e166c88dfd86302fd7a16bed047f2c26551b57d93a70895a00b9a4f051ca4fc2",
+  "method": "nested_groupkfold_classification",
+  "description": "Source-independent model attribution across disjoint programming tasks",
+  "timestamp_utc": "2026-11-03T12:18:30.862838+00:00",
+  "seed": 42,
+  "outer_folds": 5,
+  "inner_folds": 4,
+  "bootstrap_draws": 2000,
+  "representations": [
+    "positional",
+    "opcode_hist",
+    "ast"
+  ],
+  "models": [
+    "xgboost",
+    "logistic"
+  ],
+  "classes": [
+    "llama",
+    "mistral",
+    "qwen"
+  ],
+  "n_samples": 1316,
+  "n_tasks": 50,
+  "train_csv": "/home/bandrei/Byte-Level-Expl-LLMs/research/features/processed_bytecode_features.csv",
+  "test_csv": "/home/bandrei/Byte-Level-Expl-LLMs/research/test_data/features/processed_bytecode_features.csv",
+  "train_sha256": "cc82fd8d2a61c20521f98149ff5a549636f02c7b45f974087164d95138adedb0",
+  "test_sha256": "f8b58a0f4b55ca5534211e41dd293d1d64c807bf4c4c41e4dc781ca8e0fcb9af",
+  "source_inventory_file": "ast_source_inventory.csv",
+  "python_version": "3.13.18",
+  "numpy_version": "2.5.4",
+  "pandas_version": "3.1.0",
+  "sklearn_version": "1.9.1",
+  "xgboost_version": "3.4.1",
+  "representation_length": 320,
+  "note": "AST baseline reads original archived cleaned sources; does not run them."
+}

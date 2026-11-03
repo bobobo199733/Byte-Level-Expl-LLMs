@@ -15,7 +15,7 @@ archive and their outputs inspected before any new rows can be closed.
 | 2 | SHAP overclaim | Partial | Classifier-vs-generator boundary in code and protocol | Revise manuscript title, RQs, abstract and conclusion |
 | 3 | Brittle byte position | Covered | Full opcode frequency/bigram RQ1 alternatives | Report original positional limitations |
 | 4 | Simpler representations | Partial | AST, opcode, n-gram, positional and length controls | Matched source-token representation and structural motif baseline not run |
-| 5 | Value added by SHAP | Partial | Matched opcode-frequency ranking baseline and overlap | Permutation importance baseline and human useful-insight assessment absent |
+| 5 | Value added by SHAP | Partial | Matched opcode-frequency ranking baseline and overlap | Permutation importance baseline and externally validated explanation usefulness absent |
 | 6 | Weak classifier signal | Partial | Grouped RQ1 validation, uncertainty, negative findings | Limit scope; cannot infer strong implementation-specific signal |
 | 7 | Single split | Covered | 3 seeds, 5x4 task-disjoint grouped CV | Independent external replication is still absent |
 | 8 | Confidence and significance | Partial | RQ1 task-bootstrap; new RQ2 task-bootstrap and class-recall CIs | Run and inspect new report; grouped baseline contrasts and multiplicity control |
@@ -24,13 +24,13 @@ archive and their outputs inspected before any new rows can be closed.
 | 11 | Task/length/preprocessing confounds | Partial | RQ1 size/docstring controls reveal confounding | Recheck specific STORE_FAST association with controls |
 | 12 | Semantics-preserving robustness | Open | Intervention protocol below | Execute valid controlled source edits and prediction/attribution reruns |
 | 13 | Specific implementation insights | Partial | Source trace and new recurrence/counterexample diagnostics | Structured qualitative interpretation and source-level task breadth |
-| 14 | Backtracking subjectivity | Partial | Deterministic trace and independent-review rubric | Two independent reviewers and adjudication |
+| 14 | Backtracking subjectivity | Partial | Deterministic bytecode-to-source trace and structured counterexample auditing | Interpretation cannot be independently validated using this artifact alone |
 | 15 | Faithfulness | Partial | Exact class-logit additivity and model-feature replacement | Valid source/bytecode interventions and behavioral check |
 | 16 | Per-class evaluation | Covered | Confusion, classification reports, per-task scores, confidence | Discuss poor class performance in manuscript |
 | 17 | Generation failures/exclusions | Open | Generation artifact inventory script | Run; verify true attempts and exclusion causes using logs |
 
 Note: The spreadsheet has 17 items, indexed 0–16. The matrix
-uses human-friendly 1–17 for the **same** 17 reviewer items.
+uses item numbers 1–17 for the **same** 17 reviewer items.
 Additional cross-cutting reproducibility requirements (source checksums,
 manifest, repeatable commands and a clean artifact) are tracked in the
 existing runbooks and are not counted as an eighteenth sheet item.
@@ -54,30 +54,18 @@ algebraically faithful to the auxiliary model; rankings show low-to-
 moderate stability and source trace examples are *selected* cases,
 not representative evidence of generated-code semantic choices.
 
-**Interpretive protocol for each pattern:**
-1. Record model class, opcode, fold-support count, selected-feature
-   ranking, and the generation task ID.
-2. Confirm opcode and source construct using the canonical trace;
-   report that line numbers are for normalized source.
-3. Verify true generating class, predicted class and sign of logit
-   contribution separately. A positive class contribution is not
-   evidence that the class won the prediction.
-4. Report supporting examples *and* counterexamples from other
-   generating models, including support across **different tasks**.
-5. Compare against class-versus-rest opcode frequency difference.
-   Do not call a ranking difference evidence that SHAP offers more
-   human value.
-6. Have two reviewers independently label the pattern:
-   `syntactic_structure`, `implementation_strategy`,
-   `size_or_documentation`, `generic_python_opcode`,
-   `unclear`. Store two labels and notes before adjudication.
-7. Accept a semantic implementation-style claim only when repeated
-   across multiple tasks and supported by independent agreement AND
-   a controlled code-level intervention; otherwise label it
-   `candidate_classifier_association`.
+**Automated interpretation evidence for each pattern:**
+1. Report model class, opcode, held-out fold support and program task.
+2. Resolve the opcode to normalized-source instructions using the canonical trace.
+3. Distinguish true generating class, predicted class and class-logit contribution.
+4. Report supporting cases *and* counterexamples from different models/tasks.
+5. Compare class-associated features against training-only opcode frequency differences.
+6. Label anything beyond the verified source construct as a candidate
+   classifier association, not a proven LLM implementation preference.
 
-**Manual review queue schema (create spreadsheet/CSV separately):**
-`case_id,task,file_name,true_model,predicted_model,explained_class,opcode,opname,logit_contribution,source_snippet,reviewer_A_label,reviewer_A_reason,reviewer_B_label,reviewer_B_reason,agreement,adjudicated_label,adjudication_notes`.
+This study does not include independent human interpretation validation.
+Therefore the corresponding reviewer concern is **not closed** and any claim
+about usefulness to developers must remain qualified.
 
 ## Running the new reviewer-oriented diagnostics
 
@@ -108,9 +96,8 @@ Commit the two output folders using `git add -f` because
   change the intended implementation construct; deletion of a
   docstring or arbitrary opcode replacement does **not** satisfy
   these requirements.
-- To address subjective interpretation, collect independent human
-  judgments. A script cannot create genuine independent reviewer
-  agreement.
+- Subjective interpretation is a remaining limitation; automated
+  tracing and counterexample auditing do not replace external validation.
 - To address full-rank SHAP stability, save all feature contributions
   in a newly versioned RQ2 rerun; current top-10 exports cannot
   reconstruct ranks 11–256.

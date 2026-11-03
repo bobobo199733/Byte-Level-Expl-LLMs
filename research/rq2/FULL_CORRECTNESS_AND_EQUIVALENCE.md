@@ -21,7 +21,7 @@ git pull --ff-only origin feat/rq2-bytecode-explanation-validation-20261103
 source research/.venv313/bin/activate
 
 # 1. Score every one of 1,316 retained programs against ALL provided task
-#    cases (valid_cases, explicit_cases, invalid_cases).
+#    cases (valid_cases, explicit_cases, legacy tests, invalid_cases).
 python research/rq2/evaluate_correctness.py \
   --sandbox-image "$PWD/python313.sif" \
   --timeout 20 \
@@ -69,10 +69,19 @@ The task metadata are read directly from archived
 - \`valid_cases\`: reference output equality;
 - \`explicit_cases\`: reference output equality (previous checker
   failed to include this field);
+- \`tests\`: older archived task fixtures with expected input/output pairs;
 - \`invalid_cases\`: expected exception type;
 - \`allow_multiple_expected\`: accepts any documented expected result.
 
-The resulting \`correctness_results.csv\` contains 1316 rows and
+**Documented oracle gap:** Tasks **t31–t40** have descriptive metadata
+but no `valid_cases`, `explicit_cases`, `tests`, or `invalid_cases`.
+Programs from these tasks are classified as `untestable`; their
+correctness cannot be inferred from these archived metadata. Obtaining
+full *scored* correctness coverage requires independently verified
+executable specifications for these ten tasks. The pipeline still
+accounts for all 1316 programs.
+
+The resulting `correctness_results.csv` contains 1316 rows and
 per-program counts, model, task, source hashes, and one of
 \`pass\` / \`fail\` / \`untestable\`. A program is \`pass\` only when
 **all available documented cases pass**.

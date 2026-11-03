@@ -214,3 +214,14 @@ sandbox, smoke test, and full held-out classifier intervention protocol.
 The study does not conduct independent human review. Its source-tracing
 results remain candidate classifier associations, not independently
 validated explanations of LLM implementation choices.
+
+## Final automated correctness and equivalence stage
+
+Use [FULL_CORRECTNESS_AND_EQUIVALENCE.md](FULL_CORRECTNESS_AND_EQUIVALENCE.md)
+for the exact three-command final run: evaluate the entire retained archive
+against existing task oracle cases, compare all historical 72 interventions
+against additional observed inputs inside Apptainer, and report
+correctness-stratified OOF classifier performance and local SHAP attributions.
+Programs from tasks t31–t40 do not have executable task oracle cases in the
+archived metadata and are reported **untestable**, never presumed correct.
+No human-review procedure is required.

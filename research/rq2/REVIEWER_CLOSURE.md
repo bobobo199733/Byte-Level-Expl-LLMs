@@ -20,12 +20,12 @@ archive and their outputs inspected before any new rows can be closed.
 | 7 | Single split | Covered | 3 seeds, 5x4 task-disjoint grouped CV | Independent external replication is still absent |
 | 8 | Confidence and significance | Partial | RQ1 task-bootstrap; new RQ2 task-bootstrap and class-recall CIs | Run and inspect new report; grouped baseline contrasts and multiplicity control |
 | 9 | SHAP ranking stability | Partial | Top-10 Jaccard over 15 fits and recurrent support | Full 256-feature rank correlations not archived |
-| 10 | Code correctness | Partial | Archived coverage 154/1316 | Securely score missing programs; controlled correct-only analysis |
+| 10 | Code correctness | Partial | New `evaluate_correctness.py` audits every retained program and `analyze_correctness_effect.py` rechecks OOF accuracy and attributions by task-test status | Run and inspect results; tasks t31–t40 have no executable task test oracle, so full correctness cannot be established from the archive |
 | 11 | Task/length/preprocessing confounds | Partial | RQ1 size/docstring controls reveal confounding | Recheck specific STORE_FAST association with controls |
-| 12 | Semantics-preserving robustness | Open | Intervention protocol below | Execute valid controlled source edits and prediction/attribution reruns |
+| 12 | Semantics-preserving robustness | Partial | Completed 72 original intervention attempts; new `evaluate_equivalence.py` checks original/edited behavior on task inputs plus additional probes | Run new validation; observed agreement is not formal general semantic equivalence |
 | 13 | Specific implementation insights | Partial | Source trace and new recurrence/counterexample diagnostics | Structured qualitative interpretation and source-level task breadth |
 | 14 | Backtracking subjectivity | Partial | Deterministic bytecode-to-source trace and structured counterexample auditing | Interpretation cannot be independently validated using this artifact alone |
-| 15 | Faithfulness | Partial | Exact class-logit additivity and model-feature replacement | Valid source/bytecode interventions and behavioral check |
+| 15 | Faithfulness | Partial | Exact class-logit additivity, intervention results and new differential probe checks | Run and interpret new empirical study; no unrestricted semantic/causal guarantee |
 | 16 | Per-class evaluation | Covered | Confusion, classification reports, per-task scores, confidence | Discuss poor class performance in manuscript |
 | 17 | Generation failures/exclusions | Open | Generation artifact inventory script | Run; verify true attempts and exclusion causes using logs |
 
@@ -86,10 +86,11 @@ Commit the two output folders using `git add -f` because
 
 ## Explicit remaining prerequisites
 
-- To address correctness fully, acquire full valid-case/invalid-case
-  test results for **all** included programs. Execute untrusted
-  generated code only in an isolated sandbox with time/memory/resource
-  limits; never run it in this repository's login-node process.
+- To assess correctness, run the new isolated full-dataset evaluator.
+  Tasks **t31–t40 have no executable test oracle** in their archived
+  metadata, so those programs remain untestable until verifiable
+  reference tests are supplied. Execute generated programs only
+  in the approved, resource-limited isolated sandbox.
 - To address true source-level intervention faithfulness, plan a
   controlled semantics-preserving edit study. Edits must pass original
   and edited task tests, be independently reviewed, and be shown to
@@ -101,3 +102,12 @@ Commit the two output folders using `git add -f` because
 - To address full-rank SHAP stability, save all feature contributions
   in a newly versioned RQ2 rerun; current top-10 exports cannot
   reconstruct ranks 11–256.
+
+## Final automated validation stage
+
+[Full correctness and observed-equivalence protocol](FULL_CORRECTNESS_AND_EQUIVALENCE.md)
+provides the commands for a 1,316-program inventory of task-test outcomes,
+reassessment of all 72 original intervention pairs using task cases and extra
+differential probes, and correctness-stratified OOF accuracy/SHAP analyses.
+These scripts require execution; their existence does **not** mark a reviewer
+concern as closed. No human-review data are generated.

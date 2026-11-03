@@ -169,3 +169,40 @@ and task coverage, and (iv) stronger evidence from behavior-preserving
 code interventions *before* claiming semantic implementation strategies.
 Include simple frequency baselines; a feature already obvious from
 class-conditional opcode frequencies is not a unique SHAP insight.
+
+
+## Reviewer-sheet closure diagnostics (added)
+
+The reviewer-sheet requirements and evidence gates are recorded in
+[REVIEWER_CLOSURE.md](REVIEWER_CLOSURE.md). To audit archived generation
+files and quantify out-of-task classifier uncertainty and source-example
+counterexamples without retraining, run:
+
+```bash
+python research/rq2/audit_generation_inventory.py \
+  --output-dir research/experiments/rq2_generation_inventory_001
+
+python research/rq2/reviewer_diagnostics.py \
+  --input-dir research/experiments/rq2_opcode_full_001 \
+  --output-dir research/experiments/rq2_review_diagnostics_001 \
+  --bootstrap-draws 2000
+```
+
+The first compares the **1350 expected design cells** with archived
+raw/cleaned files and processed-feature retention; this is not proof
+of 1350 actual API attempts or their failure reasons. The second
+generates per-seed task-bootstrap intervals and audits curated source
+evidence for class mismatches and task coverage. It does not rerun
+the classifier.
+
+Commit after successful execution:
+
+```bash
+git add -f research/experiments/rq2_generation_inventory_001/
+git add -f research/experiments/rq2_review_diagnostics_001/
+git commit -m "Add reviewer generation and RQ2 evidence audits"
+git push origin feat/rq2-bytecode-explanation-validation-20261103
+```
+
+Do not interpret either audit as closure of correctness, causal
+source-level perturbation, or independent human review requirements.

@@ -94,7 +94,7 @@ def main():
         "output_csv": str(OUTPUT_CSV.relative_to(BASE_DIR)),
         "target_column": TARGET_COLUMN,
         "rows": len(processed),
-        "num_features": X.shape[1],
+        "num_features": features.shape[1],
         "classes": sorted(y.unique().tolist()),
         "feature_columns": features.columns.tolist(),
         "metadata_columns": metadata.columns.tolist(),

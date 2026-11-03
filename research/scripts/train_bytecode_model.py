@@ -58,16 +58,41 @@ def split_features_and_target(df: pd.DataFrame):
 
 
 def align_train_test_features(X_train: pd.DataFrame, X_test: pd.DataFrame):
-    X_train, X_test = X_train.align(
-        X_test,
-        join="outer",
-        axis=1,
-        fill_value=0,
-    )
-
+    """Fail rather than silently fill missing bytecode features with zero."""
+    if set(X_train.columns) != set(X_test.columns):
+        raise ValueError(
+            "Training/test feature schemas differ. "
+            f"Only train: {sorted(set(X_train) - set(X_test))}; "
+            f"only test: {sorted(set(X_test) - set(X_train))}"
+        )
     columns = sorted(X_train.columns)
+    if any(not col.startswith("byte_") or not col[5:].isdigit() for col in columns):
+        raise ValueError("Non-byte predictor found in feature matrix")
+    indices = sorted(int(col[5:]) for col in columns)
+    if indices != list(range(len(indices))):
+        raise ValueError("Byte feature columns must cover contiguous positions 0..N-1")
+    X_train, X_test = X_train[columns].copy(), X_test[columns].copy()
+    for frame in (X_train, X_test):
+        if frame.isna().any().any():
+            raise ValueError("Missing byte feature values")
+        if any(not pd.api.types.is_numeric_dtype(dtype) for dtype in frame.dtypes):
+            raise ValueError("Non-numeric byte feature values")
+    return X_train, X_test
 
-    return X_train[columns], X_test[columns]
+
+def validate_task_partition(train_df: pd.DataFrame, test_df: pd.DataFrame):
+    """Ensure all generations for each task belong to only one partition."""
+    if "file_name" not in train_df or "file_name" not in test_df:
+        raise ValueError("Both datasets must include file_name for task-leakage checks")
+    train_tasks = set(train_df["file_name"].str.extract(r"^(t\d+)_")[0].dropna())
+    test_tasks = set(test_df["file_name"].str.extract(r"^(t\d+)_")[0].dropna())
+    if len(train_tasks) == 0 or len(test_tasks) == 0:
+        raise ValueError("Cannot derive task IDs from filenames")
+    intersection = train_tasks & test_tasks
+    if intersection:
+        raise ValueError(f"Task leakage across partitions: {sorted(intersection)}")
+    if train_df["file_name"].duplicated().any() or test_df["file_name"].duplicated().any():
+        raise ValueError("Duplicate filenames within train or test partition")
 
 
 def build_model(model_type: str):
@@ -112,6 +137,7 @@ def build_model(model_type: str):
 def main():
     train_df = pd.read_csv(TRAIN_DATA_FILE)
     test_df = pd.read_csv(TEST_DATA_FILE)
+    validate_task_partition(train_df, test_df)
 
     X_train, y_train = split_features_and_target(train_df)
     X_test, y_test = split_features_and_target(test_df)

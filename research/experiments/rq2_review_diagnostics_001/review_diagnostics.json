@@ -1,0 +1,179 @@
+{
+  "method": "posthoc_review_diagnostics_no_retraining",
+  "by_seed": {
+    "7": {
+      "point": {
+        "accuracy": 0.3981762917933131,
+        "balanced_accuracy": 0.3986358747561578,
+        "macro_f1": 0.39839909959134423,
+        "by_class": {
+          "llama": {
+            "precision": 0.36778846153846156,
+            "recall": 0.34151785714285715,
+            "f1": 0.3541666666666667,
+            "support": 448
+          },
+          "mistral": {
+            "precision": 0.365702479338843,
+            "recall": 0.41745283018867924,
+            "f1": 0.3898678414096916,
+            "support": 424
+          },
+          "qwen": {
+            "precision": 0.46634615384615385,
+            "recall": 0.4369369369369369,
+            "f1": 0.4511627906976744,
+            "support": 444
+          }
+        }
+      },
+      "task_bootstrap_95": {
+        "accuracy": [
+          0.36182677941966057,
+          0.4357463166300083
+        ],
+        "balanced_accuracy": [
+          0.3627005161779263,
+          0.435200306409271
+        ],
+        "macro_f1": [
+          0.36204595408285845,
+          0.435368163049635
+        ]
+      },
+      "per_class_recall_task_bootstrap_95": {
+        "llama": [
+          0.25666915238629084,
+          0.43207126948775054
+        ],
+        "mistral": [
+          0.33253574105032574,
+          0.5059368299521687
+        ],
+        "qwen": [
+          0.3377893823995174,
+          0.5345250195562598
+        ]
+      }
+    },
+    "42": {
+      "point": {
+        "accuracy": 0.418693009118541,
+        "balanced_accuracy": 0.4195052532316683,
+        "macro_f1": 0.4190257925136995,
+        "by_class": {
+          "llama": {
+            "precision": 0.42377260981912146,
+            "recall": 0.36607142857142855,
+            "f1": 0.39281437125748503,
+            "support": 448
+          },
+          "mistral": {
+            "precision": 0.3684210526315789,
+            "recall": 0.46226415094339623,
+            "f1": 0.4100418410041841,
+            "support": 424
+          },
+          "qwen": {
+            "precision": 0.4811083123425693,
+            "recall": 0.43018018018018017,
+            "f1": 0.45422116527942924,
+            "support": 444
+          }
+        }
+      },
+      "task_bootstrap_95": {
+        "accuracy": [
+          0.3826180048577697,
+          0.4582795189795429
+        ],
+        "balanced_accuracy": [
+          0.3835071326812104,
+          0.4589412994366549
+        ],
+        "macro_f1": [
+          0.3806923276555636,
+          0.4581064985520127
+        ]
+      },
+      "per_class_recall_task_bootstrap_95": {
+        "llama": [
+          0.2732777777777778,
+          0.45982142857142855
+        ],
+        "mistral": [
+          0.3621013327586779,
+          0.5616335900473932
+        ],
+        "qwen": [
+          0.3333333333333333,
+          0.5324683239534113
+        ]
+      }
+    },
+    "101": {
+      "point": {
+        "accuracy": 0.40577507598784196,
+        "balanced_accuracy": 0.406421878414803,
+        "macro_f1": 0.40537633566200443,
+        "by_class": {
+          "llama": {
+            "precision": 0.3945409429280397,
+            "recall": 0.3549107142857143,
+            "f1": 0.3736780258519389,
+            "support": 448
+          },
+          "mistral": {
+            "precision": 0.3891213389121339,
+            "recall": 0.4386792452830189,
+            "f1": 0.4124168514412417,
+            "support": 424
+          },
+          "qwen": {
+            "precision": 0.43448275862068964,
+            "recall": 0.42567567567567566,
+            "f1": 0.4300341296928328,
+            "support": 444
+          }
+        }
+      },
+      "task_bootstrap_95": {
+        "accuracy": [
+          0.3714788748659668,
+          0.4401847791551218
+        ],
+        "balanced_accuracy": [
+          0.3719788726123833,
+          0.44130630062774523
+        ],
+        "macro_f1": [
+          0.3695639081473542,
+          0.43915189542328087
+        ]
+      },
+      "per_class_recall_task_bootstrap_95": {
+        "llama": [
+          0.2627797043392475,
+          0.4461943465727098
+        ],
+        "mistral": [
+          0.35557379877505246,
+          0.5269320843091335
+        ],
+        "qwen": [
+          0.3251642727505819,
+          0.523828125
+        ]
+      }
+    }
+  },
+  "n_seeds": 3,
+  "n_unique_programs": 1316,
+  "all_examples": 3948,
+  "warning": [
+    "Three task partitions resample the same tasks and are not independent replications.",
+    "Curated source evidence counts cannot establish prevalence in the full corpus.",
+    "SHAP validates classifier logit contributions but not LLM internal causality.",
+    "No correctness-controlled conclusions can be derived here."
+  ]
+}

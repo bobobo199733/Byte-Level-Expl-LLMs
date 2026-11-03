@@ -1,0 +1,929 @@
+{
+  "expected_design_cells_not_verified_api_attempts": 1350,
+  "archived_raw_count": 1350,
+  "archived_cleaned_count": 1350,
+  "retained_in_features": 1316,
+  "not_archived": 0,
+  "by_model": {
+    "llama": {
+      "cleaned_not_retained": 2,
+      "retained": 448
+    },
+    "mistral": {
+      "cleaned_not_retained": 26,
+      "retained": 424
+    },
+    "qwen": {
+      "cleaned_not_retained": 6,
+      "retained": 444
+    }
+  },
+  "by_task_model": [
+    {
+      "task": "t1",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t1",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t1",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t10",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t10",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t10",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t11",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t11",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t11",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t12",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t12",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t12",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t13",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t13",
+      "model": "mistral",
+      "cleaned_not_retained": 2,
+      "retained": 7
+    },
+    {
+      "task": "t13",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t14",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t14",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t14",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t15",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t15",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t15",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t16",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t16",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t16",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t17",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t17",
+      "model": "mistral",
+      "cleaned_not_retained": 4,
+      "retained": 5
+    },
+    {
+      "task": "t17",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t18",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t18",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t18",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t19",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t19",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t19",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t2",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t2",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t2",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t20",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t20",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t20",
+      "model": "qwen",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t21",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t21",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t21",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t22",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t22",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t22",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t23",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t23",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t23",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t24",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t24",
+      "model": "mistral",
+      "cleaned_not_retained": 2,
+      "retained": 7
+    },
+    {
+      "task": "t24",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t25",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t25",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t25",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t26",
+      "model": "llama",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t26",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t26",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t27",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t27",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t27",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t28",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t28",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t28",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t29",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t29",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t29",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t3",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t3",
+      "model": "mistral",
+      "cleaned_not_retained": 2,
+      "retained": 7
+    },
+    {
+      "task": "t3",
+      "model": "qwen",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t30",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t30",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t30",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t31",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t31",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t31",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t32",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t32",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t32",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t33",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t33",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t33",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t34",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t34",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t34",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t35",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t35",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t35",
+      "model": "qwen",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t36",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t36",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t36",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t37",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t37",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t37",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t38",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t38",
+      "model": "mistral",
+      "cleaned_not_retained": 3,
+      "retained": 6
+    },
+    {
+      "task": "t38",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t39",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t39",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t39",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t4",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t4",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t4",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t40",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t40",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t40",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t41",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t41",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t41",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t42",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t42",
+      "model": "mistral",
+      "cleaned_not_retained": 2,
+      "retained": 7
+    },
+    {
+      "task": "t42",
+      "model": "qwen",
+      "cleaned_not_retained": 2,
+      "retained": 7
+    },
+    {
+      "task": "t43",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t43",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t43",
+      "model": "qwen",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t44",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t44",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t44",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t45",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t45",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t45",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t46",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t46",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t46",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t47",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t47",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t47",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t48",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t48",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t48",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t49",
+      "model": "llama",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t49",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t49",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t5",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t5",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t5",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t50",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t50",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t50",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t6",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t6",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t6",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t7",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t7",
+      "model": "mistral",
+      "cleaned_not_retained": 1,
+      "retained": 8
+    },
+    {
+      "task": "t7",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t8",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t8",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t8",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t9",
+      "model": "llama",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t9",
+      "model": "mistral",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    },
+    {
+      "task": "t9",
+      "model": "qwen",
+      "cleaned_not_retained": 0,
+      "retained": 9
+    }
+  ],
+  "limitations": [
+    "1350 denotes expected design cells, NOT logged successful API requests.",
+    "Missing/empty raw files cannot be assigned a generation failure reason without run logs.",
+    "Cleaned-but-unretained may reflect parsing, compilation, preprocessing or filtering; this audit does not infer which.",
+    "Artifact coverage alone cannot exclude selection bias, but quantifies the retained subset."
+  ]
+}

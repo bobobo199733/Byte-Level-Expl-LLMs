@@ -52,10 +52,7 @@ VARIANTS = (
     "opcode_full",        # Frequencies over ALL opcodes, not 320-position prefix
     "opcode_ngram",       # Stable-hashed opcode bigrams over ALL instructions
 )
-DEFAULT_VARIANTS = (
-    "ast_original", "ast_core_count", "ast_core_prop",
-    "length_only", "opcode_full", "opcode_ngram",
-)
+DEFAULT_VARIANTS = VARIANTS
 
 
 def source_path(root: Path, filename: str, model: str, split: str) -> Path:
@@ -435,6 +432,15 @@ def main(args=None):
         raise ValueError("Folds >=2 and bootstrap draws >=1 required")
 
     df, cols = load_dataset(args.train_csv, args.test_csv)
+    incorrect_names = df.loc[
+        ~df.apply(lambda row: row["file_name"].endswith("_" + row["model"] + ".py"), axis=1),
+        "file_name",
+    ]
+    if not incorrect_names.empty:
+        raise ValueError(
+            "Filename suffix and model label disagree: "
+            + ", ".join(incorrect_names.head(5).tolist())
+        )
     features, inventory = build_validation_features(
         df, cols, args.research_root, variants, ngram_buckets=args.ngram_buckets
     )
